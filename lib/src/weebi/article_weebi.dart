@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:mobx/mobx.dart';
-import 'package:models/base.dart';
+import 'package:models_base/base.dart';
 import 'package:weebi_models/src/weebi/lot_weebi.dart';
 
 class ArticleWeebi extends Article {

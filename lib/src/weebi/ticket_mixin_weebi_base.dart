@@ -1,5 +1,5 @@
-import 'package:models/base.dart';
-import 'package:models/common.dart';
+import 'package:models_base/base.dart';
+import 'package:models_base/common.dart';
 import 'package:weebi_models/src/weebi/item_weebi.dart';
 import 'package:weebi_models/src/weebi/taxe_weebi.dart';
 

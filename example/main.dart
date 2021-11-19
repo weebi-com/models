@@ -1,4 +1,4 @@
-import 'package:models/common.dart';
+import 'package:models_base/common.dart';
 import 'package:weebi_models/src/weebi/article_weebi.dart';
 import 'package:weebi_models/src/weebi/product_weebi.dart';
 import 'package:weebi_models/weebi_models.dart';

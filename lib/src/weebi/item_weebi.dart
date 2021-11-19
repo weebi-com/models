@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:weebi_models/src/weebi/article_weebi.dart';
 import 'package:weebi_models/src/weebi/lot_weebi.dart';
-import 'package:models/base.dart';
+import 'package:models_base/base.dart';
 
 class ItemWeebi extends Item<ArticleWeebi, LotWeebi> {
   ItemWeebi(

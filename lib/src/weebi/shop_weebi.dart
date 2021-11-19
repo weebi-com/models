@@ -1,7 +1,7 @@
 import 'dart:convert';
 
-import 'package:models/base.dart';
-import 'package:models/common.dart';
+import 'package:models_base/base.dart';
+import 'package:models_base/common.dart';
 
 // consider adding
 // * String appVersionBuildNumber

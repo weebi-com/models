@@ -7,7 +7,7 @@ import 'package:weebi_models/src/weebi/taxe_weebi.dart';
 import 'package:weebi_models/src/weebi/ticket_mixin_weebi_base.dart';
 import 'package:weebi_models/src/weebi/ticket_weebi_abstract.dart';
 import 'package:weebi_models/src/weebi/ticket_mixin_weebi_print.dart';
-import 'package:models/common.dart';
+import 'package:models_base/common.dart';
 
 class TicketWeebi extends TicketWeebiAbstract
     with TicketPrinter, TicketMixinWeebiBase {

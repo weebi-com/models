@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'package:models/base.dart';
+import 'package:models_base/base.dart';
 
 class LotWeebi extends Lot {
   final String? shopUuid;

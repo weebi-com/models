@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:models/base.dart';
+import 'package:models_base/base.dart';
 
 class TaxeWeebi extends Taxe {
   const TaxeWeebi(
