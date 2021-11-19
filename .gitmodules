@@ -1,0 +1,3 @@
+[submodule "models_base"]
+	path = models_base
+	url = https://gitlab.com/weebi_git/models_base.git
