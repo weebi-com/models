@@ -6,7 +6,8 @@ import 'package:models_base/common.dart';
 // Using WeebiAbstract to rename the attributes shopId && contactInfo,
 // That were stupidly changed by a young idealistic dev
 
-abstract class TicketWeebiAbstract implements Ticket<ItemWeebi, TaxeWeebi> {
+abstract class TicketWeebiAbstract
+    implements TicketAbstract<ItemWeebi, TaxeWeebi> {
   final String oid; // mongo _id
   final String shopId; // shopUuid
   final String contactInfo; // herderId

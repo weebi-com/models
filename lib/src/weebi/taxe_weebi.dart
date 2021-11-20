@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:models_base/base.dart';
 
-class TaxeWeebi extends Taxe {
+class TaxeWeebi extends TaxeAbstract {
   const TaxeWeebi(
     final String id,
     final String name,

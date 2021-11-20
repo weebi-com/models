@@ -2,6 +2,7 @@
 
 import 'dart:convert';
 import 'package:http/http.dart' as http; // TODO add the http
+import 'package:models_base/utils.dart';
 import 'package:weebi_models/src/weebi/item_weebi.dart';
 import 'package:weebi_models/src/weebi/taxe_weebi.dart';
 import 'package:weebi_models/src/weebi/ticket_mixin_weebi_base.dart';
@@ -48,10 +49,8 @@ class TicketWeebi extends TicketWeebiAbstract
         );
 
   @override
-  int get totalSell => items.fold(
-      0,
-      (value, item) =>
-          value + ((item!.quantity ?? 0.0) * item.article.price).round());
+  int get totalSell => items.fold(0,
+      (value, item) => value + ((item.quantity) * item.article.price).round());
 
   @override
   int get totalSellPromo =>
@@ -248,14 +247,15 @@ class TicketWeebi extends TicketWeebiAbstract
       comment: map['comment'],
       contactPastPurchasingPower: map['contactPastPurchasingPower'],
       received: map['received'],
-      date: DateTime.tryParse(map['date']) ?? defaultDate,
+      date: DateTime.tryParse(map['date']) ?? WeebiDates.defaultDate,
       paiementType: PaiementType.fromMap(map['paiementType']),
       ticketType: TicketType.fromMap(map['ticketType']),
       contactInfo: map['contactInfo'],
       status: map['status'],
       statusUpdateDate:
-          DateTime.tryParse(map['statusUpdateDate']) ?? defaultDate,
-      creationDate: DateTime.tryParse(map['creationDate']) ?? defaultDate,
+          DateTime.tryParse(map['statusUpdateDate']) ?? WeebiDates.defaultDate,
+      creationDate:
+          DateTime.tryParse(map['creationDate']) ?? WeebiDates.defaultDate,
       // isInDash: map['isInDash'],
     );
   }

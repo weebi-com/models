@@ -4,7 +4,7 @@ import 'package:weebi_models/src/weebi/article_weebi.dart';
 import 'package:weebi_models/src/weebi/lot_weebi.dart';
 import 'package:models_base/base.dart';
 
-class ItemWeebi extends Item<ArticleWeebi, LotWeebi> {
+class ItemWeebi extends ItemAbstract<ArticleWeebi, LotWeebi> {
   ItemWeebi(
     final ArticleWeebi article,
     List<LotWeebi>? lots,

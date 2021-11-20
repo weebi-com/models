@@ -1,13 +1,13 @@
 import 'dart:convert';
 
 import 'package:models_base/base.dart';
-import 'package:models_base/common.dart';
+import 'package:models_base/utils.dart';
 
 // consider adding
 // * String appVersionBuildNumber
 // * also add String emailResult
 
-class ShopWeebi extends Shop {
+class ShopWeebi extends ShopAbstract {
   String gescom;
   ShopWeebi({
     required int id,
@@ -75,11 +75,11 @@ class ShopWeebi extends Shop {
     shopKeeperName: '',
     shopKeeperTel: '',
     shopKeeperMail: '',
-    updateDate: defaultDate,
+    updateDate: WeebiDates.defaultDate,
     status: false,
-    statusUpdateDate: defaultDate,
+    statusUpdateDate: WeebiDates.defaultDate,
     serverStatus: false,
-    serverStatusUpdateDate: defaultDate,
+    serverStatusUpdateDate: WeebiDates.defaultDate,
     isProd: false,
     isLocked: false,
     promo: 0.0,
@@ -170,13 +170,15 @@ class ShopWeebi extends Shop {
       shopKeeperName: map['shopKeeperName'],
       shopKeeperTel: map['shopKeeperTel'],
       shopKeeperMail: map['shopKeeperMail'],
-      updateDate: DateTime.tryParse(map['updateDate']) ?? defaultDate,
+      updateDate:
+          DateTime.tryParse(map['updateDate']) ?? WeebiDates.defaultDate,
       status: map['status'],
       statusUpdateDate:
-          DateTime.tryParse(map['statusUpdateDate']) ?? defaultDate,
+          DateTime.tryParse(map['statusUpdateDate']) ?? WeebiDates.defaultDate,
       serverStatus: map['serverStatus'],
       serverStatusUpdateDate:
-          DateTime.tryParse(map['serverStatusUpdateDate']) ?? defaultDate,
+          DateTime.tryParse(map['serverStatusUpdateDate']) ??
+              WeebiDates.defaultDate,
       isProd: map['isProd'],
       isLocked: map['isLocked'],
       promo: map['promo'],

@@ -4,7 +4,7 @@ import 'package:mobx/mobx.dart';
 import 'package:models_base/base.dart';
 import 'package:weebi_models/src/weebi/lot_weebi.dart';
 
-class ArticleWeebi extends Article {
+class ArticleWeebi extends ArticleAbstract {
   final String? shopUuid;
   List<LotWeebi>? lots;
   ArticleWeebi(

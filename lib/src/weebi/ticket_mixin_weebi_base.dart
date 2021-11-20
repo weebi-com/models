@@ -1,9 +1,10 @@
 import 'package:models_base/base.dart';
 import 'package:models_base/common.dart';
+import 'package:models_base/utils.dart';
 import 'package:weebi_models/src/weebi/item_weebi.dart';
 import 'package:weebi_models/src/weebi/taxe_weebi.dart';
 
-mixin TicketMixinWeebiBase on Ticket<ItemWeebi, TaxeWeebi> {
+mixin TicketMixinWeebiBase on TicketAbstract<ItemWeebi, TaxeWeebi> {
   int calculateSumsOfTicket(
       TicketType _ticketType, DateTime startOfMonth, DateTime endOfMonth) {
     if (ticketType == _ticketType &&

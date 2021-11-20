@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:models_base/base.dart';
 
-class LotWeebi extends Lot {
+class LotWeebi extends LotAbstract {
   final String? shopUuid;
   DateTime? dlc;
   double quantity;
