@@ -183,8 +183,9 @@ class TicketWeebi extends TicketWeebiAbstract
   String get deactivatedDate {
     if (status == true) {
       return '';
-    } else
+    } else {
       return '$statusUpdateDate';
+    }
   }
 
   @override
@@ -230,6 +231,33 @@ class TicketWeebi extends TicketWeebiAbstract
   @override
   set statusUpdateDate(DateTime? _statusUpdateDate) {
     statusUpdateDate = _statusUpdateDate;
+  }
+
+  factory TicketWeebi.fromJson(String source) =>
+      TicketWeebi.fromMap(json.decode(source));
+
+  factory TicketWeebi.fromMap(Map<String, dynamic> map) {
+    return TicketWeebi(
+      id: map['id'],
+      oid: map['oid'],
+      shopId: map['shopId'],
+      items:
+          List<ItemWeebi>.from(map['items']?.map((x) => ItemWeebi.fromMap(x))),
+      taxe: TaxeWeebi.fromMap(map['taxe']),
+      promo: map['promo'],
+      comment: map['comment'],
+      contactPastPurchasingPower: map['contactPastPurchasingPower'],
+      received: map['received'],
+      date: DateTime.tryParse(map['date']) ?? defaultDate,
+      paiementType: PaiementType.fromMap(map['paiementType']),
+      ticketType: TicketType.fromMap(map['ticketType']),
+      contactInfo: map['contactInfo'],
+      status: map['status'],
+      statusUpdateDate:
+          DateTime.tryParse(map['statusUpdateDate']) ?? defaultDate,
+      creationDate: DateTime.tryParse(map['creationDate']) ?? defaultDate,
+      // isInDash: map['isInDash'],
+    );
   }
 
   @override
