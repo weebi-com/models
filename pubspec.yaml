@@ -5,15 +5,15 @@ version: 1.0.0
 publish_to: none
 
 environment:
-  sdk: '>=2.15.0-82.2.beta <3.0.0'
+  sdk: '>=2.12 <3.0.0'
 
 dependencies:
   http: ^0.13.4
   mobx: ^2.0.3 #^1.2.1+4 #
   intl: ^0.17.0
   models_base:
-    path: models_base
-#   path: ^1.8.0
+    git:
+      url: https://gitlab.com/weebi_git/models_base.git
 
 dev_dependencies:
   lints: ^1.0.0
