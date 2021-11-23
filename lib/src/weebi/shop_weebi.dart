@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:models_base/base.dart' show ShopAbstract;
-import 'package:models_base/common.dart';
 import 'package:models_base/utils.dart';
 
 // consider adding

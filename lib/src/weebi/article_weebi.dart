@@ -57,7 +57,7 @@ class ArticleWeebi extends ArticleAbstract {
       fullName: map['fullName'] as String,
       price: map['price'] as int,
       cost: map['cost'] as int,
-      weight: map['weight'] as double,
+      weight: (map['weight'] as num).toDouble(),
       articleCode: map['articleCode'] ?? 0,
       photo: map['photo'] ?? '',
       creationDate: DateTime.tryParse(map['creationDate']),

@@ -24,7 +24,7 @@ class ItemWeebi extends ItemAbstract<ArticleWeebi, LotWeebi> {
       map['lots'] != null
           ? List<LotWeebi>.from(map['lots']?.map((x) => LotWeebi.fromMap(x)))
           : null,
-      map['quantity'] as double,
+      (map['quantity'] as num).toDouble(),
     );
   }
 
