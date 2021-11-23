@@ -1,12 +1,13 @@
 import 'dart:convert';
 
 import 'package:mobx/mobx.dart';
+import 'package:models_base/utils.dart';
 
-import 'package:weebi_models/src/weebi/article_weebi.dart';
-import 'package:models_base/base.dart';
+import 'package:models_weebi/src/weebi/article_weebi.dart';
+import 'package:models_base/base.dart' show ProductAbstract;
 import 'package:models_base/common.dart';
 
-class ProductWeebi extends Product<ArticleWeebi> {
+class ProductWeebi extends ProductAbstract<ArticleWeebi> {
   final String? shopUuid;
 
   ProductWeebi({
@@ -102,7 +103,8 @@ class ProductWeebi extends Product<ArticleWeebi> {
       statusUpdateDate: DateTime.tryParse(map['statusUpdateDate']),
       articles: List<ArticleWeebi>.from(
           map['articles']?.map((x) => ArticleWeebi.fromMap(x))),
-      creationDate: DateTime.tryParse(map['creationDate']) ?? defaultDate,
+      creationDate:
+          DateTime.tryParse(map['creationDate']) ?? WeebiDates.defaultDate,
       categories: map["categories"] == null
           ? []
           : List<String>.from(map["categories"].map((x) => x)),

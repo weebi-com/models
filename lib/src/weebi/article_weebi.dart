@@ -1,10 +1,10 @@
 import 'dart:convert';
 
 import 'package:mobx/mobx.dart';
-import 'package:models_base/base.dart';
-import 'package:weebi_models/src/weebi/lot_weebi.dart';
+import 'package:models_base/base.dart' show ArticleAbstract;
+import 'package:models_weebi/src/weebi/lot_weebi.dart';
 
-class ArticleWeebi extends Article {
+class ArticleWeebi extends ArticleAbstract {
   final String? shopUuid;
   List<LotWeebi>? lots;
   ArticleWeebi(
@@ -52,12 +52,12 @@ class ArticleWeebi extends Article {
 
   factory ArticleWeebi.fromMap(Map<String, dynamic> map) {
     return ArticleWeebi(
-      productId: map['productId'],
-      id: map['id'],
-      fullName: map['fullName'],
-      price: map['price'],
-      cost: map['cost'],
-      weight: map['weight'],
+      productId: map['productId'] as int,
+      id: map['id'] as int,
+      fullName: map['fullName'] as String,
+      price: map['price'] as int,
+      cost: map['cost'] as int,
+      weight: map['weight'] as double,
       articleCode: map['articleCode'] ?? 0,
       photo: map['photo'] ?? '',
       creationDate: DateTime.tryParse(map['creationDate']),

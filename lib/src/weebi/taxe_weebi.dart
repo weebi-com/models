@@ -1,8 +1,8 @@
 import 'dart:convert';
 
-import 'package:models_base/base.dart';
+import 'package:models_base/base.dart' show TaxeAbstract;
 
-class TaxeWeebi extends Taxe {
+class TaxeWeebi extends TaxeAbstract {
   const TaxeWeebi(
     final String id,
     final String name,
@@ -24,7 +24,7 @@ class TaxeWeebi extends Taxe {
     return TaxeWeebi(
       map['id'],
       map['name'],
-      map['percentage'],
+      map['percentage'] as double,
     );
   }
   @override

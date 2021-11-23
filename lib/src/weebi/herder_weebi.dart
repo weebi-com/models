@@ -1,9 +1,9 @@
 import 'dart:convert';
 // import 'package:http/http.dart' as http;
-import 'package:models_base/base.dart';
-import 'package:models_base/common.dart';
+import 'package:models_base/base.dart' show HerderAbstract;
+import 'package:models_base/utils.dart';
 
-class HerderWeebi extends Herder {
+class HerderWeebi extends HerderAbstract {
   HerderWeebi({
     required final int id,
     required int bidon,
@@ -74,9 +74,10 @@ class HerderWeebi extends Herder {
       mail: map['mail'],
       address: map['address'],
       avatar: map['avatar'],
-      updateDate: DateTime.tryParse(map['updateDate']) ?? defaultDate,
+      updateDate:
+          DateTime.tryParse(map['updateDate']) ?? WeebiDates.defaultDate,
       statusUpdateDate:
-          DateTime.tryParse(map['statusUpdateDate']) ?? defaultDate,
+          DateTime.tryParse(map['statusUpdateDate']) ?? WeebiDates.defaultDate,
       status: map['status'],
       overdraft: map['overdraft'],
       area: map['area'],
@@ -148,7 +149,7 @@ class HerderWeebi extends Herder {
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
 
-    return other is Herder &&
+    return other is HerderAbstract &&
         other.area == area &&
         other.bank == bank &&
         other.identity == identity &&

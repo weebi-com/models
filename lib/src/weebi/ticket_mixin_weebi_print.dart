@@ -1,5 +1,6 @@
 import 'package:models_base/common.dart';
-import 'package:weebi_models/src/weebi/ticket_weebi_abstract.dart';
+import 'package:models_base/utils.dart';
+import 'package:models_weebi/src/weebi/ticket_weebi_abstract.dart';
 
 mixin TicketPrinter on TicketWeebiAbstract {
   // -----STRINGS-----
@@ -124,7 +125,7 @@ mixin TicketPrinter on TicketWeebiAbstract {
         ..writeln('')
         ..writeln('client : $contactInfo')
         ..writeln(
-            'solde avant : ${numFormat?.format(contactPastPurchasingPower)}');
+            'solde avant : ${numFormat.format(contactPastPurchasingPower)}');
       return sb.toString();
     } else if (ticketType == TicketType.spendCovered) {
       final sb = StringBuffer()
@@ -140,7 +141,7 @@ mixin TicketPrinter on TicketWeebiAbstract {
         ..writeln('')
         ..writeln('fournisseur : $contactInfo')
         ..writeln(
-            'solde avant : ${numFormat?.format(contactPastPurchasingPower)}');
+            'solde avant : ${numFormat.format(contactPastPurchasingPower)}');
       return sb.toString();
     } else if (ticketType == TicketType.sellDeferred) {
       final sb = StringBuffer()
@@ -165,7 +166,7 @@ mixin TicketPrinter on TicketWeebiAbstract {
         ..writeln('')
         ..writeln('client : $contactInfo')
         ..writeln(
-            'solde avant : ${numFormat?.format(contactPastPurchasingPower)}');
+            'solde avant : ${numFormat.format(contactPastPurchasingPower)}');
       return sb.toString();
     } else if (ticketType == TicketType.spendDeferred) {
       final sb = StringBuffer()
@@ -189,7 +190,7 @@ mixin TicketPrinter on TicketWeebiAbstract {
         ..writeln('')
         ..writeln('fournisseur : $contactInfo')
         ..writeln(
-            'solde avant : ${numFormat?.format(contactPastPurchasingPower)}');
+            'solde avant : ${numFormat.format(contactPastPurchasingPower)}');
       return sb.toString();
     } else {
       final sb = StringBuffer()

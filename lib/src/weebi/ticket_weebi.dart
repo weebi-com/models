@@ -2,11 +2,11 @@
 
 import 'dart:convert';
 import 'package:http/http.dart' as http; // TODO add the http
-import 'package:weebi_models/src/weebi/item_weebi.dart';
-import 'package:weebi_models/src/weebi/taxe_weebi.dart';
-import 'package:weebi_models/src/weebi/ticket_mixin_weebi_base.dart';
-import 'package:weebi_models/src/weebi/ticket_weebi_abstract.dart';
-import 'package:weebi_models/src/weebi/ticket_mixin_weebi_print.dart';
+import 'package:models_weebi/src/weebi/item_weebi.dart';
+import 'package:models_weebi/src/weebi/taxe_weebi.dart';
+import 'package:models_weebi/src/weebi/ticket_mixin_weebi_base.dart';
+import 'package:models_weebi/src/weebi/ticket_weebi_abstract.dart';
+import 'package:models_weebi/src/weebi/ticket_mixin_weebi_print.dart';
 import 'package:models_base/common.dart';
 
 class TicketWeebi extends TicketWeebiAbstract
@@ -61,8 +61,8 @@ class TicketWeebi extends TicketWeebiAbstract
   int get totalSellHtIncludingPromo => totalSell - totalSellPromo;
 
   @override
-  int get totalSellTaxes => ((taxe?.percentage ?? 0.0) > 0.0
-          ? totalSellHtIncludingPromo * (taxe?.percentage ?? 0.0) / 100
+  int get totalSellTaxes => ((taxe.percentage) > 0.0
+          ? totalSellHtIncludingPromo * (taxe.percentage) / 100
           : 0)
       .round();
 
@@ -85,8 +85,8 @@ class TicketWeebi extends TicketWeebiAbstract
   int get totalSpendHtIncludingPromo => totalSpend - totalSpendPromo;
 
   @override
-  int get totalSpendTaxes => (((taxe?.percentage ?? 0.0)) > 0
-          ? totalSpendHtIncludingPromo * ((taxe?.percentage ?? 0.0)) / 100
+  int get totalSpendTaxes => (((taxe.percentage ?? 0.0)) > 0
+          ? totalSpendHtIncludingPromo * ((taxe.percentage ?? 0.0)) / 100
           : 0)
       .round();
 
@@ -114,8 +114,8 @@ class TicketWeebi extends TicketWeebiAbstract
       totalSpendDeferredHt - totalSpendDeferredPromo;
 
   @override
-  int get totalSpendDeferredTaxes => (taxe?.percentage ?? 0.0) > 0.0
-      ? (totalSpendDeferredHtIncludingPromo * ((taxe?.percentage ?? 0.0) / 100))
+  int get totalSpendDeferredTaxes => (taxe.percentage ?? 0.0) > 0.0
+      ? (totalSpendDeferredHtIncludingPromo * ((taxe.percentage ?? 0.0) / 100))
           .round()
       : 0;
 
@@ -145,8 +145,8 @@ class TicketWeebi extends TicketWeebiAbstract
       totalSellDeferredHt - totalSellDeferredPromo;
 
   @override
-  int get totalSellDeferredTaxes => (taxe?.percentage ?? 0.0) > 0.0
-      ? (totalSellDeferredHtIncludingPromo * ((taxe?.percentage ?? 0.0)) / 100)
+  int get totalSellDeferredTaxes => (taxe.percentage ?? 0.0) > 0.0
+      ? (totalSellDeferredHtIncludingPromo * ((taxe.percentage ?? 0.0)) / 100)
           .round()
       : 0;
 

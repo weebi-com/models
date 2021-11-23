@@ -1,7 +1,9 @@
 import 'package:models_base/common.dart';
-import 'package:weebi_models/src/weebi/article_weebi.dart';
-import 'package:weebi_models/src/weebi/product_weebi.dart';
-import 'package:weebi_models/weebi_models.dart';
+import 'package:models_base/utils.dart';
+import 'package:models_weebi/weebi_models.dart';
+import 'package:models_weebi/src/weebi/article_weebi.dart';
+import 'package:models_weebi/src/weebi/product_weebi.dart';
+import 'package:models_weebi/weebi_models.dart';
 
 void main() {
   var awesomeProduct = ProductWeebi(
@@ -16,7 +18,7 @@ void main() {
     id: 1,
     title: 'frometon',
     status: true,
-    creationDate: defaultDate,
+    creationDate: WeebiDates.defaultDate,
   );
 
   final awesomeTicket = TicketWeebi(
@@ -28,13 +30,13 @@ void main() {
     promo: 0.0,
     comment: '',
     received: 0,
-    date: defaultDate,
+    date: WeebiDates.defaultDate,
     paiementType: PaiementType.cash,
     ticketType: TicketType.sell,
     contactInfo: '1',
     contactPastPurchasingPower: '0',
     status: true,
-    statusUpdateDate: defaultDate,
-    creationDate: defaultDate,
+    statusUpdateDate: WeebiDates.defaultDate,
+    creationDate: WeebiDates.defaultDate,
   );
 }

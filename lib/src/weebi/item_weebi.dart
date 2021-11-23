@@ -1,10 +1,10 @@
 import 'dart:convert';
 
-import 'package:weebi_models/src/weebi/article_weebi.dart';
-import 'package:weebi_models/src/weebi/lot_weebi.dart';
-import 'package:models_base/base.dart';
+import 'package:models_weebi/src/weebi/article_weebi.dart';
+import 'package:models_weebi/src/weebi/lot_weebi.dart';
+import 'package:models_base/base.dart' show ItemAbstract;
 
-class ItemWeebi extends Item<ArticleWeebi, LotWeebi> {
+class ItemWeebi extends ItemAbstract<ArticleWeebi, LotWeebi> {
   ItemWeebi(
     final ArticleWeebi article,
     List<LotWeebi>? lots,
@@ -24,7 +24,7 @@ class ItemWeebi extends Item<ArticleWeebi, LotWeebi> {
       map['lots'] != null
           ? List<LotWeebi>.from(map['lots']?.map((x) => LotWeebi.fromMap(x)))
           : null,
-      map['quantity'],
+      map['quantity'] as double,
     );
   }
 
