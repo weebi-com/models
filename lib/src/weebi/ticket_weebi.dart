@@ -251,7 +251,7 @@ class TicketWeebi extends TicketWeebiAbstract
       'ticketType': ticketType.toMap(),
       'herderId': herderId,
       'status': status,
-      'statusUpdateDate': statusUpdateDate?.toIso8601String(),
+      'statusUpdateDate': statusUpdateDate.toIso8601String(),
       'creationDate': creationDate.toIso8601String(),
       'isInDash': isInDash,
     };

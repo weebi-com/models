@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:models_base/base.dart' show LotAbstract;
+import 'package:models_base/utils.dart';
 
 class LotWeebi extends LotAbstract {
   final String? shopUuid;
@@ -70,9 +71,13 @@ class LotWeebi extends LotAbstract {
       articleId: map['articleId'],
       productId: map['productId'],
       isDefault: map['isDefault'],
-      creationDate: DateTime.tryParse(map['creationDate']),
+      creationDate: map['creationDate'] == null
+          ? WeebiDates.defaultDate
+          : DateTime.parse(map['creationDate']),
       shopUuid: map['shopUuid'],
-      dlc: map['dlc'] != null ? DateTime.tryParse(map['dlc']) : null,
+      dlc: map['dlc'] != null
+          ? WeebiDates.defaultDate
+          : DateTime.parse(map['dlc']),
       quantity: map['quantity'],
       initialQuantity: map['initialQuantity'],
     );

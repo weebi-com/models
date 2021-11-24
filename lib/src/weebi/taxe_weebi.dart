@@ -24,7 +24,7 @@ class TaxeWeebi extends TaxeAbstract {
     return TaxeWeebi(
       map['id'],
       map['name'],
-      (map['percentage'] as num).toDouble(),
+      map['percentage'] == null ? 0.0 : (map['percentage'] as num).toDouble(),
     );
   }
   @override

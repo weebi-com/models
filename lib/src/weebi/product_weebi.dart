@@ -99,12 +99,15 @@ class ProductWeebi extends ProductAbstract<ArticleWeebi> {
       stockUnit: StockUnit.fromMap(map['stockUnit']),
       photo: map['photo'] ?? '',
       barcode: map['barcode'] ?? 0,
+      creationDate: map['creationDate'] == null
+          ? WeebiDates.defaultDate
+          : DateTime.parse(map['creationDate']),
       status: map['status'],
-      statusUpdateDate: DateTime.tryParse(map['statusUpdateDate']),
+      statusUpdateDate: map['statusUpdateDate'] == null
+          ? WeebiDates.defaultDate
+          : DateTime.parse(map['statusUpdateDate']),
       articles: List<ArticleWeebi>.from(
           map['articles']?.map((x) => ArticleWeebi.fromMap(x))),
-      creationDate:
-          DateTime.tryParse(map['creationDate']) ?? WeebiDates.defaultDate,
       categories: map["categories"] == null
           ? []
           : List<String>.from(map["categories"].map((x) => x)),

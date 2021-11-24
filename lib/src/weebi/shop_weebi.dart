@@ -170,15 +170,17 @@ class ShopWeebi extends ShopAbstract {
       shopKeeperName: map['shopKeeperName'],
       shopKeeperTel: map['shopKeeperTel'],
       shopKeeperMail: map['shopKeeperMail'],
-      updateDate:
-          DateTime.tryParse(map['updateDate']) ?? WeebiDates.defaultDate,
+      updateDate: map['updateDate'] == null
+          ? WeebiDates.defaultDate
+          : DateTime.parse(map['updateDate']),
       status: map['status'],
-      statusUpdateDate:
-          DateTime.tryParse(map['statusUpdateDate']) ?? WeebiDates.defaultDate,
+      statusUpdateDate: map['statusUpdateDate'] == null
+          ? WeebiDates.defaultDate
+          : DateTime.parse(map['statusUpdateDate']),
       serverStatus: map['serverStatus'],
-      serverStatusUpdateDate:
-          DateTime.tryParse(map['serverStatusUpdateDate']) ??
-              WeebiDates.defaultDate,
+      serverStatusUpdateDate: map['serverStatusUpdateDate'] == null
+          ? WeebiDates.defaultDate
+          : DateTime.parse(map['serverStatusUpdateDate']),
       isProd: map['isProd'],
       isLocked: map['isLocked'],
       promo: map['promo'],

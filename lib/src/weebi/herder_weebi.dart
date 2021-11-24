@@ -74,10 +74,12 @@ class HerderWeebi extends HerderAbstract {
       mail: map['mail'],
       address: map['address'],
       avatar: map['avatar'],
-      updateDate:
-          DateTime.tryParse(map['updateDate']) ?? WeebiDates.defaultDate,
-      statusUpdateDate:
-          DateTime.tryParse(map['statusUpdateDate']) ?? WeebiDates.defaultDate,
+      updateDate: map['updateDate'] == null
+          ? WeebiDates.defaultDate
+          : DateTime.parse(map['updateDate']),
+      statusUpdateDate: map['statusUpdateDate'] == null
+          ? WeebiDates.defaultDate
+          : DateTime.parse(map['statusUpdateDate']),
       status: map['status'],
       overdraft: map['overdraft'],
       area: map['area'],

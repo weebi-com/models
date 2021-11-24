@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:mobx/mobx.dart';
 import 'package:models_base/base.dart' show ArticleAbstract;
+import 'package:models_base/utils.dart';
 import 'package:models_weebi/src/weebi/lot_weebi.dart';
 
 class ArticleWeebi extends ArticleAbstract {
@@ -57,10 +58,12 @@ class ArticleWeebi extends ArticleAbstract {
       fullName: map['fullName'] as String,
       price: map['price'] as int,
       cost: map['cost'] as int,
-      weight: (map['weight'] as num).toDouble(),
+      weight: map['weight'] == null ? 0.0 : (map['weight'] as num).toDouble(),
       articleCode: map['articleCode'] ?? 0,
       photo: map['photo'] ?? '',
-      creationDate: DateTime.tryParse(map['creationDate']),
+      creationDate: map['creationDate'] == null
+          ? WeebiDates.defaultDate
+          : DateTime.parse(map['creationDate']),
       shopUuid: map['shopUuid'] ?? '',
       lots: map['lots'] != null
           ? List<LotWeebi>.from(map['lots']?.map((x) => LotWeebi.fromMap(x)))
