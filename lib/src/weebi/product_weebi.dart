@@ -80,7 +80,7 @@ class ProductWeebi extends ProductAbstract<ArticleWeebi> {
       'shopUuid': shopUuid,
       'id': id,
       'title': title,
-      'stockUnit': stockUnit.toMap(),
+      'stockUnit': stockUnit.toString(),
       'photo': photo ?? '',
       'barcode': barcode ?? 0,
       'status': status,
@@ -96,7 +96,7 @@ class ProductWeebi extends ProductAbstract<ArticleWeebi> {
       shopUuid: map['shopUuid'] ?? '',
       id: map['id'],
       title: map['title'],
-      stockUnit: StockUnit.fromMap(map['stockUnit']),
+      stockUnit: StockUnit.tryParse(map['stockUnit']),
       photo: map['photo'] ?? '',
       barcode: map['barcode'] ?? 0,
       creationDate: map['creationDate'] == null
