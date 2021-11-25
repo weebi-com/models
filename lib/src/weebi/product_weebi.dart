@@ -96,7 +96,7 @@ class ProductWeebi extends ProductAbstract<ArticleWeebi> {
       shopUuid: map['shopUuid'] ?? '',
       id: map['id'],
       title: map['title'],
-      stockUnit: StockUnit.tryParse(map['stockUnit']),
+      stockUnit: StockUnit.tryParse(map['stockUnit'] ?? ''),
       photo: map['photo'] ?? '',
       barcode: map['barcode'] ?? 0,
       creationDate: map['creationDate'] == null
