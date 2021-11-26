@@ -14,7 +14,7 @@ dependencies:
   models_base:
     git:
       url: https://gitlab.com/weebi_git/models_base.git
-      #ref: 903cfc56003d815393917c00b798e7c01a1cba03
+      ref: main
 dev_dependencies:
   lints: ^1.0.0
   test: ^1.16.0
