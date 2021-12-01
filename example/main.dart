@@ -3,10 +3,10 @@ import 'package:models_base/utils.dart';
 import 'package:models_weebi/weebi_models.dart';
 import 'package:models_weebi/src/weebi/article_weebi.dart';
 import 'package:models_weebi/src/weebi/product_weebi.dart';
-import 'package:models_weebi/weebi_models.dart';
 
 void main() {
-  var awesomeProduct = ProductWeebi(
+  // var awesomeProduct =
+  ProductWeebi(
     articles: [
       ArticleWeebi(
         productId: 1,
@@ -21,7 +21,8 @@ void main() {
     creationDate: WeebiDates.defaultDate,
   );
 
-  final awesomeTicket = TicketWeebi(
+  // final awesomeTicket =
+  TicketWeebi(
     oid: 'oid',
     id: 1,
     shopId: 'shopId',
