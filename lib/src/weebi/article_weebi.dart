@@ -48,6 +48,7 @@ class ArticleWeebi extends ArticleAbstract {
       'articleCode': articleCode ?? 0,
       'photo': photo ?? '',
       'creationDate': creationDate!.toIso8601String(),
+      'status': status,
     };
   }
 
@@ -68,6 +69,7 @@ class ArticleWeebi extends ArticleAbstract {
       lots: map['lots'] != null
           ? List<LotWeebi>.from(map['lots']?.map((x) => LotWeebi.fromMap(x)))
           : [],
+          status: map['status']
     );
   }
   @override
