@@ -61,6 +61,17 @@ class HerderWeebi extends HerderAbstract {
   // only override if add specific field
   // @override Map<String, dynamic> toMap()
 
+  static final dummy = HerderWeebi(
+    id: 1,
+    bidon: 1,
+    firstName: 'John',
+    lastName: 'Doe',
+    updateDate: WeebiDates.defaultDate,
+    statusUpdateDate: WeebiDates.defaultDate,
+    status: true,
+    isWoman: false,
+  );
+
   @override
   String toJson() => json.encode(toMap());
 

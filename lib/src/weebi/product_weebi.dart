@@ -49,31 +49,13 @@ class ProductWeebi extends ProductAbstract<ArticleWeebi> {
     return sb.toString();
   }
 
-  // TODO pursue with http
-  // static Future<WeebiStatus> postProductsWeebi(List<Product> products) async {
-  //   final url = webhookUrl + 'products_post';
-  //   final resultString = products.map((p) => p.toRawJson()).toList();
-  //   final response =
-  //       await http.post(Uri.parse(url), body: resultString.toString());
-  //   // print(url);
-  //   // print(response.body);
-  //   return getHttpStatus(response.body);
-  // }
-
-  // static Future<List<Product>> downloadProductsWeebi(
-  //     bool isProd, String shopUuid) async {
-  //   var url = webhookUrl + 'products_get' + '?shopUuid=$shopUuid';
-
-  //   var response = await http.get(Uri.parse(url));
-  //   final cleanBody = response.body.substring(
-  //       1, response.body.length - 1); // clean quotes that mongo returns
-  //   final cleanBodyParsed = json.decode(cleanBody.replaceAll(r'\', '')) as List;
-
-  //   return List<Product>.from(cleanBodyParsed
-  //       .cast<Map>()
-  //       .cast<Map<String, dynamic>>()
-  //       .map((product) => Product.fromMap(product)));
-  // }
+  static final dummy = ProductWeebi(
+    articles: [ArticleWeebi.dummy],
+    id: 1,
+    title: 'dummy',
+    status: true,
+    creationDate: WeebiDates.defaultDate,
+  );
   @override
   Map<String, dynamic> toMap() {
     return {

@@ -48,6 +48,25 @@ class TicketWeebi extends TicketWeebiAbstract
           creationDate: creationDate,
         );
 
+  static final dummy = TicketWeebi(
+    oid: 'oid',
+    id: 1,
+    shopId: 'shopId',
+    items: [ItemWeebi.dummy],
+    taxe: TaxeWeebi.noTax,
+    promo: 0.0,
+    comment: 'comment',
+    received: 0,
+    date: WeebiDates.defaultDate,
+    paiementType: PaiementType.cash,
+    ticketType: TicketType.sell,
+    contactInfo: 'contactInfo',
+    contactPastPurchasingPower: 'contactPastPurchasingPower',
+    status: true,
+    statusUpdateDate: WeebiDates.defaultDate,
+    creationDate: WeebiDates.defaultDate,
+  );
+
   @override
   int get totalSell => items.fold(0,
       (value, item) => value + ((item.quantity) * item.article.price).round());

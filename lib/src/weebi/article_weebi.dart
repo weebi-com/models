@@ -34,6 +34,19 @@ class ArticleWeebi extends ArticleAbstract {
           status: status,
         );
 
+  static final dummy = ArticleWeebi(
+    productId: 1,
+    id: 1,
+    fullName: 'dummy',
+    price: 100,
+    cost: 100,
+    weight: 1,
+    articleCode: 1,
+    photo: 'photo',
+    creationDate: WeebiDates.defaultDate,
+    status: true,
+  );
+
   @override
   Map<String, dynamic> toMap() {
     return {

@@ -15,8 +15,7 @@ class ItemWeebi extends ItemAbstract<ArticleWeebi, LotWeebi> {
           quantity,
         );
 
-  // @override
-  // String toString() => "Item($article,$lots,$quantity)"
+  static final dummy = ItemWeebi(ArticleWeebi.dummy, [LotWeebi.dummy], 1.0);
 
   factory ItemWeebi.fromMap(Map<String, dynamic> map) {
     return ItemWeebi(

@@ -26,6 +26,9 @@ class LotWeebi extends LotAbstract {
           creationDate: creationDate,
         );
 
+  static final dummy =
+      LotWeebi(id: 1, articleId: 1, productId: 1, isDefault: true);
+
   LotWeebi copyWith({
     int? id,
     int? articleId,
