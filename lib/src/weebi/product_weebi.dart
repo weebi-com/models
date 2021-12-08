@@ -1,11 +1,11 @@
 import 'dart:convert';
 
 import 'package:mobx/mobx.dart';
-import 'package:models_base/utils.dart';
+import 'package:models_common/utils.dart';
 
 import 'package:models_weebi/src/weebi/article_weebi.dart';
 import 'package:models_base/base.dart' show ProductAbstract;
-import 'package:models_base/common.dart';
+import 'package:models_common/common.dart';
 
 class ProductWeebi extends ProductAbstract<ArticleWeebi> {
   final String? shopUuid;

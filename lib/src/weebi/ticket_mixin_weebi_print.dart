@@ -1,5 +1,5 @@
-import 'package:models_base/common.dart';
-import 'package:models_base/utils.dart';
+import 'package:models_common/common.dart';
+import 'package:models_common/utils.dart';
 import 'package:models_weebi/src/weebi/ticket_weebi_abstract.dart';
 
 mixin TicketPrinter on TicketWeebiAbstract {

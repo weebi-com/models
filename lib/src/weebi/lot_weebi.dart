@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'package:models_base/base.dart' show LotAbstract;
-import 'package:models_base/utils.dart';
+import 'package:models_common/utils.dart';
 
 class LotWeebi extends LotAbstract {
   final String? shopUuid;

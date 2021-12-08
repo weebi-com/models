@@ -2,12 +2,13 @@
 
 import 'dart:convert';
 import 'package:http/http.dart' as http; // TODO add the http
+import 'package:models_common/utils.dart';
 import 'package:models_weebi/src/weebi/item_weebi.dart';
 import 'package:models_weebi/src/weebi/taxe_weebi.dart';
 import 'package:models_weebi/src/weebi/ticket_mixin_weebi_base.dart';
 import 'package:models_weebi/src/weebi/ticket_weebi_abstract.dart';
 import 'package:models_weebi/src/weebi/ticket_mixin_weebi_print.dart';
-import 'package:models_base/common.dart';
+import 'package:models_common/common.dart';
 
 class TicketWeebi extends TicketWeebiAbstract
     with TicketPrinter, TicketMixinWeebiBase {
@@ -247,8 +248,8 @@ class TicketWeebi extends TicketWeebiAbstract
       contactPastPurchasingPower: map['contactPastPurchasingPower'],
       received: map['received'],
       date: DateTime.tryParse(map['date']) ?? WeebiDates.defaultDate,
-      paiementType: PaiementType.fromMap(map['paiementType']),
-      ticketType: TicketType.fromMap(map['ticketType']),
+      paiementType: PaiementType.tryParse(map['paiementType']),
+      ticketType: TicketType.tryParse(map['ticketType']),
       contactInfo: map['contactInfo'],
       status: map['status'],
       statusUpdateDate:

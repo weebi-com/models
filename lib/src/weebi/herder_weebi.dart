@@ -1,7 +1,7 @@
 import 'dart:convert';
 // import 'package:http/http.dart' as http;
 import 'package:models_base/base.dart' show HerderAbstract;
-import 'package:models_base/utils.dart';
+import 'package:models_common/utils.dart';
 
 class HerderWeebi extends HerderAbstract {
   HerderWeebi({

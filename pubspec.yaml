@@ -20,6 +20,12 @@ dependencies:
       url: https://gitlab.com/weebi_git/models_common.git
       ref: main
 
+dependency_overrides:
+  models_base: 
+    path: /Users/mac/Documents/GitHub/models_base
+  models_common:
+    path: /Users/mac/Documents/GitHub/models_common
+
 dev_dependencies:
   lints: ^1.0.0
   test: ^1.16.0

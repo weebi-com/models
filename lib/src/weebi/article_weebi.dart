@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:mobx/mobx.dart';
 import 'package:models_base/base.dart' show ArticleAbstract;
-import 'package:models_base/utils.dart';
+import 'package:models_common/utils.dart';
 import 'package:models_weebi/src/weebi/lot_weebi.dart';
 
 class ArticleWeebi extends ArticleAbstract {
@@ -54,23 +54,22 @@ class ArticleWeebi extends ArticleAbstract {
 
   factory ArticleWeebi.fromMap(Map<String, dynamic> map) {
     return ArticleWeebi(
-      productId: map['productId'] as int,
-      id: map['id'] as int,
-      fullName: map['fullName'] as String,
-      price: map['price'] as int,
-      cost: map['cost'] as int,
-      weight: map['weight'] == null ? 0.0 : (map['weight'] as num).toDouble(),
-      articleCode: map['articleCode'] ?? 0,
-      photo: map['photo'] ?? '',
-      creationDate: map['creationDate'] == null
-          ? WeebiDates.defaultDate
-          : DateTime.parse(map['creationDate']),
-      shopUuid: map['shopUuid'] ?? '',
-      lots: map['lots'] != null
-          ? List<LotWeebi>.from(map['lots']?.map((x) => LotWeebi.fromMap(x)))
-          : [],
-          status: map['status']
-    );
+        productId: map['productId'] as int,
+        id: map['id'] as int,
+        fullName: map['fullName'] as String,
+        price: map['price'] as int,
+        cost: map['cost'] as int,
+        weight: map['weight'] == null ? 0.0 : (map['weight'] as num).toDouble(),
+        articleCode: map['articleCode'] ?? 0,
+        photo: map['photo'] ?? '',
+        creationDate: map['creationDate'] == null
+            ? WeebiDates.defaultDate
+            : DateTime.parse(map['creationDate']),
+        shopUuid: map['shopUuid'] ?? '',
+        lots: map['lots'] != null
+            ? List<LotWeebi>.from(map['lots']?.map((x) => LotWeebi.fromMap(x)))
+            : [],
+        status: map['status']);
   }
   @override
   String toJson() => json.encode(toMap());
