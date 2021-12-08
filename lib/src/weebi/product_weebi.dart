@@ -66,10 +66,13 @@ class ProductWeebi extends ProductAbstract<ArticleWeebi> {
       'photo': photo ?? '',
       'barcode': barcode ?? 0,
       'status': status,
-      'statusUpdateDate': statusUpdateDate!.toIso8601String(),
+      'statusUpdateDate': statusUpdateDate?.toIso8601String() ??
+          WeebiDates.defaultDate.toIso8601String(),
       'articles': articles.map((x) => x.toMap()).toList(),
-      'creationDate': creationDate!.toIso8601String(),
-      'categories': categories!.map((e) => e).toList(),
+      'creationDate': creationDate?.toIso8601String() ??
+          WeebiDates.defaultDate.toIso8601String(),
+      'categories':
+          categories == null ? <String>[] : categories!.map((e) => e).toList(),
     };
   }
 

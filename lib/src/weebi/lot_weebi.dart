@@ -13,7 +13,7 @@ class LotWeebi extends LotAbstract {
     required int articleId,
     required int productId,
     required bool isDefault,
-    DateTime? creationDate,
+    required DateTime? creationDate,
     this.shopUuid,
     this.dlc,
     this.quantity = 0.0,
@@ -26,8 +26,13 @@ class LotWeebi extends LotAbstract {
           creationDate: creationDate,
         );
 
-  static final dummy =
-      LotWeebi(id: 1, articleId: 1, productId: 1, isDefault: true);
+  static final dummy = LotWeebi(
+    id: 1,
+    articleId: 1,
+    productId: 1,
+    isDefault: true,
+    creationDate: WeebiDates.defaultDate,
+  );
 
   LotWeebi copyWith({
     int? id,
@@ -60,11 +65,12 @@ class LotWeebi extends LotAbstract {
       'articleId': articleId,
       'productId': productId,
       'isDefault': isDefault,
-      'creationDate': creationDate!.toIso8601String(),
+      'creationDate': creationDate?.toIso8601String() ??
+          WeebiDates.defaultDate.toIso8601String(),
       'shopUuid': shopUuid,
-      'dlc': dlc?.toIso8601String(),
-      'quantity': quantity,
-      'initialQuantity': initialQuantity,
+      // 'dlc': dlc?.toIso8601String(),
+      // 'quantity': quantity,
+      // 'initialQuantity': initialQuantity,
     };
   }
 
@@ -78,11 +84,11 @@ class LotWeebi extends LotAbstract {
           ? WeebiDates.defaultDate
           : DateTime.parse(map['creationDate']),
       shopUuid: map['shopUuid'],
-      dlc: map['dlc'] != null
-          ? WeebiDates.defaultDate
-          : DateTime.parse(map['dlc']),
-      quantity: map['quantity'],
-      initialQuantity: map['initialQuantity'],
+      //dlc: map['dlc'] == null
+      //    ? WeebiDates.defaultDate
+      //    : DateTime.parse(map['dlc']),
+      // quantity: map['quantity'],
+      // initialQuantity: map['initialQuantity'],
     );
   }
 

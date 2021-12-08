@@ -9,6 +9,7 @@ void main() {
   ProductWeebi(
     articles: [
       ArticleWeebi(
+        shopUuid: 'unknown',
         productId: 1,
         id: 1,
         fullName: 'frometon',

@@ -9,7 +9,7 @@ class ArticleWeebi extends ArticleAbstract {
   final String? shopUuid;
   List<LotWeebi>? lots;
   ArticleWeebi(
-      {this.shopUuid,
+      {required this.shopUuid,
       required int productId,
       required int id,
       required String fullName,
@@ -17,7 +17,7 @@ class ArticleWeebi extends ArticleAbstract {
       int cost = 0,
       double weight = 1.0,
       int? articleCode,
-      String? photo,
+      String? photo = '',
       DateTime? creationDate,
       @observable bool status = false,
       this.lots})
@@ -35,8 +35,9 @@ class ArticleWeebi extends ArticleAbstract {
         );
 
   static final dummy = ArticleWeebi(
-    productId: 1,
+    shopUuid: 'shopUuid',
     id: 1,
+    productId: 1,
     fullName: 'dummy',
     price: 100,
     cost: 100,
@@ -45,6 +46,7 @@ class ArticleWeebi extends ArticleAbstract {
     photo: 'photo',
     creationDate: WeebiDates.defaultDate,
     status: true,
+    lots: [LotWeebi.dummy],
   );
 
   @override
@@ -60,7 +62,8 @@ class ArticleWeebi extends ArticleAbstract {
       'weight': weight,
       'articleCode': articleCode ?? 0,
       'photo': photo ?? '',
-      'creationDate': creationDate!.toIso8601String(),
+      'creationDate': creationDate?.toIso8601String() ??
+          WeebiDates.defaultDate.toIso8601String(),
       'status': status,
     };
   }
