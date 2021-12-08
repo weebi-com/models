@@ -1,4 +1,4 @@
-// import 'package:weebi_models/weebi_models.dart';
+// import 'package:models_weebi/weebi_models.dart';
 import 'package:test/test.dart';
 
 void main() {

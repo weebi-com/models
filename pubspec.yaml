@@ -1,19 +1,24 @@
-name: weebi_models
+name: models_weebi
 description: A starting point for Dart libraries or applications.
 version: 1.0.0
 # homepage: https://www.example.com
 publish_to: none
 
 environment:
-  sdk: '>=2.15.0-82.2.beta <3.0.0'
+  sdk: '>=2.12.0 <3.0.0'
 
 dependencies:
   http: ^0.13.4
   mobx: ^2.0.3 #^1.2.1+4 #
   intl: ^0.17.0
   models_base:
-    path: models_base
-#   path: ^1.8.0
+    git:
+      url: https://gitlab.com/weebi_git/models_base.git
+      ref: main
+  models_common:
+    git:
+      url: https://gitlab.com/weebi_git/models_common.git
+      ref: main
 
 dev_dependencies:
   lints: ^1.0.0

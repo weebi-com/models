@@ -1,6 +1,6 @@
 import 'package:models_base/common.dart';
 import 'package:models_base/utils.dart';
-import 'package:weebi_models/src/weebi/ticket_weebi_abstract.dart';
+import 'package:models_weebi/src/weebi/ticket_weebi_abstract.dart';
 
 mixin TicketPrinter on TicketWeebiAbstract {
   // -----STRINGS-----
@@ -63,10 +63,10 @@ mixin TicketPrinter on TicketWeebiAbstract {
 
   String get sharableText {
     final products = StringBuffer();
-    items.forEach((item) {
+    for (final item in items) {
       products.write(
           '${item.quantity}x ${item.article.fullName} ${item.article.price} : ${numFormat.format(item.article.price * item.quantity)}');
-    });
+    }
     if (ticketType == TicketType.sell) {
       final sb = StringBuffer()
         ..writeln('#$shopId')
@@ -85,13 +85,13 @@ mixin TicketPrinter on TicketWeebiAbstract {
         ..writeln('total TTC : ${numFormat.format(totalSellTtc)}')
         ..writeln('monnaie : ${numFormat.format(received - totalSellTtc)}')
         ..writeln('note : $comment')
-        ..writeln('$deactivatedDate')
+        ..writeln(deactivatedDate)
         ..writeln('')
         ..writeln('contact : $contactInfo');
       return sb.toString();
     } else if (ticketType == TicketType.spend) {
       final sb = StringBuffer()
-        ..writeln('$shopId')
+        ..writeln(shopId)
         ..writeln('ticket # $id')
         ..writeln(
             'date : ${date.year}_${date.month}_${date.day} ${date.hour}:${date.minute}:${date.second}')
@@ -107,13 +107,13 @@ mixin TicketPrinter on TicketWeebiAbstract {
         ..writeln('total TTC : ${numFormat.format(totalSpendTtc)}')
         ..writeln('monnaie : ${numFormat.format(received - totalSpendTtc)}')
         ..writeln('note : $comment')
-        ..writeln('$deactivatedDate')
+        ..writeln(deactivatedDate)
         ..writeln('')
         ..writeln('contact : $contactInfo');
       return sb.toString();
     } else if (ticketType == TicketType.sellCovered) {
       final sb = StringBuffer()
-        ..writeln('$shopId')
+        ..writeln(shopId)
         ..writeln('ticket # $id')
         ..writeln(
             'date : ${date.year}_${date.month}_${date.day} ${date.hour}:${date.minute}:${date.second}')
@@ -121,15 +121,15 @@ mixin TicketPrinter on TicketWeebiAbstract {
         ..writeln('type : $type')
         ..writeln('versé : ${numFormat.format(received)}')
         ..writeln('note : $comment')
-        ..writeln('$deactivatedDate')
+        ..writeln(deactivatedDate)
         ..writeln('')
         ..writeln('client : $contactInfo')
         ..writeln(
-            'solde avant : ${numFormat?.format(contactPastPurchasingPower)}');
+            'solde avant : ${numFormat.format(contactPastPurchasingPower)}');
       return sb.toString();
     } else if (ticketType == TicketType.spendCovered) {
       final sb = StringBuffer()
-        ..writeln('$shopId')
+        ..writeln(shopId)
         ..writeln('ticket # $id')
         ..writeln(
             'date : ${date.year}_${date.month}_${date.day} ${date.hour}:${date.minute}:${date.second}')
@@ -137,15 +137,15 @@ mixin TicketPrinter on TicketWeebiAbstract {
         ..writeln('type : $type')
         ..writeln('versé : ${numFormat.format(received)}')
         ..writeln('note : $comment')
-        ..writeln('$deactivatedDate')
+        ..writeln(deactivatedDate)
         ..writeln('')
         ..writeln('fournisseur : $contactInfo')
         ..writeln(
-            'solde avant : ${numFormat?.format(contactPastPurchasingPower)}');
+            'solde avant : ${numFormat.format(contactPastPurchasingPower)}');
       return sb.toString();
     } else if (ticketType == TicketType.sellDeferred) {
       final sb = StringBuffer()
-        ..writeln('$shopId')
+        ..writeln(shopId)
         ..writeln('ticket # $id')
         ..writeln(
             'date : ${date.year}_${date.month}_${date.day} ${date.hour}:${date.minute}:${date.second}')
@@ -162,15 +162,15 @@ mixin TicketPrinter on TicketWeebiAbstract {
             '+ taxe : ${numFormat.format(totalSellDeferredTaxes)} (taxe ${taxe.percentage} %)')
         ..writeln('total TTC : ${numFormat.format(totalSellDeferredTtc)}')
         ..writeln('note : $comment')
-        ..writeln('$deactivatedDate')
+        ..writeln(deactivatedDate)
         ..writeln('')
         ..writeln('client : $contactInfo')
         ..writeln(
-            'solde avant : ${numFormat?.format(contactPastPurchasingPower)}');
+            'solde avant : ${numFormat.format(contactPastPurchasingPower)}');
       return sb.toString();
     } else if (ticketType == TicketType.spendDeferred) {
       final sb = StringBuffer()
-        ..writeln('$shopId')
+        ..writeln(shopId)
         ..writeln('ticket # $id')
         ..writeln(
             'date : ${date.year}_${date.month}_${date.day} ${date.hour}:${date.minute}:${date.second}')
@@ -186,15 +186,15 @@ mixin TicketPrinter on TicketWeebiAbstract {
             '+ taxe : ${numFormat.format(totalSpendTaxes)} (taxe ${taxe.percentage} %)')
         ..writeln('total TTC : ${numFormat.format(totalSpendDeferredTtc)}')
         ..writeln('note : $comment')
-        ..writeln('$deactivatedDate')
+        ..writeln(deactivatedDate)
         ..writeln('')
         ..writeln('fournisseur : $contactInfo')
         ..writeln(
-            'solde avant : ${numFormat?.format(contactPastPurchasingPower)}');
+            'solde avant : ${numFormat.format(contactPastPurchasingPower)}');
       return sb.toString();
     } else {
       final sb = StringBuffer()
-        ..writeln('$shopId')
+        ..writeln(shopId)
         ..writeln('ticket # $id')
         ..writeln(
             'date : ${date.year}_${date.month}_${date.day} ${date.hour}:${date.minute}:${date.second}')
@@ -202,7 +202,7 @@ mixin TicketPrinter on TicketWeebiAbstract {
         ..writeln('paiement: ${PaiementType.paiementString(paiementType)}')
         ..writeln(products.toString())
         ..writeln('contact : $contactInfo')
-        ..writeln('$deactivatedDate');
+        ..writeln(deactivatedDate);
       return sb.toString();
     }
   }

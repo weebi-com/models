@@ -1,6 +1,6 @@
-import 'package:weebi_models/src/weebi/item_weebi.dart';
-import 'package:weebi_models/src/weebi/taxe_weebi.dart';
-import 'package:models_base/base.dart';
+import 'package:models_weebi/src/weebi/item_weebi.dart';
+import 'package:models_weebi/src/weebi/taxe_weebi.dart';
+import 'package:models_base/base.dart' show TicketAbstract;
 import 'package:models_base/common.dart';
 
 // Using WeebiAbstract to rename the attributes shopId && contactInfo,

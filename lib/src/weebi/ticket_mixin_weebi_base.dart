@@ -1,8 +1,8 @@
-import 'package:models_base/base.dart';
+import 'package:models_base/base.dart' show TicketAbstract;
 import 'package:models_base/common.dart';
 import 'package:models_base/utils.dart';
-import 'package:weebi_models/src/weebi/item_weebi.dart';
-import 'package:weebi_models/src/weebi/taxe_weebi.dart';
+import 'package:models_weebi/src/weebi/item_weebi.dart';
+import 'package:models_weebi/src/weebi/taxe_weebi.dart';
 
 mixin TicketMixinWeebiBase on TicketAbstract<ItemWeebi, TaxeWeebi> {
   int calculateSumsOfTicket(
@@ -128,13 +128,13 @@ mixin TicketMixinWeebiBase on TicketAbstract<ItemWeebi, TaxeWeebi> {
     } else if (ticketType == TicketType.sellDeferred) {
       return numFormat.format(totalSellDeferredHtIncludingPromo);
     } else if (ticketType == TicketType.sellCovered) {
-      return numFormat.format(received ?? 0);
+      return numFormat.format(received);
     } else if (ticketType == TicketType.spend) {
       return numFormat.format(totalSpendHtIncludingPromo);
     } else if (ticketType == TicketType.spendDeferred) {
       return numFormat.format(totalSpendDeferredHtIncludingPromo);
     } else if (ticketType == TicketType.spendCovered) {
-      return numFormat.format(received ?? 0);
+      return numFormat.format(received);
     } else if (ticketType == TicketType.stockIn) {
       return '0';
     } else if (ticketType == TicketType.stockOut) {
@@ -152,13 +152,13 @@ mixin TicketMixinWeebiBase on TicketAbstract<ItemWeebi, TaxeWeebi> {
     } else if (ticketType == TicketType.sellDeferred) {
       return '+ ${numFormat.format(totalSellDeferredTaxes)}';
     } else if (ticketType == TicketType.sellCovered) {
-      return '+ ${numFormat.format(taxe ?? 0)}';
+      return '+ ${numFormat.format(taxe)}';
     } else if (ticketType == TicketType.spend) {
       return '+ ${numFormat.format(totalSpendTaxes)}';
     } else if (ticketType == TicketType.spendDeferred) {
       return '+ ${numFormat.format(totalSpendDeferredTaxes)}';
     } else if (ticketType == TicketType.spendCovered) {
-      return '+ ${numFormat.format(taxe ?? 0)}';
+      return '+ ${numFormat.format(taxe)}';
     } else if (ticketType == TicketType.stockIn) {
       return '0';
     } else if (ticketType == TicketType.stockOut) {

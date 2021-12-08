@@ -3,8 +3,8 @@ import 'dart:convert';
 import 'package:mobx/mobx.dart';
 import 'package:models_base/utils.dart';
 
-import 'package:weebi_models/src/weebi/article_weebi.dart';
-import 'package:models_base/base.dart';
+import 'package:models_weebi/src/weebi/article_weebi.dart';
+import 'package:models_base/base.dart' show ProductAbstract;
 import 'package:models_base/common.dart';
 
 class ProductWeebi extends ProductAbstract<ArticleWeebi> {
@@ -80,7 +80,7 @@ class ProductWeebi extends ProductAbstract<ArticleWeebi> {
       'shopUuid': shopUuid,
       'id': id,
       'title': title,
-      'stockUnit': stockUnit.toMap(),
+      'stockUnit': stockUnit.toString(),
       'photo': photo ?? '',
       'barcode': barcode ?? 0,
       'status': status,
@@ -96,15 +96,18 @@ class ProductWeebi extends ProductAbstract<ArticleWeebi> {
       shopUuid: map['shopUuid'] ?? '',
       id: map['id'],
       title: map['title'],
-      stockUnit: StockUnit.fromMap(map['stockUnit']),
+      stockUnit: StockUnit.tryParse(map['stockUnit'] ?? ''),
       photo: map['photo'] ?? '',
       barcode: map['barcode'] ?? 0,
+      creationDate: map['creationDate'] == null
+          ? WeebiDates.defaultDate
+          : DateTime.parse(map['creationDate']),
       status: map['status'],
-      statusUpdateDate: DateTime.tryParse(map['statusUpdateDate']),
+      statusUpdateDate: map['statusUpdateDate'] == null
+          ? WeebiDates.defaultDate
+          : DateTime.parse(map['statusUpdateDate']),
       articles: List<ArticleWeebi>.from(
           map['articles']?.map((x) => ArticleWeebi.fromMap(x))),
-      creationDate:
-          DateTime.tryParse(map['creationDate']) ?? WeebiDates.defaultDate,
       categories: map["categories"] == null
           ? []
           : List<String>.from(map["categories"].map((x) => x)),

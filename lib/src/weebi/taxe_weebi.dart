@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:models_base/base.dart';
+import 'package:models_base/base.dart' show TaxeAbstract;
 
 class TaxeWeebi extends TaxeAbstract {
   const TaxeWeebi(
@@ -24,7 +24,7 @@ class TaxeWeebi extends TaxeAbstract {
     return TaxeWeebi(
       map['id'],
       map['name'],
-      map['percentage'],
+      map['percentage'] == null ? 0.0 : (map['percentage'] as num).toDouble(),
     );
   }
   @override
