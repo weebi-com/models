@@ -256,21 +256,21 @@ class TicketWeebi extends TicketWeebiAbstract
 
   factory TicketWeebi.fromMap(Map<String, dynamic> map) {
     return TicketWeebi(
-      id: map['id'],
-      oid: map['oid'],
-      shopId: map['shopId'],
+      id: map['id'] as int,
+      oid: map['oid'] as String,
+      shopId: map['shopId'] as String,
       items:
           List<ItemWeebi>.from(map['items']?.map((x) => ItemWeebi.fromMap(x))),
       taxe: TaxeWeebi.fromMap(map['taxe']),
-      promo: map['promo'],
+      promo: map['promo'] == null ? 0.0 : (map['promo'] as num).toDouble(),
       comment: map['comment'],
-      contactPastPurchasingPower: map['contactPastPurchasingPower'],
-      received: map['received'],
+      contactPastPurchasingPower: map['contactPastPurchasingPower'] as String,
+      received: map['received'] as int,
       date: DateTime.tryParse(map['date']) ?? WeebiDates.defaultDate,
       paiementType: PaiementType.tryParse(map['paiementType']),
       ticketType: TicketType.tryParse(map['ticketType']),
-      contactInfo: map['contactInfo'],
-      status: map['status'],
+      contactInfo: map['contactInfo'] as String,
+      status: map['status'] as bool,
       statusUpdateDate:
           DateTime.tryParse(map['statusUpdateDate']) ?? WeebiDates.defaultDate,
       creationDate:
@@ -286,7 +286,7 @@ class TicketWeebi extends TicketWeebiAbstract
   Map<String, dynamic> toMap() {
     return {
       'id': id,
-      'shopUuid': shopUuid,
+      'shopId': shopId,
       'items': items.map((x) => x.toMap()).toList(),
       'taxe': taxe.toMap(),
       'promo': promo,
@@ -296,7 +296,7 @@ class TicketWeebi extends TicketWeebiAbstract
       'date': date.toIso8601String(),
       'paiementType': paiementType.toString(),
       'ticketType': ticketType.toString(),
-      'herderId': herderId,
+      'contactInfo': contactInfo,
       'status': status,
       'statusUpdateDate': statusUpdateDate.toIso8601String(),
       'creationDate': creationDate.toIso8601String(),
