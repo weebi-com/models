@@ -68,8 +68,10 @@ class TicketWeebi extends TicketWeebiAbstract
   );
 
   @override
-  int get totalSell => items.fold(0,
-      (value, item) => value + ((item.quantity) * item.article.price).round());
+  int get totalSell => items
+      .fold(
+          0, (num value, item) => value + (item.quantity * item.article.price))
+      .round();
 
   @override
   int get totalSellPromo =>
@@ -88,10 +90,13 @@ class TicketWeebi extends TicketWeebiAbstract
   int get totalSellTtc => totalSellHtIncludingPromo + totalSellTaxes;
 
   @override
-  int get totalSpend => items.fold(
-      0,
-      (value, item) =>
-          value + ((item?.quantity ?? 0.0) * (item.article.cost ?? 0)).round());
+  int get totalSpend {
+    double total = 0;
+    for (final item in items) {
+      total += item.article.cost * item.quantity;
+    }
+    return total.round();
+  }
 
   @override
   int get totalSpendPromo {
@@ -115,9 +120,6 @@ class TicketWeebi extends TicketWeebiAbstract
   int get totalSpendDeferredHt {
     double owed = 0;
     for (final item in items) {
-      // if (item.lots != null && item.lots!.isNotEmpty && item.lots!.length > 1) {
-      //   owed += ((item.article.cost ?? 0) * item.lots.length)?.toDouble();
-      // } else
       owed += (item.article.cost ?? 0) * (item?.quantity ?? 0);
     }
     return owed.round() ?? 0;
@@ -145,10 +147,6 @@ class TicketWeebi extends TicketWeebiAbstract
   int get totalSellDeferredHt {
     double owed = 0;
     for (final item in items) {
-      // if (item.lots.length > 1) {
-      //   owed += ((item.article.price ?? 0) * item.lots.length)?.toDouble();
-      // } else
-      //
       owed += (item.article.price ?? 0) * (item?.quantity ?? 0);
     }
     return owed.round() ?? 0;
