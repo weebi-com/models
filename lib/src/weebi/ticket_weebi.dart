@@ -301,4 +301,44 @@ class TicketWeebi extends TicketWeebiAbstract
       'isInDash': isInDash,
     };
   }
+
+  TicketWeebi copyWith({
+    String? oid,
+    int? id,
+    String? shopUuid,
+    List<ItemWeebi>? items,
+    TaxeWeebi taxe,
+    double? promo,
+    String? comment,
+    String? contactPastPurchasingPower,
+    int? received,
+    DateTime? date,
+    PaiementType? paiementType,
+    TicketType? ticketType,
+    String? herderId,
+    bool? status,
+    DateTime? statusUpdateDate,
+    DateTime? creationDate,
+    bool? isInDash,
+  }) {
+    return TicketWeebi(
+      oid: oid ?? this.oid,
+      id: id ?? this.id,
+      shopId: shopId ?? this.shopId,
+      items: items ?? this.items,
+      taxe: taxe ?? this.taxe,
+      promo: promo ?? this.promo,
+      comment: comment ?? this.comment,
+      contactPastPurchasingPower:
+          contactPastPurchasingPower ?? this.contactPastPurchasingPower,
+      received: received ?? this.received,
+      date: date ?? this.date,
+      paiementType: paiementType ?? this.paiementType,
+      ticketType: ticketType ?? this.ticketType,
+      contactInfo: contactInfo ?? this.contactInfo,
+      status: status ?? this.status,
+      statusUpdateDate: statusUpdateDate ?? this.statusUpdateDate,
+      creationDate: creationDate ?? this.creationDate,
+    );
+  }
 }
