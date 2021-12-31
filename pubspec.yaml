@@ -16,9 +16,9 @@ dependencies:
       url: https://gitlab.com/weebi_git/models_base.git
       ref: main
 
-#dependency_overrides:
-#  models_base: 
-#    path: /Users/mac/Documents/GitHub/models_base
+dependency_overrides:
+  models_base: 
+    path: /Users/mac/Documents/GitHub/models_base
 
 dev_dependencies:
   lints: ^1.0.0
