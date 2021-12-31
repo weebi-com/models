@@ -68,10 +68,16 @@ class TicketWeebi extends TicketWeebiAbstract
   );
 
   @override
-  int get totalSell => items
-      .fold(
-          0, (num value, item) => value + (item.quantity * item.article.price))
-      .round();
+  int get totalSell {
+    double total = 0.0;
+    for (final item in items) {
+      print(
+          'total $total item.quantity ${item.quantity} price ${item.article.price}');
+      total += item.article.price * item.quantity;
+      print('total2 $total');
+    }
+    return total.round();
+  }
 
   @override
   int get totalSellPromo =>
@@ -91,7 +97,7 @@ class TicketWeebi extends TicketWeebiAbstract
 
   @override
   int get totalSpend {
-    double total = 0;
+    double total = 0.0;
     for (final item in items) {
       total += item.article.cost * item.quantity;
     }
@@ -108,8 +114,8 @@ class TicketWeebi extends TicketWeebiAbstract
   int get totalSpendHtIncludingPromo => totalSpend - totalSpendPromo;
 
   @override
-  int get totalSpendTaxes => (((taxe.percentage ?? 0.0)) > 0
-          ? totalSpendHtIncludingPromo * ((taxe.percentage ?? 0.0)) / 100
+  int get totalSpendTaxes => (((taxe.percentage)) > 0
+          ? totalSpendHtIncludingPromo * ((taxe.percentage)) / 100
           : 0)
       .round();
 
@@ -118,11 +124,11 @@ class TicketWeebi extends TicketWeebiAbstract
 
   @override
   int get totalSpendDeferredHt {
-    double owed = 0;
+    double owed = 0.0;
     for (final item in items) {
-      owed += (item.article.cost ?? 0) * (item?.quantity ?? 0);
+      owed += (item.article.cost) * (item.quantity);
     }
-    return owed.round() ?? 0;
+    return owed.round();
   }
 
   @override
@@ -134,9 +140,8 @@ class TicketWeebi extends TicketWeebiAbstract
       totalSpendDeferredHt - totalSpendDeferredPromo;
 
   @override
-  int get totalSpendDeferredTaxes => (taxe.percentage ?? 0.0) > 0.0
-      ? (totalSpendDeferredHtIncludingPromo * ((taxe.percentage ?? 0.0) / 100))
-          .round()
+  int get totalSpendDeferredTaxes => (taxe.percentage) > 0.0
+      ? (totalSpendDeferredHtIncludingPromo * ((taxe.percentage) / 100)).round()
       : 0;
 
   @override
@@ -145,11 +150,11 @@ class TicketWeebi extends TicketWeebiAbstract
 
   @override
   int get totalSellDeferredHt {
-    double owed = 0;
+    double owed = 0.0;
     for (final item in items) {
-      owed += (item.article.price ?? 0) * (item?.quantity ?? 0);
+      owed += (item.article.price) * (item.quantity);
     }
-    return owed.round() ?? 0;
+    return owed.round();
   }
 
   @override
@@ -161,9 +166,8 @@ class TicketWeebi extends TicketWeebiAbstract
       totalSellDeferredHt - totalSellDeferredPromo;
 
   @override
-  int get totalSellDeferredTaxes => (taxe.percentage ?? 0.0) > 0.0
-      ? (totalSellDeferredHtIncludingPromo * ((taxe.percentage ?? 0.0)) / 100)
-          .round()
+  int get totalSellDeferredTaxes => (taxe.percentage) > 0.0
+      ? (totalSellDeferredHtIncludingPromo * ((taxe.percentage)) / 100).round()
       : 0;
 
   @override
