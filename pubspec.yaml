@@ -12,13 +12,14 @@ dependencies:
   mobx: ^2.0.3 #^1.2.1+4 #
   intl: ^0.17.0
   models_base:
-    git:
-      url: https://gitlab.com/weebi_git/models_base.git
-      ref: main
-
-dependency_overrides:
-  models_base: 
-    path: /Users/mac/Documents/GitHub/models_base
+    path: models_base
+#dependency_overrides:
+#  models_base: 
+#    path: /Users/mac/Documents/GitHub/models_base
+#OR
+#    git:
+#      url: https://gitlab.com/weebi_git/models_base.git
+#      ref: main
 
 dev_dependencies:
   lints: ^1.0.0
