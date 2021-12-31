@@ -2,13 +2,13 @@
 
 import 'dart:convert';
 import 'package:http/http.dart' as http; // TODO add the http
-import 'package:models_common/utils.dart';
+import 'package:models_base/utils.dart';
 import 'package:models_weebi/src/weebi/item_weebi.dart';
 import 'package:models_weebi/src/weebi/taxe_weebi.dart';
 import 'package:models_weebi/src/weebi/ticket_mixin_weebi_base.dart';
 import 'package:models_weebi/src/weebi/ticket_weebi_abstract.dart';
 import 'package:models_weebi/src/weebi/ticket_mixin_weebi_print.dart';
-import 'package:models_common/common.dart';
+import 'package:models_base/common.dart';
 
 class TicketWeebi extends TicketWeebiAbstract
     with TicketPrinter, TicketMixinWeebiBase {

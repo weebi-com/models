@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:mobx/mobx.dart';
 import 'package:models_base/base.dart' show ArticleAbstract;
-import 'package:models_common/utils.dart';
+import 'package:models_base/utils.dart';
 import 'package:models_weebi/src/weebi/lot_weebi.dart';
 
 class ArticleWeebi extends ArticleAbstract {
