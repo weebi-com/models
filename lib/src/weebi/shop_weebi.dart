@@ -183,7 +183,7 @@ class ShopWeebi extends ShopAbstract {
           : DateTime.parse(map['serverStatusUpdateDate']),
       isProd: map['isProd'],
       isLocked: map['isLocked'],
-      promo: map['promo'],
+      promo: map['promo'] == null ? 0.0 : (map['promo'] as num).toDouble(),
     );
   }
   @override
