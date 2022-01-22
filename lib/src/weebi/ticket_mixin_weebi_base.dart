@@ -39,8 +39,8 @@ mixin TicketMixinWeebiBase on TicketAbstract<ItemWeebi, TaxeWeebi> {
   double soldQtByArticle(
       String articleName, DateTime startOfMonth, DateTime endOfMonth) {
     double qty = 0;
-    if (ticketType == TicketType?.sell ||
-        ticketType == TicketType?.sellDeferred) {
+    if (ticketType == TicketType.sell ||
+        ticketType == TicketType.sellDeferred) {
       if (date.isAfter(startOfMonth) && date.isBefore(endOfMonth)) {
         for (var item in items) {
           if (item.article.fullName == articleName) {
