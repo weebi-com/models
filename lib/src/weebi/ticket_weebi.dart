@@ -1,7 +1,7 @@
 // ignore_for_file: unnecessary_null_comparison
 
 import 'dart:convert';
-import 'package:http/http.dart' as http; // TODO add the http
+//import 'package:http/http.dart' as http; // TODO add the http
 import 'package:models_base/utils.dart';
 import 'package:models_weebi/src/weebi/item_weebi.dart';
 import 'package:models_weebi/src/weebi/taxe_weebi.dart';
@@ -27,7 +27,7 @@ class TicketWeebi extends TicketWeebiAbstract
     required final String contactInfo, // herderId
     required final String contactPastPurchasingPower,
     required final bool status,
-    required final DateTime statusUpdateDate,
+    required DateTime? statusUpdateDate,
     required final DateTime creationDate,
   }) : super(
           id: id,
@@ -44,7 +44,7 @@ class TicketWeebi extends TicketWeebiAbstract
           contactInfo: contactInfo,
           contactPastPurchasingPower: contactPastPurchasingPower,
           status: status,
-          statusUpdateDate: statusUpdateDate,
+          statusUpdateDate: statusUpdateDate ?? WeebiDates.defaultDate,
           creationDate: creationDate,
         );
 
@@ -248,10 +248,10 @@ class TicketWeebi extends TicketWeebiAbstract
     return 'Autres';
   }
 
-  @override
-  set statusUpdateDate(DateTime? _statusUpdateDate) {
-    statusUpdateDate = _statusUpdateDate;
-  }
+  //@override
+  //set statusUpdateDate(DateTime? _statusUpdateDate) {
+  //  statusUpdateDate = _statusUpdateDate ?? WeebiDates.defaultDate;
+  //}
 
   factory TicketWeebi.fromJson(String source) =>
       TicketWeebi.fromMap(json.decode(source));
