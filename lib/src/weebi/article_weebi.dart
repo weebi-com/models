@@ -8,6 +8,7 @@ import 'package:models_weebi/src/weebi/lot_weebi.dart';
 class ArticleWeebi extends ArticleAbstract {
   final String? shopUuid;
   List<LotWeebi>? lots;
+  String? get shopId => shopUuid;
   ArticleWeebi(
       {required this.shopUuid,
       required int productId,

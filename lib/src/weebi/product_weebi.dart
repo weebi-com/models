@@ -9,7 +9,7 @@ import 'package:models_base/common.dart';
 
 class ProductWeebi extends ProductAbstract<ArticleWeebi> {
   final String? shopUuid;
-
+  String? get shopId => shopUuid;
   ProductWeebi({
     this.shopUuid,
     required List<ArticleWeebi> articles,

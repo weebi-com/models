@@ -9,6 +9,7 @@ import 'package:models_base/utils.dart';
 
 class ShopWeebi extends ShopAbstract {
   String gescom;
+  String? get shopId => uuid;
   ShopWeebi({
     required int id,
     required String uuid,
