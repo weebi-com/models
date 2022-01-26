@@ -4,10 +4,12 @@ import 'package:models_base/base.dart' show HerderAbstract;
 import 'package:models_base/utils.dart';
 
 class HerderWeebi extends HerderAbstract {
+  final String uuid;
   HerderWeebi({
     required final int id,
     required int bidon,
     required String firstName,
+    required this.uuid,
     required String lastName,
     required DateTime? updateDate,
     required DateTime? statusUpdateDate,
@@ -63,6 +65,7 @@ class HerderWeebi extends HerderAbstract {
 
   static final dummy = HerderWeebi(
     id: 1,
+    uuid: 'dummy',
     bidon: 1,
     firstName: 'John',
     lastName: 'Doe',
@@ -78,6 +81,7 @@ class HerderWeebi extends HerderAbstract {
   factory HerderWeebi.fromMap(Map<String, dynamic> map) {
     return HerderWeebi(
       id: map['id'],
+      uuid: map['uuid'] ?? 'no_uuid',
       bidon: map['bidon'],
       firstName: map['firstName'],
       lastName: map['lastName'],
@@ -112,6 +116,7 @@ class HerderWeebi extends HerderAbstract {
 
   HerderWeebi copyWith({
     int? id,
+    String? uuid,
     int? bidon,
     String? firstName,
     String? lastName,
@@ -135,6 +140,7 @@ class HerderWeebi extends HerderAbstract {
   }) {
     return HerderWeebi(
       id: id ?? this.id,
+      uuid: uuid ?? this.uuid,
       bidon: bidon ?? this.bidon,
       firstName: firstName ?? this.firstName,
       lastName: lastName ?? this.lastName,
