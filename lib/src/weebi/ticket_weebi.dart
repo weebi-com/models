@@ -269,8 +269,11 @@ class TicketWeebi extends TicketWeebiAbstract
       contactPastPurchasingPower: map['contactPastPurchasingPower'] as String,
       received: map['received'] as int,
       date: DateTime.tryParse(map['date']) ?? WeebiDates.defaultDate,
-      paiementType: PaiementType.tryParse(map['paiementType'] as String),
-      ticketType: TicketType.tryParse(map['ticketType'] as String),
+      paiementType: (map['paiementType'] is String)
+          ? PaiementType.tryParse(map['paiementType'] as String)
+          : PaiementType.tryParse(map['paiementType']['paiementType']),
+      ticketType:
+          TicketType.tryParse(map['ticketType'] as String), // removed as String
       contactInfo: map['contactInfo'] as String,
       status: map['status'] as bool,
       statusUpdateDate:
