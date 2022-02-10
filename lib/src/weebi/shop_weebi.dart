@@ -9,10 +9,12 @@ import 'package:models_base/utils.dart';
 
 class ShopWeebi extends ShopAbstract {
   String gescom;
+  String mailUnique;
   String? get shopId => uuid;
   ShopWeebi({
     required int id,
     required String uuid,
+    required this.mailUnique = '',
     required String name,
     required String tel,
     required bool status,
@@ -67,6 +69,7 @@ class ShopWeebi extends ShopAbstract {
   static final unknownShopWeebi = ShopWeebi(
     id: 911,
     uuid: '',
+    mailUnique: '',
     name: 'Magasin Inconnu',
     tel: '',
     mail: '',
@@ -90,6 +93,7 @@ class ShopWeebi extends ShopAbstract {
     int? id,
     String? managerMacAddress,
     String? uuid,
+    String? mailUnique,
     String? name,
     String? tel,
     String? gescom,
@@ -112,6 +116,7 @@ class ShopWeebi extends ShopAbstract {
     return ShopWeebi(
       id: id ?? this.id,
       uuid: uuid ?? this.uuid,
+      mailUnique: mailUnique ?? this.mailUnique,
       name: name ?? this.name,
       tel: tel ?? this.tel,
       mail: mail ?? this.mail,
@@ -138,6 +143,7 @@ class ShopWeebi extends ShopAbstract {
     return {
       'id': id,
       'uuid': uuid,
+      'mailUnique': mailUnique,
       'name': name,
       'tel': tel,
       'mail': mail,
@@ -162,6 +168,7 @@ class ShopWeebi extends ShopAbstract {
     return ShopWeebi(
       id: map['id'],
       uuid: map['uuid'],
+      mailUnique: map['mailUnique'],
       name: map['name'],
       tel: map['tel'],
       mail: map['mail'],
@@ -195,7 +202,7 @@ class ShopWeebi extends ShopAbstract {
 
   @override
   String toString() {
-    return 'Shop(id: $id, uuid: $uuid, name: $name, tel: $tel, mail: $mail, address: $address, lat: $lat, long: $long, shopKeeperName: $shopKeeperName, shopKeeperTel: $shopKeeperTel, shopKeeperMail: $shopKeeperMail, updateDate: $updateDate, status: $status, statusUpdateDate: $statusUpdateDate, serverStatus: $serverStatus, serverStatusUpdateDate: $serverStatusUpdateDate, isProd: $isProd, isLocked: $isLocked, promo: $promo)';
+    return 'Shop(id: $id, uuid: $uuid, mailUnique: $mailUnique, name: $name, tel: $tel, mail: $mail, address: $address, lat: $lat, long: $long, shopKeeperName: $shopKeeperName, shopKeeperTel: $shopKeeperTel, shopKeeperMail: $shopKeeperMail, updateDate: $updateDate, status: $status, statusUpdateDate: $statusUpdateDate, serverStatus: $serverStatus, serverStatusUpdateDate: $serverStatusUpdateDate, isProd: $isProd, isLocked: $isLocked, promo: $promo)';
   }
 
   @override
@@ -205,6 +212,7 @@ class ShopWeebi extends ShopAbstract {
     return other is ShopWeebi &&
         other.id == id &&
         other.managerMacAddress == managerMacAddress &&
+        other.mailUnique == mailUnique &&
         other.uuid == uuid &&
         other.name == name &&
         other.tel == tel &&
@@ -231,6 +239,7 @@ class ShopWeebi extends ShopAbstract {
     return id.hashCode ^
         managerMacAddress.hashCode ^
         uuid.hashCode ^
+        mailUnique.hashCode ^
         name.hashCode ^
         tel.hashCode ^
         gescom.hashCode ^
