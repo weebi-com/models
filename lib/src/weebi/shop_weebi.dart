@@ -14,7 +14,7 @@ class ShopWeebi extends ShopAbstract {
   ShopWeebi({
     required int id,
     required String uuid,
-    required this.mailUnique = '',
+    this.mailUnique = '',
     required String name,
     required String tel,
     required bool status,
