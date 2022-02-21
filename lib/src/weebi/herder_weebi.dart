@@ -64,11 +64,11 @@ class HerderWeebi extends HerderAbstract {
   // @override Map<String, dynamic> toMap()
 
   static final dummy = HerderWeebi(
-    id: 1,
+    id: 0,
     shopId: 'dummy',
-    bidon: 1,
-    firstName: 'John',
-    lastName: 'Doe',
+    bidon: 0,
+    firstName: 'inconnu',
+    lastName: 'John Doe',
     updateDate: WeebiDates.defaultDate,
     statusUpdateDate: WeebiDates.defaultDate,
     status: true,
@@ -168,16 +168,16 @@ class HerderWeebi extends HerderAbstract {
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
 
-    return other is HerderAbstract &&
-        other.area == area &&
-        other.bank == bank &&
-        other.identity == identity &&
-        other.category == category &&
-        other.qrcode == qrcode &&
-        other.milkMonthQuota == milkMonthQuota &&
-        other.isWoman == isWoman &&
-        other.carteNFC == carteNFC &&
-        other.pointCollecte == pointCollecte;
+    return other is HerderAbstract && other.id == id;
+    // &&
+    // other.bank == bank &&
+    // other.identity == identity &&
+    // other.category == category &&
+    // other.qrcode == qrcode &&
+    // other.milkMonthQuota == milkMonthQuota &&
+    // other.isWoman == isWoman &&
+    // other.carteNFC == carteNFC &&
+    // other.pointCollecte == pointCollecte;
   }
 
   @override

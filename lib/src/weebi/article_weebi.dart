@@ -1,5 +1,5 @@
 import 'dart:convert';
-
+import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 import 'package:models_base/base.dart' show ArticleAbstract;
 import 'package:models_base/utils.dart';
@@ -93,4 +93,27 @@ class ArticleWeebi extends ArticleAbstract {
 
   factory ArticleWeebi.fromJson(String source) =>
       ArticleWeebi.fromMap(json.decode(source));
+
+  static Icon getIcon(ArticleWeebi article) {
+    if (article.id == 1) {
+      return const Icon(Icons.filter_1);
+    } else if (article.id == 2) {
+      return const Icon(Icons.filter_2);
+    } else if (article.id == 3) {
+      return const Icon(Icons.filter_3);
+    } else if (article.id == 4) {
+      return const Icon(Icons.filter_4);
+    } else if (article.id == 5) {
+      return const Icon(Icons.filter_5);
+    } else if (article.id == 6) {
+      return const Icon(Icons.filter_6);
+    } else if (article.id == 7) {
+      return const Icon(Icons.filter_7);
+    } else if (article.id == 8) {
+      return const Icon(Icons.filter_8);
+    } else if (article.id == 9) {
+      return const Icon(Icons.filter_9);
+    } else
+      return const Icon(Icons.filter_9_plus);
+  }
 }
