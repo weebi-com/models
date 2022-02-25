@@ -1,11 +1,10 @@
 import 'dart:convert';
 
 import 'package:mobx/mobx.dart';
-import 'package:models_base/utils.dart';
-
-import 'package:models_weebi/src/weebi/article_weebi.dart';
 import 'package:models_base/base.dart' show ProductAbstract;
 import 'package:models_base/common.dart';
+import 'package:models_base/utils.dart';
+import 'package:models_weebi/src/weebi/article_weebi.dart';
 
 class ProductWeebi extends ProductAbstract<ArticleWeebi> {
   final String? shopUuid;
@@ -21,7 +20,7 @@ class ProductWeebi extends ProductAbstract<ArticleWeebi> {
     String? photo,
     @observable required bool status,
     DateTime? statusUpdateDate,
-    required DateTime creationDate,
+    required DateTime? creationDate,
   }) : super(
           id: id,
           categories: categories,
@@ -113,5 +112,33 @@ class ProductWeebi extends ProductAbstract<ArticleWeebi> {
   }
 
   @override
+  copyWith({
+    String? shopUuid,
+    int? id,
+    String? title,
+    StockUnit? stockUnit,
+    String? photo,
+    int? barcode,
+    bool? status,
+    DateTime? statusUpdateDate,
+    List<ArticleWeebi>? articles,
+    DateTime? creationDate,
+    List<String>? categories,
+  }) {
+    return ProductWeebi(
+      shopUuid: shopUuid ?? this.shopUuid,
+      id: id ?? this.id,
+      title: title ?? this.title,
+      stockUnit: stockUnit ?? this.stockUnit,
+      photo: photo ?? this.photo,
+      barcode: barcode ?? this.barcode,
+      status: status ?? this.status,
+      statusUpdateDate: statusUpdateDate ?? this.statusUpdateDate,
+      articles: articles ?? this.articles,
+      creationDate: creationDate ?? this.creationDate,
+      categories: categories ?? this.categories,
+    );
+  }
+
   int get hashCode => shopUuid.hashCode;
 }
