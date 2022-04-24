@@ -56,7 +56,8 @@ class HerderWeebi extends HerderAbstract {
     final sb = StringBuffer()
       ..writeln('bid : $bidon')
       ..writeln('prenom : $firstName')
-      ..writeln('nom : $lastName');
+      ..writeln('nom : $lastName')
+      ..writeln('tel : $tel');
     return sb.toString();
   }
 
