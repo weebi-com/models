@@ -313,7 +313,7 @@ class TicketWeebi extends TicketWeebiAbstract
     String? oid,
     int? id,
     String? shopId,
-    List<ItemWeebi>? items,
+    List<ItemWeebi>? items, 
     TaxeWeebi? taxe,
     double? promo,
     String? comment,
@@ -332,7 +332,8 @@ class TicketWeebi extends TicketWeebiAbstract
       oid: oid ?? this.oid,
       id: id ?? this.id,
       shopId: shopId ?? this.shopId,
-      items: items ?? this.items,
+      items: items ??
+          this.items.map((e) => e).toList(), // a real copy, not a reference
       taxe: taxe ?? this.taxe,
       promo: promo ?? this.promo,
       comment: comment ?? this.comment,

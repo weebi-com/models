@@ -111,7 +111,7 @@ class ProductWeebi extends ProductAbstract<ArticleWeebi> {
     return other is ProductWeebi && other.shopUuid == shopUuid;
   }
 
-  @override
+
   copyWith({
     String? shopUuid,
     int? id,
@@ -134,11 +134,12 @@ class ProductWeebi extends ProductAbstract<ArticleWeebi> {
       barcode: barcode ?? this.barcode,
       status: status ?? this.status,
       statusUpdateDate: statusUpdateDate ?? this.statusUpdateDate,
-      articles: articles ?? this.articles,
+      articles: articles ??
+          this.articles.map((e) => e).toList(), // a real copy, not a reference
       creationDate: creationDate ?? this.creationDate,
       categories: categories ?? this.categories,
     );
   }
-
+  @override
   int get hashCode => shopUuid.hashCode;
 }
