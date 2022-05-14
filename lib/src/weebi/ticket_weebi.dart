@@ -202,8 +202,8 @@ class TicketWeebi extends TicketWeebiAbstract
     switch (ticketType) {
       case TicketType.sell:
         return totalSellTtc;
-      case TicketType.sellDeferred:
-        return totalSellDeferredTtc;
+      // case TicketType.sellDeferred:
+      //   return totalSellDeferredTtc;
       case TicketType.sellCovered:
         return received;
       default:
@@ -215,8 +215,8 @@ class TicketWeebi extends TicketWeebiAbstract
     switch (ticketType) {
       case TicketType.spend:
         return totalSpendTtc;
-      case TicketType.spendDeferred:
-        return totalSpendDeferredTtc;
+      // case TicketType.spendDeferred:
+      //   return totalSpendDeferredTtc;
       case TicketType.spendCovered:
         return received;
       case TicketType.unknown:
