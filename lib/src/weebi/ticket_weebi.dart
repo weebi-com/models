@@ -71,10 +71,9 @@ class TicketWeebi extends TicketWeebiAbstract
   int get totalSell {
     double total = 0.0;
     for (final item in items) {
-      print(
-          'total $total item.quantity ${item.quantity} price ${item.article.price}');
+      // print('total $total item.quantity ${item.quantity} price ${item.article.price}');
       total += item.article.price * item.quantity;
-      print('total2 $total');
+      // print('total2 $total');
     }
     return total.round();
   }
@@ -106,7 +105,7 @@ class TicketWeebi extends TicketWeebiAbstract
 
   @override
   int get totalSpendPromo {
-    print('promo $promo');
+    // print('promo $promo');
     return promo != null ? (totalSpend * promo / 100).round() : 0;
   }
 
@@ -190,6 +189,35 @@ class TicketWeebi extends TicketWeebiAbstract
       case TicketType.spendCovered:
         return received;
       case TicketType.wage:
+        return received;
+      case TicketType.unknown:
+        print('unknow ticket type in calculateSumsOfTicket');
+        return 0;
+      default:
+        return 0;
+    }
+  }
+
+  int get sellFull {
+    switch (ticketType) {
+      case TicketType.sell:
+        return totalSellTtc;
+      case TicketType.sellDeferred:
+        return totalSellDeferredTtc;
+      case TicketType.sellCovered:
+        return received;
+      default:
+        return 0;
+    }
+  }
+
+  int get spendFull {
+    switch (ticketType) {
+      case TicketType.spend:
+        return totalSpendTtc;
+      case TicketType.spendDeferred:
+        return totalSpendDeferredTtc;
+      case TicketType.spendCovered:
         return received;
       case TicketType.unknown:
         print('unknow ticket type in calculateSumsOfTicket');
