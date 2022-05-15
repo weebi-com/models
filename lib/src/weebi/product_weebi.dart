@@ -9,8 +9,10 @@ import 'package:models_weebi/src/weebi/article_weebi.dart';
 class ProductWeebi extends ProductAbstract<ArticleWeebi> {
   final String? shopUuid;
   String? get shopId => shopUuid;
+  bool? isPalpable;
   ProductWeebi({
     this.shopUuid,
+    this.isPalpable = true,
     required List<ArticleWeebi> articles,
     required int id,
     List<String>? categories,
@@ -60,6 +62,7 @@ class ProductWeebi extends ProductAbstract<ArticleWeebi> {
     return {
       'shopUuid': shopUuid,
       'id': id,
+      'isPalpable': isPalpable ?? true,
       'title': title,
       'stockUnit': stockUnit.toString(),
       'photo': photo ?? '',
@@ -80,6 +83,7 @@ class ProductWeebi extends ProductAbstract<ArticleWeebi> {
       shopUuid: map['shopUuid'] ?? '',
       id: map['id'],
       title: map['title'],
+      isPalpable: map['isPalpable'] ?? true,
       stockUnit: StockUnit.tryParse(map['stockUnit'] ?? ''),
       photo: map['photo'] ?? '',
       barcode: map['barcode'] ?? 0,
@@ -111,11 +115,11 @@ class ProductWeebi extends ProductAbstract<ArticleWeebi> {
     return other is ProductWeebi && other.shopUuid == shopUuid;
   }
 
-
   copyWith({
     String? shopUuid,
     int? id,
     String? title,
+    bool? isPalpable,
     StockUnit? stockUnit,
     String? photo,
     int? barcode,
@@ -128,6 +132,7 @@ class ProductWeebi extends ProductAbstract<ArticleWeebi> {
     return ProductWeebi(
       shopUuid: shopUuid ?? this.shopUuid,
       id: id ?? this.id,
+      isPalpable: isPalpable ?? this.isPalpable,
       title: title ?? this.title,
       stockUnit: stockUnit ?? this.stockUnit,
       photo: photo ?? this.photo,
@@ -140,6 +145,7 @@ class ProductWeebi extends ProductAbstract<ArticleWeebi> {
       categories: categories ?? this.categories,
     );
   }
+
   @override
   int get hashCode => shopUuid.hashCode;
 }
