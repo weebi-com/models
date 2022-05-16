@@ -12,7 +12,7 @@ class LotWeebi extends LotAbstract {
     required int id,
     required int articleId,
     required int productId,
-    bool isDefault,
+    bool isDefault = true,
     DateTime? creationDate,
     this.shopUuid,
     this.dlc,
@@ -79,7 +79,7 @@ class LotWeebi extends LotAbstract {
       id: map['id'],
       articleId: map['articleId'],
       productId: map['productId'],
-      isDefault: map['isDefault'],
+      isDefault: map['isDefault'] ?? true,
       creationDate: map['creationDate'] == null
           ? WeebiDates.defaultDate
           : DateTime.parse(map['creationDate']),
