@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:collection/collection.dart';
 import 'package:mobx/mobx.dart';
 import 'package:models_base/base.dart' show ArticleAbstract;
 import 'package:models_base/utils.dart';
@@ -129,11 +128,15 @@ class ArticleWeebi extends ArticleAbstract {
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
-    final listEquals = const DeepCollectionEquality().equals;
+    //final listEquals = const DeepCollectionEquality().equals;
 
     return other is ArticleWeebi &&
         other.shopUuid == shopUuid &&
-        listEquals(other.lots, lots);
+        other.cost == cost &&
+        other.price == price &&
+        other.fullName == fullName &&
+        other.id == id &&
+        other.photo == photo;
   }
 
   @override

@@ -5,6 +5,7 @@ import 'package:models_base/base.dart' show ProductAbstract;
 import 'package:models_base/common.dart';
 import 'package:models_base/utils.dart';
 import 'package:models_weebi/src/weebi/article_weebi.dart';
+import 'package:collection/collection.dart';
 
 class ProductWeebi extends ProductAbstract<ArticleWeebi> {
   final String? shopUuid;
@@ -111,10 +112,11 @@ class ProductWeebi extends ProductAbstract<ArticleWeebi> {
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
-
+    final listEquals = const DeepCollectionEquality().equals;
     return other is ProductWeebi &&
         other.shopUuid == shopUuid &&
-        other.isPalpable == isPalpable;
+        other.isPalpable == isPalpable &&
+        listEquals(other.articles, articles);
   }
 
   copyWith({
