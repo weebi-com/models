@@ -9,6 +9,7 @@ import 'package:models_weebi/src/weebi/ticket_mixin_weebi_base.dart';
 import 'package:models_weebi/src/weebi/ticket_weebi_abstract.dart';
 import 'package:models_weebi/src/weebi/ticket_mixin_weebi_print.dart';
 import 'package:models_base/common.dart';
+import 'package:collection/collection.dart';
 
 class TicketWeebi extends TicketWeebiAbstract
     with TicketPrinter, TicketMixinWeebiBase {
@@ -47,6 +48,50 @@ class TicketWeebi extends TicketWeebiAbstract
           statusUpdateDate: statusUpdateDate ?? WeebiDates.defaultDate,
           creationDate: creationDate,
         );
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    final listEquals = const DeepCollectionEquality().equals;
+
+    return other is TicketWeebi &&
+        other.id == id &&
+        other.shopUuid == shopUuid &&
+        listEquals(other.items, items) &&
+        other.taxe == taxe &&
+        other.promo == promo &&
+        other.comment == comment &&
+        other.contactPastPurchasingPower == contactPastPurchasingPower &&
+        other.received == received &&
+        other.date == date &&
+        other.paiementType == paiementType &&
+        other.ticketType == ticketType &&
+        other.herderId == herderId &&
+        other.status == status &&
+        other.statusUpdateDate == statusUpdateDate &&
+        other.creationDate == creationDate &&
+        other.isInDash == isInDash;
+  }
+
+  @override
+  int get hashCode {
+    return id.hashCode ^
+        shopUuid.hashCode ^
+        items.hashCode ^
+        taxe.hashCode ^
+        promo.hashCode ^
+        comment.hashCode ^
+        contactPastPurchasingPower.hashCode ^
+        received.hashCode ^
+        date.hashCode ^
+        paiementType.hashCode ^
+        ticketType.hashCode ^
+        herderId.hashCode ^
+        status.hashCode ^
+        statusUpdateDate.hashCode ^
+        creationDate.hashCode ^
+        isInDash.hashCode;
+  }
 
   static final dummy = TicketWeebi(
     oid: 'oid',

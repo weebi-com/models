@@ -210,53 +210,10 @@ class ShopWeebi extends ShopAbstract {
     if (identical(this, other)) return true;
 
     return other is ShopWeebi &&
-        other.id == id &&
-        other.managerMacAddress == managerMacAddress &&
-        other.mailUnique == mailUnique &&
-        other.uuid == uuid &&
-        other.name == name &&
-        other.tel == tel &&
         other.gescom == gescom &&
-        other.mail == mail &&
-        other.address == address &&
-        other.lat == lat &&
-        other.long == long &&
-        other.shopKeeperName == shopKeeperName &&
-        other.shopKeeperTel == shopKeeperTel &&
-        other.shopKeeperMail == shopKeeperMail &&
-        other.updateDate == updateDate &&
-        other.status == status &&
-        other.statusUpdateDate == statusUpdateDate &&
-        other.serverStatus == serverStatus &&
-        other.serverStatusUpdateDate == serverStatusUpdateDate &&
-        other.isProd == isProd &&
-        other.isLocked == isLocked &&
-        other.promo == promo;
+        other.mailUnique == mailUnique;
   }
 
   @override
-  int get hashCode {
-    return id.hashCode ^
-        managerMacAddress.hashCode ^
-        uuid.hashCode ^
-        mailUnique.hashCode ^
-        name.hashCode ^
-        tel.hashCode ^
-        gescom.hashCode ^
-        mail.hashCode ^
-        address.hashCode ^
-        lat.hashCode ^
-        long.hashCode ^
-        shopKeeperName.hashCode ^
-        shopKeeperTel.hashCode ^
-        shopKeeperMail.hashCode ^
-        updateDate.hashCode ^
-        status.hashCode ^
-        statusUpdateDate.hashCode ^
-        serverStatus.hashCode ^
-        serverStatusUpdateDate.hashCode ^
-        isProd.hashCode ^
-        isLocked.hashCode ^
-        promo.hashCode;
-  }
+  int get hashCode => gescom.hashCode ^ mailUnique.hashCode;
 }

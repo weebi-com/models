@@ -1,8 +1,10 @@
 import 'dart:convert';
 
+import 'package:collection/collection.dart';
 import 'package:mobx/mobx.dart';
 import 'package:models_base/base.dart' show ArticleAbstract;
 import 'package:models_base/utils.dart';
+
 import 'package:models_weebi/src/weebi/lot_weebi.dart';
 
 class ArticleWeebi extends ArticleAbstract {
@@ -123,4 +125,17 @@ class ArticleWeebi extends ArticleAbstract {
       lots: lots ?? this.lots,
     );
   }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    final listEquals = const DeepCollectionEquality().equals;
+
+    return other is ArticleWeebi &&
+        other.shopUuid == shopUuid &&
+        listEquals(other.lots, lots);
+  }
+
+  @override
+  int get hashCode => shopUuid.hashCode ^ lots.hashCode;
 }

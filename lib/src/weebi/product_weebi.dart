@@ -112,7 +112,9 @@ class ProductWeebi extends ProductAbstract<ArticleWeebi> {
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
 
-    return other is ProductWeebi && other.shopUuid == shopUuid;
+    return other is ProductWeebi &&
+        other.shopUuid == shopUuid &&
+        other.isPalpable == isPalpable;
   }
 
   copyWith({
@@ -147,5 +149,5 @@ class ProductWeebi extends ProductAbstract<ArticleWeebi> {
   }
 
   @override
-  int get hashCode => shopUuid.hashCode;
+  int get hashCode => shopUuid.hashCode ^ isPalpable.hashCode;
 }
