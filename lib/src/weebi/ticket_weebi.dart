@@ -57,12 +57,11 @@ class TicketWeebi extends TicketWeebiAbstract
 
     return other is TicketWeebi &&
         other.id == id &&
-        other.shopId == shopId &&
+        other.shopUuid == shopUuid &&
         listEquals(other.items, items) &&
         other.taxe == taxe &&
         other.promo == promo &&
         other.comment == comment &&
-        other.contactPastPurchasingPower == contactPastPurchasingPower &&
         other.received == received &&
         other.date == date &&
         other.paiementType == paiementType &&
@@ -70,8 +69,7 @@ class TicketWeebi extends TicketWeebiAbstract
         other.herderId == herderId &&
         other.status == status &&
         other.statusUpdateDate == statusUpdateDate &&
-        other.creationDate == creationDate &&
-        other.isInDash == isInDash;
+        other.creationDate == creationDate;
   }
 
   @override
@@ -82,16 +80,13 @@ class TicketWeebi extends TicketWeebiAbstract
         taxe.hashCode ^
         promo.hashCode ^
         comment.hashCode ^
-        contactPastPurchasingPower.hashCode ^
         received.hashCode ^
         date.hashCode ^
         paiementType.hashCode ^
         ticketType.hashCode ^
         herderId.hashCode ^
-        status.hashCode ^
         statusUpdateDate.hashCode ^
-        creationDate.hashCode ^
-        isInDash.hashCode;
+        creationDate.hashCode;
   }
 
   static final dummy = TicketWeebi(
