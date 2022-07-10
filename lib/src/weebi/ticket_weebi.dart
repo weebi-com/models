@@ -341,7 +341,7 @@ class TicketWeebi extends TicketWeebiAbstract
     String? oid,
     int? id,
     String? shopId,
-    List<ItemWeebi>? items, 
+    List<ItemWeebi>? items,
     TaxeWeebi? taxe,
     double? promo,
     String? comment,
