@@ -1,10 +1,10 @@
 import 'dart:convert';
+
 import 'package:models_base/base.dart' show LotAbstract;
 import 'package:models_base/utils.dart';
 
 class LotWeebi extends LotAbstract {
   final String? shopUuid;
-  DateTime? dlc;
 
   LotWeebi({
     required int lineId,
@@ -13,7 +13,6 @@ class LotWeebi extends LotAbstract {
     bool isDefault = true,
     DateTime? creationDate,
     this.shopUuid,
-    this.dlc,
   }) : super(
           lineId: lineId,
           articleId: articleId,
@@ -37,7 +36,6 @@ class LotWeebi extends LotAbstract {
     bool? isDefault,
     DateTime? creationDate,
     String? shopUuid,
-    DateTime? dlc,
   }) {
     return LotWeebi(
       lineId: lineId ?? this.lineId,
@@ -46,7 +44,6 @@ class LotWeebi extends LotAbstract {
       isDefault: isDefault ?? this.isDefault,
       creationDate: creationDate ?? this.creationDate,
       shopUuid: shopUuid ?? this.shopUuid,
-      dlc: dlc ?? this.dlc,
     );
   }
 
@@ -60,9 +57,6 @@ class LotWeebi extends LotAbstract {
       'creationDate': creationDate?.toIso8601String() ??
           WeebiDates.defaultDate.toIso8601String(),
       'shopUuid': shopUuid,
-      // 'dlc': dlc?.toIso8601String(),
-      // 'quantity': quantity,
-      // 'initialQuantity': initialQuantity,
     };
   }
 
@@ -78,9 +72,6 @@ class LotWeebi extends LotAbstract {
           ? WeebiDates.defaultDate
           : DateTime.parse(map['creationDate']),
       shopUuid: map['shopUuid'],
-      //dlc: map['dlc'] == null
-      //    ? WeebiDates.defaultDate
-      //    : DateTime.parse(map['dlc']),
     );
   }
 
@@ -94,11 +85,14 @@ class LotWeebi extends LotAbstract {
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
 
-    return other is LotWeebi && other.shopUuid == shopUuid && other.dlc == dlc;
+    return other is LotWeebi &&
+        other.shopUuid == shopUuid &&
+        other.lineId == lineId &&
+        other.articleId == articleId &&
+        other.id == id;
   }
 
   @override
-  int get hashCode {
-    return shopUuid.hashCode ^ dlc.hashCode;
-  }
+  int get hashCode =>
+      shopUuid.hashCode ^ id.hashCode ^ articleId.hashCode ^ lineId.hashCode;
 }

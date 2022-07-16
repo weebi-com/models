@@ -7,11 +7,11 @@ import 'package:models_base/utils.dart';
 import 'package:models_weebi/src/weebi/article_weebi.dart';
 import 'package:collection/collection.dart';
 
-class ArticleLineWeebi extends ArticleLineAbstract<ArticleWeebi> {
+class LineArticleWeebi extends ArticleLineAbstract<ArticleWeebi> {
   final String? shopUuid;
   String? get shopId => shopUuid;
   bool? isPalpable;
-  ArticleLineWeebi({
+  LineArticleWeebi({
     required int id,
     this.shopUuid,
     this.isPalpable = true,
@@ -52,7 +52,7 @@ class ArticleLineWeebi extends ArticleLineAbstract<ArticleWeebi> {
     return sb.toString();
   }
 
-  static final dummy = ArticleLineWeebi(
+  static final dummy = LineArticleWeebi(
     articles: [ArticleWeebi.dummy],
     id: 1,
     title: 'dummy',
@@ -80,8 +80,8 @@ class ArticleLineWeebi extends ArticleLineAbstract<ArticleWeebi> {
     };
   }
 
-  factory ArticleLineWeebi.fromMap(Map<String, dynamic> map) {
-    return ArticleLineWeebi(
+  factory LineArticleWeebi.fromMap(Map<String, dynamic> map) {
+    return LineArticleWeebi(
       shopUuid: map['shopUuid'] ?? '',
       id: map['id'],
       title: map['title'],
@@ -106,14 +106,14 @@ class ArticleLineWeebi extends ArticleLineAbstract<ArticleWeebi> {
   @override
   String toJson() => json.encode(toMap());
 
-  factory ArticleLineWeebi.fromJson(String source) =>
-      ArticleLineWeebi.fromMap(json.decode(source));
+  factory LineArticleWeebi.fromJson(String source) =>
+      LineArticleWeebi.fromMap(json.decode(source));
 
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
     final listEquals = const DeepCollectionEquality().equals;
-    return other is ArticleLineWeebi &&
+    return other is LineArticleWeebi &&
         other.shopUuid == shopUuid &&
         other.isPalpable == isPalpable &&
         listEquals(other.articles, articles);
@@ -133,7 +133,7 @@ class ArticleLineWeebi extends ArticleLineAbstract<ArticleWeebi> {
     DateTime? creationDate,
     List<String>? categories,
   }) {
-    return ArticleLineWeebi(
+    return LineArticleWeebi(
       shopUuid: shopUuid ?? this.shopUuid,
       id: id ?? this.id,
       isPalpable: isPalpable ?? this.isPalpable,

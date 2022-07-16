@@ -4,7 +4,7 @@ import 'package:models_weebi/weebi_models.dart';
 
 void main() {
   // var awesomeProduct =
-  ArticleLineWeebi(
+  LineArticleWeebi(
     articles: [
       ArticleWeebi(
         shopUuid: 'unknown',
