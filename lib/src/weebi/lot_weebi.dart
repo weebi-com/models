@@ -10,39 +10,43 @@ class LotWeebi extends LotAbstract {
     required int lineId,
     required int articleId,
     required int id,
-    bool isDefault = true,
-    DateTime? creationDate,
+    required int proxyLineId,
+    required int proxyArticleId,
+    bool status = true,
     this.shopUuid,
   }) : super(
           lineId: lineId,
           articleId: articleId,
           id: id,
-          isDefault: isDefault,
-          creationDate: creationDate,
+          proxyLineId: proxyLineId,
+          proxyArticleId: proxyArticleId,
+          status: status,
         );
 
   static final dummy = LotWeebi(
     lineId: 1,
     articleId: 1,
     id: 1,
-    isDefault: true,
-    creationDate: WeebiDates.defaultDate,
+    proxyLineId: 1,
+    proxyArticleId: 1,
   );
 
   LotWeebi copyWith({
     int? lineId,
     int? articleId,
     int? id,
-    bool? isDefault,
-    DateTime? creationDate,
+    int? proxyLineId,
+    int? proxyArticleId,
+    bool? status,
     String? shopUuid,
   }) {
     return LotWeebi(
       lineId: lineId ?? this.lineId,
       articleId: articleId ?? this.articleId,
       id: id ?? this.id,
-      isDefault: isDefault ?? this.isDefault,
-      creationDate: creationDate ?? this.creationDate,
+      proxyArticleId: proxyArticleId ?? this.proxyArticleId,
+      proxyLineId: proxyLineId ?? this.proxyLineId,
+      status: status ?? this.status,
       shopUuid: shopUuid ?? this.shopUuid,
     );
   }
@@ -53,10 +57,10 @@ class LotWeebi extends LotAbstract {
       'lineId': lineId,
       'articleId': articleId,
       'id': id,
-      'isDefault': isDefault,
-      'creationDate': creationDate?.toIso8601String() ??
-          WeebiDates.defaultDate.toIso8601String(),
+      'proxyArticleId': proxyArticleId,
+      'proxyLineId': proxyLineId,
       'shopUuid': shopUuid,
+      'status': status,
     };
   }
 
@@ -67,11 +71,10 @@ class LotWeebi extends LotAbstract {
           : map['lineId'] as int,
       articleId: map['articleId'] as int,
       id: map['id'],
-      isDefault: map['isDefault'] ?? true,
-      creationDate: map['creationDate'] == null
-          ? WeebiDates.defaultDate
-          : DateTime.parse(map['creationDate']),
+      proxyArticleId: map['proxyArticleId'],
+      proxyLineId: map['proxyLineId'],
       shopUuid: map['shopUuid'],
+      status: map['status'] ?? true,
     );
   }
 
@@ -80,19 +83,4 @@ class LotWeebi extends LotAbstract {
 
   factory LotWeebi.fromJson(String source) =>
       LotWeebi.fromMap(json.decode(source));
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(this, other)) return true;
-
-    return other is LotWeebi &&
-        other.shopUuid == shopUuid &&
-        other.lineId == lineId &&
-        other.articleId == articleId &&
-        other.id == id;
-  }
-
-  @override
-  int get hashCode =>
-      shopUuid.hashCode ^ id.hashCode ^ articleId.hashCode ^ lineId.hashCode;
 }

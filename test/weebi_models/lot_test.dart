@@ -8,6 +8,8 @@ void main() {
     expect(dummy.lineId == LotWeebi.dummy.lineId, isTrue);
     expect(dummy.articleId == LotWeebi.dummy.articleId, isTrue);
     expect(dummy.id == LotWeebi.dummy.id, isTrue);
-    expect(dummy.isDefault == LotWeebi.dummy.isDefault, isTrue);
+    expect(dummy.proxyLineId == LotWeebi.dummy.proxyLineId, isTrue);
+    expect(dummy.proxyArticleId == LotWeebi.dummy.proxyArticleId, isTrue);
+    expect(dummy.status == LotWeebi.dummy.status, isTrue);
   });
 }

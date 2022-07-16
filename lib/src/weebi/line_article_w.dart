@@ -1,13 +1,13 @@
 import 'dart:convert';
 
 import 'package:mobx/mobx.dart';
-import 'package:models_base/base.dart' show ArticleLineAbstract;
+import 'package:models_base/base.dart' show LineArticleAbstract;
 import 'package:models_base/common.dart';
 import 'package:models_base/utils.dart';
 import 'package:models_weebi/src/weebi/article_weebi.dart';
 import 'package:collection/collection.dart';
 
-class LineArticleWeebi extends ArticleLineAbstract<ArticleWeebi> {
+class LineArticleWeebi extends LineArticleAbstract<ArticleWeebi> {
   final String? shopUuid;
   String? get shopId => shopUuid;
   bool? isPalpable;
