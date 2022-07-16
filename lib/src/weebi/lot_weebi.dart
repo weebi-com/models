@@ -5,65 +5,57 @@ import 'package:models_base/utils.dart';
 class LotWeebi extends LotAbstract {
   final String? shopUuid;
   DateTime? dlc;
-  double quantity;
-  double initialQuantity;
 
   LotWeebi({
-    required int id,
+    required int lineId,
     required int articleId,
-    required int productId,
+    required int id,
     bool isDefault = true,
     DateTime? creationDate,
     this.shopUuid,
     this.dlc,
-    this.quantity = 0.0,
-    this.initialQuantity = 0.0,
   }) : super(
-          id: id,
+          lineId: lineId,
           articleId: articleId,
-          productId: productId,
+          id: id,
           isDefault: isDefault,
           creationDate: creationDate,
         );
 
   static final dummy = LotWeebi(
-    id: 1,
+    lineId: 1,
     articleId: 1,
-    productId: 1,
+    id: 1,
     isDefault: true,
     creationDate: WeebiDates.defaultDate,
   );
 
   LotWeebi copyWith({
-    int? id,
+    int? lineId,
     int? articleId,
-    int? productId,
+    int? id,
     bool? isDefault,
     DateTime? creationDate,
     String? shopUuid,
     DateTime? dlc,
-    double? quantity,
-    double? initialQuantity,
   }) {
     return LotWeebi(
-      id: id ?? this.id,
+      lineId: lineId ?? this.lineId,
       articleId: articleId ?? this.articleId,
-      productId: productId ?? this.productId,
+      id: id ?? this.id,
       isDefault: isDefault ?? this.isDefault,
       creationDate: creationDate ?? this.creationDate,
       shopUuid: shopUuid ?? this.shopUuid,
       dlc: dlc ?? this.dlc,
-      quantity: quantity ?? this.quantity,
-      initialQuantity: initialQuantity ?? this.initialQuantity,
     );
   }
 
   @override
   Map<String, dynamic> toMap() {
     return {
-      'id': id,
+      'lineId': lineId,
       'articleId': articleId,
-      'productId': productId,
+      'id': id,
       'isDefault': isDefault,
       'creationDate': creationDate?.toIso8601String() ??
           WeebiDates.defaultDate.toIso8601String(),
@@ -76,9 +68,11 @@ class LotWeebi extends LotAbstract {
 
   factory LotWeebi.fromMap(Map<String, dynamic> map) {
     return LotWeebi(
+      lineId: map['lineId'] == null
+          ? map['productId'] as int
+          : map['lineId'] as int,
+      articleId: map['articleId'] as int,
       id: map['id'],
-      articleId: map['articleId'],
-      productId: map['productId'],
       isDefault: map['isDefault'] ?? true,
       creationDate: map['creationDate'] == null
           ? WeebiDates.defaultDate
@@ -87,8 +81,6 @@ class LotWeebi extends LotAbstract {
       //dlc: map['dlc'] == null
       //    ? WeebiDates.defaultDate
       //    : DateTime.parse(map['dlc']),
-      // quantity: map['quantity'],
-      // initialQuantity: map['initialQuantity'],
     );
   }
 
@@ -99,26 +91,14 @@ class LotWeebi extends LotAbstract {
       LotWeebi.fromMap(json.decode(source));
 
   @override
-  String toString() {
-    return 'Lot(shopUuid: $shopUuid, dlc: $dlc, quantity: $quantity, initialQuantity: $initialQuantity)';
-  }
-
-  @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
 
-    return other is LotWeebi &&
-        other.shopUuid == shopUuid &&
-        other.dlc == dlc &&
-        other.quantity == quantity &&
-        other.initialQuantity == initialQuantity;
+    return other is LotWeebi && other.shopUuid == shopUuid && other.dlc == dlc;
   }
 
   @override
   int get hashCode {
-    return shopUuid.hashCode ^
-        dlc.hashCode ^
-        quantity.hashCode ^
-        initialQuantity.hashCode;
+    return shopUuid.hashCode ^ dlc.hashCode;
   }
 }

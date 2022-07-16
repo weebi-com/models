@@ -1,6 +1,6 @@
 library models;
 
-export 'src/weebi/product_weebi.dart';
+export 'src/weebi/article_line_w.dart';
 export 'src/weebi/article_weebi.dart';
 export 'src/weebi/lot_weebi.dart';
 export 'src/weebi/item_weebi.dart';

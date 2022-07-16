@@ -1,21 +1,21 @@
 import 'dart:convert';
 
 import 'package:mobx/mobx.dart';
-import 'package:models_base/base.dart' show ProductAbstract;
+import 'package:models_base/base.dart' show ArticleLineAbstract;
 import 'package:models_base/common.dart';
 import 'package:models_base/utils.dart';
 import 'package:models_weebi/src/weebi/article_weebi.dart';
 import 'package:collection/collection.dart';
 
-class ProductWeebi extends ProductAbstract<ArticleWeebi> {
+class ArticleLineWeebi extends ArticleLineAbstract<ArticleWeebi> {
   final String? shopUuid;
   String? get shopId => shopUuid;
   bool? isPalpable;
-  ProductWeebi({
+  ArticleLineWeebi({
+    required int id,
     this.shopUuid,
     this.isPalpable = true,
     required List<ArticleWeebi> articles,
-    required int id,
     List<String>? categories,
     required String title,
     StockUnit stockUnit = StockUnit.unit,
@@ -39,10 +39,11 @@ class ProductWeebi extends ProductAbstract<ArticleWeebi> {
 
 // use a mixin ?
   String get sharableText {
-    final truc = StringBuffer();
-    for (var article in articles) {
-      final qt = article.lots?.fold(0.0,
-          (double lotValue, lot) => lotValue + lot.quantity * article.weight);
+    final truc =
+        StringBuffer(); //TODO fix this inherited from old  old stock management
+    for (var a in articles) {
+      final qt =
+          a.lots?.fold(0.0, (double lotValue, lot) => lotValue * a.weight);
       truc.write(numFormat.format(qt));
     }
     final sb = StringBuffer()
@@ -51,7 +52,7 @@ class ProductWeebi extends ProductAbstract<ArticleWeebi> {
     return sb.toString();
   }
 
-  static final dummy = ProductWeebi(
+  static final dummy = ArticleLineWeebi(
     articles: [ArticleWeebi.dummy],
     id: 1,
     title: 'dummy',
@@ -79,8 +80,8 @@ class ProductWeebi extends ProductAbstract<ArticleWeebi> {
     };
   }
 
-  factory ProductWeebi.fromMap(Map<String, dynamic> map) {
-    return ProductWeebi(
+  factory ArticleLineWeebi.fromMap(Map<String, dynamic> map) {
+    return ArticleLineWeebi(
       shopUuid: map['shopUuid'] ?? '',
       id: map['id'],
       title: map['title'],
@@ -95,8 +96,7 @@ class ProductWeebi extends ProductAbstract<ArticleWeebi> {
       statusUpdateDate: map['statusUpdateDate'] == null
           ? WeebiDates.defaultDate
           : DateTime.parse(map['statusUpdateDate']),
-      articles: List<ArticleWeebi>.from(
-          map['articles']?.map((x) => ArticleWeebi.fromMap(x))),
+      articles: map['articles']?.map((x) => ArticleWeebi.fromMap(x)),
       categories: map["categories"] == null
           ? []
           : List<String>.from(map["categories"].map((x) => x)),
@@ -106,14 +106,14 @@ class ProductWeebi extends ProductAbstract<ArticleWeebi> {
   @override
   String toJson() => json.encode(toMap());
 
-  factory ProductWeebi.fromJson(String source) =>
-      ProductWeebi.fromMap(json.decode(source));
+  factory ArticleLineWeebi.fromJson(String source) =>
+      ArticleLineWeebi.fromMap(json.decode(source));
 
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
     final listEquals = const DeepCollectionEquality().equals;
-    return other is ProductWeebi &&
+    return other is ArticleLineWeebi &&
         other.shopUuid == shopUuid &&
         other.isPalpable == isPalpable &&
         listEquals(other.articles, articles);
@@ -133,7 +133,7 @@ class ProductWeebi extends ProductAbstract<ArticleWeebi> {
     DateTime? creationDate,
     List<String>? categories,
   }) {
-    return ProductWeebi(
+    return ArticleLineWeebi(
       shopUuid: shopUuid ?? this.shopUuid,
       id: id ?? this.id,
       isPalpable: isPalpable ?? this.isPalpable,

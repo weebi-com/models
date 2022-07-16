@@ -12,7 +12,7 @@ class ArticleWeebi extends ArticleAbstract {
   String? get shopId => shopUuid;
   ArticleWeebi(
       {required this.shopUuid,
-      required int productId,
+      required int lineId,
       required int id,
       required String fullName,
       required int price,
@@ -24,7 +24,7 @@ class ArticleWeebi extends ArticleAbstract {
       @observable bool status = false,
       this.lots})
       : super(
-          productId: productId,
+          lineId: lineId,
           id: id,
           fullName: fullName,
           price: price,
@@ -38,8 +38,8 @@ class ArticleWeebi extends ArticleAbstract {
 
   static final dummy = ArticleWeebi(
     shopUuid: 'shopUuid',
+    lineId: 1,
     id: 1,
-    productId: 1,
     fullName: 'dummy',
     price: 100,
     cost: 100,
@@ -56,7 +56,7 @@ class ArticleWeebi extends ArticleAbstract {
     return {
       'shopUuid': shopUuid,
       'lots': lots?.map((x) => x.toMap()).toList(),
-      'productId': productId,
+      'lineId': lineId,
       'id': id,
       'fullName': fullName,
       'price': price,
@@ -72,7 +72,9 @@ class ArticleWeebi extends ArticleAbstract {
 
   factory ArticleWeebi.fromMap(Map<String, dynamic> map) {
     return ArticleWeebi(
-        productId: map['productId'] as int,
+        lineId: map['lineId'] == null
+            ? map['productId'] as int
+            : map['lineId'] as int,
         id: map['id'] as int,
         fullName: map['fullName'] as String,
         price: map['price'] as int,
@@ -97,7 +99,7 @@ class ArticleWeebi extends ArticleAbstract {
 
   ArticleWeebi copyWith({
     String? shopUuid,
-    int? productId,
+    int? lineId,
     int? id,
     String? fullName,
     int? price,
@@ -111,7 +113,7 @@ class ArticleWeebi extends ArticleAbstract {
   }) {
     return ArticleWeebi(
       shopUuid: shopUuid ?? this.shopUuid,
-      productId: productId ?? this.productId,
+      lineId: lineId ?? this.lineId,
       id: id ?? this.id,
       fullName: fullName ?? this.fullName,
       price: price ?? this.price,

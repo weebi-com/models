@@ -1,13 +1,24 @@
-import 'package:models_weebi/src/weebi/product_weebi.dart';
+import 'package:collection/collection.dart';
+import 'package:models_weebi/src/weebi/article_weebi.dart';
 import 'package:test/test.dart';
 
 void main() {
-  test('product weebi json', () {
-    final _json = ProductWeebi.dummy.toJson();
-    final dummy = ProductWeebi.fromJson(_json);
-    // expect(dummy == ProductWeebi.dummy, isTrue);
-    expect(dummy.id == ProductWeebi.dummy.id, isTrue);
-    expect(dummy.status == ProductWeebi.dummy.status, isTrue);
-    expect(dummy.creationDate == ProductWeebi.dummy.creationDate, isTrue);
+  test('productWeebi', () {
+    final _json = ArticleWeebi.dummy.toJson();
+    final dummy = ArticleWeebi.fromJson(_json);
+    // expect(dummy == ArticleWeebi.dummy, isTrue);
+    expect(dummy.shopUuid == ArticleWeebi.dummy.shopUuid, isTrue);
+    expect(dummy.id == ArticleWeebi.dummy.id, isTrue);
+    expect(dummy.lineId == ArticleWeebi.dummy.lineId, isTrue);
+    expect(dummy.fullName == ArticleWeebi.dummy.fullName, isTrue);
+    expect(dummy.price == ArticleWeebi.dummy.price, isTrue);
+    expect(dummy.cost == ArticleWeebi.dummy.cost, isTrue);
+    expect(dummy.weight == ArticleWeebi.dummy.weight, isTrue);
+    expect(dummy.articleCode == ArticleWeebi.dummy.articleCode, isTrue);
+    expect(dummy.photo == ArticleWeebi.dummy.photo, isTrue);
+    expect(dummy.creationDate == ArticleWeebi.dummy.creationDate, isTrue);
+    expect(dummy.status == ArticleWeebi.dummy.status, isTrue);
+    final listEquals = const DeepCollectionEquality().equals;
+    expect(listEquals(dummy.lots, ArticleWeebi.dummy.lots), isTrue);
   });
 }

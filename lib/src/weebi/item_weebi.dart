@@ -6,11 +6,11 @@ import 'package:models_base/base.dart' show ItemAbstract;
 
 class ItemWeebi extends ItemAbstract<ArticleWeebi, LotWeebi> {
   ItemWeebi(
-    final ArticleWeebi article,
+    final ArticleWeebi product,
     List<LotWeebi>? lots,
     double quantity,
   ) : super(
-          article,
+          product,
           lots,
           quantity,
         );
