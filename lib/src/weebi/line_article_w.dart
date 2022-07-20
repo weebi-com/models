@@ -96,7 +96,10 @@ class LineArticleWeebi extends LineArticleAbstract<ArticleWeebi> {
       statusUpdateDate: map['statusUpdateDate'] == null
           ? WeebiDates.defaultDate
           : DateTime.parse(map['statusUpdateDate']),
-      articles: map['articles']?.map((x) => ArticleWeebi.fromMap(x)),
+      articles: map['articles'] == null
+          ? []
+          : List<ArticleWeebi>.from(
+              map['articles'].map((x) => ArticleWeebi.fromMap(x))),
       categories: map["categories"] == null
           ? []
           : List<String>.from(map["categories"].map((x) => x)),

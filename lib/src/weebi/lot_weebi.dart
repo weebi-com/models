@@ -71,8 +71,8 @@ class LotWeebi extends LotAbstract {
           : map['lineId'] as int,
       articleId: map['articleId'] as int,
       id: map['id'],
-      proxyArticleId: map['proxyArticleId'],
       proxyLineId: map['proxyLineId'],
+      proxyArticleId: map['proxyArticleId'],
       shopUuid: map['shopUuid'],
       status: map['status'] ?? true,
     );
