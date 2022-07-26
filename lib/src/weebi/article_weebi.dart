@@ -20,7 +20,8 @@ class ArticleWeebi extends ArticleAbstract {
       double weight = 1.0,
       int? articleCode,
       String? photo = '',
-      DateTime? creationDate,
+      required DateTime? creationDate,
+      required DateTime? updateDate,
       @observable bool status = false,
       this.lots})
       : super(
@@ -33,6 +34,7 @@ class ArticleWeebi extends ArticleAbstract {
           articleCode: articleCode,
           photo: photo,
           creationDate: creationDate,
+          updateDate: updateDate,
           status: status,
         );
 
@@ -47,6 +49,7 @@ class ArticleWeebi extends ArticleAbstract {
     articleCode: 1,
     photo: 'photo',
     creationDate: WeebiDates.defaultDate,
+    updateDate: WeebiDates.defaultDate,
     status: true,
     lots: [LotWeebi.dummy],
   );
@@ -65,6 +68,8 @@ class ArticleWeebi extends ArticleAbstract {
       'articleCode': articleCode ?? 0,
       'photo': photo ?? '',
       'creationDate': creationDate?.toIso8601String() ??
+          WeebiDates.defaultDate.toIso8601String(),
+      'updateDate': updateDate?.toIso8601String() ??
           WeebiDates.defaultDate.toIso8601String(),
       'status': status,
     };
@@ -85,6 +90,9 @@ class ArticleWeebi extends ArticleAbstract {
         creationDate: map['creationDate'] == null
             ? WeebiDates.defaultDate
             : DateTime.parse(map['creationDate']),
+        updateDate: map['updateDate'] == null
+            ? WeebiDates.defaultDate
+            : DateTime.parse(map['updateDate']),
         shopUuid: map['shopUuid'] ?? '',
         lots: map['lots'] != null
             ? List<LotWeebi>.from(map['lots']?.map((x) => LotWeebi.fromMap(x)))
@@ -108,6 +116,7 @@ class ArticleWeebi extends ArticleAbstract {
     int? articleCode,
     String? photo,
     DateTime? creationDate,
+    DateTime? updateDate,
     bool? status,
     List<LotWeebi>? lots,
   }) {
@@ -122,6 +131,7 @@ class ArticleWeebi extends ArticleAbstract {
       articleCode: articleCode ?? this.articleCode,
       photo: photo ?? this.photo,
       creationDate: creationDate ?? this.creationDate,
+      updateDate: updateDate ?? this.updateDate,
       status: status ?? this.status,
       lots: lots ?? this.lots,
     );
@@ -138,7 +148,9 @@ class ArticleWeebi extends ArticleAbstract {
         other.price == price &&
         other.fullName == fullName &&
         other.id == id &&
-        other.photo == photo;
+        other.photo == photo &&
+        other.creationDate == creationDate &&
+        other.updateDate == updateDate;
   }
 
   @override

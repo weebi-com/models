@@ -24,6 +24,7 @@ class LineArticleWeebi extends LineArticleAbstract<ArticleWeebi> {
     @observable required bool status,
     DateTime? statusUpdateDate,
     required DateTime? creationDate,
+    required DateTime? updateDate,
   }) : super(
           id: id,
           categories: categories,
@@ -35,6 +36,7 @@ class LineArticleWeebi extends LineArticleAbstract<ArticleWeebi> {
           statusUpdateDate: statusUpdateDate,
           articles: articles,
           creationDate: creationDate,
+          updateDate: updateDate,
         );
 
 // use a mixin ?
@@ -58,6 +60,7 @@ class LineArticleWeebi extends LineArticleAbstract<ArticleWeebi> {
     title: 'dummy',
     status: true,
     creationDate: WeebiDates.defaultDate,
+    updateDate: WeebiDates.defaultDate,
   );
   @override
   Map<String, dynamic> toMap() {
@@ -74,6 +77,8 @@ class LineArticleWeebi extends LineArticleAbstract<ArticleWeebi> {
           WeebiDates.defaultDate.toIso8601String(),
       'articles': articles.map((x) => x.toMap()).toList(),
       'creationDate': creationDate?.toIso8601String() ??
+          WeebiDates.defaultDate.toIso8601String(),
+      'updateDate': creationDate?.toIso8601String() ??
           WeebiDates.defaultDate.toIso8601String(),
       'categories':
           categories == null ? <String>[] : categories!.map((e) => e).toList(),
@@ -92,6 +97,9 @@ class LineArticleWeebi extends LineArticleAbstract<ArticleWeebi> {
       creationDate: map['creationDate'] == null
           ? WeebiDates.defaultDate
           : DateTime.parse(map['creationDate']),
+      updateDate: map['updateDate'] == null
+          ? WeebiDates.defaultDate
+          : DateTime.parse(map['updateDate']),
       status: map['status'],
       statusUpdateDate: map['statusUpdateDate'] == null
           ? WeebiDates.defaultDate
@@ -134,6 +142,7 @@ class LineArticleWeebi extends LineArticleAbstract<ArticleWeebi> {
     DateTime? statusUpdateDate,
     List<ArticleWeebi>? articles,
     DateTime? creationDate,
+    DateTime? updateDate,
     List<String>? categories,
   }) {
     return LineArticleWeebi(
@@ -149,6 +158,7 @@ class LineArticleWeebi extends LineArticleAbstract<ArticleWeebi> {
       articles: articles ??
           this.articles.map((e) => e).toList(), // a real copy, not a reference
       creationDate: creationDate ?? this.creationDate,
+      updateDate: updateDate ?? this.updateDate,
       categories: categories ?? this.categories,
     );
   }

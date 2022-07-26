@@ -3,8 +3,7 @@ import 'package:models_base/utils.dart';
 import 'package:models_weebi/weebi_models.dart';
 
 void main() {
-  // var awesomeProduct =
-  LineArticleWeebi(
+  final awesomeArticleLine = LineArticleWeebi(
     articles: [
       ArticleWeebi(
         shopUuid: 'unknown',
@@ -12,12 +11,15 @@ void main() {
         id: 1,
         fullName: 'frometon',
         price: 100,
+        creationDate: WeebiDates.defaultDate,
+        updateDate: WeebiDates.defaultDate,
       )
     ],
     id: 1,
     title: 'frometon',
     status: true,
     creationDate: WeebiDates.defaultDate,
+    updateDate: WeebiDates.defaultDate,
   );
 
   // final awesomeTicket =
@@ -39,4 +41,5 @@ void main() {
     statusUpdateDate: WeebiDates.defaultDate,
     creationDate: WeebiDates.defaultDate,
   );
+  print(awesomeArticleLine);
 }
