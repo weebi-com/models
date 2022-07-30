@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:models_base/base.dart' show ShopAbstract;
 import 'package:models_base/utils.dart';
+import 'package:models_weebi/common.dart' show Address;
 
 // consider adding
 // * String appVersionBuildNumber
@@ -10,6 +11,9 @@ import 'package:models_base/utils.dart';
 class ShopWeebi extends ShopAbstract {
   String gescom;
   String mailUnique;
+  final Address? addressComplete;
+  final DateTime? promoStart;
+  final DateTime? promoEnd;
   String? get shopId => uuid;
   ShopWeebi({
     required int id,
@@ -23,9 +27,12 @@ class ShopWeebi extends ShopAbstract {
     required DateTime serverStatusUpdateDate,
     required bool isProd,
     required bool isLocked,
-    double promo = 0.0,
     required DateTime updateDate,
     this.gescom = '',
+    this.addressComplete,
+    double promo = 0.0,
+    this.promoStart,
+    this.promoEnd,
     String mail = '',
     String address = '',
     String lat = '',
@@ -92,6 +99,7 @@ class ShopWeebi extends ShopAbstract {
   ShopWeebi copyWith({
     int? id,
     String? managerMacAddress,
+    Address? addressComplete,
     String? uuid,
     String? mailUnique,
     String? name,
@@ -112,9 +120,12 @@ class ShopWeebi extends ShopAbstract {
     bool? isProd,
     bool? isLocked,
     double? promo,
+    DateTime? promoStart,
+    DateTime? promoEnd,
   }) {
     return ShopWeebi(
       id: id ?? this.id,
+      addressComplete: addressComplete ?? this.addressComplete,
       uuid: uuid ?? this.uuid,
       mailUnique: mailUnique ?? this.mailUnique,
       name: name ?? this.name,
@@ -135,6 +146,8 @@ class ShopWeebi extends ShopAbstract {
       isProd: isProd ?? this.isProd,
       isLocked: isLocked ?? this.isLocked,
       promo: promo ?? this.promo,
+      promoStart: promoStart ?? this.promoStart,
+      promoEnd: promoEnd ?? this.promoEnd,
     );
   }
 
@@ -143,6 +156,7 @@ class ShopWeebi extends ShopAbstract {
     return {
       'id': id,
       'uuid': uuid,
+      'addressComplete': addressComplete?.toMap(),
       'mailUnique': mailUnique,
       'name': name,
       'tel': tel,
@@ -161,6 +175,8 @@ class ShopWeebi extends ShopAbstract {
       'isProd': isProd,
       'isLocked': isLocked,
       'promo': promo,
+      'promoStart': promoStart?.toIso8601String(),
+      'promoEnd': promoEnd?.toIso8601String(),
     };
   }
 
@@ -168,6 +184,9 @@ class ShopWeebi extends ShopAbstract {
     return ShopWeebi(
       id: map['id'],
       uuid: map['uuid'],
+      addressComplete: map['addressComplete'] != null
+          ? Address.fromMap(map['addressComplete'])
+          : Address.addressEmpty,
       mailUnique: map['mailUnique'],
       name: map['name'],
       tel: map['tel'],
@@ -192,6 +211,12 @@ class ShopWeebi extends ShopAbstract {
       isProd: map['isProd'],
       isLocked: map['isLocked'],
       promo: map['promo'] == null ? 0.0 : (map['promo'] as num).toDouble(),
+      promoStart: map['promoStart'] == null
+          ? WeebiDates.defaultDate
+          : DateTime.parse(map['promoStart']),
+      promoEnd: map['promoEnd'] == null
+          ? WeebiDates.defaultDate
+          : DateTime.parse(map['promoEnd']),
     );
   }
   @override
@@ -211,9 +236,10 @@ class ShopWeebi extends ShopAbstract {
 
     return other is ShopWeebi &&
         other.gescom == gescom &&
-        other.mailUnique == mailUnique;
+        other.mailUnique == mailUnique &&
+        other.uuid == uuid;
   }
 
   @override
-  int get hashCode => gescom.hashCode ^ mailUnique.hashCode;
+  int get hashCode => gescom.hashCode ^ mailUnique.hashCode ^ uuid.hashCode;
 }
