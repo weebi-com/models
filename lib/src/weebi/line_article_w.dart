@@ -10,7 +10,8 @@ import 'package:collection/collection.dart';
 class LineArticleWeebi extends LineArticleAbstract<ArticleWeebi> {
   final String? shopUuid;
   String? get shopId => shopUuid;
-  bool? isPalpable;
+  final bool? isPalpable;
+
   LineArticleWeebi({
     required int id,
     this.shopUuid,
