@@ -44,11 +44,11 @@ class LineArticleWeebi extends LineArticleAbstract<ArticleWeebi> {
   String get sharableText {
     final truc =
         StringBuffer(); //TODO fix this inherited from old  old stock management
-    for (var a in articles) {
-      final qt =
-          a.lots?.fold(0.0, (double lotValue, lot) => lotValue * a.weight);
-      truc.write(numFormat.format(qt));
-    }
+    // for (var a in articles) {
+    //   final qt =
+    //       a.lots?.fold(0.0, (double lotValue, lot) => lotValue * a.weight);
+    //   truc.write(numFormat.format(qt));
+    // }
     final sb = StringBuffer()
       ..writeln('# $id - $title')
       ..writeln('stock : ${truc.toString()}');

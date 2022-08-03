@@ -1,29 +1,28 @@
 import 'dart:convert';
 
 import 'package:mobx/mobx.dart';
-import 'package:models_base/base.dart' show ArticleAbstract;
-import 'package:models_base/utils.dart';
+import 'package:models_weebi/utils.dart';
+import 'package:models_weebi/weebi_models.dart';
 
-import 'package:models_weebi/src/weebi/lot_weebi.dart';
+class ArticleBasket extends ArticleWeebi {
+  final List<LotWeebi>? lots;
 
-class ArticleWeebi extends ArticleAbstract {
-  final String? shopUuid;
-
-  String? get shopId => shopUuid;
-  ArticleWeebi(
-      {required this.shopUuid,
-      required int lineId,
-      required int id,
-      required String fullName,
-      required int price,
-      int cost = 0,
-      double weight = 1.0,
-      int? articleCode,
-      String? photo = '',
-      required DateTime? creationDate,
-      required DateTime? updateDate,
-      @observable bool status = false})
-      : super(
+  ArticleBasket({
+    String? shopUuid,
+    required int lineId,
+    required int id,
+    required String fullName,
+    required int price,
+    int cost = 0,
+    double weight = 1.0,
+    int? articleCode,
+    String? photo = '',
+    required DateTime? creationDate,
+    required DateTime? updateDate,
+    @observable bool status = false,
+    this.lots,
+  }) : super(
+          shopUuid: shopUuid,
           lineId: lineId,
           id: id,
           fullName: fullName,
@@ -37,7 +36,7 @@ class ArticleWeebi extends ArticleAbstract {
           status: status,
         );
 
-  static final dummy = ArticleWeebi(
+  static final dummy = ArticleBasket(
     shopUuid: 'shopUuid',
     lineId: 1,
     id: 1,
@@ -50,12 +49,14 @@ class ArticleWeebi extends ArticleAbstract {
     creationDate: WeebiDates.defaultDate,
     updateDate: WeebiDates.defaultDate,
     status: true,
+    lots: [LotWeebi.dummy],
   );
 
   @override
   Map<String, dynamic> toMap() {
     return {
       'shopUuid': shopUuid,
+      'lots': lots?.map((x) => x.toMap()).toList(),
       'lineId': lineId,
       'id': id,
       'fullName': fullName,
@@ -72,8 +73,8 @@ class ArticleWeebi extends ArticleAbstract {
     };
   }
 
-  factory ArticleWeebi.fromMap(Map<String, dynamic> map) {
-    return ArticleWeebi(
+  factory ArticleBasket.fromMap(Map<String, dynamic> map) {
+    return ArticleBasket(
         lineId: map['lineId'] == null
             ? map['productId'] as int
             : map['lineId'] as int,
@@ -91,15 +92,20 @@ class ArticleWeebi extends ArticleAbstract {
             ? WeebiDates.defaultDate
             : DateTime.parse(map['updateDate']),
         shopUuid: map['shopUuid'] ?? '',
+        lots: map['lots'] != null
+            ? List<LotWeebi>.from(map['lots']?.map((x) => LotWeebi.fromMap(x)))
+            : [],
         status: map['status']);
   }
+
   @override
   String toJson() => json.encode(toMap());
 
-  factory ArticleWeebi.fromJson(String source) =>
-      ArticleWeebi.fromMap(json.decode(source));
+  factory ArticleBasket.fromJson(String source) =>
+      ArticleBasket.fromMap(json.decode(source));
 
-  ArticleWeebi copyWith({
+  @override
+  ArticleBasket copyWith({
     String? shopUuid,
     int? lineId,
     int? id,
@@ -114,7 +120,7 @@ class ArticleWeebi extends ArticleAbstract {
     bool? status,
     List<LotWeebi>? lots,
   }) {
-    return ArticleWeebi(
+    return ArticleBasket(
       shopUuid: shopUuid ?? this.shopUuid,
       lineId: lineId ?? this.lineId,
       id: id ?? this.id,
@@ -127,25 +133,7 @@ class ArticleWeebi extends ArticleAbstract {
       creationDate: creationDate ?? this.creationDate,
       updateDate: updateDate ?? this.updateDate,
       status: status ?? this.status,
+      lots: lots ?? this.lots,
     );
   }
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(this, other)) return true;
-    //final listEquals = const DeepCollectionEquality().equals;
-
-    return other is ArticleWeebi &&
-        other.shopUuid == shopUuid &&
-        other.cost == cost &&
-        other.price == price &&
-        other.fullName == fullName &&
-        other.id == id &&
-        other.photo == photo &&
-        other.creationDate == creationDate &&
-        other.updateDate == updateDate;
-  }
-
-  @override
-  int get hashCode => shopUuid.hashCode;
 }
