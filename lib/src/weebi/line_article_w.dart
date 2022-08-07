@@ -4,10 +4,16 @@ import 'package:mobx/mobx.dart';
 import 'package:models_base/base.dart' show LineArticleAbstract;
 import 'package:models_base/common.dart';
 import 'package:models_base/utils.dart';
+import 'package:models_weebi/src/weebi/article_basket.dart';
 import 'package:models_weebi/src/weebi/article_weebi.dart';
 import 'package:collection/collection.dart';
 
-class LineArticleWeebi extends LineArticleAbstract<ArticleWeebi> {
+// TODO test this before going any further
+extension BaseModel on Type {
+  fromMap(Map<String, dynamic> data) {}
+}
+
+class LineArticleWeebi<A extends ArticleWeebi> extends LineArticleAbstract<A> {
   final String? shopUuid;
   String? get shopId => shopUuid;
   final bool? isPalpable;
@@ -16,7 +22,7 @@ class LineArticleWeebi extends LineArticleAbstract<ArticleWeebi> {
     required int id,
     this.shopUuid,
     this.isPalpable = true,
-    required List<ArticleWeebi> articles,
+    required List<A> articles,
     List<String>? categories,
     required String title,
     StockUnit stockUnit = StockUnit.unit,
@@ -107,8 +113,13 @@ class LineArticleWeebi extends LineArticleAbstract<ArticleWeebi> {
           : DateTime.parse(map['statusUpdateDate']),
       articles: map['articles'] == null
           ? []
-          : List<ArticleWeebi>.from(
-              map['articles'].map((x) => ArticleWeebi.fromMap(x))),
+          : List<A>.from(map['articles'].map((x) {
+              if (x['lots'] == null) {
+                return ArticleWeebi.fromMap(x);
+              } else {
+                return ArticleBasket.fromMap(x);
+              }
+            })),
       categories: map["categories"] == null
           ? []
           : List<String>.from(map["categories"].map((x) => x)),

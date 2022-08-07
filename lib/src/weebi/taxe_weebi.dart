@@ -32,4 +32,15 @@ class TaxeWeebi extends TaxeAbstract {
 
   factory TaxeWeebi.fromJson(String source) =>
       TaxeWeebi.fromMap(json.decode(source));
+
+  @override
+  bool operator ==(Object other) {
+    return other is TaxeWeebi &&
+        other.name == name &&
+        other.id == id &&
+        other.percentage == percentage;
+  }
+
+  @override
+  int get hashCode => name.hashCode ^ id.hashCode ^ percentage.hashCode;
 }

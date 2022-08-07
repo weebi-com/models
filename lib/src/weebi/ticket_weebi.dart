@@ -358,6 +358,7 @@ class TicketWeebi extends TicketWeebiAbstract
   Map<String, dynamic> toMap() {
     return {
       'id': id,
+      'oid': oid,
       'shopId': shopId,
       'items': items.map((x) => x.toMap()).toList(),
       'taxe': taxe.toMap(),

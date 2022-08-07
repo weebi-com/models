@@ -6,6 +6,8 @@ void main() {
     final _json = TaxeWeebi.noTax.toJson();
     final dummy = TaxeWeebi.fromJson(_json);
 
-    expect(dummy == TaxeWeebi.noTax, isTrue);
+    expect(dummy.id == TaxeWeebi.noTax.id, isTrue);
+    expect(dummy.name == TaxeWeebi.noTax.name, isTrue);
+    expect(dummy.percentage == TaxeWeebi.noTax.percentage, isTrue);
   });
 }
