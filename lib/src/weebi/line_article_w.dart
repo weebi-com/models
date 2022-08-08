@@ -111,7 +111,7 @@ class LineArticleWeebi<A extends ArticleWeebi> extends LineArticleAbstract<A> {
       statusUpdateDate: map['statusUpdateDate'] == null
           ? WeebiDates.defaultDate
           : DateTime.parse(map['statusUpdateDate']),
-      articles: map['articles'] == null
+      articles: map['articles'] == null || map['articles'] == []
           ? []
           : List<A>.from(map['articles'].map((x) {
               if (x['lots'] == null) {
@@ -132,16 +132,6 @@ class LineArticleWeebi<A extends ArticleWeebi> extends LineArticleAbstract<A> {
   factory LineArticleWeebi.fromJson(String source) =>
       LineArticleWeebi.fromMap(json.decode(source));
 
-  @override
-  bool operator ==(Object other) {
-    if (identical(this, other)) return true;
-    final listEquals = const DeepCollectionEquality().equals;
-    return other is LineArticleWeebi &&
-        other.shopUuid == shopUuid &&
-        other.isPalpable == isPalpable &&
-        listEquals(other.articles, articles);
-  }
-
   copyWith({
     String? shopUuid,
     int? id,
@@ -152,7 +142,7 @@ class LineArticleWeebi<A extends ArticleWeebi> extends LineArticleAbstract<A> {
     int? barcode,
     bool? status,
     DateTime? statusUpdateDate,
-    List<ArticleWeebi>? articles,
+    List<A>? articles,
     DateTime? creationDate,
     DateTime? updateDate,
     List<String>? categories,
@@ -177,4 +167,15 @@ class LineArticleWeebi<A extends ArticleWeebi> extends LineArticleAbstract<A> {
 
   @override
   int get hashCode => shopUuid.hashCode ^ isPalpable.hashCode;
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    final listEquals = const DeepCollectionEquality().equals;
+    return other is LineArticleWeebi &&
+        other.shopUuid == shopUuid &&
+        other.id == id &&
+        other.isPalpable == isPalpable &&
+        listEquals(other.articles, articles);
+  }
 }

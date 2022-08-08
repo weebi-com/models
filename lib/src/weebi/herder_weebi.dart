@@ -169,16 +169,10 @@ class HerderWeebi extends HerderAbstract {
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
 
-    return other is HerderAbstract && other.id == id;
-    // &&
-    // other.bank == bank &&
-    // other.identity == identity &&
-    // other.category == category &&
-    // other.qrcode == qrcode &&
-    // other.milkMonthQuota == milkMonthQuota &&
-    // other.isWoman == isWoman &&
-    // other.carteNFC == carteNFC &&
-    // other.pointCollecte == pointCollecte;
+    return other is HerderAbstract &&
+        other.id == id &&
+        other.firstName == firstName &&
+        other.lastName == lastName;
   }
 
   @override

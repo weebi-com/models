@@ -133,7 +133,6 @@ class ArticleWeebi extends ArticleAbstract {
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
-    //final listEquals = const DeepCollectionEquality().equals;
 
     return other is ArticleWeebi &&
         other.shopUuid == shopUuid &&

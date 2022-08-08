@@ -82,4 +82,20 @@ class LotWeebi extends LotAbstract {
 
   factory LotWeebi.fromJson(String source) =>
       LotWeebi.fromMap(json.decode(source));
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+
+    return other is LotWeebi &&
+        other.shopUuid == shopUuid &&
+        other.lineId == lineId &&
+        other.articleId == articleId &&
+        other.id == id &&
+        other.proxyLineId == proxyLineId &&
+        other.proxyArticleId == proxyArticleId;
+  }
+
+  @override
+  int get hashCode => shopUuid.hashCode;
 }

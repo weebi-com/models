@@ -1,16 +1,18 @@
 import 'dart:convert';
 
+import 'package:models_weebi/src/weebi/article_basket.dart';
 import 'package:models_weebi/src/weebi/article_weebi.dart';
 import 'package:models_weebi/src/weebi/lot_weebi.dart';
 import 'package:models_base/base.dart' show ItemAbstract;
+import 'package:collection/collection.dart';
 
-class ItemWeebi extends ItemAbstract<ArticleWeebi, LotWeebi> {
+class ItemWeebi<A extends ArticleWeebi> extends ItemAbstract<A, LotWeebi> {
   ItemWeebi(
-    final ArticleWeebi product,
-    List<LotWeebi>? lots,
+    final A article,
+    List<LotWeebi>? lots, // ?
     double quantity,
   ) : super(
-          product,
+          article,
           lots,
           quantity,
         );
@@ -19,7 +21,13 @@ class ItemWeebi extends ItemAbstract<ArticleWeebi, LotWeebi> {
 
   factory ItemWeebi.fromMap(Map<String, dynamic> map) {
     return ItemWeebi(
-      ArticleWeebi.fromMap(map['article']),
+      map['articles']?.map((x) {
+        if (x['lots'] == null) {
+          return ArticleWeebi.fromMap(x);
+        } else {
+          return ArticleBasket.fromMap(x);
+        }
+      }),
       map['lots'] != null
           ? List<LotWeebi>.from(map['lots']?.map((x) => LotWeebi.fromMap(x)))
           : <LotWeebi>[],
@@ -29,4 +37,17 @@ class ItemWeebi extends ItemAbstract<ArticleWeebi, LotWeebi> {
 
   factory ItemWeebi.fromJson(String source) =>
       ItemWeebi.fromMap(json.decode(source));
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    final listEquals = const DeepCollectionEquality().equals;
+    return other is ItemWeebi &&
+        other.quantity == quantity &&
+        other.article == article &&
+        listEquals(other.lots, lots);
+  }
+
+  @override
+  int get hashCode => quantity.hashCode;
 }

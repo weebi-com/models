@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:mobx/mobx.dart';
 import 'package:models_weebi/utils.dart';
 import 'package:models_weebi/weebi_models.dart';
+import 'package:collection/collection.dart';
 
 class ArticleBasket extends ArticleWeebi {
   final List<LotWeebi>? lots;
@@ -136,4 +137,23 @@ class ArticleBasket extends ArticleWeebi {
       lots: lots ?? this.lots,
     );
   }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    final listEquals = const DeepCollectionEquality().equals;
+    return other is ArticleBasket &&
+        other.shopUuid == shopUuid &&
+        other.cost == cost &&
+        other.price == price &&
+        other.fullName == fullName &&
+        other.id == id &&
+        other.photo == photo &&
+        other.creationDate == creationDate &&
+        other.updateDate == updateDate &&
+        listEquals(other.lots, lots);
+  }
+
+  @override
+  int get hashCode => shopUuid.hashCode;
 }
