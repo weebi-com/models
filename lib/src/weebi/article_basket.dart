@@ -102,6 +102,26 @@ class ArticleBasket extends ArticleWeebi {
   @override
   String toJson() => json.encode(toMap());
 
+  @override
+  String toString() {
+    return """
+ArticleBasket(
+  lineId: $lineId,
+  id: $id,
+  fullName: '$fullName',
+  price: $price,
+  creationDate: $creationDate,
+  updateDate: $updateDate,
+  cost: $cost,
+  weight: $weight,
+  articleCode: $articleCode,
+  photo: $photo,
+  status: $status,
+  lots: $lots,
+)
+""";
+  }
+
   factory ArticleBasket.fromJson(String source) =>
       ArticleBasket.fromMap(json.decode(source));
 

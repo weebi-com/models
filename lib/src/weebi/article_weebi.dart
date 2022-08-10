@@ -53,6 +53,25 @@ class ArticleWeebi extends ArticleAbstract {
   );
 
   @override
+  String toString() {
+    return """
+ArticleWeebi(
+  lineId: $lineId,
+  id: $id,
+  fullName: '$fullName',
+  price: $price,
+  creationDate: $creationDate,
+  updateDate: $updateDate,
+  cost: $cost,
+  weight: $weight,
+  articleCode: $articleCode,
+  photo: $photo,
+  status: $status,
+)
+""";
+  }
+
+  @override
   Map<String, dynamic> toMap() {
     return {
       'shopUuid': shopUuid,
