@@ -112,9 +112,6 @@ class HerderWeebi extends HerderAbstract {
   factory HerderWeebi.fromJson(String source) =>
       HerderWeebi.fromMap(json.decode(source));
 
-// TODO implement getContactsWeebi endpoint
-//  static Future<List<Herder>> getContactsWeebi(bool isProd) async {
-
   HerderWeebi copyWith({
     int? id,
     String? shopId,

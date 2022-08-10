@@ -3,10 +3,11 @@ import 'dart:convert';
 import 'package:models_weebi/src/weebi/article_basket.dart';
 import 'package:models_weebi/src/weebi/article_weebi.dart';
 import 'package:models_weebi/src/weebi/lot_weebi.dart';
-import 'package:models_base/base.dart' show ItemAbstract;
+import 'package:models_base/base.dart' show ItemInCartAbstract;
 import 'package:collection/collection.dart';
 
-class ItemWeebi<A extends ArticleWeebi> extends ItemAbstract<A, LotWeebi> {
+class ItemWeebi<A extends ArticleWeebi>
+    extends ItemInCartAbstract<A, LotWeebi> {
   ItemWeebi(
     final A article,
     List<LotWeebi>? lots, // ?
