@@ -8,12 +8,7 @@ import 'package:models_weebi/src/weebi/article_basket.dart';
 import 'package:models_weebi/src/weebi/article_weebi.dart';
 import 'package:collection/collection.dart';
 
-// TODO test this before going any further
-extension BaseModel on Type {
-  fromMap(Map<String, dynamic> data) {}
-}
-
-class LineArticleWeebi<A extends ArticleWeebi> extends LineArticleAbstract<A> {
+class LineArticleWeebi extends LineArticleAbstract<ArticleWeebi> {
   final String? shopUuid;
   String? get shopId => shopUuid;
   final bool? isPalpable;
@@ -22,7 +17,7 @@ class LineArticleWeebi<A extends ArticleWeebi> extends LineArticleAbstract<A> {
     required int id,
     this.shopUuid,
     this.isPalpable = true,
-    required List<A> articles,
+    required List<ArticleWeebi> articles,
     List<String>? categories,
     required String title,
     StockUnit stockUnit = StockUnit.unit,
@@ -113,7 +108,7 @@ class LineArticleWeebi<A extends ArticleWeebi> extends LineArticleAbstract<A> {
           : DateTime.parse(map['statusUpdateDate']),
       articles: map['articles'] == null || map['articles'] == []
           ? []
-          : List<A>.from(map['articles'].map((x) {
+          : List<ArticleWeebi>.from(map['articles'].map((x) {
               if (x['lots'] == null) {
                 return ArticleWeebi.fromMap(x);
               } else {
@@ -142,7 +137,7 @@ class LineArticleWeebi<A extends ArticleWeebi> extends LineArticleAbstract<A> {
     int? barcode,
     bool? status,
     DateTime? statusUpdateDate,
-    List<A>? articles,
+    List<ArticleWeebi>? articles,
     DateTime? creationDate,
     DateTime? updateDate,
     List<String>? categories,
