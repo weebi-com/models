@@ -1,13 +1,14 @@
-import 'package:models_weebi/src/weebi/item_weebi.dart';
-import 'package:models_weebi/src/weebi/taxe_weebi.dart';
-import 'package:models_base/base.dart' show TicketAbstract;
+import 'package:models_weebi/base.dart';
 import 'package:models_base/common.dart';
+import 'package:models_weebi/weebi_models.dart';
 
 // Using WeebiAbstract to rename the attributes shopId && contactInfo,
 // That were stupidly changed by a young idealistic dev
 
-abstract class TicketWeebiAbstract
-    implements TicketAbstract<ItemWeebi, TaxeWeebi> {
+abstract class TicketWeebiAbstract<A extends ArticleWeebi>
+    implements
+        TicketAbstract<ItemInCartAbstract<ArticleAbstract, LotAbstract>,
+            TaxeAbstract> {
   final String oid; // mongo _id
   final String shopId; // shopUuid
   final String contactInfo; // herderId
@@ -16,7 +17,7 @@ abstract class TicketWeebiAbstract
   @override
   String get shopUuid => shopId; // shopUuid // shopId
   @override
-  final List<ItemWeebi> items;
+  final List<ItemWeebi<A>> items;
   @override
   final TaxeWeebi taxe;
   @override
