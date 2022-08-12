@@ -6,10 +6,9 @@ import 'package:models_weebi/src/weebi/lot_weebi.dart';
 import 'package:models_base/base.dart' show ItemInCartAbstract;
 import 'package:collection/collection.dart';
 
-class ItemWeebi<A extends ArticleWeebi>
-    extends ItemInCartAbstract<A, LotWeebi> {
+class ItemWeebi extends ItemInCartAbstract<ArticleWeebi, LotWeebi> {
   ItemWeebi(
-    final A article,
+    final ArticleWeebi article,
     List<LotWeebi>? lots, // ?
     double quantity,
   ) : super(
@@ -22,13 +21,9 @@ class ItemWeebi<A extends ArticleWeebi>
 
   factory ItemWeebi.fromMap(Map<String, dynamic> map) {
     return ItemWeebi(
-      map['articles']?.map((x) {
-        if (x['lots'] == null) {
-          return ArticleWeebi.fromMap(x);
-        } else {
-          return ArticleBasket.fromMap(x);
-        }
-      }),
+      map['article']['lots'] == null
+          ? ArticleWeebi.fromMap(map['article'])
+          : ArticleBasket.fromMap(map['article']),
       map['lots'] != null
           ? List<LotWeebi>.from(map['lots']?.map((x) => LotWeebi.fromMap(x)))
           : <LotWeebi>[],

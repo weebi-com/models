@@ -71,6 +71,29 @@ class TicketWeebi extends TicketWeebiAbstract
   }
 
   @override
+  String toString() => """
+TicketWeebi{
+      'id': $id,
+      'shopUuid': $shopUuid,
+      'items': ${items.map((x) => x.toMap()).toList()},
+      'taxe': ${taxe.toMap()},
+      'promo': $promo,
+      'comment': $comment,
+      'contactPastPurchasingPower': $contactPastPurchasingPower,
+      'received': $received,
+      'date': ${date.toIso8601String()},
+      'paiementType': $paiementType,
+      'ticketType': $ticketType,
+      'herderId': $herderId,
+      'status': $status,
+      'statusUpdateDate': ${statusUpdateDate.toIso8601String()},
+      'creationDate': ${creationDate.toIso8601String()},
+      'isInDash': $isInDash,
+    };
+  }
+  """;
+
+  @override
   int get hashCode {
     return id.hashCode ^
         shopUuid.hashCode ^

@@ -17,7 +17,7 @@ abstract class TicketWeebiAbstract<A extends ArticleWeebi>
   @override
   String get shopUuid => shopId; // shopUuid // shopId
   @override
-  final List<ItemWeebi<A>> items;
+  final List<ItemWeebi> items;
   @override
   final TaxeWeebi taxe;
   @override
