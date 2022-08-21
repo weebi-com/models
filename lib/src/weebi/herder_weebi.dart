@@ -5,6 +5,7 @@ import 'package:models_base/utils.dart';
 
 class HerderWeebi extends HerderAbstract {
   final String shopId;
+  String get shopUuid => shopId;
   HerderWeebi({
     required final int id,
     required int bidon,

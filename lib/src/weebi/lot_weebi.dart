@@ -3,7 +3,9 @@ import 'dart:convert';
 import 'package:models_base/base.dart' show LotAbstract;
 
 class LotWeebi extends LotAbstract {
-  final String? shopUuid;
+  final String? shopUuid; // distinguish shops data in backend db
+  final double
+      minimumUnitPerBasket; // putting this here before inserting it into base
 
   LotWeebi({
     required int lineId,
@@ -11,8 +13,9 @@ class LotWeebi extends LotAbstract {
     required int id,
     required int proxyLineId,
     required int proxyArticleId,
+    required this.shopUuid,
+    required this.minimumUnitPerBasket,
     bool status = true,
-    this.shopUuid,
   }) : super(
           lineId: lineId,
           articleId: articleId,
@@ -28,6 +31,8 @@ class LotWeebi extends LotAbstract {
     id: 1,
     proxyLineId: 1,
     proxyArticleId: 1,
+    minimumUnitPerBasket: 1.0,
+    shopUuid: '',
   );
 
   LotWeebi copyWith({
@@ -38,6 +43,7 @@ class LotWeebi extends LotAbstract {
     int? proxyArticleId,
     bool? status,
     String? shopUuid,
+    double? minimumUnitPerBasket,
   }) {
     return LotWeebi(
       lineId: lineId ?? this.lineId,
@@ -47,6 +53,7 @@ class LotWeebi extends LotAbstract {
       proxyLineId: proxyLineId ?? this.proxyLineId,
       status: status ?? this.status,
       shopUuid: shopUuid ?? this.shopUuid,
+      minimumUnitPerBasket: minimumUnitPerBasket ?? this.minimumUnitPerBasket,
     );
   }
 
@@ -60,6 +67,7 @@ class LotWeebi extends LotAbstract {
       'proxyLineId': proxyLineId,
       'shopUuid': shopUuid,
       'status': status,
+      'minimumUnitPerBasket': minimumUnitPerBasket,
     };
   }
 
@@ -74,6 +82,7 @@ class LotWeebi extends LotAbstract {
       proxyArticleId: map['proxyArticleId'],
       shopUuid: map['shopUuid'],
       status: map['status'] ?? true,
+      minimumUnitPerBasket: map['minimumUnitPerBasket'],
     );
   }
 
@@ -93,9 +102,18 @@ class LotWeebi extends LotAbstract {
         other.articleId == articleId &&
         other.id == id &&
         other.proxyLineId == proxyLineId &&
-        other.proxyArticleId == proxyArticleId;
+        other.proxyArticleId == proxyArticleId &&
+        minimumUnitPerBasket == minimumUnitPerBasket;
   }
 
   @override
-  int get hashCode => shopUuid.hashCode;
+  @override
+  int get hashCode =>
+      lineId.hashCode ^
+      articleId.hashCode ^
+      id.hashCode ^
+      shopUuid.hashCode ^
+      minimumUnitPerBasket.hashCode ^
+      proxyLineId.hashCode ^
+      proxyArticleId.hashCode;
 }

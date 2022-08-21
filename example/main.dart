@@ -17,6 +17,7 @@ void main() {
     ],
     id: 1,
     title: 'frometon',
+    shopUuid: 'shopUuid',
     status: true,
     creationDate: WeebiDates.defaultDate,
     updateDate: WeebiDates.defaultDate,

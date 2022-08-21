@@ -12,10 +12,10 @@ class LineArticleWeebi extends LineArticleAbstract<ArticleWeebi> {
   final String? shopUuid;
   String? get shopId => shopUuid;
   final bool? isPalpable;
-
+  bool get isSingleArticle => articles.length <= 1;
   LineArticleWeebi({
     required int id,
-    this.shopUuid,
+    required this.shopUuid,
     this.isPalpable = true,
     required List<ArticleWeebi> articles,
     List<String>? categories,
@@ -57,6 +57,7 @@ class LineArticleWeebi extends LineArticleAbstract<ArticleWeebi> {
   }
 
   static final dummy = LineArticleWeebi(
+    shopUuid: 'shopUuid',
     articles: [ArticleWeebi.dummy],
     id: 1,
     title: 'dummy',

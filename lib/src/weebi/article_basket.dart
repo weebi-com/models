@@ -9,7 +9,7 @@ class ArticleBasket extends ArticleWeebi {
   final List<LotWeebi>? lots;
 
   ArticleBasket({
-    String? shopUuid,
+    required String? shopUuid,
     required int lineId,
     required int id,
     required String fullName,
