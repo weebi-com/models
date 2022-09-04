@@ -4,7 +4,7 @@ import 'package:mobx/mobx.dart';
 import 'package:models_base/base.dart' show ArticleAbstract;
 import 'package:models_base/utils.dart';
 
-import 'package:models_weebi/src/weebi/lot_weebi.dart';
+import 'package:models_weebi/src/weebi/proxy_article_weebi.dart';
 
 class ArticleWeebi extends ArticleAbstract {
   final String? shopUuid;
@@ -43,7 +43,7 @@ class ArticleWeebi extends ArticleAbstract {
     id: 1,
     fullName: 'dummy',
     price: 100,
-    cost: 100,
+    cost: 80,
     weight: 1,
     articleCode: 1,
     photo: 'photo',
@@ -131,7 +131,7 @@ ArticleWeebi(
     DateTime? creationDate,
     DateTime? updateDate,
     bool? status,
-    List<LotWeebi>? lots,
+    List<ProxyArticleWeebi>? proxies,
   }) {
     return ArticleWeebi(
       shopUuid: shopUuid ?? this.shopUuid,

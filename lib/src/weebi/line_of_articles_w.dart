@@ -8,12 +8,12 @@ import 'package:models_weebi/src/weebi/article_basket.dart';
 import 'package:models_weebi/src/weebi/article_weebi.dart';
 import 'package:collection/collection.dart';
 
-class LineArticleWeebi extends LineArticleAbstract<ArticleWeebi> {
+class LineOfArticlesWeebi extends LineArticleAbstract<ArticleWeebi> {
   final String? shopUuid;
   String? get shopId => shopUuid;
   final bool? isPalpable;
   bool get isSingleArticle => articles.length <= 1;
-  LineArticleWeebi({
+  LineOfArticlesWeebi({
     required int id,
     required this.shopUuid,
     this.isPalpable = true,
@@ -45,18 +45,14 @@ class LineArticleWeebi extends LineArticleAbstract<ArticleWeebi> {
   String get sharableText {
     final truc =
         StringBuffer(); //TODO fix this inherited from old  old stock management
-    // for (var a in articles) {
-    //   final qt =
-    //       a.lots?.fold(0.0, (double lotValue, lot) => lotValue * a.weight);
-    //   truc.write(numFormat.format(qt));
-    // }
+
     final sb = StringBuffer()
       ..writeln('# $id - $title')
       ..writeln('stock : ${truc.toString()}');
     return sb.toString();
   }
 
-  static final dummy = LineArticleWeebi(
+  static final dummy = LineOfArticlesWeebi(
     shopUuid: 'shopUuid',
     articles: [ArticleWeebi.dummy],
     id: 1,
@@ -88,8 +84,8 @@ class LineArticleWeebi extends LineArticleAbstract<ArticleWeebi> {
     };
   }
 
-  factory LineArticleWeebi.fromMap(Map<String, dynamic> map) {
-    return LineArticleWeebi(
+  factory LineOfArticlesWeebi.fromMap(Map<String, dynamic> map) {
+    return LineOfArticlesWeebi(
       shopUuid: map['shopUuid'] ?? '',
       id: map['id'],
       title: map['title'],
@@ -110,10 +106,10 @@ class LineArticleWeebi extends LineArticleAbstract<ArticleWeebi> {
       articles: map['articles'] == null || map['articles'] == []
           ? []
           : List<ArticleWeebi>.from(map['articles'].map((x) {
-              if (x['lots'] == null) {
+              if (x['proxies'] == null) {
                 return ArticleWeebi.fromMap(x);
               } else {
-                return ArticleBasket.fromMap(x);
+                return ArticleBasket.fromMapUnbuiltNoPriceNoCost(x);
               }
             })),
       categories: map["categories"] == null
@@ -125,8 +121,8 @@ class LineArticleWeebi extends LineArticleAbstract<ArticleWeebi> {
   @override
   String toJson() => json.encode(toMap());
 
-  factory LineArticleWeebi.fromJson(String source) =>
-      LineArticleWeebi.fromMap(json.decode(source));
+  factory LineOfArticlesWeebi.fromJson(String source) =>
+      LineOfArticlesWeebi.fromMap(json.decode(source));
 
   copyWith({
     String? shopUuid,
@@ -143,7 +139,7 @@ class LineArticleWeebi extends LineArticleAbstract<ArticleWeebi> {
     DateTime? updateDate,
     List<String>? categories,
   }) {
-    return LineArticleWeebi(
+    return LineOfArticlesWeebi(
       shopUuid: shopUuid ?? this.shopUuid,
       id: id ?? this.id,
       isPalpable: isPalpable ?? this.isPalpable,
@@ -168,7 +164,7 @@ class LineArticleWeebi extends LineArticleAbstract<ArticleWeebi> {
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
     final listEquals = const DeepCollectionEquality().equals;
-    return other is LineArticleWeebi &&
+    return other is LineOfArticlesWeebi &&
         other.shopUuid == shopUuid &&
         other.id == id &&
         other.isPalpable == isPalpable &&

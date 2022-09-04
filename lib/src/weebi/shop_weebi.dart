@@ -96,6 +96,29 @@ class ShopWeebi extends ShopAbstract {
     promo: 0.0,
   );
 
+  static final dummy = ShopWeebi(
+    id: 0,
+    uuid: 'shopUuid',
+    mailUnique: '',
+    name: 'Magasin par défaut',
+    tel: '',
+    mail: '',
+    address: '',
+    lat: '',
+    long: '',
+    shopKeeperName: '',
+    shopKeeperTel: '',
+    shopKeeperMail: '',
+    updateDate: WeebiDates.defaultDate,
+    status: false,
+    statusUpdateDate: WeebiDates.defaultDate,
+    serverStatus: false,
+    serverStatusUpdateDate: WeebiDates.defaultDate,
+    isProd: false,
+    isLocked: false,
+    promo: 0.0,
+  );
+
   ShopWeebi copyWith({
     int? id,
     String? managerMacAddress,

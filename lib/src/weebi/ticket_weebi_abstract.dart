@@ -7,7 +7,7 @@ import 'package:models_weebi/weebi_models.dart';
 
 abstract class TicketWeebiAbstract<A extends ArticleWeebi>
     implements
-        TicketAbstract<ItemInCartAbstract<ArticleAbstract, LotAbstract>,
+        TicketAbstract<ItemInCartAbstract<ArticleAbstract, ProxyArticleWorth>,
             TaxeAbstract> {
   final String oid; // mongo _id
   final String shopId; // shopUuid

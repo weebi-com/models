@@ -1,13 +1,14 @@
 import 'dart:convert';
 
-import 'package:models_base/base.dart' show LotAbstract;
+import 'package:models_base/base.dart' show ProxyArticleAbstract;
+import 'package:models_weebi/src/weebi/line_of_articles_w.dart';
 
-class LotWeebi extends LotAbstract {
+class ProxyArticleWeebi extends ProxyArticleAbstract {
   final String? shopUuid; // distinguish shops data in backend db
   final double
       minimumUnitPerBasket; // putting this here before inserting it into base
 
-  LotWeebi({
+  ProxyArticleWeebi({
     required int lineId,
     required int articleId,
     required int id,
@@ -25,7 +26,7 @@ class LotWeebi extends LotAbstract {
           status: status,
         );
 
-  static final dummy = LotWeebi(
+  static final dummy = ProxyArticleWeebi(
     lineId: 1,
     articleId: 1,
     id: 1,
@@ -35,7 +36,7 @@ class LotWeebi extends LotAbstract {
     shopUuid: '',
   );
 
-  LotWeebi copyWith({
+  ProxyArticleWeebi copyWith({
     int? lineId,
     int? articleId,
     int? id,
@@ -45,7 +46,7 @@ class LotWeebi extends LotAbstract {
     String? shopUuid,
     double? minimumUnitPerBasket,
   }) {
-    return LotWeebi(
+    return ProxyArticleWeebi(
       lineId: lineId ?? this.lineId,
       articleId: articleId ?? this.articleId,
       id: id ?? this.id,
@@ -71,8 +72,8 @@ class LotWeebi extends LotAbstract {
     };
   }
 
-  factory LotWeebi.fromMap(Map<String, dynamic> map) {
-    return LotWeebi(
+  factory ProxyArticleWeebi.fromMap(Map<String, dynamic> map) {
+    return ProxyArticleWeebi(
       lineId: map['lineId'] == null
           ? map['productId'] as int
           : map['lineId'] as int,
@@ -89,14 +90,14 @@ class LotWeebi extends LotAbstract {
   @override
   String toJson() => json.encode(toMap());
 
-  factory LotWeebi.fromJson(String source) =>
-      LotWeebi.fromMap(json.decode(source));
+  factory ProxyArticleWeebi.fromJson(String source) =>
+      ProxyArticleWeebi.fromMap(json.decode(source));
 
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
 
-    return other is LotWeebi &&
+    return other is ProxyArticleWeebi &&
         other.shopUuid == shopUuid &&
         other.lineId == lineId &&
         other.articleId == articleId &&
@@ -116,4 +117,46 @@ class LotWeebi extends LotAbstract {
       minimumUnitPerBasket.hashCode ^
       proxyLineId.hashCode ^
       proxyArticleId.hashCode;
+}
+
+extension ProxiesCompute on List<ProxyArticleWeebi> {
+  // articleBasket price must be computed
+  int computeProxiesPrice(Iterable<LineOfArticlesWeebi> lines) {
+    final _prices = <int>[];
+    if (isNotEmpty && lines.isNotEmpty) {
+      for (final _line in lines) {
+        for (final _lot in this) {
+          if (_line.id == _lot.proxyLineId) {
+            for (final _article in _line.articles) {
+              if (_article.lineId == _lot.proxyLineId &&
+                  _article.id == _lot.proxyArticleId) {
+                _prices.add(_article.price);
+              }
+            }
+          }
+        }
+      }
+    }
+    return _prices.fold(0, (prev, e) => prev + e);
+  }
+
+  // articleBasket price must be computed
+  int computeProxiesCost(Iterable<LineOfArticlesWeebi> lines) {
+    final _costs = <int>[];
+    if (isNotEmpty && lines.isNotEmpty) {
+      for (final _line in lines) {
+        for (final _lot in this) {
+          if (_line.id == _lot.proxyLineId) {
+            for (final _article in _line.articles) {
+              if (_article.lineId == _lot.proxyLineId &&
+                  _article.id == _lot.proxyArticleId) {
+                _costs.add(_article.cost);
+              }
+            }
+          }
+        }
+      }
+    }
+    return _costs.fold(0, (prev, e) => prev + e);
+  }
 }

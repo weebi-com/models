@@ -3,7 +3,7 @@ import 'package:models_base/utils.dart';
 import 'package:models_weebi/weebi_models.dart';
 
 void main() {
-  final awesomeArticleLine = LineArticleWeebi(
+  final awesomeArticleLine = LineOfArticlesWeebi(
     articles: [
       ArticleWeebi(
         shopUuid: 'unknown',
