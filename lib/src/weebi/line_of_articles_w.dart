@@ -1,27 +1,30 @@
 import 'dart:convert';
 
 import 'package:mobx/mobx.dart';
-import 'package:models_base/base.dart' show LineArticleAbstract;
+import 'package:models_base/base.dart'
+    show ArticleAbstract, LineArticleAbstract;
 import 'package:models_base/common.dart';
 import 'package:models_base/utils.dart';
 import 'package:models_weebi/src/weebi/article_basket.dart';
 import 'package:models_weebi/src/weebi/article_weebi.dart';
 import 'package:collection/collection.dart';
 
-class LineOfArticlesWeebi extends LineArticleAbstract<ArticleWeebi> {
+class LineOfArticlesWeebi<A extends ArticleAbstract>
+    extends LineArticleAbstract<A> {
   final String? shopUuid;
   String? get shopId => shopUuid;
   final bool? isPalpable;
+  final bool? isBasket;
   bool get isSingleArticle => articles.length <= 1;
   LineOfArticlesWeebi({
     required int id,
     required this.shopUuid,
     this.isPalpable = true,
-    required List<ArticleWeebi> articles,
+    this.isBasket = false,
+    required List<A> articles,
     List<String>? categories,
     required String title,
     StockUnit stockUnit = StockUnit.unit,
-    int? barcode,
     String? photo,
     @observable required bool status,
     DateTime? statusUpdateDate,
@@ -32,7 +35,6 @@ class LineOfArticlesWeebi extends LineArticleAbstract<ArticleWeebi> {
           categories: categories,
           title: title,
           stockUnit: stockUnit,
-          barcode: barcode,
           photo: photo,
           status: status,
           statusUpdateDate: statusUpdateDate,
@@ -67,6 +69,7 @@ class LineOfArticlesWeebi extends LineArticleAbstract<ArticleWeebi> {
       'shopUuid': shopUuid,
       'id': id,
       'isPalpable': isPalpable ?? true,
+      'isBasket': isBasket ?? false,
       'title': title,
       'stockUnit': stockUnit.toString(),
       'photo': photo ?? '',
@@ -90,9 +93,9 @@ class LineOfArticlesWeebi extends LineArticleAbstract<ArticleWeebi> {
       id: map['id'],
       title: map['title'],
       isPalpable: map['isPalpable'] ?? true,
+      isBasket: map['isBasket'] ?? false,
       stockUnit: StockUnit.tryParse(map['stockUnit'] ?? ''),
       photo: map['photo'] ?? '',
-      barcode: map['barcode'] ?? 0,
       creationDate: map['creationDate'] == null
           ? WeebiDates.defaultDate
           : DateTime.parse(map['creationDate']),
@@ -105,7 +108,7 @@ class LineOfArticlesWeebi extends LineArticleAbstract<ArticleWeebi> {
           : DateTime.parse(map['statusUpdateDate']),
       articles: map['articles'] == null || map['articles'] == []
           ? []
-          : List<ArticleWeebi>.from(map['articles'].map((x) {
+          : List<A>.from(map['articles'].map((x) {
               if (x['proxies'] == null) {
                 return ArticleWeebi.fromMap(x);
               } else {
@@ -129,6 +132,7 @@ class LineOfArticlesWeebi extends LineArticleAbstract<ArticleWeebi> {
     int? id,
     String? title,
     bool? isPalpable,
+    bool? isBasket,
     StockUnit? stockUnit,
     String? photo,
     int? barcode,
@@ -142,11 +146,11 @@ class LineOfArticlesWeebi extends LineArticleAbstract<ArticleWeebi> {
     return LineOfArticlesWeebi(
       shopUuid: shopUuid ?? this.shopUuid,
       id: id ?? this.id,
+      isBasket: isBasket ?? this.isBasket,
       isPalpable: isPalpable ?? this.isPalpable,
       title: title ?? this.title,
       stockUnit: stockUnit ?? this.stockUnit,
       photo: photo ?? this.photo,
-      barcode: barcode ?? this.barcode,
       status: status ?? this.status,
       statusUpdateDate: statusUpdateDate ?? this.statusUpdateDate,
       articles: articles ??

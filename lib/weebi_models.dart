@@ -2,6 +2,7 @@ library models;
 
 export 'src/weebi/line_of_articles_w.dart';
 export 'src/weebi/article_weebi.dart';
+export 'src/weebi/article_min_qt.dart';
 export 'src/weebi/article_basket.dart';
 export 'src/weebi/proxy_article_weebi.dart';
 export 'src/weebi/item_weebi.dart';

@@ -9,7 +9,8 @@ import 'package:models_weebi/src/weebi/proxy_article_weebi.dart';
 
 class ArticleBasket extends ArticleWeebi {
   final List<ProxyArticleWeebi> proxies;
-
+  // article price and cost can change
+  // so proxes only save ref not price / nor cost which are fetched when invoked
   ArticleBasket.unbuiltNoPriceNoCost({
     required String? shopUuid,
     required int lineId,
@@ -219,7 +220,7 @@ ArticleBasket(
     int? lineId,
     int? id,
     String? fullName,
-    int? price, // TODO consider removing them form base models and using mixin
+    int? price, // TODO consider removing them from base models and using mixin
     int? cost,
     double? weight,
     int? articleCode,
