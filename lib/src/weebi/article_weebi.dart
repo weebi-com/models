@@ -8,10 +8,9 @@ import 'package:models_weebi/src/weebi/proxy_article_weebi.dart';
 
 class ArticleWeebi extends ArticleAbstract {
   final String? shopUuid;
-
   String? get shopId => shopUuid;
   ArticleWeebi(
-      {required this.shopUuid,
+      {this.shopUuid,
       required int lineId,
       required int id,
       required String fullName,

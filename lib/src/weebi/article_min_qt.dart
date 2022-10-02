@@ -5,7 +5,6 @@ class ArticleWMinQt extends ArticleWeebi {
   double minQt = 1.0;
   ArticleWMinQt(
     this.minQt, {
-    required String? shopUuid,
     required int lineId,
     required int id,
     required int price,
@@ -18,7 +17,6 @@ class ArticleWMinQt extends ArticleWeebi {
     required DateTime? updateDate,
     @observable bool status = false,
   }) : super(
-          shopUuid: shopUuid,
           lineId: lineId,
           id: id,
           price: price,

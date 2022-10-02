@@ -9,14 +9,13 @@ import 'package:models_weebi/src/weebi/article_basket.dart';
 import 'package:models_weebi/src/weebi/article_weebi.dart';
 import 'package:collection/collection.dart';
 
-class LineOfArticlesWeebi<A extends ArticleAbstract>
-    extends LineArticleAbstract<A> {
+class LineOfArticles<A extends ArticleAbstract> extends LineArticleAbstract<A> {
   final String? shopUuid;
   String? get shopId => shopUuid;
   final bool? isPalpable;
   final bool? isBasket;
   bool get isSingleArticle => articles.length <= 1;
-  LineOfArticlesWeebi({
+  LineOfArticles({
     required int id,
     required this.shopUuid,
     this.isPalpable = true,
@@ -54,7 +53,7 @@ class LineOfArticlesWeebi<A extends ArticleAbstract>
     return sb.toString();
   }
 
-  static final dummy = LineOfArticlesWeebi(
+  static final dummy = LineOfArticles(
     shopUuid: 'shopUuid',
     articles: [ArticleWeebi.dummy],
     id: 1,
@@ -87,8 +86,8 @@ class LineOfArticlesWeebi<A extends ArticleAbstract>
     };
   }
 
-  factory LineOfArticlesWeebi.fromMap(Map<String, dynamic> map) {
-    return LineOfArticlesWeebi(
+  factory LineOfArticles.fromMap(Map<String, dynamic> map) {
+    return LineOfArticles(
       shopUuid: map['shopUuid'] ?? '',
       id: map['id'],
       title: map['title'],
@@ -124,8 +123,8 @@ class LineOfArticlesWeebi<A extends ArticleAbstract>
   @override
   String toJson() => json.encode(toMap());
 
-  factory LineOfArticlesWeebi.fromJson(String source) =>
-      LineOfArticlesWeebi.fromMap(json.decode(source));
+  factory LineOfArticles.fromJson(String source) =>
+      LineOfArticles.fromMap(json.decode(source));
 
   copyWith({
     String? shopUuid,
@@ -143,7 +142,7 @@ class LineOfArticlesWeebi<A extends ArticleAbstract>
     DateTime? updateDate,
     List<String>? categories,
   }) {
-    return LineOfArticlesWeebi(
+    return LineOfArticles(
       shopUuid: shopUuid ?? this.shopUuid,
       id: id ?? this.id,
       isBasket: isBasket ?? this.isBasket,
@@ -168,7 +167,7 @@ class LineOfArticlesWeebi<A extends ArticleAbstract>
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
     final listEquals = const DeepCollectionEquality().equals;
-    return other is LineOfArticlesWeebi &&
+    return other is LineOfArticles &&
         other.shopUuid == shopUuid &&
         other.id == id &&
         other.isPalpable == isPalpable &&

@@ -6,7 +6,7 @@ import 'package:models_weebi/src/weebi/line_of_articles_w.dart';
 class ProxyArticleWeebi extends ProxyArticleAbstract {
   final String? shopUuid; // distinguish shops data in backend db
   final double
-      minimumUnitPerBasket; // putting this here before inserting it into base
+      minimumQtPerBasket; // putting this here before inserting it into base
 
   ProxyArticleWeebi({
     required int lineId,
@@ -15,7 +15,7 @@ class ProxyArticleWeebi extends ProxyArticleAbstract {
     required int proxyLineId,
     required int proxyArticleId,
     required this.shopUuid,
-    required this.minimumUnitPerBasket,
+    required this.minimumQtPerBasket,
     bool status = true,
   }) : super(
           lineId: lineId,
@@ -32,7 +32,7 @@ class ProxyArticleWeebi extends ProxyArticleAbstract {
     id: 1,
     proxyLineId: 1,
     proxyArticleId: 1,
-    minimumUnitPerBasket: 1.0,
+    minimumQtPerBasket: 1.0,
     shopUuid: '',
   );
 
@@ -54,7 +54,7 @@ class ProxyArticleWeebi extends ProxyArticleAbstract {
       proxyLineId: proxyLineId ?? this.proxyLineId,
       status: status ?? this.status,
       shopUuid: shopUuid ?? this.shopUuid,
-      minimumUnitPerBasket: minimumUnitPerBasket ?? this.minimumUnitPerBasket,
+      minimumQtPerBasket: minimumUnitPerBasket ?? this.minimumQtPerBasket,
     );
   }
 
@@ -64,11 +64,11 @@ class ProxyArticleWeebi extends ProxyArticleAbstract {
       'lineId': lineId,
       'articleId': articleId,
       'id': id,
-      'proxyArticleId': proxyArticleId,
       'proxyLineId': proxyLineId,
+      'proxyArticleId': proxyArticleId,
       'shopUuid': shopUuid,
       'status': status,
-      'minimumUnitPerBasket': minimumUnitPerBasket,
+      'minimumUnitPerBasket': minimumQtPerBasket,
     };
   }
 
@@ -83,7 +83,7 @@ class ProxyArticleWeebi extends ProxyArticleAbstract {
       proxyArticleId: map['proxyArticleId'],
       shopUuid: map['shopUuid'],
       status: map['status'] ?? true,
-      minimumUnitPerBasket: map['minimumUnitPerBasket'],
+      minimumQtPerBasket: map['minimumUnitPerBasket'],
     );
   }
 
@@ -104,7 +104,7 @@ class ProxyArticleWeebi extends ProxyArticleAbstract {
         other.id == id &&
         other.proxyLineId == proxyLineId &&
         other.proxyArticleId == proxyArticleId &&
-        minimumUnitPerBasket == minimumUnitPerBasket;
+        minimumQtPerBasket == minimumQtPerBasket;
   }
 
   @override
@@ -114,14 +114,14 @@ class ProxyArticleWeebi extends ProxyArticleAbstract {
       articleId.hashCode ^
       id.hashCode ^
       shopUuid.hashCode ^
-      minimumUnitPerBasket.hashCode ^
+      minimumQtPerBasket.hashCode ^
       proxyLineId.hashCode ^
       proxyArticleId.hashCode;
 }
 
 extension ProxiesCompute on List<ProxyArticleWeebi> {
   // articleBasket price must be computed
-  int computeProxiesPrice(Iterable<LineOfArticlesWeebi> lines) {
+  int computeProxiesPrice(Iterable<LineOfArticles> lines) {
     final _prices = <int>[];
     if (isNotEmpty && lines.isNotEmpty) {
       for (final _line in lines) {
@@ -141,7 +141,7 @@ extension ProxiesCompute on List<ProxyArticleWeebi> {
   }
 
   // articleBasket price must be computed
-  int computeProxiesCost(Iterable<LineOfArticlesWeebi> lines) {
+  int computeProxiesCost(Iterable<LineOfArticles> lines) {
     final _costs = <int>[];
     if (isNotEmpty && lines.isNotEmpty) {
       for (final _line in lines) {
