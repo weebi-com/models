@@ -110,7 +110,7 @@ TicketWeebi{
         creationDate.hashCode;
   }
 
-  static final dummy = TicketWeebi(
+  static final dummySell = TicketWeebi(
     oid: 'oid',
     id: 1,
     shopId: 'shopId',
