@@ -3,8 +3,8 @@ import 'package:test/test.dart';
 
 void main() {
   test('ticket weebi', () {
-    final _json = TicketWeebi.dummy.toJson();
+    final _json = TicketWeebi.dummySell.toJson();
     final dummy = TicketWeebi.fromJson(_json);
-    expect(dummy == TicketWeebi.dummy, isTrue);
+    expect(dummy == TicketWeebi.dummySell, isTrue);
   });
 }

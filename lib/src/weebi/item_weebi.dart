@@ -19,6 +19,17 @@ class ItemWeebi extends ItemInCartAbstract<ArticleWeebi, ProxyArticleWorth> {
           proxiesWorth: proxiesWorth,
         );
 
+  ItemWeebi copyWith(
+      {ArticleWeebi? article,
+      double? quantity,
+      List<ProxyArticleWorth>? proxiesWorth}) {
+    return ItemWeebi(
+      article ?? this.article,
+      quantity ?? this.quantity,
+      proxiesWorth: proxiesWorth ?? this.proxiesWorth,
+    );
+  }
+
   static final dummy = ItemWeebi(ArticleWeebi.dummy, 1.0);
 
   static final dummyBasket = ItemWeebi(ArticleWeebi.dummy, 1.0,
