@@ -44,7 +44,7 @@ class ProxyArticleWeebi extends ProxyArticleAbstract {
     int? proxyArticleId,
     bool? status,
     String? shopUuid,
-    double? minimumUnitPerBasket,
+    double? minimumQtPerBasket,
   }) {
     return ProxyArticleWeebi(
       lineId: lineId ?? this.lineId,
@@ -54,7 +54,7 @@ class ProxyArticleWeebi extends ProxyArticleAbstract {
       proxyLineId: proxyLineId ?? this.proxyLineId,
       status: status ?? this.status,
       shopUuid: shopUuid ?? this.shopUuid,
-      minimumQtPerBasket: minimumUnitPerBasket ?? this.minimumQtPerBasket,
+      minimumQtPerBasket: minimumQtPerBasket ?? this.minimumQtPerBasket,
     );
   }
 

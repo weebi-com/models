@@ -6,30 +6,34 @@ import 'package:models_base/base.dart'
     show ProxyArticleWorth, ItemInCartAbstract;
 import 'package:collection/collection.dart';
 
+// items are deserialized in tickets with a single generic
+// since a ticket can contain item with articleW and articleBasket
+// we keep a single class itemWeebi to handle it
+
 class ItemWeebi extends ItemInCartAbstract<ArticleWeebi, ProxyArticleWorth> {
-  ItemWeebi(
-    final ArticleWeebi article,
-    List<ProxyArticleWorth>? proxiesWorth, // ?
-    double quantity,
-  ) : super(
+  ItemWeebi(final ArticleWeebi article, double quantity,
+      {List<ProxyArticleWorth>? proxiesWorth})
+      : super(
           article,
-          proxiesWorth,
           quantity,
+          proxiesWorth: proxiesWorth,
         );
 
-  static final dummy =
-      ItemWeebi(ArticleWeebi.dummy, [ProxyArticleWorth.dummy], 1.0);
+  static final dummy = ItemWeebi(ArticleWeebi.dummy, 1.0);
+
+  static final dummyBasket = ItemWeebi(ArticleWeebi.dummy, 1.0,
+      proxiesWorth: [ProxyArticleWorth.dummy]);
 
   factory ItemWeebi.fromMap(Map<String, dynamic> map) {
     return ItemWeebi(
       map['article']['proxies'] == null
           ? ArticleWeebi.fromMap(map['article'])
           : ArticleBasket.fromMapUnbuiltNoPriceNoCost(map['article']),
-      map['proxies_worth'] != null
+      map['quantity'] == null ? 0.0 : (map['quantity'] as num).toDouble(),
+      proxiesWorth: map['proxies_worth'] != null
           ? List<ProxyArticleWorth>.from(
               map['proxies_worth']?.map((x) => ProxyArticleWorth.fromMap(x)))
           : <ProxyArticleWorth>[],
-      map['quantity'] == null ? 0.0 : (map['quantity'] as num).toDouble(),
     );
   }
 
