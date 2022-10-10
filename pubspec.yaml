@@ -12,6 +12,7 @@ dependencies:
   mobx: ^2.0.3 #^1.2.1+4 #
   intl: ^0.17.0
   models_base: ^1.2.8
+    #path: /Users/mac/Developer/models_base
 
 dev_dependencies:
   lints: ^1.0.0

@@ -3,19 +3,23 @@ import 'dart:convert';
 import 'package:mobx/mobx.dart';
 import 'package:models_base/base.dart' show ArticleAbstract;
 import 'package:models_base/utils.dart';
+import 'package:models_weebi/src/weebi/price_and_cost.dart';
+import 'package:models_weebi/src/weebi/proxy_article.dart';
 
-import 'package:models_weebi/src/weebi/proxy_article_weebi.dart';
-
-class ArticleWeebi extends ArticleAbstract {
+class ArticleWeebi extends ArticleAbstract implements PriceAndCostAbstract {
+  @override
+  final int price;
+  @override
+  final int cost;
   final String? shopUuid;
   String? get shopId => shopUuid;
   ArticleWeebi(
       {this.shopUuid,
+      required this.price,
+      this.cost = 0,
       required int lineId,
       required int id,
       required String fullName,
-      required int price,
-      int cost = 0,
       double weight = 1.0,
       int? articleCode,
       String? photo = '',
@@ -26,8 +30,6 @@ class ArticleWeebi extends ArticleAbstract {
           lineId: lineId,
           id: id,
           fullName: fullName,
-          price: price,
-          cost: cost,
           weight: weight,
           articleCode: articleCode,
           photo: photo,
@@ -130,7 +132,7 @@ ArticleWeebi(
     DateTime? creationDate,
     DateTime? updateDate,
     bool? status,
-    List<ProxyArticleWeebi>? proxies,
+    List<ProxyArticle>? proxies,
   }) {
     return ArticleWeebi(
       shopUuid: shopUuid ?? this.shopUuid,

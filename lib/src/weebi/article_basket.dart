@@ -1,75 +1,60 @@
 import 'dart:convert';
 
 import 'package:mobx/mobx.dart';
+import 'package:models_weebi/base.dart';
+import 'package:models_weebi/src/weebi/price_and_cost.dart';
+import 'package:models_weebi/src/weebi/proxy_article.dart';
 import 'package:models_weebi/utils.dart';
 import 'package:models_weebi/weebi_models.dart'
-    show ProxyArticleWeebi, ArticleWeebi, LineOfArticles;
+    show ProxyArticle, LineOfArticles;
 import 'package:collection/collection.dart';
-import 'package:models_weebi/src/weebi/proxy_article_weebi.dart';
 
-class ArticleBasket extends ArticleWeebi {
-  final List<ProxyArticleWeebi> proxies;
-  // article price and cost can change
-  // so proxes only save ref not price / nor cost which are fetched when invoked
-  ArticleBasket.unbuiltNoPriceNoCost({
-    required String? shopUuid,
-    required int lineId,
-    required int id,
-    required String fullName,
-    double weight = 1.0,
-    int? articleCode,
-    String? photo = '',
-    required DateTime? creationDate,
-    required DateTime? updateDate,
-    @observable bool status = false,
-    required this.proxies,
+class ArticleBasketWithPriceAndCost extends ArticleBasket
+    implements PriceAndCostAbstract {
+  @override
+  final int price;
+  @override
+  final int cost;
+
+  ArticleBasketWithPriceAndCost._({
+    required this.price,
+    required this.cost,
+    required ArticleBasket aBasket,
   }) : super(
-          shopUuid: shopUuid,
-          lineId: lineId,
-          id: id,
-          price: -1,
-          cost: -1,
-          fullName: fullName,
-          weight: weight,
-          articleCode: articleCode,
-          photo: photo,
-          creationDate: creationDate,
-          updateDate: updateDate,
-          status: status,
-        );
+            lineId: aBasket.lineId,
+            id: aBasket.id,
+            fullName: aBasket.fullName,
+            weight: aBasket.weight,
+            articleCode: aBasket.articleCode,
+            photo: aBasket.photo,
+            creationDate: aBasket.creationDate,
+            updateDate: aBasket.updateDate,
+            status: aBasket.status,
+            proxies: aBasket.proxies);
 
-  // * seems costly to check that no diff occured since initial fetch price/cost
-  // keeping it dynami for now
-  // for (final newLine in _linesInStore) {
-  //   if (_oldLines.contains(newLine) == false) {
-  //     _oldLines.add(newLine);
-  //   }
-  // }
-  factory ArticleBasket.gettingPriceAndCost(
+  factory ArticleBasketWithPriceAndCost.getPriceAndCost(
       Iterable<LineOfArticles> _linesInStore,
       ArticleBasket aBasketNoPriceNoCost) {
     final int price =
         aBasketNoPriceNoCost.proxies.computeProxiesPrice(_linesInStore);
     final int cost =
         aBasketNoPriceNoCost.proxies.computeProxiesCost(_linesInStore);
-    return ArticleBasket._withPriceAndCost(
-        shopUuid: aBasketNoPriceNoCost.shopUuid,
-        lineId: aBasketNoPriceNoCost.lineId,
-        id: aBasketNoPriceNoCost.id,
-        price: price,
-        cost: cost,
-        fullName: aBasketNoPriceNoCost.fullName,
-        creationDate: aBasketNoPriceNoCost.creationDate,
-        updateDate: aBasketNoPriceNoCost.updateDate,
-        proxies: aBasketNoPriceNoCost.proxies);
+    return ArticleBasketWithPriceAndCost._(
+        price: price, cost: cost, aBasket: aBasketNoPriceNoCost);
   }
 
-  ArticleBasket._withPriceAndCost({
-    required String? shopUuid,
+  static final dummyWithPriceAndCost =
+      ArticleBasketWithPriceAndCost.getPriceAndCost(
+          [LineOfArticles.dummy, LineOfArticles.dummy], ArticleBasket.dummy);
+}
+
+class ArticleBasket extends ArticleAbstract {
+  final List<ProxyArticle> proxies;
+  // article price and cost can change
+  // so proxes only save ref not price / nor cost which are fetched when invoked
+  ArticleBasket({
     required int lineId,
     required int id,
-    required int price,
-    required int cost,
     required String fullName,
     double weight = 1.0,
     int? articleCode,
@@ -79,11 +64,8 @@ class ArticleBasket extends ArticleWeebi {
     @observable bool status = false,
     required this.proxies,
   }) : super(
-          shopUuid: shopUuid,
           lineId: lineId,
           id: id,
-          price: price,
-          cost: cost,
           fullName: fullName,
           weight: weight,
           articleCode: articleCode,
@@ -93,26 +75,48 @@ class ArticleBasket extends ArticleWeebi {
           status: status,
         );
 
-  static final dummyNoPriceNoCost = ArticleBasket.unbuiltNoPriceNoCost(
-    shopUuid: 'shopUuid',
-    lineId: 1,
-    id: 1,
-    fullName: 'dummy',
-    weight: 1,
-    articleCode: 1,
-    photo: 'photo',
-    creationDate: WeebiDates.defaultDate,
-    updateDate: WeebiDates.defaultDate,
-    status: true,
-    proxies: [ProxyArticleWeebi.dummy],
-  );
-  static final dummyWithPriceAndCost = ArticleBasket.gettingPriceAndCost(
-      [LineOfArticles.dummy, LineOfArticles.dummy], dummyNoPriceNoCost);
+  static get dummy => ArticleBasket(
+        lineId: 1,
+        id: 1,
+        fullName: 'dummy',
+        weight: 1,
+        articleCode: 1,
+        photo: 'photo',
+        creationDate: WeebiDates.defaultDate,
+        updateDate: WeebiDates.defaultDate,
+        status: true,
+        proxies: [ProxyArticle.dummy],
+      );
+
+  factory ArticleBasket.fromMap(Map<String, dynamic> map) {
+    return ArticleBasket(
+        lineId: map['lineId'] == null
+            ? map['productId'] as int
+            : map['lineId'] as int,
+        id: map['id'] as int,
+        fullName: map['fullName'] as String,
+        weight: map['weight'] == null ? 0.0 : (map['weight'] as num).toDouble(),
+        articleCode: map['articleCode'] ?? 0,
+        photo: map['photo'] ?? '',
+        creationDate: map['creationDate'] == null
+            ? WeebiDates.defaultDate
+            : DateTime.parse(map['creationDate']),
+        updateDate: map['updateDate'] == null
+            ? WeebiDates.defaultDate
+            : DateTime.parse(map['updateDate']),
+        proxies: map['proxies'] != null
+            ? List<ProxyArticle>.from(
+                map['proxies']?.map((x) => ProxyArticle.fromMap(x)))
+            : [],
+        status: map['status']);
+  }
+
+  @override
+  String toJson() => json.encode(toMap());
 
   @override
   Map<String, dynamic> toMap() {
     return {
-      'shopUuid': shopUuid,
       'proxies': proxies.map((x) => x.toMap()).toList(),
       'lineId': lineId,
       'id': id,
@@ -128,84 +132,6 @@ class ArticleBasket extends ArticleWeebi {
     };
   }
 
-  factory ArticleBasket.fromMapUnbuiltNoPriceNoCost(Map<String, dynamic> map) {
-    return ArticleBasket.unbuiltNoPriceNoCost(
-        lineId: map['lineId'] == null
-            ? map['productId'] as int
-            : map['lineId'] as int,
-        id: map['id'] as int,
-        fullName: map['fullName'] as String,
-        weight: map['weight'] == null ? 0.0 : (map['weight'] as num).toDouble(),
-        articleCode: map['articleCode'] ?? 0,
-        photo: map['photo'] ?? '',
-        creationDate: map['creationDate'] == null
-            ? WeebiDates.defaultDate
-            : DateTime.parse(map['creationDate']),
-        updateDate: map['updateDate'] == null
-            ? WeebiDates.defaultDate
-            : DateTime.parse(map['updateDate']),
-        shopUuid: map['shopUuid'] ?? '',
-        proxies: map['proxies'] != null
-            ? List<ProxyArticleWeebi>.from(
-                map['proxies']?.map((x) => ProxyArticleWeebi.fromMap(x)))
-            : [],
-        status: map['status']);
-  }
-
-  factory ArticleBasket.fromMap(Map<String, dynamic> map) {
-    return ArticleBasket.unbuiltNoPriceNoCost(
-        lineId: map['lineId'] == null
-            ? map['productId'] as int
-            : map['lineId'] as int,
-        id: map['id'] as int,
-        fullName: map['fullName'] as String,
-        weight: map['weight'] == null ? 0.0 : (map['weight'] as num).toDouble(),
-        articleCode: map['articleCode'] ?? 0,
-        photo: map['photo'] ?? '',
-        creationDate: map['creationDate'] == null
-            ? WeebiDates.defaultDate
-            : DateTime.parse(map['creationDate']),
-        updateDate: map['updateDate'] == null
-            ? WeebiDates.defaultDate
-            : DateTime.parse(map['updateDate']),
-        shopUuid: map['shopUuid'] ?? '',
-        proxies: map['proxies'] != null
-            ? List<ProxyArticleWeebi>.from(
-                map['proxies']?.map((x) => ProxyArticleWeebi.fromMap(x)))
-            : [],
-        status: map['status']);
-  }
-
-  // factory ArticleBasket.fromMap(
-  //   Map<String, dynamic> map,
-  //   Iterable<LineOfArticles> lines,
-  // ) {
-  //   return ArticleBasket.gettingPriceAndCost(lines,
-  //       lineId: map['lineId'] == null
-  //           ? map['productId'] as int
-  //           : map['lineId'] as int,
-  //       id: map['id'] as int,
-  //       fullName: map['fullName'] as String,
-  //       weight: map['weight'] == null ? 0.0 : (map['weight'] as num).toDouble(),
-  //       articleCode: map['articleCode'] ?? 0,
-  //       photo: map['photo'] ?? '',
-  //       creationDate: map['creationDate'] == null
-  //           ? WeebiDates.defaultDate
-  //           : DateTime.parse(map['creationDate']),
-  //       updateDate: map['updateDate'] == null
-  //           ? WeebiDates.defaultDate
-  //           : DateTime.parse(map['updateDate']),
-  //       shopUuid: map['shopUuid'] ?? '',
-  //       proxies: map['proxies'] != null
-  //           ? List<ProxyArticleWeebi>.from(
-  //               map['proxies']?.map((x) => ProxyArticleWeebi.fromMap(x)))
-  //           : [],
-  //       status: map['status']);
-  // }
-
-  @override
-  String toJson() => json.encode(toMap());
-
   @override
   String toString() {
     return """
@@ -219,9 +145,7 @@ ArticleBasket(
   articleCode: $articleCode,
   photo: $photo,
   status: $status,
-  proxies: $proxies,
-)
-""";
+  proxies: $proxies,)""";
   }
 
   factory ArticleBasket.fromJson(String source) =>
@@ -229,36 +153,21 @@ ArticleBasket(
   // factory ArticleBasket.fromJson(String source, List<LineOfArticles> lines) =>
   //     ArticleBasket.fromMap(json.decode(source), lines);
 
-  @override
   ArticleBasket copyWith({
-    Iterable<LineOfArticles>? newLines,
-    String? shopUuid,
     int? lineId,
     int? id,
     String? fullName,
-    int? price, // TODO consider removing them from base models and using mixin
-    int? cost,
     double? weight,
     int? articleCode,
     String? photo,
     DateTime? creationDate,
     DateTime? updateDate,
     bool? status,
-    List<ProxyArticleWeebi>? proxies,
+    List<ProxyArticle>? proxies,
   }) {
-    final int price = proxies != null && newLines != null
-        ? proxies.computeProxiesPrice(newLines)
-        : -1;
-    final int cost = proxies != null && newLines != null
-        ? proxies.computeProxiesCost(newLines)
-        : -1;
-
-    return ArticleBasket._withPriceAndCost(
-      shopUuid: shopUuid ?? this.shopUuid,
+    return ArticleBasket(
       lineId: lineId ?? this.lineId,
       id: id ?? this.id,
-      price: price == -1 ? this.price : price,
-      cost: cost == -1 ? this.cost : cost,
       fullName: fullName ?? this.fullName,
       weight: weight ?? this.weight,
       articleCode: articleCode ?? this.articleCode,
@@ -275,9 +184,6 @@ ArticleBasket(
     if (identical(this, other)) return true;
     final listEquals = const DeepCollectionEquality().equals;
     return other is ArticleBasket &&
-        other.shopUuid == shopUuid &&
-        other.cost == cost &&
-        other.price == price &&
         other.fullName == fullName &&
         other.id == id &&
         other.photo == photo &&
@@ -287,5 +193,5 @@ ArticleBasket(
   }
 
   @override
-  int get hashCode => shopUuid.hashCode;
+  int get hashCode => id.hashCode;
 }

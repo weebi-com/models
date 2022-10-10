@@ -1,21 +1,20 @@
 import 'dart:convert';
 
 import 'package:models_base/base.dart' show ProxyArticleAbstract;
+import 'package:models_weebi/src/weebi/article_weebi.dart';
 import 'package:models_weebi/src/weebi/line_of_articles_w.dart';
 
-class ProxyArticleWeebi extends ProxyArticleAbstract {
-  final String? shopUuid; // distinguish shops data in backend db
+class ProxyArticle extends ProxyArticleAbstract {
   final double
-      minimumQtPerBasket; // putting this here before inserting it into base
+      minimumUnitPerBasket; // putting it here before inserting it into base
 
-  ProxyArticleWeebi({
+  ProxyArticle({
     required int lineId,
     required int articleId,
     required int id,
     required int proxyLineId,
     required int proxyArticleId,
-    required this.shopUuid,
-    required this.minimumQtPerBasket,
+    required this.minimumUnitPerBasket,
     bool status = true,
   }) : super(
           lineId: lineId,
@@ -26,35 +25,32 @@ class ProxyArticleWeebi extends ProxyArticleAbstract {
           status: status,
         );
 
-  static final dummy = ProxyArticleWeebi(
+  static final dummy = ProxyArticle(
     lineId: 1,
     articleId: 1,
     id: 1,
     proxyLineId: 1,
     proxyArticleId: 1,
-    minimumQtPerBasket: 1.0,
-    shopUuid: '',
+    minimumUnitPerBasket: 1.0,
   );
 
-  ProxyArticleWeebi copyWith({
+  ProxyArticle copyWith({
     int? lineId,
     int? articleId,
     int? id,
     int? proxyLineId,
     int? proxyArticleId,
     bool? status,
-    String? shopUuid,
-    double? minimumQtPerBasket,
+    double? minimumUnitPerBasket,
   }) {
-    return ProxyArticleWeebi(
+    return ProxyArticle(
       lineId: lineId ?? this.lineId,
       articleId: articleId ?? this.articleId,
       id: id ?? this.id,
       proxyArticleId: proxyArticleId ?? this.proxyArticleId,
       proxyLineId: proxyLineId ?? this.proxyLineId,
       status: status ?? this.status,
-      shopUuid: shopUuid ?? this.shopUuid,
-      minimumQtPerBasket: minimumQtPerBasket ?? this.minimumQtPerBasket,
+      minimumUnitPerBasket: minimumUnitPerBasket ?? this.minimumUnitPerBasket,
     );
   }
 
@@ -66,14 +62,13 @@ class ProxyArticleWeebi extends ProxyArticleAbstract {
       'id': id,
       'proxyLineId': proxyLineId,
       'proxyArticleId': proxyArticleId,
-      'shopUuid': shopUuid,
       'status': status,
-      'minimumUnitPerBasket': minimumQtPerBasket,
+      'minimumUnitPerBasket': minimumUnitPerBasket,
     };
   }
 
-  factory ProxyArticleWeebi.fromMap(Map<String, dynamic> map) {
-    return ProxyArticleWeebi(
+  factory ProxyArticle.fromMap(Map<String, dynamic> map) {
+    return ProxyArticle(
       lineId: map['lineId'] == null
           ? map['productId'] as int
           : map['lineId'] as int,
@@ -81,30 +76,28 @@ class ProxyArticleWeebi extends ProxyArticleAbstract {
       id: map['id'],
       proxyLineId: map['proxyLineId'],
       proxyArticleId: map['proxyArticleId'],
-      shopUuid: map['shopUuid'],
       status: map['status'] ?? true,
-      minimumQtPerBasket: map['minimumUnitPerBasket'],
+      minimumUnitPerBasket: map['minimumUnitPerBasket'],
     );
   }
 
   @override
   String toJson() => json.encode(toMap());
 
-  factory ProxyArticleWeebi.fromJson(String source) =>
-      ProxyArticleWeebi.fromMap(json.decode(source));
+  factory ProxyArticle.fromJson(String source) =>
+      ProxyArticle.fromMap(json.decode(source));
 
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
 
-    return other is ProxyArticleWeebi &&
-        other.shopUuid == shopUuid &&
+    return other is ProxyArticle &&
         other.lineId == lineId &&
         other.articleId == articleId &&
         other.id == id &&
         other.proxyLineId == proxyLineId &&
         other.proxyArticleId == proxyArticleId &&
-        minimumQtPerBasket == minimumQtPerBasket;
+        minimumUnitPerBasket == minimumUnitPerBasket;
   }
 
   @override
@@ -113,24 +106,23 @@ class ProxyArticleWeebi extends ProxyArticleAbstract {
       lineId.hashCode ^
       articleId.hashCode ^
       id.hashCode ^
-      shopUuid.hashCode ^
-      minimumQtPerBasket.hashCode ^
+      minimumUnitPerBasket.hashCode ^
       proxyLineId.hashCode ^
       proxyArticleId.hashCode;
 }
 
-extension ProxiesCompute on List<ProxyArticleWeebi> {
+extension ProxiesCompute on Iterable<ProxyArticle> {
   // articleBasket price must be computed
   int computeProxiesPrice(Iterable<LineOfArticles> lines) {
     final _prices = <int>[];
     if (isNotEmpty && lines.isNotEmpty) {
       for (final _line in lines) {
-        for (final _lot in this) {
-          if (_line.id == _lot.proxyLineId) {
+        for (final _proxy in this) {
+          if (_line.id == _proxy.lineId) {
             for (final _article in _line.articles) {
-              if (_article.lineId == _lot.proxyLineId &&
-                  _article.id == _lot.proxyArticleId) {
-                _prices.add(_article.price);
+              if (_article.lineId == _proxy.lineId &&
+                  _article.id == _proxy.articleId) {
+                _prices.add((_article as ArticleWeebi).price);
               }
             }
           }
@@ -145,12 +137,12 @@ extension ProxiesCompute on List<ProxyArticleWeebi> {
     final _costs = <int>[];
     if (isNotEmpty && lines.isNotEmpty) {
       for (final _line in lines) {
-        for (final _lot in this) {
-          if (_line.id == _lot.proxyLineId) {
+        for (final _proxy in this) {
+          if (_line.id == _proxy.lineId) {
             for (final _article in _line.articles) {
-              if (_article.lineId == _lot.proxyLineId &&
-                  _article.id == _lot.proxyArticleId) {
-                _costs.add(_article.cost);
+              if (_article.lineId == _proxy.lineId &&
+                  _article.id == _proxy.articleId) {
+                _costs.add((_article as ArticleWeebi).cost);
               }
             }
           }

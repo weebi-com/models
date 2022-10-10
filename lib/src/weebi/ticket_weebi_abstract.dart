@@ -1,4 +1,4 @@
-import 'package:models_weebi/base.dart';
+import 'package:models_weebi/base.dart' hide ItemAbstract;
 import 'package:models_base/common.dart';
 import 'package:models_weebi/weebi_models.dart';
 
@@ -7,8 +7,7 @@ import 'package:models_weebi/weebi_models.dart';
 
 abstract class TicketWeebiAbstract<A extends ArticleWeebi>
     implements
-        TicketAbstract<ItemInCartAbstract<ArticleAbstract, ProxyArticleWorth>,
-            TaxeAbstract> {
+        TicketAbstract<ItemInCartAbstract<ArticleAbstract>, TaxeAbstract> {
   final String oid; // mongo _id
   final String shopId; // shopUuid
   final String contactInfo; // herderId

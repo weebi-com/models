@@ -111,7 +111,7 @@ class LineOfArticles<A extends ArticleAbstract> extends LineArticleAbstract<A> {
               if (x['proxies'] == null) {
                 return ArticleWeebi.fromMap(x);
               } else {
-                return ArticleBasket.fromMapUnbuiltNoPriceNoCost(x);
+                return ArticleBasket.fromMap(x);
               }
             })),
       categories: map["categories"] == null

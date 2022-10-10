@@ -1,7 +1,7 @@
-import 'package:models_base/base.dart'
-    show ItemInCartAbstract, TaxeAbstract, TicketAbstract;
+import 'package:models_base/base.dart' show TaxeAbstract, TicketAbstract;
 import 'package:models_base/common.dart';
 import 'package:models_base/utils.dart';
+import 'package:models_weebi/weebi_models.dart';
 // import 'package:models_weebi/src/weebi/item_weebi.dart';
 // import 'package:models_weebi/src/weebi/taxe_weebi.dart';
 
