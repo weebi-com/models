@@ -5,8 +5,8 @@ import 'package:models_base/base.dart'
     show ArticleAbstract, LineArticleAbstract;
 import 'package:models_base/common.dart';
 import 'package:models_base/utils.dart';
-import 'package:models_weebi/src/weebi/article_basket.dart';
-import 'package:models_weebi/src/weebi/article_weebi.dart';
+import 'package:models_weebi/src/models/article_basket.dart';
+import 'package:models_weebi/src/models/article_weebi.dart';
 import 'package:collection/collection.dart';
 
 class LineOfArticles<A extends ArticleAbstract> extends LineArticleAbstract<A> {
@@ -45,7 +45,7 @@ class LineOfArticles<A extends ArticleAbstract> extends LineArticleAbstract<A> {
 // use a mixin ?
   String get sharableText {
     final truc =
-        StringBuffer(); //TODO fix this inherited from old  old stock management
+        StringBuffer(); //Consider removing this inherited from old  old stock management
 
     final sb = StringBuffer()
       ..writeln('# $id - $title')

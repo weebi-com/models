@@ -1,4 +1,4 @@
-import 'package:models_weebi/src/weebi/taxe_weebi.dart';
+import 'package:models_weebi/src/models/taxe_weebi.dart';
 import 'package:test/test.dart';
 
 void main() {

@@ -1,4 +1,4 @@
-import 'package:models_weebi/src/weebi/proxy_article.dart';
+import 'package:models_weebi/src/models/proxy_article.dart';
 import 'package:test/test.dart';
 
 void main() {

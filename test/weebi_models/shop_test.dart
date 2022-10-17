@@ -1,4 +1,4 @@
-import 'package:models_weebi/src/weebi/shop_weebi.dart';
+import 'package:models_weebi/src/models/shop_weebi.dart';
 import 'package:test/test.dart';
 
 void main() {

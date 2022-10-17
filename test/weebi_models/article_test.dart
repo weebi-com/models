@@ -1,4 +1,4 @@
-// import 'package:models_weebi/src/weebi/article_weebi.dart';
+// import 'package:models_weebi/src/models/article_weebi.dart';
 import 'package:models_weebi/weebi_models.dart';
 import 'package:test/test.dart';
 

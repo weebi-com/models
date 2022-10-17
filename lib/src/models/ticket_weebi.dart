@@ -2,21 +2,21 @@
 
 import 'dart:convert';
 import 'package:models_base/utils.dart';
-import 'package:models_weebi/src/weebi/item_weebi.dart';
-import 'package:models_weebi/src/weebi/taxe_weebi.dart';
-import 'package:models_weebi/src/weebi/ticket_mixin_weebi_base.dart';
-import 'package:models_weebi/src/weebi/ticket_weebi_abstract.dart';
-import 'package:models_weebi/src/weebi/ticket_mixin_weebi_print.dart';
+import 'package:models_weebi/src/models/ticket_mixin_weebi_base.dart';
+import 'package:models_weebi/src/models/ticket_mixin_weebi_print.dart';
 import 'package:models_base/common.dart';
 import 'package:collection/collection.dart';
+import 'package:models_weebi/weebi_models.dart';
 
+// getters are in the mixin => much lighter
+// hence TicketWeebiAbstract + avoiding any confusion with Item and ArticleBasket
 class TicketWeebi extends TicketWeebiAbstract
     with TicketPrinter, TicketMixinWeebiBase {
   TicketWeebi({
     required final String oid,
     required final int id,
     required final String shopId, // shopUuid
-    required final List<ItemWeebi> items,
+    required final List<ItemCartWeebi> items,
     required final TaxeWeebi taxe,
     required final double promo,
     required final String comment,
@@ -114,7 +114,7 @@ TicketWeebi{
     oid: 'oid',
     id: 1,
     shopId: 'shopId',
-    items: [ItemWeebi.dummy],
+    items: [ItemCartWeebi.dummy],
     taxe: TaxeWeebi.noTax,
     promo: 0.0,
     comment: 'comment',
@@ -129,215 +129,6 @@ TicketWeebi{
     creationDate: WeebiDates.defaultDate,
   );
 
-  @override
-  int get totalSell {
-    double total = 0.0;
-    for (final item in items) {
-      // print('total $total item.quantity ${item.quantity} price ${item.article.price}');
-      total += item.article.price * item.quantity;
-      // print('total2 $total');
-    }
-    return total.round();
-  }
-
-  @override
-  int get totalSellPromo =>
-      promo != null ? (totalSell * promo / 100).round() : 0;
-
-  @override
-  int get totalSellHtIncludingPromo => totalSell - totalSellPromo;
-
-  @override
-  int get totalSellTaxes => ((taxe.percentage) > 0.0
-          ? totalSellHtIncludingPromo * (taxe.percentage) / 100
-          : 0)
-      .round();
-
-  @override
-  int get totalSellTtc => totalSellHtIncludingPromo + totalSellTaxes;
-
-  @override
-  int get totalSpend {
-    double total = 0.0;
-    for (final item in items) {
-      total += item.article.cost * item.quantity;
-    }
-    return total.round();
-  }
-
-  @override
-  int get totalSpendPromo {
-    // print('promo $promo');
-    return promo != null ? (totalSpend * promo / 100).round() : 0;
-  }
-
-  @override
-  int get totalSpendHtIncludingPromo => totalSpend - totalSpendPromo;
-
-  @override
-  int get totalSpendTaxes => (((taxe.percentage)) > 0
-          ? totalSpendHtIncludingPromo * ((taxe.percentage)) / 100
-          : 0)
-      .round();
-
-  @override
-  int get totalSpendTtc => totalSpendHtIncludingPromo + totalSpendTaxes;
-
-  @override
-  int get totalSpendDeferredHt {
-    double owed = 0.0;
-    for (final item in items) {
-      owed += (item.article.cost) * (item.quantity);
-    }
-    return owed.round();
-  }
-
-  @override
-  int get totalSpendDeferredPromo =>
-      promo != null ? (totalSpendDeferredHt * (promo / 100)).round() : 0;
-
-  @override
-  int get totalSpendDeferredHtIncludingPromo =>
-      totalSpendDeferredHt - totalSpendDeferredPromo;
-
-  @override
-  int get totalSpendDeferredTaxes => (taxe.percentage) > 0.0
-      ? (totalSpendDeferredHtIncludingPromo * ((taxe.percentage) / 100)).round()
-      : 0;
-
-  @override
-  int get totalSpendDeferredTtc =>
-      totalSpendDeferredHtIncludingPromo + totalSpendDeferredTaxes;
-
-  @override
-  int get totalSellDeferredHt {
-    double owed = 0.0;
-    for (final item in items) {
-      owed += (item.article.price) * (item.quantity);
-    }
-    return owed.round();
-  }
-
-  @override
-  int get totalSellDeferredPromo =>
-      promo != null ? (totalSellDeferredHt * (promo) / 100).round() : 0;
-
-  @override
-  int get totalSellDeferredHtIncludingPromo =>
-      totalSellDeferredHt - totalSellDeferredPromo;
-
-  @override
-  int get totalSellDeferredTaxes => (taxe.percentage) > 0.0
-      ? (totalSellDeferredHtIncludingPromo * ((taxe.percentage)) / 100).round()
-      : 0;
-
-  @override
-  int get totalSellDeferredTtc =>
-      totalSellDeferredHtIncludingPromo + totalSellDeferredTaxes;
-
-  @override
-  int get total {
-    switch (ticketType) {
-      case TicketType.sell:
-        return totalSellTtc;
-      case TicketType.sellDeferred:
-        return totalSellDeferredTtc;
-      case TicketType.sellCovered:
-        return received;
-      case TicketType.spend:
-        return totalSpendTtc;
-      case TicketType.spendDeferred:
-        return totalSpendDeferredTtc;
-      case TicketType.spendCovered:
-        return received;
-      case TicketType.wage:
-        return received;
-      case TicketType.unknown:
-        print('unknow ticket type in calculateSumsOfTicket');
-        return 0;
-      default:
-        return 0;
-    }
-  }
-
-  int get sellFull {
-    switch (ticketType) {
-      case TicketType.sell:
-        return totalSellTtc;
-      // case TicketType.sellDeferred:
-      //   return totalSellDeferredTtc;
-      case TicketType.sellCovered:
-        return received;
-      default:
-        return 0;
-    }
-  }
-
-  int get spendFull {
-    switch (ticketType) {
-      case TicketType.spend:
-        return totalSpendTtc;
-      // case TicketType.spendDeferred:
-      //   return totalSpendDeferredTtc;
-      case TicketType.spendCovered:
-        return received;
-      case TicketType.unknown:
-        print('unknow ticket type in calculateSumsOfTicket');
-        return 0;
-      default:
-        return 0;
-    }
-  }
-
-  @override
-  String get deactivatedDate {
-    if (status == true) {
-      return '';
-    } else {
-      return '$statusUpdateDate';
-    }
-  }
-
-  @override
-  String get paiement {
-    if (paiementType == PaiementType.nope) {
-      return 'a credit';
-    } else if (paiementType == PaiementType.yup) {
-      return 'yup';
-    } else if (paiementType == PaiementType.goods) {
-      return 'autres';
-    } else if (paiementType == PaiementType.cheque) {
-      return 'cheque';
-    } else if (paiementType == PaiementType.cb) {
-      return 'carte';
-    }
-    return 'cash';
-  }
-
-  @override
-  String get type {
-    if (ticketType == TicketType.stockIn) {
-      return 'Entrée stock';
-    } else if (ticketType == TicketType.stockOut) {
-      return 'Sortie de stock';
-    } else if (ticketType == TicketType.sell) {
-      return 'Vente';
-    } else if (ticketType == TicketType.sellCovered) {
-      return 'Versement client';
-    } else if (ticketType == TicketType.sellDeferred) {
-      return 'Vente a credit';
-    } else if (ticketType == TicketType.spend) {
-      return 'Achat';
-    } else if (ticketType == TicketType.spendCovered) {
-      return 'Versement fournisseur';
-    } else if (ticketType == TicketType.spendDeferred) {
-      return 'Achat a credit';
-    } else if (ticketType == TicketType.wage) {
-      return 'Salaire';
-    }
-    return 'Autres';
-  }
-
   //@override
   //set statusUpdateDate(DateTime? _statusUpdateDate) {
   //  statusUpdateDate = _statusUpdateDate ?? WeebiDates.defaultDate;
@@ -351,8 +142,8 @@ TicketWeebi{
       id: map['id'] as int,
       oid: map['oid'] as String,
       shopId: map['shopId'] as String,
-      items:
-          List<ItemWeebi>.from(map['items']?.map((x) => ItemWeebi.fromMap(x))),
+      items: List<ItemCartWeebi>.from(
+          map['items']?.map((x) => ItemCartWeebi.fromMap(x))),
       taxe: TaxeWeebi.fromMap(map['taxe']),
       promo: map['promo'] == null ? 0.0 : (map['promo'] as num).toDouble(),
       comment: map['comment'],
@@ -404,7 +195,7 @@ TicketWeebi{
     String? oid,
     int? id,
     String? shopId,
-    List<ItemWeebi>? items,
+    List<ItemCartWeebi>? items,
     TaxeWeebi? taxe,
     double? promo,
     String? comment,

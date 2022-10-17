@@ -1,16 +1,15 @@
 import 'package:mobx/mobx.dart';
-import 'package:models_weebi/weebi_models.dart' show ArticleWeebi;
+import 'package:models_weebi/base.dart';
+import 'package:models_weebi/utils.dart';
 
-class ArticleWMinQt extends ArticleWeebi {
+class ArticleWMinQt extends ArticleAbstract {
   double minQt = 1.0;
   ArticleWMinQt(
     this.minQt, {
     required int lineId,
     required int id,
-    required int price,
-    required int cost,
     required String fullName,
-    double weight = 1.0,
+    required double weight,
     int? articleCode,
     String? photo = '',
     required DateTime? creationDate,
@@ -19,8 +18,6 @@ class ArticleWMinQt extends ArticleWeebi {
   }) : super(
           lineId: lineId,
           id: id,
-          price: price,
-          cost: cost,
           fullName: fullName,
           weight: weight,
           articleCode: articleCode,
@@ -34,9 +31,6 @@ class ArticleWMinQt extends ArticleWeebi {
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
     return other is ArticleWMinQt &&
-        other.shopUuid == shopUuid &&
-        other.cost == cost &&
-        other.price == price &&
         other.fullName == fullName &&
         other.id == id &&
         other.photo == photo &&
@@ -44,6 +38,14 @@ class ArticleWMinQt extends ArticleWeebi {
         other.updateDate == updateDate;
   }
 
+  static get dummy => ArticleWMinQt(1,
+      lineId: 1,
+      id: 1,
+      weight: 1,
+      fullName: 'dummy',
+      creationDate: WeebiDates.defaultDate,
+      updateDate: WeebiDates.defaultDate);
+
   @override
-  int get hashCode => shopUuid.hashCode;
+  int get hashCode => id.hashCode ^ fullName.hashCode;
 }

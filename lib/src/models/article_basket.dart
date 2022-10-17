@@ -2,8 +2,9 @@ import 'dart:convert';
 
 import 'package:mobx/mobx.dart';
 import 'package:models_weebi/base.dart';
-import 'package:models_weebi/src/weebi/price_and_cost.dart';
-import 'package:models_weebi/src/weebi/proxy_article.dart';
+import 'package:models_weebi/src/models/price_and_cost.dart';
+import 'package:models_weebi/src/models/proxy_article.dart';
+import 'package:models_weebi/src/models/proxy_article_worth.dart';
 import 'package:models_weebi/utils.dart';
 import 'package:models_weebi/weebi_models.dart'
     show ProxyArticle, LineOfArticles;
@@ -48,7 +49,15 @@ class ArticleBasketWithPriceAndCost extends ArticleBasket
           [LineOfArticles.dummy, LineOfArticles.dummy], ArticleBasket.dummy);
 }
 
-class ArticleBasket extends ArticleAbstract {
+mixin GetPriceAndCostMixin on ArticleAbstract {
+  ArticleBasketWithPriceAndCost getPriceAndCost(
+      Iterable<LineOfArticles> _linesInStore) {
+    return ArticleBasketWithPriceAndCost.getPriceAndCost(
+        _linesInStore, this as ArticleBasket);
+  }
+}
+
+class ArticleBasket extends ArticleAbstract with GetPriceAndCostMixin {
   final List<ProxyArticle> proxies;
   // article price and cost can change
   // so proxes only save ref not price / nor cost which are fetched when invoked
@@ -74,6 +83,16 @@ class ArticleBasket extends ArticleAbstract {
           updateDate: updateDate,
           status: status,
         );
+
+  Iterable<ProxyArticleWorth> getProxiesWithPriceAndCost(
+      Iterable<LineOfArticles> lines) {
+    final proxiesWorth = <ProxyArticleWorth>[];
+    for (final p in proxies) {
+      final temp = p.getProxyArticleWorth(lines);
+      proxiesWorth.add(temp);
+    }
+    return proxiesWorth;
+  }
 
   static get dummy => ArticleBasket(
         lineId: 1,

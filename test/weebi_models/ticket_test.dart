@@ -1,4 +1,4 @@
-import 'package:models_weebi/src/weebi/ticket_weebi.dart';
+import 'package:models_weebi/src/models/ticket_weebi.dart';
 import 'package:test/test.dart';
 
 void main() {

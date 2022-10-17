@@ -3,8 +3,8 @@ import 'dart:convert';
 import 'package:mobx/mobx.dart';
 import 'package:models_base/base.dart' show ArticleAbstract;
 import 'package:models_base/utils.dart';
-import 'package:models_weebi/src/weebi/price_and_cost.dart';
-import 'package:models_weebi/src/weebi/proxy_article.dart';
+import 'package:models_weebi/src/models/price_and_cost.dart';
+import 'package:models_weebi/src/models/proxy_article.dart';
 
 class ArticleWeebi extends ArticleAbstract implements PriceAndCostAbstract {
   @override
@@ -61,9 +61,9 @@ ArticleWeebi(
   id: $id,
   fullName: '$fullName',
   price: $price,
+  cost: $cost,
   creationDate: $creationDate,
   updateDate: $updateDate,
-  cost: $cost,
   weight: $weight,
   articleCode: $articleCode,
   photo: $photo,
@@ -101,7 +101,7 @@ ArticleWeebi(
         fullName: map['fullName'] as String,
         price: map['price'] as int,
         cost: map['cost'] as int,
-        weight: map['weight'] == null ? 0.0 : (map['weight'] as num).toDouble(),
+        weight: map['weight'] == null ? 1.0 : (map['weight'] as num).toDouble(),
         articleCode: map['articleCode'] ?? 0,
         photo: map['photo'] ?? '',
         creationDate: map['creationDate'] == null
@@ -113,6 +113,7 @@ ArticleWeebi(
         shopUuid: map['shopUuid'] ?? '',
         status: map['status']);
   }
+
   @override
   String toJson() => json.encode(toMap());
 
