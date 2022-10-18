@@ -55,8 +55,8 @@ class LineOfArticles<A extends ArticleAbstract> extends LineArticleAbstract<A> {
 
   static final dummy = LineOfArticles(
     shopUuid: 'shopUuid',
-    articles: [ArticleWeebi.dummy],
     id: 1,
+    articles: [ArticleWeebi.dummy],
     title: 'dummy',
     status: true,
     creationDate: WeebiDates.defaultDate,
@@ -137,7 +137,7 @@ class LineOfArticles<A extends ArticleAbstract> extends LineArticleAbstract<A> {
     int? barcode,
     bool? status,
     DateTime? statusUpdateDate,
-    List<ArticleWeebi>? articles,
+    List<A>? articles,
     DateTime? creationDate,
     DateTime? updateDate,
     List<String>? categories,
