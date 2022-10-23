@@ -5,8 +5,8 @@ import 'package:models_weebi/src/models/ticket_weebi_abstract.dart';
 
 mixin TicketPrinter on TicketWeebiAbstract {
   // -----STRINGS-----
-  String get titleSell {
-    final sb = StringBuffer(numFormat.format(totalSellTaxAndPromoIncluded))
+  String get titleTotalPrice {
+    final sb = StringBuffer(numFormat.format(totalPriceTaxAndPromoIncluded))
       ..write(' ');
     sb.write(PaiementType.paiementString(paiementType));
     return sb.toString();
@@ -18,16 +18,8 @@ mixin TicketPrinter on TicketWeebiAbstract {
     return sb.toString();
   }
 
-  String get titleSellDeferred {
-    final sb =
-        StringBuffer(numFormat.format(totalSellDeferredTaxAndPromoIncluded))
-          ..write(' ');
-    sb.write(PaiementType.paiementString(paiementType));
-    return sb.toString();
-  }
-
-  String get titleSpend {
-    final sb = StringBuffer(numFormat.format(totalSpendTaxAndPromoIncluded))
+  String get titleTotalCost {
+    final sb = StringBuffer(numFormat.format(totalCostTaxAndPromoIncluded))
       ..write(' ');
     sb.write(PaiementType.paiementString(paiementType));
     return sb.toString();
@@ -35,14 +27,6 @@ mixin TicketPrinter on TicketWeebiAbstract {
 
   String get titleSpendCovered {
     final sb = StringBuffer(numFormat.format((received)))..write(' ');
-    sb.write(PaiementType.paiementString(paiementType));
-    return sb.toString();
-  }
-
-  String get titleSpendDeferred {
-    final sb =
-        StringBuffer(numFormat.format(totalSpendDeferredTaxAndPromoIncluded))
-          ..write(' ');
     sb.write(PaiementType.paiementString(paiementType));
     return sb.toString();
   }
@@ -61,8 +45,8 @@ mixin TicketPrinter on TicketWeebiAbstract {
       ..writeln('type: ${TicketType.typeString(ticketType)}')
       ..writeln(products.toString())
       ..writeln('paiement: ${PaiementType.paiementString(paiementType)}')
-      ..writeln('taxes: $totalSellTaxes')
-      ..writeln('total: $totalSellTaxAndPromoIncluded')
+      ..writeln('taxes: $totalPriceTaxesVal')
+      ..writeln('total: $totalPriceTaxAndPromoIncluded')
       ..writeln('contact: $herderId')
       ..writeln(deactivatedDate);
     return sb.toString();
@@ -86,16 +70,16 @@ mixin TicketPrinter on TicketWeebiAbstract {
         ..writeln('paiement : $paiement')
         ..writeln(products.toString())
         ..writeln('')
-        ..writeln('total : ${numFormat.format(totalSellTaxAndPromoExcluded)}')
-        ..writeln('- ${numFormat.format(totalSellPromo)} (promo $promo%)')
+        ..writeln('total : ${numFormat.format(totalPriceItemsOnly)}')
+        ..writeln('- ${numFormat.format(totalPricePromoVal)} (promo $promo%)')
         ..writeln(
-            'total HT : ${numFormat.format(totalSellTaxExcludedIncludingPromo)}')
+            'total HT : ${numFormat.format(totalPriceTaxExcludedPromoIncluded)}')
         ..writeln(
-            '+ taxe : ${numFormat.format(totalSellTaxes)} (taxe ${taxe.percentage} %)')
+            '+ taxe : ${numFormat.format(totalPriceTaxesVal)} (taxe ${taxe.percentage} %)')
         ..writeln(
-            'total TTC : ${numFormat.format(totalSellTaxAndPromoIncluded)}')
+            'total TTC : ${numFormat.format(totalPriceTaxAndPromoIncluded)}')
         ..writeln(
-            'monnaie : ${numFormat.format(received - totalSellTaxAndPromoIncluded)}')
+            'monnaie : ${numFormat.format(received - totalPriceTaxAndPromoIncluded)}')
         ..writeln('note : $comment')
         ..writeln(deactivatedDate)
         ..writeln('')
@@ -111,16 +95,16 @@ mixin TicketPrinter on TicketWeebiAbstract {
         ..writeln('paiement : $paiement')
         ..writeln(products.toString())
         ..writeln('')
-        ..writeln('total : ${numFormat.format(totalSpendTaxAndPromoExcluded)}')
-        ..writeln('- ${numFormat.format(totalSpendPromo)} (promo $promo %)')
+        ..writeln('total : ${numFormat.format(totalCostItemsOnly)}')
+        ..writeln('- ${numFormat.format(totalCostPromoVal)} (promo $promo %)')
         ..writeln(
-            'total HT : ${numFormat.format(totalSpendTaxExcludedIncludingPromo)}')
+            'total HT : ${numFormat.format(totalCostTaxExcludedIncludingPromo)}')
         ..writeln(
-            '+ taxe : ${numFormat.format(totalSpendTaxes)} (taxe ${taxe.percentage} %)')
+            '+ taxe : ${numFormat.format(totalCostTaxesVal)} (taxe ${taxe.percentage} %)')
         ..writeln(
-            'total TTC : ${numFormat.format(totalSpendTaxAndPromoIncluded)}')
+            'total TTC : ${numFormat.format(totalCostTaxAndPromoIncluded)}')
         ..writeln(
-            'monnaie : ${numFormat.format(received - totalSpendTaxAndPromoIncluded)}')
+            'monnaie : ${numFormat.format(received - totalCostTaxAndPromoIncluded)}')
         ..writeln('note : $comment')
         ..writeln(deactivatedDate)
         ..writeln('')
@@ -168,16 +152,14 @@ mixin TicketPrinter on TicketWeebiAbstract {
         ..writeln('paiement : $paiement')
         ..writeln(products.toString())
         ..writeln('')
+        ..writeln('total : ${numFormat.format(totalPriceItemsOnly)}')
+        ..writeln('- ${numFormat.format(totalPricePromoVal)} (promo $promo%)')
         ..writeln(
-            'total : ${numFormat.format(totalSellDeferredTaxAndPromoExcluded)}')
+            'total HT : ${numFormat.format(totalPriceTaxExcludedPromoIncluded)}')
         ..writeln(
-            '- ${numFormat.format(totalSellDeferredPromo)} (promo $promo%)')
+            '+ taxe : ${numFormat.format(totalPriceTaxesVal)} (taxe ${taxe.percentage} %)')
         ..writeln(
-            'total HT : ${numFormat.format(totalSellDeferredTaxExcludedPromoIncluded)}')
-        ..writeln(
-            '+ taxe : ${numFormat.format(totalSellDeferredTaxes)} (taxe ${taxe.percentage} %)')
-        ..writeln(
-            'total TTC : ${numFormat.format(totalSellDeferredTaxAndPromoIncluded)}')
+            'total TTC : ${numFormat.format(totalPriceTaxAndPromoIncluded)}')
         ..writeln('note : $comment')
         ..writeln(deactivatedDate)
         ..writeln('')
@@ -195,16 +177,14 @@ mixin TicketPrinter on TicketWeebiAbstract {
         ..writeln('paiement : $paiement')
         ..writeln(products.toString())
         ..writeln('')
+        ..writeln('total : ${numFormat.format(totalCostItemsOnly)}')
+        ..writeln('- ${numFormat.format(totalCostPromoVal)} (promo $promo %)')
         ..writeln(
-            'total : ${numFormat.format(totalSpendDeferredTaxAndPromoExcluded)}')
+            'total HT : ${numFormat.format(totalCostTaxExcludedIncludingPromo)}')
         ..writeln(
-            '- ${numFormat.format(totalSpendDeferredPromo)} (promo $promo %)')
+            '+ taxe : ${numFormat.format(totalCostTaxesVal)} (taxe ${taxe.percentage} %)')
         ..writeln(
-            'total HT : ${numFormat.format(totalSpendTaxExcludedIncludingPromo)}')
-        ..writeln(
-            '+ taxe : ${numFormat.format(totalSpendTaxes)} (taxe ${taxe.percentage} %)')
-        ..writeln(
-            'total TTC : ${numFormat.format(totalSpendDeferredTaxAndPromoIncluded)}')
+            'total TTC : ${numFormat.format(totalCostTaxAndPromoIncluded)}')
         ..writeln('note : $comment')
         ..writeln(deactivatedDate)
         ..writeln('')

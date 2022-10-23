@@ -11,7 +11,7 @@ import 'package:models_weebi/weebi_models.dart';
 // we keep a single class itemWeebi to handle it
 
 extension AggregateItems on Iterable<ItemCartWeebi> {
-  int get totalPriceTaxAndPromoExcluded => fold(0, (value, item) {
+  int get itemsTotalPrice => fold(0, (value, item) {
         if (item.isBasket) {
           return ((value +
                       (item.proxiesWorth as Iterable<ProxyArticleWorth>)
@@ -24,7 +24,11 @@ extension AggregateItems on Iterable<ItemCartWeebi> {
               .round();
         }
       });
-  int get totalCostTaxAndPromoExcluded => fold(0, (value, item) {
+
+  // -----
+  // below spend and spendDeferred
+  // -----
+  int get itemsTotalCost => fold(0, (value, item) {
         if (item.isBasket) {
           return (value +
                   (item.proxiesWorth as Iterable<ProxyArticleWorth>).totalCost *
@@ -85,7 +89,7 @@ class ItemCartWeebi<A extends ArticleAbstract> extends ItemInCartAbstract<A> {
     double stockMovement = 0.0;
     A aInItem = articleCreator();
     if (aSelected.lineId == aInItem.lineId && aSelected.id == aInItem.id) {
-      stockMovement += quantity * aInItem.weight;
+      stockMovement += quantity; // weight should not be included in article
     } else {
       if (isBasket == true) {
         if ((aInItem as ArticleBasket).proxies.any((proxy) =>
@@ -95,8 +99,8 @@ class ItemCartWeebi<A extends ArticleAbstract> extends ItemInCartAbstract<A> {
               proxy.proxyLineId == aSelected.lineId &&
               proxy.proxyArticleId == aSelected.id)) {
             stockMovement += quantity *
-                proxyOfArticleInItem.minimumUnitPerBasket *
-                proxyOfArticleInItem.articleWeight;
+                proxyOfArticleInItem
+                    .minimumUnitPerBasket; // weight should not be included in article
           }
         }
       }
@@ -108,7 +112,8 @@ class ItemCartWeebi<A extends ArticleAbstract> extends ItemInCartAbstract<A> {
     double stockMovement = 0.0;
     A aInItem = articleCreator();
     if (line.id == aInItem.lineId) {
-      stockMovement += quantity * aInItem.weight;
+      stockMovement +=
+          quantity * aInItem.weight; // weight needed for line full stock
     } else {
       if (isBasket == true) {
         if ((aInItem as ArticleBasket)
@@ -118,7 +123,8 @@ class ItemCartWeebi<A extends ArticleAbstract> extends ItemInCartAbstract<A> {
               in aInItem.proxies.where((p) => p.proxyLineId == line.id)) {
             stockMovement += quantity *
                 proxyOfArticleInItem.minimumUnitPerBasket *
-                proxyOfArticleInItem.articleWeight;
+                proxyOfArticleInItem
+                    .articleWeight; // weight needed for line full stock
           }
         }
       }

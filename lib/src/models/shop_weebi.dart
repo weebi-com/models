@@ -7,8 +7,28 @@ import 'package:models_weebi/common.dart' show Address;
 // consider adding
 // * String appVersionBuildNumber
 // * also add String emailResult
+extension IsInRange on DateTime {
+  bool isDateInRange(DateTime startDateRange, DateTime endDateRange) =>
+      (isAfter(startDateRange) || isAtSameMomentAs(startDateRange)) &&
+      (isBefore(endDateRange) || isAtSameMomentAs(endDateRange));
+}
 
-class ShopWeebi extends ShopAbstract {
+mixin Promo on ShopAbstract {
+  String isPromoInRange(DateTime promoStart, DateTime promoEnd) {
+    if (promoStart == WeebiDates.defaultFirstDate &&
+        promoEnd == WeebiDates.defaultLastDate) {
+      return 'Promotion en cours sans date de fin';
+    } else if (DateTime.now().isDateInRange(promoStart, promoEnd)) {
+      return 'Promotion en cours du ${normalDateFormat.format(promoStart)} \nau ${normalDateFormat.format(promoEnd)}';
+    } else if (DateTime.now().isAfter(promoEnd)) {
+      return 'La promotion s\'est terminée le ${normalDateFormat.format(promoEnd)}';
+    } else {
+      return 'La promotion va démarrer le ${normalDateFormat.format(promoStart)}';
+    }
+  }
+}
+
+class ShopWeebi extends ShopAbstract with Promo {
   String gescom;
   String mailUnique;
   final Address? addressComplete;

@@ -12,15 +12,15 @@ mixin TicketMixinWeebiBase on TicketWeebiAbstract {
         date.isBefore(endOfMonth)) {
       switch (_ticketType) {
         case TicketType.sell:
-          return totalSellTaxAndPromoIncluded;
+          return totalPriceTaxAndPromoIncluded;
         case TicketType.sellDeferred:
-          return totalSellDeferredTaxAndPromoIncluded;
+          return totalPriceTaxAndPromoIncluded;
         case TicketType.sellCovered:
           return received;
         case TicketType.spend:
-          return totalSpendTaxAndPromoIncluded;
+          return totalCostTaxAndPromoIncluded;
         case TicketType.spendDeferred:
-          return totalSpendDeferredTaxAndPromoIncluded;
+          return totalCostTaxAndPromoIncluded;
         case TicketType.spendCovered:
           return received;
         case TicketType.wage:
@@ -54,15 +54,15 @@ mixin TicketMixinWeebiBase on TicketWeebiAbstract {
 
   String get totalHtFormattedString {
     if (ticketType == TicketType.sell) {
-      return numFormat.format(totalSellTaxAndPromoExcluded);
+      return numFormat.format(totalPriceItemsOnly);
     } else if (ticketType == TicketType.sellDeferred) {
-      return numFormat.format(totalSellDeferredTaxAndPromoExcluded);
+      return numFormat.format(totalPriceItemsOnly);
     } else if (ticketType == TicketType.sellCovered) {
       return numFormat.format(received);
     } else if (ticketType == TicketType.spend) {
-      return numFormat.format(totalSpendTaxAndPromoExcluded);
+      return numFormat.format(totalCostItemsOnly);
     } else if (ticketType == TicketType.spendDeferred) {
-      return numFormat.format(totalSpendDeferredTaxAndPromoExcluded);
+      return numFormat.format(totalCostItemsOnly);
     } else if (ticketType == TicketType.spendCovered) {
       return numFormat.format(received);
     } else if (ticketType == TicketType.stockIn) {
@@ -78,15 +78,15 @@ mixin TicketMixinWeebiBase on TicketWeebiAbstract {
 
   String get totalTtcFormattedString {
     if (ticketType == TicketType.sell) {
-      return numFormat.format(totalSellTaxAndPromoIncluded);
+      return numFormat.format(totalPriceTaxAndPromoIncluded);
     } else if (ticketType == TicketType.sellDeferred) {
-      return numFormat.format(totalSellDeferredTaxAndPromoIncluded);
+      return numFormat.format(totalPriceTaxAndPromoIncluded);
     } else if (ticketType == TicketType.sellCovered) {
       return numFormat.format(received);
     } else if (ticketType == TicketType.spend) {
-      return numFormat.format(totalSpendTaxAndPromoIncluded);
+      return numFormat.format(totalCostTaxAndPromoIncluded);
     } else if (ticketType == TicketType.spendDeferred) {
-      return numFormat.format(totalSpendDeferredTaxAndPromoIncluded);
+      return numFormat.format(totalCostTaxAndPromoIncluded);
     } else if (ticketType == TicketType.spendCovered) {
       return numFormat.format(received);
     } else if (ticketType == TicketType.stockIn) {
@@ -102,15 +102,15 @@ mixin TicketMixinWeebiBase on TicketWeebiAbstract {
 
   String get getTicketPromoString {
     if (ticketType == TicketType.sell) {
-      return '- ${numFormat.format(totalSellPromo)}';
+      return '- ${numFormat.format(totalPricePromoVal)}';
     } else if (ticketType == TicketType.sellDeferred) {
-      return '- ${numFormat.format(totalSellDeferredPromo)}';
+      return '- ${numFormat.format(totalPricePromoVal)}';
     } else if (ticketType == TicketType.sellCovered) {
       return '- ${numFormat.format(promo)}';
     } else if (ticketType == TicketType.spend) {
-      return '- ${numFormat.format(totalSpendPromo)}';
+      return '- ${numFormat.format(totalCostPromoVal)}';
     } else if (ticketType == TicketType.spendDeferred) {
-      return '- ${numFormat.format(totalSpendDeferredPromo)}';
+      return '- ${numFormat.format(totalCostPromoVal)}';
     } else if (ticketType == TicketType.spendCovered) {
       return '- ${numFormat.format(promo)}';
     } else if (ticketType == TicketType.stockIn) {
@@ -124,15 +124,15 @@ mixin TicketMixinWeebiBase on TicketWeebiAbstract {
 
   String get getTicketHtIncludingPromo {
     if (ticketType == TicketType.sell) {
-      return numFormat.format(totalSellTaxExcludedIncludingPromo);
+      return numFormat.format(totalPriceTaxExcludedPromoIncluded);
     } else if (ticketType == TicketType.sellDeferred) {
-      return numFormat.format(totalSellDeferredTaxExcludedPromoIncluded);
+      return numFormat.format(totalPriceTaxExcludedPromoIncluded);
     } else if (ticketType == TicketType.sellCovered) {
       return numFormat.format(received);
     } else if (ticketType == TicketType.spend) {
-      return numFormat.format(totalSpendTaxExcludedIncludingPromo);
+      return numFormat.format(totalCostTaxExcludedIncludingPromo);
     } else if (ticketType == TicketType.spendDeferred) {
-      return numFormat.format(totalSpendDeferredTaxExcludedIncludingPromo);
+      return numFormat.format(totalCostTaxExcludedIncludingPromo);
     } else if (ticketType == TicketType.spendCovered) {
       return numFormat.format(received);
     } else if (ticketType == TicketType.stockIn) {
@@ -148,15 +148,15 @@ mixin TicketMixinWeebiBase on TicketWeebiAbstract {
 
   String get getTicketTotalTaxes {
     if (ticketType == TicketType.sell) {
-      return '+ ${numFormat.format(totalSellTaxes)}';
+      return '+ ${numFormat.format(totalPriceTaxesVal)}';
     } else if (ticketType == TicketType.sellDeferred) {
-      return '+ ${numFormat.format(totalSellDeferredTaxes)}';
+      return '+ ${numFormat.format(totalPriceTaxesVal)}';
     } else if (ticketType == TicketType.sellCovered) {
       return '+ ${numFormat.format(taxe)}';
     } else if (ticketType == TicketType.spend) {
-      return '+ ${numFormat.format(totalSpendTaxes)}';
+      return '+ ${numFormat.format(totalCostTaxesVal)}';
     } else if (ticketType == TicketType.spendDeferred) {
-      return '+ ${numFormat.format(totalSpendDeferredTaxes)}';
+      return '+ ${numFormat.format(totalCostTaxesVal)}';
     } else if (ticketType == TicketType.spendCovered) {
       return '+ ${numFormat.format(taxe)}';
     } else if (ticketType == TicketType.stockIn) {
@@ -170,13 +170,13 @@ mixin TicketMixinWeebiBase on TicketWeebiAbstract {
 
   String get getTicketChange {
     if (ticketType == TicketType.sell) {
-      return numFormat.format(received - totalSellTaxAndPromoIncluded);
+      return numFormat.format(received - totalPriceTaxAndPromoIncluded);
     } else if (ticketType == TicketType.sellDeferred) {
       return '0';
     } else if (ticketType == TicketType.sellCovered) {
       return '0';
     } else if (ticketType == TicketType.spend) {
-      return numFormat.format(received - totalSpendTaxAndPromoIncluded);
+      return numFormat.format(received - totalCostTaxAndPromoIncluded);
     } else if (ticketType == TicketType.spendDeferred) {
       return '0';
     } else if (ticketType == TicketType.spendCovered) {
@@ -195,7 +195,7 @@ mixin TicketMixinWeebiBase on TicketWeebiAbstract {
   int get sellFull {
     switch (ticketType) {
       case TicketType.sell:
-        return totalSellTaxAndPromoIncluded;
+        return totalPriceTaxAndPromoIncluded;
       // case TicketType.sellDeferred:
       //   return totalSellDeferredTtc;
       case TicketType.sellCovered:
@@ -208,7 +208,7 @@ mixin TicketMixinWeebiBase on TicketWeebiAbstract {
   int get spendFull {
     switch (ticketType) {
       case TicketType.spend:
-        return totalSpendTaxAndPromoIncluded;
+        return totalCostTaxAndPromoIncluded;
       // case TicketType.spendDeferred:
       //   return totalSpendDeferredTtc;
       case TicketType.spendCovered:

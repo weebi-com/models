@@ -29,6 +29,7 @@ class TicketWeebi extends TicketWeebiAbstract
     required final bool status,
     required DateTime? statusUpdateDate,
     required final DateTime creationDate,
+    required final int? discountAmount,
   }) : super(
           id: id,
           oid: oid,
@@ -46,6 +47,7 @@ class TicketWeebi extends TicketWeebiAbstract
           status: status,
           statusUpdateDate: statusUpdateDate ?? WeebiDates.defaultDate,
           creationDate: creationDate,
+          discountAmount: discountAmount ?? 0,
         );
 
   @override
@@ -67,6 +69,7 @@ class TicketWeebi extends TicketWeebiAbstract
         other.herderId == herderId &&
         other.status == status &&
         other.statusUpdateDate == statusUpdateDate &&
+        other.discountAmount == discountAmount &&
         other.creationDate == creationDate;
   }
 
@@ -88,6 +91,7 @@ TicketWeebi{
       'status': $status,
       'statusUpdateDate': ${statusUpdateDate.toIso8601String()},
       'creationDate': ${creationDate.toIso8601String()},
+      'discountAmount': $discountAmount,
       'isInDash': $isInDash,
     };
   }
@@ -107,6 +111,7 @@ TicketWeebi{
         ticketType.hashCode ^
         herderId.hashCode ^
         statusUpdateDate.hashCode ^
+        discountAmount.hashCode ^
         creationDate.hashCode;
   }
 
@@ -127,6 +132,7 @@ TicketWeebi{
     status: true,
     statusUpdateDate: WeebiDates.defaultDate,
     creationDate: WeebiDates.defaultDate,
+    discountAmount: 0,
   );
 
   //@override
@@ -146,6 +152,7 @@ TicketWeebi{
           map['items']?.map((x) => ItemCartWeebi.fromMap(x))),
       taxe: TaxeWeebi.fromMap(map['taxe']),
       promo: map['promo'] == null ? 0.0 : (map['promo'] as num).toDouble(),
+      discountAmount: map['discountAmount'] as int,
       comment: map['comment'],
       contactPastPurchasingPower: map['contactPastPurchasingPower'] as String,
       received: map['received'] as int,
@@ -177,6 +184,7 @@ TicketWeebi{
       'items': items.map((x) => x.toMap()).toList(),
       'taxe': taxe.toMap(),
       'promo': promo,
+      'discountAmount': discountAmount,
       'comment': comment,
       'contactPastPurchasingPower': contactPastPurchasingPower,
       'received': received,
@@ -198,6 +206,7 @@ TicketWeebi{
     List<ItemCartWeebi>? items,
     TaxeWeebi? taxe,
     double? promo,
+    int? discountAmount,
     String? comment,
     String? contactPastPurchasingPower,
     int? received,
@@ -229,6 +238,179 @@ TicketWeebi{
       status: status ?? this.status,
       statusUpdateDate: statusUpdateDate ?? this.statusUpdateDate,
       creationDate: creationDate ?? this.creationDate,
+      discountAmount: discountAmount ?? this.discountAmount,
     );
+  }
+
+// this redudant with model/ticket get type, but used for typeList
+  String get getTicketType {
+    if (ticketType == TicketType.stockIn) {
+      return 'Entree de stock';
+    } else if (ticketType == TicketType.stockOut) {
+      return 'Sortie de stock';
+    } else if (ticketType == TicketType.sell) {
+      return 'Vente';
+    } else if (ticketType == TicketType.sellCovered) {
+      return 'Versement sur compte c';
+    } else if (ticketType == TicketType.sellDeferred) {
+      return 'Vente via compte c';
+    } else if (ticketType == TicketType.spend) {
+      return 'Achat';
+    } else if (ticketType == TicketType.spendCovered) {
+      return 'Versement sur compte f';
+    } else if (ticketType == TicketType.spendDeferred) {
+      return 'Achat via compte f';
+    } else if (ticketType == TicketType.wage) {
+      return 'Salaire';
+    }
+    return 'Type de ticket inconnu';
+  }
+
+  String get getTicketTypeContactText {
+    if (ticketType == TicketType.sell && contactInfo == '0') {
+      return 'Client : Visiteur';
+    } else if (ticketType == TicketType.sell && contactInfo != '0') {
+      return 'Client id : $contactInfo';
+    } else if (ticketType == TicketType.spend && contactInfo == '0') {
+      return 'Fournisseur : Habituel';
+    } else {
+      return 'id : $contactInfo';
+    }
+  }
+
+  String get getTicketTypeTotalTaxAndPromoExcluded {
+    if (ticketType == TicketType.sell) {
+      return numFormat.format(totalPriceItemsOnly);
+    } else if (ticketType == TicketType.sellDeferred) {
+      return numFormat.format(totalPriceItemsOnly);
+    } else if (ticketType == TicketType.sellCovered) {
+      return numFormat.format(received);
+    } else if (ticketType == TicketType.spend) {
+      return numFormat.format(totalCostItemsOnly);
+    } else if (ticketType == TicketType.spendDeferred) {
+      return numFormat.format(totalCostItemsOnly);
+    } else if (ticketType == TicketType.spendCovered) {
+      return numFormat.format(received);
+    } else if (ticketType == TicketType.stockIn) {
+      return '0';
+    } else if (ticketType == TicketType.stockOut) {
+      return '0';
+    } else {
+      return 'Type de ticket inconnu';
+    }
+  }
+
+  String get getTicketTotalTaxAndPromoIncluded {
+    if (ticketType == TicketType.sell) {
+      return numFormat.format(totalPriceTaxAndPromoIncluded);
+    } else if (ticketType == TicketType.sellDeferred) {
+      return numFormat.format(totalPriceTaxAndPromoIncluded);
+    } else if (ticketType == TicketType.sellCovered) {
+      return numFormat.format(received);
+    } else if (ticketType == TicketType.spend) {
+      return numFormat.format(totalCostTaxAndPromoIncluded);
+    } else if (ticketType == TicketType.spendDeferred) {
+      return numFormat.format(totalCostTaxAndPromoIncluded);
+    } else if (ticketType == TicketType.spendCovered) {
+      return numFormat.format(received);
+    } else if (ticketType == TicketType.stockIn) {
+      return '';
+    } else if (ticketType == TicketType.stockOut) {
+      return '';
+    } else if (ticketType == TicketType.wage) {
+      return numFormat.format(received);
+    } else {
+      return 'Type de ticket inconnu';
+    }
+  }
+
+  String get getTicketPromo {
+    if (ticketType == TicketType.sell) {
+      return '- ${numFormat.format(totalPricePromoVal)}';
+    } else if (ticketType == TicketType.sellDeferred) {
+      return '- ${numFormat.format(totalPricePromoVal)}';
+    } else if (ticketType == TicketType.sellCovered) {
+      return '- ${numFormat.format(promo)}';
+    } else if (ticketType == TicketType.spend) {
+      return '- ${numFormat.format(totalCostPromoVal)}';
+    } else if (ticketType == TicketType.spendDeferred) {
+      return '- ${numFormat.format(totalCostPromoVal)}';
+    } else if (ticketType == TicketType.spendCovered) {
+      return '- ${numFormat.format(promo)}';
+    } else if (ticketType == TicketType.stockIn) {
+      return '0'; // doublecheck this
+    } else if (ticketType == TicketType.stockOut) {
+      return '0'; // doublecheck this
+    } else {
+      return 'Type de ticket inconnu';
+    }
+  }
+
+  String get getTicketTaxExcludedIncludingPromo {
+    if (ticketType == TicketType.sell) {
+      return numFormat.format(totalPriceTaxExcludedPromoIncluded);
+    } else if (ticketType == TicketType.sellDeferred) {
+      return numFormat.format(totalPriceTaxExcludedPromoIncluded);
+    } else if (ticketType == TicketType.sellCovered) {
+      return numFormat.format(received);
+    } else if (ticketType == TicketType.spend) {
+      return numFormat.format(totalCostTaxExcludedIncludingPromo);
+    } else if (ticketType == TicketType.spendDeferred) {
+      return numFormat.format(totalCostTaxExcludedIncludingPromo);
+    } else if (ticketType == TicketType.spendCovered) {
+      return numFormat.format(received);
+    } else if (ticketType == TicketType.stockIn) {
+      return '0'; // doublecheck this
+    } else if (ticketType == TicketType.stockOut) {
+      return '0'; // doublecheck this
+    } else {
+      return 'Type de ticket inconnu';
+    }
+  }
+
+  @override
+  String get getTicketTotalTaxes {
+    if (ticketType == TicketType.sell) {
+      return '+ ${numFormat.format(totalPriceTaxesVal)}';
+    } else if (ticketType == TicketType.sellDeferred) {
+      return '+ ${numFormat.format(totalPriceTaxesVal)}';
+    } else if (ticketType == TicketType.sellCovered) {
+      return '+ ${numFormat.format(taxe)}';
+    } else if (ticketType == TicketType.spend) {
+      return '+ ${numFormat.format(totalCostTaxesVal)}';
+    } else if (ticketType == TicketType.spendDeferred) {
+      return '+ ${numFormat.format(totalCostTaxesVal)}';
+    } else if (ticketType == TicketType.spendCovered) {
+      return '+ ${numFormat.format(taxe)}';
+    } else if (ticketType == TicketType.stockIn) {
+      return '0';
+    } else if (ticketType == TicketType.stockOut) {
+      return '0'; // doublecheck this
+    } else {
+      return 'ticketType inconnu';
+    }
+  }
+
+  @override
+  String get getTicketChange {
+    if (ticketType == TicketType.sell) {
+      return numFormat.format(received - totalPriceTaxAndPromoIncluded);
+    } else if (ticketType == TicketType.sellDeferred) {
+      return '0';
+    } else if (ticketType == TicketType.sellCovered) {
+      return '0';
+    } else if (ticketType == TicketType.spend) {
+      return numFormat.format(received - totalCostTaxAndPromoIncluded);
+    } else if (ticketType == TicketType.spendDeferred) {
+      return '0';
+    } else if (ticketType == TicketType.spendCovered) {
+      return '0'; // doublecheck this
+    } else if (ticketType == TicketType.stockIn) {
+      return '0'; // doublecheck this
+    } else if (ticketType == TicketType.stockOut) {
+      return '0'; // doublecheck this
+    } else {
+      return 'Type de ticket inconnu';
+    }
   }
 }

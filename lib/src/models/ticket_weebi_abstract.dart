@@ -5,11 +5,51 @@ import 'package:models_weebi/weebi_models.dart';
 // Using WeebiAbstract to rename the attributes shopId && contactInfo,
 // That were stupidly changed by a young idealistic dev
 
+extension PriceCostGetter on TicketType {
+  bool get isPrice =>
+      this == TicketType.sell || this == TicketType.sellDeferred;
+  bool get isCost =>
+      this == TicketType.spend || this == TicketType.spendDeferred;
+}
+
+mixin TotalComputer {
+  int promoVal(int itemsTotal, double promo) =>
+      (itemsTotal * promo / 100).round();
+
+  int totalTaxExcludedPromoIncluded(
+          int itemsTotal, double promo, int discountAmount) =>
+      itemsTotal - promoVal(itemsTotal, promo) - discountAmount;
+
+  int taxesVal(
+    int itemsTotal,
+    double promo,
+    int discountAmount,
+    double taxePercentage,
+  ) =>
+      (taxePercentage > 0.0
+              ? totalTaxExcludedPromoIncluded(
+                      itemsTotal, promo, discountAmount) *
+                  (taxePercentage / 100)
+              : 0)
+          .round();
+
+  int totalTaxAndPromoIncluded(
+    int itemsTotal,
+    double promo,
+    int discountAmount,
+    double taxePercentage,
+  ) =>
+      totalTaxExcludedPromoIncluded(itemsTotal, promo, discountAmount) +
+      taxesVal(itemsTotal, promo, discountAmount, taxePercentage);
+}
+
 abstract class TicketWeebiAbstract
+    with TotalComputer
     implements TicketAbstract<ItemCartWeebi, TaxeWeebi> {
   final String oid; // mongo _id
   final String shopId; // shopUuid
   final String contactInfo; // herderId
+  final int discountAmount;
   @override
   final int id;
   @override
@@ -61,86 +101,56 @@ abstract class TicketWeebiAbstract
     required this.statusUpdateDate,
     required this.creationDate,
     this.isInDash = true,
+    this.discountAmount = 0,
   });
 
-  int get totalSellTaxAndPromoExcluded => items.totalPriceTaxAndPromoExcluded;
+  // sell and sellDeferred
+  int get totalPriceItemsOnly => ticketType.isPrice
+      ? items.itemsTotalPrice
+      : throw 'price computed but not sell nor sellDeferred';
 
-  int get totalSellPromo =>
-      (totalSellTaxAndPromoExcluded * promo / 100).round();
+  int get totalPricePromoVal => promoVal(totalPriceItemsOnly, promo);
 
-  int get totalSellTaxExcludedIncludingPromo =>
-      totalSellTaxAndPromoExcluded - totalSellPromo;
+  int get totalPriceTaxExcludedPromoIncluded =>
+      totalTaxExcludedPromoIncluded(totalPriceItemsOnly, promo, discountAmount);
 
-  int get totalSellTaxes => ((taxe.percentage) > 0.0
-          ? totalSellTaxExcludedIncludingPromo * (taxe.percentage) / 100
-          : 0)
-      .round();
+  int get totalPriceTaxesVal =>
+      taxesVal(totalPriceItemsOnly, promo, discountAmount, taxe.percentage);
 
-  int get totalSellTaxAndPromoIncluded =>
-      totalSellTaxExcludedIncludingPromo + totalSellTaxes;
+  int get totalPriceTaxAndPromoIncluded => totalTaxAndPromoIncluded(
+        totalPriceItemsOnly,
+        promo,
+        discountAmount,
+        taxe.percentage,
+      );
+// spend and spendDeferred below
+  int get totalCostItemsOnly => ticketType.isCost
+      ? items.itemsTotalCost
+      : throw 'cost computed byt not spend nor spendDeferred';
 
-  int get totalSpendTaxAndPromoExcluded => items.totalCostTaxAndPromoExcluded;
+  int get totalCostPromoVal => promoVal(totalCostItemsOnly, promo);
 
-  int get totalSpendPromo =>
-      (totalSpendTaxAndPromoExcluded * promo / 100).round();
+  int get totalCostTaxExcludedIncludingPromo =>
+      totalTaxExcludedPromoIncluded(totalCostItemsOnly, promo, discountAmount);
 
-  int get totalSpendTaxExcludedIncludingPromo =>
-      totalSpendTaxAndPromoExcluded - totalSpendPromo;
+  int get totalCostTaxesVal =>
+      taxesVal(totalCostItemsOnly, promo, discountAmount, taxe.percentage);
 
-  int get totalSpendTaxes => (taxe.percentage > 0
-          ? totalSpendTaxExcludedIncludingPromo * (taxe.percentage) / 100
-          : 0)
-      .round();
-
-  int get totalSpendTaxAndPromoIncluded =>
-      totalSpendTaxExcludedIncludingPromo + totalSpendTaxes;
-
-  int get totalSpendDeferredTaxAndPromoExcluded =>
-      items.totalCostTaxAndPromoExcluded;
-
-  int get totalSpendDeferredPromo =>
-      (totalSpendDeferredTaxAndPromoExcluded * (promo / 100)).round();
-
-  int get totalSpendDeferredTaxExcludedIncludingPromo =>
-      totalSpendDeferredTaxAndPromoExcluded - totalSpendDeferredPromo;
-
-  int get totalSpendDeferredTaxes => taxe.percentage > 0.0
-      ? (totalSpendDeferredTaxExcludedIncludingPromo * taxe.percentage / 100)
-          .round()
-      : 0;
-
-  int get totalSpendDeferredTaxAndPromoIncluded =>
-      totalSpendDeferredTaxExcludedIncludingPromo + totalSpendDeferredTaxes;
-
-  int get totalSellDeferredTaxAndPromoExcluded =>
-      items.totalPriceTaxAndPromoExcluded;
-
-  int get totalSellDeferredPromo =>
-      (totalSellDeferredTaxAndPromoExcluded * (promo) / 100).round();
-
-  int get totalSellDeferredTaxExcludedPromoIncluded =>
-      totalSellDeferredTaxAndPromoExcluded - totalSellDeferredPromo;
-
-  int get totalSellDeferredTaxes => taxe.percentage > 0.0
-      ? (totalSellDeferredTaxExcludedPromoIncluded * (taxe.percentage) / 100)
-          .round()
-      : 0;
-
-  int get totalSellDeferredTaxAndPromoIncluded =>
-      totalSellDeferredTaxExcludedPromoIncluded + totalSellDeferredTaxes;
+  int get totalCostTaxAndPromoIncluded => totalTaxAndPromoIncluded(
+      totalCostItemsOnly, promo, discountAmount, taxe.percentage);
 
   int get total {
     switch (ticketType) {
       case TicketType.sell:
-        return totalSellTaxAndPromoIncluded;
+        return totalPriceTaxAndPromoIncluded;
       case TicketType.sellDeferred:
-        return totalSellDeferredTaxAndPromoIncluded;
+        return totalPriceTaxAndPromoIncluded;
       case TicketType.sellCovered:
         return received;
       case TicketType.spend:
-        return totalSpendTaxAndPromoIncluded;
+        return totalCostTaxAndPromoIncluded;
       case TicketType.spendDeferred:
-        return totalSpendDeferredTaxAndPromoIncluded;
+        return totalCostTaxAndPromoIncluded;
       case TicketType.spendCovered:
         return received;
       case TicketType.wage:
