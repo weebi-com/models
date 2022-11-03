@@ -25,22 +25,22 @@ void main() {
 
   // final awesomeTicket =
   TicketWeebi(
-    oid: 'oid',
-    id: 1,
-    shopId: 'shopId',
-    items: [],
-    taxe: TaxeWeebi.noTax,
-    promo: 0.0,
-    comment: '',
-    received: 0,
-    date: WeebiDates.defaultDate,
-    paiementType: PaiementType.cash,
-    ticketType: TicketType.sell,
-    contactInfo: '1',
-    contactPastPurchasingPower: '0',
-    status: true,
-    statusUpdateDate: WeebiDates.defaultDate,
-    creationDate: WeebiDates.defaultDate,
-  );
+      oid: 'oid',
+      id: 1,
+      shopId: 'shopId',
+      items: [],
+      taxe: TaxeWeebi.noTax,
+      promo: 0.0,
+      comment: '',
+      received: 0,
+      date: WeebiDates.defaultDate,
+      paiementType: PaiementType.cash,
+      ticketType: TicketType.sell,
+      contactInfo: '1',
+      contactPastPurchasingPower: '0',
+      status: true,
+      statusUpdateDate: WeebiDates.defaultDate,
+      creationDate: WeebiDates.defaultDate,
+      discountAmount: 0);
   print(awesomeArticleLine);
 }
