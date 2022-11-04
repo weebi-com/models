@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'package:models_base/utils.dart';
-import 'package:models_weebi/common.dart' show ContactAbstract, Tristate;
+import 'package:models_weebi/shared.dart' show ContactAbstract, Tristate;
 
 //TODO unit test this model jsonization
 class ContactWeebi extends ContactAbstract {
