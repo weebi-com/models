@@ -126,7 +126,7 @@ abstract class TicketWeebiAbstract
 // spend and spendDeferred below
   int get totalCostItemsOnly => ticketType.isCost
       ? items.itemsTotalCost
-      : throw 'cost computed byt not spend nor spendDeferred';
+      : throw 'cost computed but not spend nor spendDeferred';
 
   int get totalCostPromoVal => promoVal(totalCostItemsOnly, promo);
 
