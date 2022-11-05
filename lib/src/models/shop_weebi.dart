@@ -1,8 +1,8 @@
 import 'dart:convert';
 
 import 'package:models_base/base.dart' show ShopAbstract;
+import 'package:models_base/common.dart' show Address;
 import 'package:models_base/utils.dart';
-import 'package:models_weebi/shared.dart' show Address;
 
 // consider adding
 // * String appVersionBuildNumber

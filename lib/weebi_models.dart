@@ -12,5 +12,6 @@ export 'src/models/taxe_weebi.dart';
 export 'src/models/herder_weebi.dart';
 export 'src/models/ticket_weebi_abstract.dart';
 export 'src/models/ticket_weebi.dart';
-// export 'src/weebi/ticket_mixin_weebi_base.dart'; //included in ticket
-// export 'src/weebi/ticket_mixin_weebi_print.dart';//included in ticket
+export 'src/models/contact_weebi.dart';
+export 'src/models/tristate.dart';
+export 'src/models/environment.dart';
