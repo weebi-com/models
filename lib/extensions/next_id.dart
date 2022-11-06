@@ -1,7 +1,7 @@
 import 'package:mobx/mobx.dart';
 import 'package:models_base/base.dart';
 
-extension NextProductId<P extends LineArticleAbstract> on Iterable<P> {
+extension NextLineArticleId<L extends LineArticleAbstract> on Iterable<L> {
   int get nextId {
     if (isEmpty) {
       return 1;

@@ -21,7 +21,11 @@ extension ImportData on List<List<dynamic>> {
         tel: table[2] != null ? '${table[2]}' : '',
         mail: table[3] != null ? '${table[3]}' : '',
         address: table[4] != null ? '${table[4]}' : '',
-        isWoman: table[5] ?? false,
+        isWoman: table[5] == null
+            ? false
+            : table[5] == 'true'
+                ? true
+                : false,
         category: table[6] != null ? '${table[6]}' : '',
       );
       herdersList.add(herder);
@@ -61,11 +65,12 @@ extension ImportData on List<List<dynamic>> {
     return contactsList;
   }
 
-  List<LineOfArticles> extractLinesOfArticlesFromParsedExcel(
+  List<LineOfArticles<ArticleWeebi>> extractLinesOfArticlesFromParsedExcel(
       int nextLineId, String shopUuid) {
-    final linesList = <LineOfArticles>[];
+    final linesList = <LineOfArticles<ArticleWeebi>>[];
     var nextId = nextLineId; // just in case..
-    for (var i = 1; i < length; i++) {
+    for (var i = 1; i < length; i++) // avoid header
+    {
       final now = DateTime.now();
       final table = this[i];
       final _newArticle = ArticleWeebi(
@@ -93,7 +98,7 @@ extension ImportData on List<List<dynamic>> {
             : 0,
         photo: '',
       );
-      final newLine = LineOfArticles(
+      final newLine = LineOfArticles<ArticleWeebi>(
         creationDate: now,
         updateDate: now,
         shopUuid: shopUuid,

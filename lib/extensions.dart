@@ -9,3 +9,4 @@ export 'extensions/line_of_articles.dart';
 export 'extensions/contacts.dart';
 export 'extensions/herders.dart';
 export 'extensions/import_data_w.dart';
+export 'extensions/import_check_header.dart';
