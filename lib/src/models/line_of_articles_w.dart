@@ -126,7 +126,7 @@ class LineOfArticles<A extends ArticleAbstract> extends LineArticleAbstract<A> {
   factory LineOfArticles.fromJson(String source) =>
       LineOfArticles.fromMap(json.decode(source));
 
-  copyWith({
+  LineOfArticles<A> copyWith({
     String? shopUuid,
     int? id,
     String? title,
