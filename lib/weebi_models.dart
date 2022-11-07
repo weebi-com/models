@@ -14,4 +14,4 @@ export 'src/models/ticket_weebi_abstract.dart';
 export 'src/models/ticket_weebi.dart';
 export 'src/models/contact_weebi.dart';
 export 'src/models/tristate.dart';
-export 'src/models/environment.dart';
+export 'src/models/environment_w.dart';
