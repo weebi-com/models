@@ -107,7 +107,7 @@ abstract class TicketWeebiAbstract
   // sell and sellDeferred
   int get totalPriceItemsOnly => ticketType.isPrice
       ? items.itemsTotalPrice
-      : throw 'price computed but not sell nor sellDeferred';
+      : 0;
 
   int get totalPricePromoVal => promoVal(totalPriceItemsOnly, promo);
 
@@ -126,7 +126,7 @@ abstract class TicketWeebiAbstract
 // spend and spendDeferred below
   int get totalCostItemsOnly => ticketType.isCost
       ? items.itemsTotalCost
-      : throw 'cost computed but not spend nor spendDeferred';
+      : 0;
 
   int get totalCostPromoVal => promoVal(totalCostItemsOnly, promo);
 

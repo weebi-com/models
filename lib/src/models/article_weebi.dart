@@ -133,7 +133,6 @@ ArticleWeebi(
     DateTime? creationDate,
     DateTime? updateDate,
     bool? status,
-    List<ProxyArticle>? proxies,
   }) {
     return ArticleWeebi(
       shopUuid: shopUuid ?? this.shopUuid,
