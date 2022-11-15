@@ -4,7 +4,6 @@ import 'package:mobx/mobx.dart';
 import 'package:models_base/base.dart' show ArticleAbstract;
 import 'package:models_base/utils.dart';
 import 'package:models_weebi/src/models/price_and_cost.dart';
-import 'package:models_weebi/src/models/proxy_article.dart';
 
 class ArticleWeebi extends ArticleAbstract implements PriceAndCostAbstract {
   @override

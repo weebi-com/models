@@ -134,7 +134,6 @@ class LineOfArticles<A extends ArticleAbstract> extends LineArticleAbstract<A> {
     bool? isBasket,
     StockUnit? stockUnit,
     String? photo,
-    int? barcode,
     bool? status,
     DateTime? statusUpdateDate,
     List<A>? articles,
