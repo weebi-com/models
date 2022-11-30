@@ -54,8 +54,7 @@ class ItemCartWeebi<A extends ArticleAbstract> extends ItemInCartAbstract<A> {
 
   bool get isBasket => toMap()['article']['proxies'] != null;
 
-  static final dummy =
-      ItemCartWeebi(() => ArticleWeebi.dummy, 1.0, proxiesWorth: []);
+  static final dummy = ItemCartWeebi(() => ArticleWeebi.dummy, 1.0);
 
   static final dummyBasket = ItemCartWeebi(() => ArticleWeebi.dummy, 1.0,
       proxiesWorth: <ProxyArticleWorth>[ProxyArticleWorth.dummy]);
