@@ -59,6 +59,7 @@ mixin GetPriceAndCostMixin on ArticleAbstract {
 
 class ArticleBasket extends ArticleAbstract with GetPriceAndCostMixin {
   final List<ProxyArticle> proxies;
+  DateTime? statusUpdateDate;
   // article price and cost can change
   // so proxes only save ref not price / nor cost which are fetched when invoked
   ArticleBasket({
@@ -71,6 +72,7 @@ class ArticleBasket extends ArticleAbstract with GetPriceAndCostMixin {
     required DateTime? creationDate,
     required DateTime? updateDate,
     @observable bool status = false,
+    this.statusUpdateDate,
     required this.proxies,
   }) : super(
           lineId: lineId,
@@ -105,6 +107,7 @@ class ArticleBasket extends ArticleAbstract with GetPriceAndCostMixin {
         updateDate: WeebiDates.defaultDate,
         status: true,
         proxies: [ProxyArticle.dummy],
+        statusUpdateDate: WeebiDates.defaultDate,
       );
 
   factory ArticleBasket.fromMap(Map<String, dynamic> map) {
@@ -127,6 +130,9 @@ class ArticleBasket extends ArticleAbstract with GetPriceAndCostMixin {
             ? List<ProxyArticle>.from(
                 map['proxies']?.map((x) => ProxyArticle.fromMap(x)))
             : [],
+        statusUpdateDate: map['statusUpdateDate'] == null
+            ? WeebiDates.defaultDate
+            : DateTime.parse(map['statusUpdateDate']),
         status: map['status']);
   }
 
@@ -147,6 +153,8 @@ class ArticleBasket extends ArticleAbstract with GetPriceAndCostMixin {
           WeebiDates.defaultDate.toIso8601String(),
       'updateDate': updateDate?.toIso8601String() ??
           WeebiDates.defaultDate.toIso8601String(),
+      'statusUpdateDate': statusUpdateDate?.toIso8601String() ??
+          WeebiDates.defaultDate.toIso8601String(),
       'status': status,
     };
   }
@@ -158,11 +166,12 @@ ArticleBasket(
   lineId: $lineId,
   id: $id,
   fullName: '$fullName',
-  creationDate: $creationDate,
-  updateDate: $updateDate,
   weight: $weight,
   articleCode: $articleCode,
   photo: $photo,
+  creationDate: $creationDate,
+  updateDate: $updateDate,
+  statusUpdateDate: $statusUpdateDate,
   status: $status,
   proxies: $proxies,)""";
   }
@@ -183,6 +192,7 @@ ArticleBasket(
     DateTime? updateDate,
     bool? status,
     List<ProxyArticle>? proxies,
+    DateTime? statusUpdateDate,
   }) {
     return ArticleBasket(
       lineId: lineId ?? this.lineId,
@@ -193,6 +203,7 @@ ArticleBasket(
       photo: photo ?? this.photo,
       creationDate: creationDate ?? this.creationDate,
       updateDate: updateDate ?? this.updateDate,
+      statusUpdateDate: statusUpdateDate ?? this.statusUpdateDate,
       status: status ?? this.status,
       proxies: proxies ?? this.proxies,
     );

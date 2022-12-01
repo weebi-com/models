@@ -124,14 +124,14 @@ TicketWeebi{
     promo: 0.0,
     comment: 'comment',
     received: 0,
-    date: WeebiDates.defaultDate,
+    date: WeebiDates.defaultFirstDate,
     paiementType: PaiementType.cash,
     ticketType: TicketType.sell,
     contactInfo: 'contactInfo',
     contactPastPurchasingPower: 'contactPastPurchasingPower',
     status: true,
-    statusUpdateDate: WeebiDates.defaultDate,
-    creationDate: WeebiDates.defaultDate,
+    statusUpdateDate: WeebiDates.defaultFirstDate,
+    creationDate: WeebiDates.defaultFirstDate,
     discountAmount: 0,
   );
 

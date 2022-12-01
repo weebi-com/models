@@ -4,7 +4,6 @@ import 'package:mobx/mobx.dart';
 import 'package:models_base/base.dart' show ArticleAbstract;
 import 'package:models_base/utils.dart';
 import 'package:models_weebi/src/models/price_and_cost.dart';
-import 'package:models_weebi/src/models/proxy_article.dart';
 
 class ArticleWeebi extends ArticleAbstract implements PriceAndCostAbstract {
   @override
@@ -13,6 +12,7 @@ class ArticleWeebi extends ArticleAbstract implements PriceAndCostAbstract {
   final int cost;
   final String? shopUuid;
   String? get shopId => shopUuid;
+  DateTime? statusUpdateDate;
   ArticleWeebi(
       {this.shopUuid,
       required this.price,
@@ -25,6 +25,7 @@ class ArticleWeebi extends ArticleAbstract implements PriceAndCostAbstract {
       String? photo = '',
       required DateTime? creationDate,
       required DateTime? updateDate,
+      this.statusUpdateDate,
       @observable bool status = false})
       : super(
           lineId: lineId,
@@ -50,6 +51,7 @@ class ArticleWeebi extends ArticleAbstract implements PriceAndCostAbstract {
     photo: 'photo',
     creationDate: WeebiDates.defaultDate,
     updateDate: WeebiDates.defaultDate,
+    statusUpdateDate: WeebiDates.defaultDate,
     status: true,
   );
 
@@ -62,11 +64,12 @@ ArticleWeebi(
   fullName: '$fullName',
   price: $price,
   cost: $cost,
-  creationDate: $creationDate,
-  updateDate: $updateDate,
   weight: $weight,
   articleCode: $articleCode,
   photo: $photo,
+  creationDate: $creationDate,
+  updateDate: $updateDate,
+  statusUpdateDate: $statusUpdateDate,
   status: $status,
 )
 """;
@@ -88,30 +91,36 @@ ArticleWeebi(
           WeebiDates.defaultDate.toIso8601String(),
       'updateDate': updateDate?.toIso8601String() ??
           WeebiDates.defaultDate.toIso8601String(),
+      'statusUpdateDate': statusUpdateDate?.toIso8601String() ??
+          WeebiDates.defaultDate.toIso8601String(),
       'status': status,
     };
   }
 
   factory ArticleWeebi.fromMap(Map<String, dynamic> map) {
     return ArticleWeebi(
-        lineId: map['lineId'] == null
-            ? map['productId'] as int
-            : map['lineId'] as int,
-        id: map['id'] as int,
-        fullName: map['fullName'] as String,
-        price: map['price'] as int,
-        cost: map['cost'] as int,
-        weight: map['weight'] == null ? 1.0 : (map['weight'] as num).toDouble(),
-        articleCode: map['articleCode'] ?? 0,
-        photo: map['photo'] ?? '',
-        creationDate: map['creationDate'] == null
-            ? WeebiDates.defaultDate
-            : DateTime.parse(map['creationDate']),
-        updateDate: map['updateDate'] == null
-            ? WeebiDates.defaultDate
-            : DateTime.parse(map['updateDate']),
-        shopUuid: map['shopUuid'] ?? '',
-        status: map['status']);
+      lineId: map['lineId'] == null
+          ? map['productId'] as int
+          : map['lineId'] as int,
+      id: map['id'] as int,
+      fullName: map['fullName'] as String,
+      price: map['price'] as int,
+      cost: map['cost'] as int,
+      weight: map['weight'] == null ? 1.0 : (map['weight'] as num).toDouble(),
+      articleCode: map['articleCode'] ?? 0,
+      photo: map['photo'] ?? '',
+      creationDate: map['creationDate'] == null
+          ? WeebiDates.defaultDate
+          : DateTime.parse(map['creationDate']),
+      updateDate: map['updateDate'] == null
+          ? WeebiDates.defaultDate
+          : DateTime.parse(map['updateDate']),
+      shopUuid: map['shopUuid'] ?? '',
+      status: map['status'],
+      statusUpdateDate: map['statusUpdateDate'] == null
+          ? WeebiDates.defaultDate
+          : DateTime.parse(map['statusUpdateDate']),
+    );
   }
 
   @override
@@ -132,6 +141,7 @@ ArticleWeebi(
     String? photo,
     DateTime? creationDate,
     DateTime? updateDate,
+    DateTime? statusUpdateDate,
     bool? status,
   }) {
     return ArticleWeebi(
@@ -146,6 +156,7 @@ ArticleWeebi(
       photo: photo ?? this.photo,
       creationDate: creationDate ?? this.creationDate,
       updateDate: updateDate ?? this.updateDate,
+      statusUpdateDate: statusUpdateDate ?? this.statusUpdateDate,
       status: status ?? this.status,
     );
   }

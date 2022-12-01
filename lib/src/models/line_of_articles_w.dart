@@ -86,8 +86,24 @@ class LineOfArticles<A extends ArticleAbstract> extends LineArticleAbstract<A> {
     };
   }
 
+  LineOfArticles<ArticleWeebi> fromMapArticleWeebi(Map<String, dynamic> map) {
+    if ((map['isBasket'] ?? false) == false) {
+      return LineOfArticles.fromMap(map);
+    } else {
+      throw 'this is a basket';
+    }
+  }
+
+  LineOfArticles<ArticleBasket> fromMapArticleBasket(Map<String, dynamic> map) {
+    if ((map['isBasket'] ?? false) == false) {
+      throw 'this is not a basket';
+    } else {
+      return LineOfArticles.fromMap(map);
+    }
+  }
+
   factory LineOfArticles.fromMap(Map<String, dynamic> map) {
-    return LineOfArticles(
+    return LineOfArticles<A>(
       shopUuid: map['shopUuid'] ?? '',
       id: map['id'],
       title: map['title'],
@@ -101,7 +117,8 @@ class LineOfArticles<A extends ArticleAbstract> extends LineArticleAbstract<A> {
       updateDate: map['updateDate'] == null
           ? WeebiDates.defaultDate
           : DateTime.parse(map['updateDate']),
-      status: map['status'],
+      status: map[
+          'status'], // TODO consider removing since article has its own status
       statusUpdateDate: map['statusUpdateDate'] == null
           ? WeebiDates.defaultDate
           : DateTime.parse(map['statusUpdateDate']),
@@ -134,7 +151,6 @@ class LineOfArticles<A extends ArticleAbstract> extends LineArticleAbstract<A> {
     bool? isBasket,
     StockUnit? stockUnit,
     String? photo,
-    int? barcode,
     bool? status,
     DateTime? statusUpdateDate,
     List<A>? articles,
