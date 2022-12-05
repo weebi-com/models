@@ -4,6 +4,7 @@ export 'src/models/line_of_articles_w.dart';
 export 'src/models/article_weebi.dart';
 export 'src/models/article_min_qt.dart';
 export 'src/models/article_basket.dart';
+export 'src/models/basket_wrapper.dart';
 export 'src/models/proxy_article.dart';
 export 'src/models/proxy_article_worth.dart';
 export 'src/models/item_cart_weebi.dart';
