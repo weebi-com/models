@@ -12,3 +12,7 @@ export 'src/extensions/import_check_header.dart';
 export 'src/extensions/date_time.dart';
 export 'src/extensions/double.dart';
 export 'src/extensions/string_no_accents.dart';
+export 'src/extensions/timeframe.dart';
+export 'src/extensions/tickets_iterable_fin_stats.dart';
+export 'src/extensions/tickets_iterable_fin_stats_list.dart';
+export 'src/extensions/tickets_iterable_stock_stats.dart';

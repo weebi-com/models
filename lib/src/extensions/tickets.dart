@@ -1,18 +1,36 @@
-import 'package:models_base/base.dart' show TicketAbstract;
+import 'package:models_weebi/weebi_models.dart';
 
 // package won't come down from github, shortcuting here
 
-class TicketsGroupedByTimeFrame {
-  final dynamic timeFrame;
-  final List<TicketAbstract> tickets;
-  TicketsGroupedByTimeFrame(this.timeFrame, this.tickets);
+extension MaxCG on List<TicketsGroupedByTimeFrame> {
+  int maxTotal() {
+    sort((a, b) => (a.total).compareTo((b.total)));
+    return last.total;
+  }
 }
 
-extension GroupTheseRascals on List<TicketAbstract> {
+class TicketsGroupedByTimeFrame {
+  int get total => tickets.fold(0, (pv, e) => pv + e.total);
+
+  final dynamic timeFrame;
+  final Set<TicketWeebi> tickets;
+  TicketsGroupedByTimeFrame(this.timeFrame, this.tickets);
+
+  int get totalSellTaxAndPromoExcluded =>
+      tickets.fold(0, (pv, e) => pv + e.totalPriceItemsOnly);
+  int get totalSellDeferredTaxAndPromoExcluded =>
+      tickets.fold(0, (pv, e) => pv + e.totalPriceItemsOnly);
+  int get totalSpendTaxAndPromoExcluded =>
+      tickets.fold(0, (pv, e) => pv + e.totalCostItemsOnly);
+  int get totalSpendDeferredTaxAndPromoExcluded =>
+      tickets.fold(0, (pv, e) => pv + e.totalCostItemsOnly);
+}
+
+extension GroupTheseRascals on Iterable<TicketWeebi> {
   List<TicketsGroupedByTimeFrame> groupByHour(
       DateTime dateStart, DateTime dateEnd) {
     final emptyGTickets = List<TicketsGroupedByTimeFrame>.generate(
-        24, (index) => TicketsGroupedByTimeFrame(index + 1, []));
+        24, (index) => TicketsGroupedByTimeFrame(index + 1, {}));
     for (final ticket in this) {
       if (ticket.date.isAfter(dateStart) && ticket.date.isBefore(dateEnd)) {
         if (emptyGTickets
@@ -31,13 +49,13 @@ extension GroupTheseRascals on List<TicketAbstract> {
 
   List<TicketsGroupedByTimeFrame> groupByDayOfTheWeek(
       DateTime dateWeekStart, DateTime dateWeekEnd) {
-    final mondayC = TicketsGroupedByTimeFrame(DateTime.monday, []);
-    final tuesdayC = TicketsGroupedByTimeFrame(DateTime.tuesday, []);
-    final wednesdayC = TicketsGroupedByTimeFrame(DateTime.wednesday, []);
-    final thursdayC = TicketsGroupedByTimeFrame(DateTime.thursday, []);
-    final fridayC = TicketsGroupedByTimeFrame(DateTime.friday, []);
-    final saturdayC = TicketsGroupedByTimeFrame(DateTime.saturday, []);
-    final sundayC = TicketsGroupedByTimeFrame(DateTime.sunday, []);
+    final mondayC = TicketsGroupedByTimeFrame(DateTime.monday, {});
+    final tuesdayC = TicketsGroupedByTimeFrame(DateTime.tuesday, {});
+    final wednesdayC = TicketsGroupedByTimeFrame(DateTime.wednesday, {});
+    final thursdayC = TicketsGroupedByTimeFrame(DateTime.thursday, {});
+    final fridayC = TicketsGroupedByTimeFrame(DateTime.friday, {});
+    final saturdayC = TicketsGroupedByTimeFrame(DateTime.saturday, {});
+    final sundayC = TicketsGroupedByTimeFrame(DateTime.sunday, {});
     for (final ticket in this) {
       if (ticket.date.isAfter(dateWeekStart) &&
           ticket.date.isBefore(dateWeekEnd)) {
@@ -87,7 +105,7 @@ extension GroupTheseRascals on List<TicketAbstract> {
     //final end = dateStart.thisMonthLastDay(dateStart);
     final daysDiff = dateEnd.difference(dateStart).inDays + 1;
     final emptyGTickets = List<TicketsGroupedByTimeFrame>.generate(
-        daysDiff, (index) => TicketsGroupedByTimeFrame(index + 1, []));
+        daysDiff, (index) => TicketsGroupedByTimeFrame(index + 1, {}));
     for (final ticket in this) {
       if (ticket.date.year == dateStart.year &&
           ticket.date.month == dateStart.month) {
