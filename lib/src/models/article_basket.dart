@@ -97,7 +97,7 @@ class ArticleBasket extends ArticleAbstract with GetPriceAndCostMixin {
   }
 
   static get dummy => ArticleBasket(
-        lineId: 1,
+        lineId: 2,
         id: 1,
         fullName: 'dummy',
         weight: 1,
