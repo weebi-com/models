@@ -118,7 +118,7 @@ TicketWeebi{
   static final dummySell = TicketWeebi(
     oid: 'oid',
     id: 1,
-    shopId: 'shopId',
+    shopId: 'shopIdDummy',
     items: [ItemCartWeebi.dummy],
     taxe: TaxeWeebi.noTax,
     promo: 0.0,
@@ -148,8 +148,10 @@ TicketWeebi{
       id: map['id'] as int,
       oid: map['oid'] as String,
       shopId: map['shopId'] as String,
-      items: List<ItemCartWeebi>.from(
-          map['items']?.map((x) => ItemCartWeebi.fromMap(x))),
+      items: map['items'] != null
+          ? List<ItemCartWeebi>.from(
+              map['items'].map((x) => ItemCartWeebi.fromMap(x)))
+          : <ItemCartWeebi>[],
       taxe: TaxeWeebi.fromMap(map['taxe']),
       promo: map['promo'] == null ? 0.0 : (map['promo'] as num).toDouble(),
       discountAmount: map['discountAmount'] as int,

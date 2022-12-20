@@ -5,7 +5,7 @@ import 'package:models_base/base.dart' show ArticleAbstract;
 import 'package:models_base/utils.dart';
 import 'package:models_weebi/src/models/price_and_cost.dart';
 
-class ArticleWeebi extends ArticleAbstract implements PriceAndCostAbstract {
+class Article extends ArticleAbstract implements PriceAndCostAbstract {
   @override
   final int price;
   @override
@@ -13,7 +13,7 @@ class ArticleWeebi extends ArticleAbstract implements PriceAndCostAbstract {
   final String? shopUuid;
   String? get shopId => shopUuid;
   DateTime? statusUpdateDate;
-  ArticleWeebi(
+  Article(
       {this.shopUuid,
       required this.price,
       this.cost = 0,
@@ -39,7 +39,7 @@ class ArticleWeebi extends ArticleAbstract implements PriceAndCostAbstract {
           status: status,
         );
 
-  static final dummy = ArticleWeebi(
+  static final dummy = Article(
     shopUuid: 'shopUuid',
     lineId: 1,
     id: 1,
@@ -97,8 +97,8 @@ ArticleWeebi(
     };
   }
 
-  factory ArticleWeebi.fromMap(Map<String, dynamic> map) {
-    return ArticleWeebi(
+  factory Article.fromMap(Map<String, dynamic> map) {
+    return Article(
       lineId: map['lineId'] == null
           ? map['productId'] as int
           : map['lineId'] as int,
@@ -126,10 +126,10 @@ ArticleWeebi(
   @override
   String toJson() => json.encode(toMap());
 
-  factory ArticleWeebi.fromJson(String source) =>
-      ArticleWeebi.fromMap(json.decode(source));
+  factory Article.fromJson(String source) =>
+      Article.fromMap(json.decode(source));
 
-  ArticleWeebi copyWith({
+  Article copyWith({
     String? shopUuid,
     int? lineId,
     int? id,
@@ -144,7 +144,7 @@ ArticleWeebi(
     DateTime? statusUpdateDate,
     bool? status,
   }) {
-    return ArticleWeebi(
+    return Article(
       shopUuid: shopUuid ?? this.shopUuid,
       lineId: lineId ?? this.lineId,
       id: id ?? this.id,
@@ -165,7 +165,7 @@ ArticleWeebi(
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
 
-    return other is ArticleWeebi &&
+    return other is Article &&
         other.shopUuid == shopUuid &&
         other.cost == cost &&
         other.price == price &&
