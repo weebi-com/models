@@ -5,8 +5,8 @@ void main() {
   test('item weebi', () {
     final _json = ItemCartWeebi.dummy.toJson();
     final dummy = ItemCartWeebi.fromJson(_json);
-    print(dummy);
-    print(ItemCartWeebi.dummy);
+    //print(dummy);
+    //print(ItemCartWeebi.dummy);
     expect(dummy == ItemCartWeebi.dummy, isTrue);
   });
 }
