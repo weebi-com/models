@@ -117,7 +117,7 @@ class ShopWeebi extends ShopAbstract with Promo {
   );
 
   static final dummy = ShopWeebi(
-    id: 0,
+    id: 1,
     uuid: 'shopUuid',
     mailUnique: '',
     name: 'Magasin par défaut',

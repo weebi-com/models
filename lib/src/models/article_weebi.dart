@@ -26,7 +26,7 @@ class ArticleWeebi extends ArticleAbstract implements PriceAndCostAbstract {
       required DateTime? creationDate,
       required DateTime? updateDate,
       this.statusUpdateDate,
-      @observable bool status = false})
+      @observable bool status = true})
       : super(
           lineId: lineId,
           id: id,

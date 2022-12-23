@@ -79,7 +79,7 @@ class ProxyArticle extends ProxyArticleAbstract with GimmeTheLoot {
         );
 
   static final dummy = ProxyArticle(
-    lineId: 1,
+    lineId: 2,
     articleId: 1,
     id: 1,
     proxyLineId: 1,

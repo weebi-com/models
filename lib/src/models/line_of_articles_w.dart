@@ -53,15 +53,31 @@ class LineOfArticles<A extends ArticleAbstract> extends LineArticleAbstract<A> {
     return sb.toString();
   }
 
-  static final dummy = LineOfArticles(
-    shopUuid: 'shopUuid',
-    id: 1,
-    articles: [ArticleWeebi.dummy],
-    title: 'dummy',
-    status: true,
-    creationDate: WeebiDates.defaultDate,
-    updateDate: WeebiDates.defaultDate,
-  );
+  static final dummy = LineOfArticles<ArticleWeebi>(
+      shopUuid: 'shopUuid',
+      id: 1,
+      articles: [ArticleWeebi.dummy],
+      title: 'dummy',
+      status: true,
+      creationDate: WeebiDates.defaultDate,
+      updateDate: WeebiDates.defaultDate,
+      isPalpable: true,
+      isBasket: false);
+
+  static final dummyBasket = LineOfArticles<ArticleBasket>(
+      id: 2,
+      categories: null,
+      title: 'truc bis',
+      shopUuid: '',
+      creationDate: WeebiDates.defaultDate,
+      updateDate: WeebiDates.defaultDate,
+      stockUnit: StockUnit.unit,
+      photo: "photo",
+      status: true,
+      statusUpdateDate: DateTime.now(),
+      articles: [ArticleBasket.dummy],
+      isPalpable: true);
+
   @override
   Map<String, dynamic> toMap() {
     return {
