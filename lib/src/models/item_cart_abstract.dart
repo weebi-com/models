@@ -11,8 +11,9 @@ abstract class ItemInCartAbstract<A extends ArticleAbstract>
   final List<ProxyArticleWorth>? proxiesWorth;
 
   ArticleCreator<A> articleCreator;
-  ItemInCartAbstract(this.articleCreator, double quantity, {this.proxiesWorth})
-      : super(articleCreator(), quantity);
+  ItemInCartAbstract(this.articleCreator, double quantity, {proxiesWorth})
+      : proxiesWorth = proxiesWorth ?? [],
+        super(articleCreator(), quantity);
 
   @override
   String toString() => "Item($article,$proxiesWorth,$quantity)";
