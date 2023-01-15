@@ -74,10 +74,10 @@ class ItemCartWeebi<A extends ArticleAbstract> extends ItemInCartAbstract<A> {
     }
   }
 
-  int getArticleCost(Iterable<LineOfArticles> _lines) {
+  int getArticleCost(Iterable<LineOfArticles> linesData) {
     A article = articleCreator();
     if (article.toMap()['proxies'] != null) {
-      return (article as ArticleBasket).proxies.computeProxiesCost(_lines);
+      return (article as ArticleBasket).proxies.computeProxiesCost(linesData);
     } else {
       return (article as Article).cost;
     }

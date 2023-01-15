@@ -6,16 +6,16 @@ extension AggregateProxies on Iterable<ProxyArticleWorth> {
   // articleBasket price must be computed
   int get totalPrice {
     var worth = 0;
-    for (final _proxy in this) {
-      worth += (_proxy.price * _proxy.minimumUnitPerBasket).round();
+    for (final proxy in this) {
+      worth += (proxy.price * proxy.minimumUnitPerBasket).round();
     }
     return worth;
   }
 
   int get totalCost {
     var worth = 0;
-    for (final _proxy in this) {
-      worth += (_proxy.cost * _proxy.minimumUnitPerBasket).round();
+    for (final proxy in this) {
+      worth += (proxy.cost * proxy.minimumUnitPerBasket).round();
     }
     return worth;
   }
@@ -49,9 +49,9 @@ class ProxyArticleWorth extends ProxyArticle implements PriceAndCostAbstract {
         );
 
   factory ProxyArticleWorth.getPriceAndCost(
-      Iterable<LineOfArticles> _linesInStore, ProxyArticle pNoPriceNoCost) {
-    final int price = pNoPriceNoCost.getPrice(_linesInStore);
-    final int cost = pNoPriceNoCost.getCost(_linesInStore);
+      Iterable<LineOfArticles> linesInStore, ProxyArticle pNoPriceNoCost) {
+    final int price = pNoPriceNoCost.getPrice(linesInStore);
+    final int cost = pNoPriceNoCost.getCost(linesInStore);
     return ProxyArticleWorth(
         price: price,
         cost: cost,
