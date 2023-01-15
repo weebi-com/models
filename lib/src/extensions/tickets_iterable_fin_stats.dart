@@ -147,14 +147,14 @@ extension FinancialStatsTickets<T extends TicketWeebi> on Iterable<T> {
       where((t) => t.herderId == '$herderId')
           .where((t) => t.status == true)
           .where((t) => t.date.isBefore(date))
-          .where((t) => t.ticketType == TicketType?.spendCovered)
+          .where((t) => t.ticketType == TicketType.spendCovered)
           .fold(0, (prev, e) => prev + e.received);
 
   int supplierSpendCoveredThisMonth(
           int herderId, DateTime dateMonthStart, DateTime dateMonthEnd) =>
       where((t) => t.status)
           .where((t) => t.herderId == '$herderId')
-          .where((t) => t.ticketType == TicketType?.spendCovered)
+          .where((t) => t.ticketType == TicketType.spendCovered)
           .where((t) => t.date.isAfter(dateMonthStart))
           .where((t) => t.date.isBefore(dateMonthEnd))
           .fold(0, (prev, e) => prev + e.received);
@@ -165,7 +165,7 @@ extension FinancialStatsTickets<T extends TicketWeebi> on Iterable<T> {
       .where((t) =>
           // * no time, take all the past wage into account
           // until we finally get closing
-          t.ticketType == TicketType?.wage)
+          t.ticketType == TicketType.wage)
       .fold(0, (prev, e) => prev + e.received);
 
   // until we have closing
@@ -175,14 +175,14 @@ extension FinancialStatsTickets<T extends TicketWeebi> on Iterable<T> {
           .where((t) => t.herderId == '$herderId')
           .where((t) => t.date.year == datePreviousMonth.year)
           .where((t) => t.date.month == datePreviousMonth.month)
-          .where((t) => t.ticketType == TicketType?.wage)
+          .where((t) => t.ticketType == TicketType.wage)
           .fold(0, (prev, e) => prev + e.received);
 
   int supplierSpendDeferredBeforeDate(int herderId, DateTime date) {
     return where((t) => t.herderId == herderId.toString())
         .where((t) => t.status == true)
         .where((t) => t.date.isBefore(date))
-        .where((t) => t.ticketType == TicketType?.spendDeferred)
+        .where((t) => t.ticketType == TicketType.spendDeferred)
         .fold(0, (prev, e) => prev + e.totalCostTaxAndPromoIncluded);
   }
 
@@ -190,7 +190,7 @@ extension FinancialStatsTickets<T extends TicketWeebi> on Iterable<T> {
           int herderId, DateTime dateMonthStart, DateTime dateMonthEnd) =>
       where((t) => t.status)
           .where((t) => t.herderId == '$herderId')
-          .where((t) => t.ticketType == TicketType?.spendDeferred)
+          .where((t) => t.ticketType == TicketType.spendDeferred)
           .where((t) => t.date.isAfter(dateMonthStart))
           .where((t) => t.date.isBefore(dateMonthEnd))
           .fold(0, (prev, e) => prev + e.totalCostTaxAndPromoIncluded);
@@ -202,7 +202,7 @@ extension FinancialStatsTickets<T extends TicketWeebi> on Iterable<T> {
       where((t) => t.herderId == herderId.toString())
           .where((t) => t.status == true)
           .where((t) => t.date.isBefore(date))
-          .where((t) => t.ticketType == TicketType?.sellCovered)
+          .where((t) => t.ticketType == TicketType.sellCovered)
           .fold(0, (prev, e) => prev + e.received);
 
   int clientSellCoveredRange(int herderId, DateTime start, DateTime end) =>
@@ -210,7 +210,7 @@ extension FinancialStatsTickets<T extends TicketWeebi> on Iterable<T> {
           .where((t) => t.herderId == '$herderId')
           .where((t) => t.date.isAfter(start))
           .where((t) => t.date.isBefore(end))
-          .where((t) => t.ticketType == TicketType?.sellCovered)
+          .where((t) => t.ticketType == TicketType.sellCovered)
           .fold(0, (prev, e) => prev + e.received);
 
   //* this could be factorized in a similar fashion to closing to put this file on diet
@@ -219,7 +219,7 @@ extension FinancialStatsTickets<T extends TicketWeebi> on Iterable<T> {
     return where((t) => t.herderId == herderId.toString())
         .where((t) => t.status)
         .where((t) => t.date.isBefore(date))
-        .where((t) => t.ticketType == TicketType?.sellDeferred)
+        .where((t) => t.ticketType == TicketType.sellDeferred)
         .fold(0, (prev, e) => prev + e.totalCostTaxAndPromoIncluded);
   } // adding this to prevent total crash}
 
@@ -229,7 +229,7 @@ extension FinancialStatsTickets<T extends TicketWeebi> on Iterable<T> {
         .where((t) => t.herderId == '$herderId')
         .where((t) => t.date.isAfter(dateMonthStart))
         .where((t) => t.date.isBefore(dateMonthEnd))
-        .where((t) => t.ticketType == TicketType?.sellDeferred)
+        .where((t) => t.ticketType == TicketType.sellDeferred)
         .fold(0, (prev, e) => prev + e.totalCostTaxAndPromoIncluded);
   }
 
@@ -239,7 +239,7 @@ extension FinancialStatsTickets<T extends TicketWeebi> on Iterable<T> {
           .where((t) => t.herderId == '$herderId')
           .where((t) => t.date.isAfter(dateMonthStart))
           .where((t) => t.date.isBefore(dateMonthEnd))
-          .where((t) => t.ticketType == TicketType?.sell)
+          .where((t) => t.ticketType == TicketType.sell)
           .fold(0, (prev, e) => prev + e.totalPriceTaxAndPromoIncluded);
 
   int supplierSpendThisMonth(
@@ -248,7 +248,7 @@ extension FinancialStatsTickets<T extends TicketWeebi> on Iterable<T> {
           .where((t) => t.herderId == '$herderId')
           .where((t) => t.date.isAfter(dateMonthStart))
           .where((t) => t.date.isBefore(dateMonthEnd))
-          .where((t) => t.ticketType == TicketType?.spend)
+          .where((t) => t.ticketType == TicketType.spend)
           .fold(0, (prev, e) => prev + e.totalCostTaxAndPromoIncluded);
 
   int herderCvoMilkThisMonth(
@@ -299,7 +299,7 @@ extension FinancialStatsTickets<T extends TicketWeebi> on Iterable<T> {
 
   Map<String, H> monthTopClientsSellCashOnly<H extends HerderAbstract>(
       DateTime date, List<H> herdersList) {
-    Map<String, H> map = new Map();
+    Map<String, H> map = {};
     for (var herder in herdersList) {
       var soldPerClient = where((t) => t.status == true)
           .where((t) => t.date.year == date.year && t.date.month == date.month)
@@ -320,7 +320,7 @@ extension FinancialStatsTickets<T extends TicketWeebi> on Iterable<T> {
 
   Map<String, H> allClientsSellAndSellDeferredThisDay<H extends HerderAbstract>(
       DateTime date, List<H> herdersList) {
-    Map<String, H> map = Map();
+    Map<String, H> map = {};
     for (var herder in herdersList) {
       var soldPerClient = where((t) => t.status == true)
           .where((t) =>
