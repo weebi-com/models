@@ -53,10 +53,10 @@ class LineOfArticles<A extends ArticleAbstract> extends LineArticleAbstract<A> {
     return sb.toString();
   }
 
-  static final dummy = LineOfArticles<ArticleWeebi>(
+  static final dummy = LineOfArticles<Article>(
       shopUuid: 'shopUuid',
       id: 1,
-      articles: [ArticleWeebi.dummy],
+      articles: [Article.dummy],
       title: 'dummy',
       status: true,
       creationDate: WeebiDates.defaultDate,
@@ -102,7 +102,7 @@ class LineOfArticles<A extends ArticleAbstract> extends LineArticleAbstract<A> {
     };
   }
 
-  LineOfArticles<ArticleWeebi> fromMapArticleWeebi(Map<String, dynamic> map) {
+  LineOfArticles<Article> fromMapArticleWeebi(Map<String, dynamic> map) {
     if ((map['isBasket'] ?? false) == false) {
       return LineOfArticles.fromMap(map);
     } else {
@@ -142,7 +142,7 @@ class LineOfArticles<A extends ArticleAbstract> extends LineArticleAbstract<A> {
           ? []
           : List<A>.from(map['articles'].map((x) {
               if (x['proxies'] == null) {
-                return ArticleWeebi.fromMap(x);
+                return Article.fromMap(x);
               } else {
                 return ArticleBasket.fromMap(x);
               }

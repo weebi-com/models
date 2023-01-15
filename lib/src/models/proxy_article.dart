@@ -8,27 +8,27 @@ import 'package:models_weebi/src/models/proxy_article_worth.dart';
 extension ProxiesCompute on Iterable<ProxyArticle> {
   // articleBasket price must be computed
   int computeProxiesPrice(Iterable<LineOfArticles> lines) {
-    final _prices = <int>[];
+    final prices = <int>[];
     if (isNotEmpty && lines.isNotEmpty) {
-      for (final _line in lines.where((l) => l.isBasket == false)) {
-        for (final _proxy in this) {
-          if (_line.id == _proxy.proxyLineId) {
-            for (final _article in _line.articles) {
-              if (_article.lineId == _proxy.proxyLineId &&
-                  _article.id == _proxy.proxyArticleId) {
-                _prices.add((_article as ArticleWeebi).price);
+      for (final line in lines.where((l) => l.isBasket == false)) {
+        for (final proxy in this) {
+          if (line.id == proxy.proxyLineId) {
+            for (final article in line.articles) {
+              if (article.lineId == proxy.proxyLineId &&
+                  article.id == proxy.proxyArticleId) {
+                prices.add((article as Article).price);
               }
             }
           }
         }
       }
     }
-    return _prices.fold(0, (prev, e) => prev + e);
+    return prices.fold(0, (prev, e) => prev + e);
   }
 
   // articleBasket price must be computed
   int computeProxiesCost(Iterable<LineOfArticles> lines) {
-    final _costs = <int>[];
+    final costs = <int>[];
     if (isNotEmpty && lines.isNotEmpty) {
       for (final _line in lines) {
         for (final _proxy in this) {
@@ -36,14 +36,14 @@ extension ProxiesCompute on Iterable<ProxyArticle> {
             for (final _article in _line.articles) {
               if (_article.lineId == _proxy.proxyLineId &&
                   _article.id == _proxy.proxyArticleId) {
-                _costs.add((_article as ArticleWeebi).cost);
+                costs.add((_article as Article).cost);
               }
             }
           }
         }
       }
     }
-    return _costs.fold(0, (prev, e) => prev + e);
+    return costs.fold(0, (prev, e) => prev + e);
   }
 }
 
@@ -180,7 +180,7 @@ class ProxyArticle extends ProxyArticleAbstract with GimmeTheLoot {
         if (line.isBasket == false && line.id == proxyLineId) {
           for (final article in line.articles) {
             if (article.lineId == proxyLineId && article.id == proxyArticleId) {
-              return (article as ArticleWeebi).price;
+              return (article as Article).price;
             }
           }
         }
@@ -195,7 +195,7 @@ class ProxyArticle extends ProxyArticleAbstract with GimmeTheLoot {
         if (line.isBasket == false && line.id == proxyLineId) {
           for (final article in line.articles) {
             if (article.lineId == proxyLineId && article.id == proxyArticleId) {
-              return (article as ArticleWeebi).cost;
+              return (article as Article).cost;
             }
           }
         }
