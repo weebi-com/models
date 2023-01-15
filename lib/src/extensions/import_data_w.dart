@@ -1,6 +1,6 @@
 import 'package:models_base/common.dart' show Address, StockUnit;
 import 'package:models_weebi/weebi_models.dart'
-    show HerderWeebi, Tristate, ContactWeebi, LineOfArticles, Article;
+    show HerderWeebi, Tristate, ContactWeebi, LineOfArticles, ArticleWeebi;
 
 extension ImportData on List<List<dynamic>> {
   List<HerderWeebi> extractHerdersFromParsedExcel(int nextId, String shopUuid) {
@@ -65,15 +65,15 @@ extension ImportData on List<List<dynamic>> {
     return contactsList;
   }
 
-  List<LineOfArticles<Article>> extractLinesOfArticlesFromParsedExcel(
+  List<LineOfArticles<ArticleWeebi>> extractLinesOfArticlesFromParsedExcel(
       int nextLineId, String shopUuid) {
-    final linesList = <LineOfArticles<Article>>[];
+    final linesList = <LineOfArticles<ArticleWeebi>>[];
     var nextId = nextLineId; // just in case..
     for (var i = 1; i < length; i++) // avoid header
     {
       final now = DateTime.now();
       final table = this[i];
-      final _newArticle = Article(
+      final _newArticle = ArticleWeebi(
         creationDate: now,
         updateDate: now,
         shopUuid: shopUuid,
@@ -98,7 +98,7 @@ extension ImportData on List<List<dynamic>> {
             : 0,
         photo: '',
       );
-      final newLine = LineOfArticles<Article>(
+      final newLine = LineOfArticles<ArticleWeebi>(
         creationDate: now,
         updateDate: now,
         shopUuid: shopUuid,
@@ -117,14 +117,14 @@ extension ImportData on List<List<dynamic>> {
     return linesList;
   }
 
-  List<LineOfArticles<Article>> extractLinesOfArticlesForUpdateFromParsedExcel(
-      String shopUuid) {
-    final linesList = <LineOfArticles<Article>>[];
+  List<LineOfArticles<ArticleWeebi>>
+      extractLinesOfArticlesForUpdateFromParsedExcel(String shopUuid) {
+    final linesList = <LineOfArticles<ArticleWeebi>>[];
     for (var i = 1; i < length; i++) // avoid header
     {
       final now = DateTime.now();
       final table = this[i];
-      final _newArticle = Article(
+      final _newArticle = ArticleWeebi(
         creationDate: now, // will be updated after if match
         updateDate: now,
         shopUuid: shopUuid,
@@ -149,7 +149,7 @@ extension ImportData on List<List<dynamic>> {
             : 0,
         photo: '',
       );
-      final newLine = LineOfArticles<Article>(
+      final newLine = LineOfArticles<ArticleWeebi>(
         creationDate: now,
         updateDate: now,
         shopUuid: shopUuid,

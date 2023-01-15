@@ -16,7 +16,7 @@ extension ProxiesCompute on Iterable<ProxyArticle> {
             for (final _article in _line.articles) {
               if (_article.lineId == _proxy.proxyLineId &&
                   _article.id == _proxy.proxyArticleId) {
-                _prices.add((_article as Article).price);
+                _prices.add((_article as ArticleWeebi).price);
               }
             }
           }
@@ -36,7 +36,7 @@ extension ProxiesCompute on Iterable<ProxyArticle> {
             for (final _article in _line.articles) {
               if (_article.lineId == _proxy.proxyLineId &&
                   _article.id == _proxy.proxyArticleId) {
-                _costs.add((_article as Article).cost);
+                _costs.add((_article as ArticleWeebi).cost);
               }
             }
           }
@@ -180,7 +180,7 @@ class ProxyArticle extends ProxyArticleAbstract with GimmeTheLoot {
         if (line.isBasket == false && line.id == proxyLineId) {
           for (final article in line.articles) {
             if (article.lineId == proxyLineId && article.id == proxyArticleId) {
-              return (article as Article).price;
+              return (article as ArticleWeebi).price;
             }
           }
         }
@@ -195,7 +195,7 @@ class ProxyArticle extends ProxyArticleAbstract with GimmeTheLoot {
         if (line.isBasket == false && line.id == proxyLineId) {
           for (final article in line.articles) {
             if (article.lineId == proxyLineId && article.id == proxyArticleId) {
-              return (article as Article).cost;
+              return (article as ArticleWeebi).cost;
             }
           }
         }

@@ -19,7 +19,8 @@ extension AggregateItems on Iterable<ItemCartWeebi> {
                   item.quantity)
               .round();
         } else {
-          return (value + ((item.article as Article).price * item.quantity))
+          return (value +
+                  ((item.article as ArticleWeebi).price * item.quantity))
               .round();
         }
       });
@@ -35,7 +36,7 @@ extension AggregateItems on Iterable<ItemCartWeebi> {
               .round();
         } else {
           return value +
-              ((item.article as Article).cost * item.quantity).round();
+              ((item.article as ArticleWeebi).cost * item.quantity).round();
         }
       });
 }
@@ -53,9 +54,9 @@ class ItemCartWeebi<A extends ArticleAbstract> extends ItemInCartAbstract<A> {
 
   bool get isBasket => toMap()['article']['proxies'] != null;
 
-  static final dummy = ItemCartWeebi(() => Article.dummy, 1.0);
+  static final dummy = ItemCartWeebi(() => ArticleWeebi.dummy, 1.0);
 
-  static final dummyBasket = ItemCartWeebi(() => Article.dummy, 1.0,
+  static final dummyBasket = ItemCartWeebi(() => ArticleWeebi.dummy, 1.0,
       proxiesWorth: <ProxyArticleWorth>[ProxyArticleWorth.dummy]);
 
   // I can play around with Article while ignoring its exact type :)
@@ -70,7 +71,7 @@ class ItemCartWeebi<A extends ArticleAbstract> extends ItemInCartAbstract<A> {
     if (article.toMap()['proxies'] != null) {
       return (article as ArticleBasket).proxies.computeProxiesPrice(_lines);
     } else {
-      return (article as Article).price;
+      return (article as ArticleWeebi).price;
     }
   }
 
@@ -79,7 +80,7 @@ class ItemCartWeebi<A extends ArticleAbstract> extends ItemInCartAbstract<A> {
     if (article.toMap()['proxies'] != null) {
       return (article as ArticleBasket).proxies.computeProxiesCost(_lines);
     } else {
-      return (article as Article).cost;
+      return (article as ArticleWeebi).cost;
     }
   }
 
@@ -150,9 +151,9 @@ class ItemCartWeebi<A extends ArticleAbstract> extends ItemInCartAbstract<A> {
     );
   }
 
-  static ItemCartWeebi<Article> fromMapWeebi(Map<String, dynamic> map) {
-    return ItemCartWeebi<Article>(
-      () => Article.fromMap(map['article']),
+  static ItemCartWeebi<ArticleWeebi> fromMapWeebi(Map<String, dynamic> map) {
+    return ItemCartWeebi<ArticleWeebi>(
+      () => ArticleWeebi.fromMap(map['article']),
       map['quantity'] == null ? 0.0 : (map['quantity'] as num).toDouble(),
       proxiesWorth: [],
     );

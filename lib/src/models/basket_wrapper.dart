@@ -4,14 +4,14 @@
 import 'package:models_weebi/weebi_models.dart';
 
 class BasketWrapper {
-  final Article article;
+  final ArticleWeebi article;
   final double minimumUnitPerBasket;
   final double stockRemaining;
   const BasketWrapper(
       this.article, this.minimumUnitPerBasket, this.stockRemaining);
 
   BasketWrapper copyWith({
-    Article? article,
+    ArticleWeebi? article,
     double? minimumUnitPerBasket,
     double? stockRemaining,
   }) {

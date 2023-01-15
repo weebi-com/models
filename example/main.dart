@@ -5,7 +5,7 @@ import 'package:models_weebi/weebi_models.dart';
 void main() {
   final awesomeArticleLine = LineOfArticles(
     articles: [
-      Article(
+      ArticleWeebi(
         shopUuid: 'unknown',
         lineId: 1,
         id: 1,

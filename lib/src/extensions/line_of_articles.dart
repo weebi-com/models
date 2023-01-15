@@ -17,7 +17,7 @@ extension RealizableBaskets on Iterable<LineOfArticles> {
             final article = line.articles.firstWhere((a) =>
                 a.lineId == lot.proxyLineId && a.id == lot.proxyArticleId);
             final wrapper = BasketWrapper(
-                article as Article, lot.minimumUnitPerBasket, 0.0);
+                article as ArticleWeebi, lot.minimumUnitPerBasket, 0.0);
             articleWrappers.add(wrapper);
           }
         }
@@ -87,7 +87,7 @@ extension LineOfArticlesToRows on List<LineOfArticles> {
           cells.add(_articleBasket.articleCode);
           cells.add(_articleBasket.creationDate);
         } else {
-          final _article = this[i].articles[ii] as Article;
+          final _article = this[i].articles[ii] as ArticleWeebi;
           cells.add(_article.fullName);
           cells.add(_article.weight);
           cells.add(_article.price);
