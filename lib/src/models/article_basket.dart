@@ -71,7 +71,7 @@ class ArticleBasket extends ArticleAbstract with GetPriceAndCostMixin {
     String? photo = '',
     required DateTime? creationDate,
     required DateTime? updateDate,
-    @observable bool status = false,
+    @observable bool status = true,
     this.statusUpdateDate,
     required this.proxies,
   }) : super(
