@@ -6,7 +6,7 @@ extension AggregateProxies on Iterable<ProxyArticleWorth> {
   // articleBasket price must be computed
   int get totalPrice {
     var worth = 0;
-    for (final proxy in this) {
+    for (final proxy in toSet()) {
       worth += (proxy.price * proxy.minimumUnitPerBasket).round();
     }
     return worth;
@@ -14,7 +14,7 @@ extension AggregateProxies on Iterable<ProxyArticleWorth> {
 
   int get totalCost {
     var worth = 0;
-    for (final proxy in this) {
+    for (final proxy in toSet()) {
       worth += (proxy.cost * proxy.minimumUnitPerBasket).round();
     }
     return worth;

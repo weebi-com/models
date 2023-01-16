@@ -1,4 +1,4 @@
-import 'package:models_weebi/base.dart';
+// import 'package:models_weebi/base.dart';
 
 // abstract class RpcAbstract<R, T> implements EndpointBase<R, T> {
 //   @override

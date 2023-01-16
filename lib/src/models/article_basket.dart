@@ -34,12 +34,12 @@ class ArticleBasketWithPriceAndCost extends ArticleBasket
             proxies: aBasket.proxies);
 
   factory ArticleBasketWithPriceAndCost.getPriceAndCost(
-      Iterable<LineOfArticles> _linesInStore,
+      Iterable<LineOfArticles> linesInStore,
       ArticleBasket aBasketNoPriceNoCost) {
     final int price =
-        aBasketNoPriceNoCost.proxies.computeProxiesPrice(_linesInStore);
+        aBasketNoPriceNoCost.proxies.computeProxiesPrice(linesInStore);
     final int cost =
-        aBasketNoPriceNoCost.proxies.computeProxiesCost(_linesInStore);
+        aBasketNoPriceNoCost.proxies.computeProxiesCost(linesInStore);
     return ArticleBasketWithPriceAndCost._(
         price: price, cost: cost, aBasket: aBasketNoPriceNoCost);
   }
