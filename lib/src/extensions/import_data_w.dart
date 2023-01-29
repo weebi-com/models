@@ -5,7 +5,7 @@ import 'package:models_weebi/weebi_models.dart'
 extension ImportData on List<List<dynamic>> {
   List<HerderWeebi> extractHerdersFromParsedExcel(int nextId, String shopUuid) {
     final herdersList = <HerderWeebi>[];
-    var _nextId = nextId; // just in case..
+    var nextId = nextId; // just in case..
     for (var i = 1; i < length; i++) {
       final now = DateTime.now();
       final table = this[i];
@@ -13,8 +13,8 @@ extension ImportData on List<List<dynamic>> {
         updateDate: now,
         status: true,
         statusUpdateDate: now,
-        id: _nextId,
-        bidon: _nextId,
+        id: nextId,
+        bidon: nextId,
         shopId: shopUuid,
         firstName: table[0] != null ? table[0].toString().trim() : '',
         lastName: table[1] != null ? table[1].toString().trim() : '',
@@ -41,7 +41,7 @@ extension ImportData on List<List<dynamic>> {
     for (var i = 1; i < data.length; i++) {
       final now = DateTime.now();
       final table = data[i];
-      final _address = Address.addressEmpty;
+      final address = Address.addressEmpty;
       final newContact = ContactWeebi(
         updateDate: now,
         creationDate: now,
@@ -57,7 +57,7 @@ extension ImportData on List<List<dynamic>> {
         isWoman: table[5] != null && table[5] is String
             ? Tristate.tryParse(table[5])
             : Tristate.unknown,
-        address: _address, // make this a list
+        address: address, // make this a list
       );
       contactsList.add(newContact);
       nextId++;
@@ -73,7 +73,7 @@ extension ImportData on List<List<dynamic>> {
     {
       final now = DateTime.now();
       final table = this[i];
-      final _newArticle = Article(
+      final newArticle = Article(
         creationDate: now,
         updateDate: now,
         shopUuid: shopUuid,
@@ -109,7 +109,7 @@ extension ImportData on List<List<dynamic>> {
         stockUnit: StockUnit.unit,
         categories: [''],
         photo: '',
-        articles: [_newArticle],
+        articles: [newArticle],
       );
       linesList.add(newLine);
       nextId++;
@@ -124,7 +124,7 @@ extension ImportData on List<List<dynamic>> {
     {
       final now = DateTime.now();
       final table = this[i];
-      final _newArticle = Article(
+      final newArticle = Article(
         creationDate: now, // will be updated after if match
         updateDate: now,
         shopUuid: shopUuid,
@@ -160,7 +160,7 @@ extension ImportData on List<List<dynamic>> {
         stockUnit: StockUnit.unit,
         categories: [''],
         photo: '',
-        articles: [_newArticle],
+        articles: [newArticle],
       );
       linesList.add(newLine);
     }

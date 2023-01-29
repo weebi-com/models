@@ -51,9 +51,9 @@ class ArticleBasketWithPriceAndCost extends ArticleBasket
 
 mixin GetPriceAndCostMixin on ArticleAbstract {
   ArticleBasketWithPriceAndCost getPriceAndCost(
-      Iterable<LineOfArticles> _linesInStore) {
+      Iterable<LineOfArticles> linesInStore) {
     return ArticleBasketWithPriceAndCost.getPriceAndCost(
-        _linesInStore, this as ArticleBasket);
+        linesInStore, this as ArticleBasket);
   }
 }
 

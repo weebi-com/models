@@ -3,8 +3,8 @@ import 'package:test/test.dart';
 
 void main() {
   test('item weebi', () {
-    final _json = ItemCartWeebi.dummy.toJson();
-    final dummy = ItemCartWeebi.fromJson(_json);
+    final json = ItemCartWeebi.dummy.toJson();
+    final dummy = ItemCartWeebi.fromJson(json);
     //print(dummy);
     //print(ItemCartWeebi.dummy);
     expect(dummy == ItemCartWeebi.dummy, isTrue);

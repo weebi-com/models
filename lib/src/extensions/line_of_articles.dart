@@ -72,28 +72,28 @@ extension LineOfArticlesToRows on List<LineOfArticles> {
     for (int i = 0; i < length; i++) {
 // row refer to each column of a row in csv file and rows refer to each row in a file
       List<dynamic> cells = List.empty(growable: true);
-      final _line = this[i];
-      cells.add(_line.id);
-      cells.add(_line.title);
-      cells.add(_line.stockUnit);
-      for (int ii = 0; ii < _line.articles.length; ii++) {
-        if (_line.isBasket != null && _line.isBasket!) {
-          final _articleBasket =
+      final line = this[i];
+      cells.add(line.id);
+      cells.add(line.title);
+      cells.add(line.stockUnit);
+      for (int ii = 0; ii < line.articles.length; ii++) {
+        if (line.isBasket != null && line.isBasket!) {
+          final articleBasket =
               (this[i].articles[ii] as ArticleBasket).getPriceAndCost(this);
-          cells.add(_articleBasket.fullName);
-          cells.add(_articleBasket.weight);
-          cells.add(_articleBasket.price);
-          cells.add(_articleBasket.cost);
-          cells.add(_articleBasket.articleCode);
-          cells.add(_articleBasket.creationDate);
+          cells.add(articleBasket.fullName);
+          cells.add(articleBasket.weight);
+          cells.add(articleBasket.price);
+          cells.add(articleBasket.cost);
+          cells.add(articleBasket.articleCode);
+          cells.add(articleBasket.creationDate);
         } else {
-          final _article = this[i].articles[ii] as Article;
-          cells.add(_article.fullName);
-          cells.add(_article.weight);
-          cells.add(_article.price);
-          cells.add(_article.cost);
-          cells.add(_article.articleCode);
-          cells.add(_article.creationDate);
+          final article = this[i].articles[ii] as Article;
+          cells.add(article.fullName);
+          cells.add(article.weight);
+          cells.add(article.price);
+          cells.add(article.cost);
+          cells.add(article.articleCode);
+          cells.add(article.creationDate);
         }
       }
       rows.add(cells);

@@ -3,8 +3,8 @@ import 'package:test/test.dart';
 
 void main() {
   test('herderWeebi', () {
-    final _json = HerderWeebi.dummy.toJson();
-    final dummy = HerderWeebi.fromJson(_json);
+    final json = HerderWeebi.dummy.toJson();
+    final dummy = HerderWeebi.fromJson(json);
     expect(dummy == HerderWeebi.dummy, isTrue);
   });
 }

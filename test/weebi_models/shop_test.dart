@@ -3,8 +3,8 @@ import 'package:test/test.dart';
 
 void main() {
   test('shop weebi', () {
-    final _json = ShopWeebi.unknownShopWeebi.toJson();
-    final unknownShopWeebi = ShopWeebi.fromJson(_json);
+    final json = ShopWeebi.unknownShopWeebi.toJson();
+    final unknownShopWeebi = ShopWeebi.fromJson(json);
 
     expect(unknownShopWeebi == ShopWeebi.unknownShopWeebi, isTrue);
   });
