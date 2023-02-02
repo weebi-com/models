@@ -5,7 +5,7 @@ import 'package:models_weebi/weebi_models.dart'
 extension ImportData on List<List<dynamic>> {
   List<HerderWeebi> extractHerdersFromParsedExcel(int nextId, String shopUuid) {
     final herdersList = <HerderWeebi>[];
-    var nextId = nextId; // just in case..
+
     for (var i = 1; i < length; i++) {
       final now = DateTime.now();
       final table = this[i];
@@ -65,12 +65,11 @@ extension ImportData on List<List<dynamic>> {
     return contactsList;
   }
 
-  List<LineOfArticles<Article>> extractLinesOfArticlesFromParsedExcel(
+  List<LineOfArticles<Article>> extractArticlesLinesFromParsedExcel(
       int nextLineId, String shopUuid) {
     final linesList = <LineOfArticles<Article>>[];
     var nextId = nextLineId; // just in case..
-    for (var i = 1; i < length; i++) // avoid header
-    {
+    for (var i = 0; i < length; i++) {
       final now = DateTime.now();
       final table = this[i];
       final newArticle = Article(
