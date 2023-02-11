@@ -6,18 +6,18 @@ import 'package:models_base/base.dart'
 import 'package:models_base/common.dart';
 import 'package:models_base/utils.dart';
 import 'package:models_weebi/src/models/article_basket.dart';
-import 'package:models_weebi/src/models/article_weebi.dart';
+import 'package:models_weebi/src/models/article.dart';
 import 'package:collection/collection.dart';
 
 class LineOfArticles<A extends ArticleAbstract> extends LineArticleAbstract<A> {
-  final String? shopUuid;
-  String? get shopId => shopUuid;
+  // final String? shopUuid;
+  // String? get shopId => shopUuid;
   final bool? isPalpable;
   final bool? isBasket;
   bool get isSingleArticle => articles.length <= 1;
   LineOfArticles({
     required int id,
-    required this.shopUuid,
+    // required this.shopUuid,
     this.isPalpable = true,
     this.isBasket = false,
     required List<A> articles,
@@ -54,7 +54,7 @@ class LineOfArticles<A extends ArticleAbstract> extends LineArticleAbstract<A> {
   }
 
   static final dummy = LineOfArticles<Article>(
-      shopUuid: 'shopUuid',
+      // shopUuid: 'shopUuid',
       id: 1,
       articles: [Article.dummy],
       title: 'dummy',
@@ -68,7 +68,7 @@ class LineOfArticles<A extends ArticleAbstract> extends LineArticleAbstract<A> {
       id: 2,
       categories: null,
       title: 'truc bis',
-      shopUuid: '',
+      // shopUuid: '',
       creationDate: WeebiDates.defaultDate,
       updateDate: WeebiDates.defaultDate,
       stockUnit: StockUnit.unit,
@@ -81,7 +81,7 @@ class LineOfArticles<A extends ArticleAbstract> extends LineArticleAbstract<A> {
   @override
   Map<String, dynamic> toMap() {
     return {
-      'shopUuid': shopUuid,
+      // 'shopUuid': shopUuid,
       'id': id,
       'isPalpable': isPalpable ?? true,
       'isBasket': isBasket ?? false,
@@ -120,7 +120,7 @@ class LineOfArticles<A extends ArticleAbstract> extends LineArticleAbstract<A> {
 
   factory LineOfArticles.fromMap(Map<String, dynamic> map) {
     return LineOfArticles<A>(
-      shopUuid: map['shopUuid'] ?? '',
+      // shopUuid: map['shopUuid'] ?? '',
       id: map['id'],
       title: map['title'],
       isPalpable: map['isPalpable'] ?? true,
@@ -175,7 +175,7 @@ class LineOfArticles<A extends ArticleAbstract> extends LineArticleAbstract<A> {
     List<String>? categories,
   }) {
     return LineOfArticles(
-      shopUuid: shopUuid ?? this.shopUuid,
+      // shopUuid: shopUuid ?? this.shopUuid,
       id: id ?? this.id,
       isBasket: isBasket ?? this.isBasket,
       isPalpable: isPalpable ?? this.isPalpable,
@@ -193,14 +193,14 @@ class LineOfArticles<A extends ArticleAbstract> extends LineArticleAbstract<A> {
   }
 
   @override
-  int get hashCode => shopUuid.hashCode ^ isPalpable.hashCode;
+  int get hashCode => id.hashCode ^ isPalpable.hashCode;
 
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
     final listEquals = const DeepCollectionEquality().equals;
     return other is LineOfArticles &&
-        other.shopUuid == shopUuid &&
+        // other.shopUuid == shopUuid &&
         other.id == id &&
         other.isPalpable == isPalpable &&
         listEquals(other.articles, articles);

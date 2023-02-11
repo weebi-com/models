@@ -6,7 +6,6 @@ void main() {
   final awesomeArticleLine = LineOfArticles(
     articles: [
       Article(
-        shopUuid: 'unknown',
         lineId: 1,
         id: 1,
         fullName: 'frometon',
@@ -17,7 +16,6 @@ void main() {
     ],
     id: 1,
     title: 'frometon',
-    shopUuid: 'shopUuid',
     status: true,
     creationDate: WeebiDates.defaultDate,
     updateDate: WeebiDates.defaultDate,

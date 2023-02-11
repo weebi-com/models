@@ -1,21 +1,21 @@
 import 'package:models_base/common.dart' show Address, StockUnit;
 import 'package:models_weebi/weebi_models.dart'
-    show HerderWeebi, Tristate, ContactWeebi, LineOfArticles, Article;
+    show Herder, Tristate, ContactWeebi, LineOfArticles, Article;
 
 extension ImportData on List<List<dynamic>> {
-  List<HerderWeebi> extractHerdersFromParsedExcel(int nextId, String shopUuid) {
-    final herdersList = <HerderWeebi>[];
+  List<Herder> extractHerdersFromParsedExcel(int nextId, String shopUuid) {
+    final herdersList = <Herder>[];
     var _nextId = nextId; // just in case..
     for (var i = 1; i < length; i++) {
       final now = DateTime.now();
       final table = this[i];
-      final herder = HerderWeebi(
+      final herder = Herder(
         updateDate: now,
         status: true,
         statusUpdateDate: now,
         id: _nextId,
         bidon: _nextId,
-        shopId: shopUuid,
+        // shopId: shopUuid,
         firstName: table[0] != null ? table[0].toString().trim() : '',
         lastName: table[1] != null ? table[1].toString().trim() : '',
         tel: table[2] != null ? table[2].toString().trim() : '',
@@ -76,7 +76,6 @@ extension ImportData on List<List<dynamic>> {
       final _newArticle = Article(
         creationDate: now,
         updateDate: now,
-        shopUuid: shopUuid,
         lineId: nextId,
         id: 1,
         fullName: table[0] != null ? table[0].toString().trim() : '',
@@ -101,7 +100,6 @@ extension ImportData on List<List<dynamic>> {
       final newLine = LineOfArticles<Article>(
         creationDate: now,
         updateDate: now,
-        shopUuid: shopUuid,
         id: nextId,
         title: table[0] != null ? table[0].toString().trim() : '',
         status: true,
@@ -127,7 +125,6 @@ extension ImportData on List<List<dynamic>> {
       final _newArticle = Article(
         creationDate: now, // will be updated after if match
         updateDate: now,
-        shopUuid: shopUuid,
         lineId: 0, // will be updated after if match
         id: 1,
         fullName: table[0] != null ? '${table[0]}' : '',
@@ -152,7 +149,6 @@ extension ImportData on List<List<dynamic>> {
       final newLine = LineOfArticles<Article>(
         creationDate: now,
         updateDate: now,
-        shopUuid: shopUuid,
         id: 0,
         title: table[0] != null ? '${table[0]}' : '',
         status: true,
@@ -167,18 +163,18 @@ extension ImportData on List<List<dynamic>> {
     return linesList;
   }
 
-  List<HerderWeebi> extractHerdersForUpdateFromParsedExcel(String shopUuid) {
-    final herdersList = <HerderWeebi>[];
+  List<Herder> extractHerdersForUpdateFromParsedExcel(String shopUuid) {
+    final herdersList = <Herder>[];
     for (var i = 1; i < length; i++) {
       final now = DateTime.now();
       final table = this[i];
-      final herder = HerderWeebi(
+      final herder = Herder(
         updateDate: now,
         status: true,
         statusUpdateDate: now,
         id: 0, // will be updated after if match
         bidon: 0, // will be updated after if match
-        shopId: shopUuid,
+        // shopId: shopUuid,
         firstName: table[0] != null ? table[0].toString().trim() : '',
         lastName: table[1] != null ? table[1].toString().trim() : '',
         tel: table[2] != null ? table[2].toString().trim() : '',

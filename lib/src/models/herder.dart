@@ -3,14 +3,14 @@ import 'dart:convert';
 import 'package:models_base/base.dart' show HerderAbstract;
 import 'package:models_base/utils.dart';
 
-class HerderWeebi extends HerderAbstract {
-  final String shopId;
-  String get shopUuid => shopId;
-  HerderWeebi({
+class Herder extends HerderAbstract {
+  // final String shopId;
+  // String get shopUuid => shopId;
+  Herder({
     required final int id,
     required int bidon,
     required String firstName,
-    required this.shopId,
+    // required this.shopId,
     required String lastName,
     required DateTime? updateDate,
     required DateTime? statusUpdateDate,
@@ -65,9 +65,9 @@ class HerderWeebi extends HerderAbstract {
   // only override if add specific field
   // @override Map<String, dynamic> toMap()
 
-  static final dummy = HerderWeebi(
+  static final dummy = Herder(
     id: 0,
-    shopId: 'dummy',
+    // shopId: 'dummy',
     bidon: 0,
     firstName: 'inconnu',
     lastName: 'John Doe',
@@ -80,10 +80,10 @@ class HerderWeebi extends HerderAbstract {
   @override
   String toJson() => json.encode(toMap());
 
-  factory HerderWeebi.fromMap(Map<String, dynamic> map) {
-    return HerderWeebi(
+  factory Herder.fromMap(Map<String, dynamic> map) {
+    return Herder(
       id: map['id'],
-      shopId: map['shopId'] ?? 'no_shopId',
+      // shopId: map['shopId'] ?? 'no_shopId',
       bidon: map['bidon'],
       firstName: map['firstName'],
       lastName: map['lastName'],
@@ -110,10 +110,9 @@ class HerderWeebi extends HerderAbstract {
       pointCollecte: map['pointCollecte'],
     );
   }
-  factory HerderWeebi.fromJson(String source) =>
-      HerderWeebi.fromMap(json.decode(source));
+  factory Herder.fromJson(String source) => Herder.fromMap(json.decode(source));
 
-  HerderWeebi copyWith({
+  Herder copyWith({
     int? id,
     String? shopId,
     int? bidon,
@@ -137,9 +136,9 @@ class HerderWeebi extends HerderAbstract {
     String? carteNFC,
     String? pointCollecte,
   }) {
-    return HerderWeebi(
+    return Herder(
       id: id ?? this.id,
-      shopId: shopId ?? this.shopId,
+      // shopId: shopId ?? this.shopId,
       bidon: bidon ?? this.bidon,
       firstName: firstName ?? this.firstName,
       lastName: lastName ?? this.lastName,

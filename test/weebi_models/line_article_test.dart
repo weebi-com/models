@@ -1,4 +1,4 @@
-import 'package:models_weebi/src/models/line_of_articles_w.dart';
+import 'package:models_weebi/src/models/articles_line.dart';
 import 'package:test/test.dart';
 
 void main() {

@@ -1,6 +1,6 @@
-import 'package:models_weebi/src/models/herder_weebi.dart';
+import 'package:models_weebi/src/models/herder.dart';
 
-extension HerdersToRows on List<HerderWeebi> {
+extension HerdersToRows on List<Herder> {
   List<List<dynamic>> formatToRows() {
     List<List<dynamic>> rows = List<List<dynamic>>.empty(growable: true);
     List<dynamic> contactsHeader = List.empty(growable: true);

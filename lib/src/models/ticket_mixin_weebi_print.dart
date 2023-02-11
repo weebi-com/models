@@ -1,6 +1,6 @@
 import 'package:models_base/common.dart';
 import 'package:models_base/utils.dart';
-import 'package:models_weebi/src/models/line_of_articles_w.dart';
+import 'package:models_weebi/src/models/articles_line.dart';
 import 'package:models_weebi/src/models/ticket_weebi_abstract.dart';
 
 mixin TicketPrinter on TicketWeebiAbstract {

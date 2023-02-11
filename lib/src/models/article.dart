@@ -10,11 +10,11 @@ class Article extends ArticleAbstract implements PriceAndCostAbstract {
   final int price;
   @override
   final int cost;
-  final String? shopUuid;
-  String? get shopId => shopUuid;
+  // final String? shopUuid;
+  // String? get shopId => shopUuid;
   DateTime? statusUpdateDate;
   Article(
-      {this.shopUuid,
+      { //this.shopUuid,
       required this.price,
       this.cost = 0,
       required int lineId,
@@ -40,7 +40,7 @@ class Article extends ArticleAbstract implements PriceAndCostAbstract {
         );
 
   static final dummy = Article(
-    shopUuid: 'shopUuid',
+    // shopUuid: 'shopUuid',
     lineId: 1,
     id: 1,
     fullName: 'dummy',
@@ -78,7 +78,7 @@ ArticleWeebi(
   @override
   Map<String, dynamic> toMap() {
     return {
-      'shopUuid': shopUuid,
+      // 'shopUuid': shopUuid,
       'lineId': lineId,
       'id': id,
       'fullName': fullName,
@@ -115,7 +115,7 @@ ArticleWeebi(
       updateDate: map['updateDate'] == null
           ? WeebiDates.defaultDate
           : DateTime.parse(map['updateDate']),
-      shopUuid: map['shopUuid'] ?? '',
+      // shopUuid: map['shopUuid'] ?? '',
       status: map['status'],
       statusUpdateDate: map['statusUpdateDate'] == null
           ? WeebiDates.defaultDate
@@ -130,7 +130,7 @@ ArticleWeebi(
       Article.fromMap(json.decode(source));
 
   Article copyWith({
-    String? shopUuid,
+    // String? shopUuid,
     int? lineId,
     int? id,
     String? fullName,
@@ -145,7 +145,7 @@ ArticleWeebi(
     bool? status,
   }) {
     return Article(
-      shopUuid: shopUuid ?? this.shopUuid,
+      // shopUuid: shopUuid ?? this.shopUuid,
       lineId: lineId ?? this.lineId,
       id: id ?? this.id,
       fullName: fullName ?? this.fullName,
@@ -166,16 +166,17 @@ ArticleWeebi(
     if (identical(this, other)) return true;
 
     return other is Article &&
-        other.shopUuid == shopUuid &&
+        // other.shopUuid == shopUuid &&
         other.cost == cost &&
         other.price == price &&
         other.fullName == fullName &&
         other.id == id &&
+        other.lineId == lineId &&
         other.photo == photo &&
         other.creationDate == creationDate &&
         other.updateDate == updateDate;
   }
 
   @override
-  int get hashCode => shopUuid.hashCode;
+  int get hashCode => id.hashCode ^ lineId.hashCode;
 }

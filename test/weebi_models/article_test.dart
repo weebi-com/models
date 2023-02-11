@@ -7,7 +7,6 @@ void main() {
     final _json = Article.dummy.toJson();
     final dummy = Article.fromJson(_json);
     // expect(dummy == ArticleWeebi.dummy, isTrue);
-    expect(dummy.shopUuid == Article.dummy.shopUuid, isTrue);
     expect(dummy.id == Article.dummy.id, isTrue);
     expect(dummy.lineId == Article.dummy.lineId, isTrue);
     expect(dummy.fullName == Article.dummy.fullName, isTrue);

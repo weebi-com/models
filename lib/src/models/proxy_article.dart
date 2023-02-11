@@ -1,8 +1,8 @@
 import 'dart:convert';
 
 import 'package:models_base/base.dart' show ProxyArticleAbstract;
-import 'package:models_weebi/src/models/article_weebi.dart';
-import 'package:models_weebi/src/models/line_of_articles_w.dart';
+import 'package:models_weebi/src/models/article.dart';
+import 'package:models_weebi/src/models/articles_line.dart';
 import 'package:models_weebi/src/models/proxy_article_worth.dart';
 
 extension ProxiesCompute on Iterable<ProxyArticle> {
