@@ -8,7 +8,7 @@ export 'src/extensions/line_of_articles.dart';
 export 'src/extensions/contacts.dart';
 export 'src/extensions/herders.dart';
 export 'src/extensions/import_data_w.dart';
-export 'src/extensions/import_check_header.dart';
+export 'src/extensions/import_checker.dart';
 export 'src/extensions/date_time.dart';
 export 'src/extensions/double.dart';
 export 'src/extensions/string_no_accents.dart';

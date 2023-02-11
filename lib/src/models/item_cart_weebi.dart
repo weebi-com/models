@@ -59,25 +59,23 @@ class ItemCartWeebi<A extends ArticleAbstract> extends ItemInCartAbstract<A> {
       proxiesWorth: <ProxyArticleWorth>[ProxyArticleWorth.dummy]);
 
   // I can play around with Article while ignoring its exact type :)
-  int getTotalPrice(Iterable<LineOfArticles> _lines) =>
-      (getArticlePrice(_lines) * quantity).round();
+  int get totalPrice => (articlePrice * quantity).round();
 
-  int getTotalCost(Iterable<LineOfArticles> _lines) =>
-      (getArticleCost(_lines) * quantity).round();
+  int get totalCost => (articleCost * quantity).round();
 
-  int getArticlePrice(Iterable<LineOfArticles> _lines) {
+  int get articlePrice {
     A article = articleCreator();
     if (article.toMap()['proxies'] != null) {
-      return (article as ArticleBasket).proxies.computeProxiesPrice(_lines);
+      return proxiesWorth?.totalPrice ?? 0;
     } else {
       return (article as Article).price;
     }
   }
 
-  int getArticleCost(Iterable<LineOfArticles> linesData) {
+  int get articleCost {
     A article = articleCreator();
     if (article.toMap()['proxies'] != null) {
-      return (article as ArticleBasket).proxies.computeProxiesCost(linesData);
+      return proxiesWorth?.totalCost ?? 0;
     } else {
       return (article as Article).cost;
     }

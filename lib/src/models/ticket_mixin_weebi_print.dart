@@ -34,9 +34,8 @@ mixin TicketPrinter on TicketWeebiAbstract {
   String getSharableTextLight(Iterable<LineOfArticles> lines) {
     final products = StringBuffer();
     for (var item in items) {
-      final _price = item.getArticlePrice(lines);
       products.write(
-          '${item.quantity}x ${item.article.fullName} $_price = ${item.getTotalPrice(lines)}');
+          '${item.quantity}x ${item.article.fullName} ${item.articlePrice} = ${item.totalPrice}');
     }
     final sb = StringBuffer()
       ..writeln('#$id')
@@ -56,9 +55,8 @@ mixin TicketPrinter on TicketWeebiAbstract {
   String getSharableText(Iterable<LineOfArticles> lines) {
     final products = StringBuffer();
     for (final item in items) {
-      final _price = item.getArticlePrice(lines);
       products.write(
-          '${item.quantity}x ${item.article.fullName} $_price = ${item.getTotalPrice(lines)}');
+          '${item.quantity}x ${item.article.fullName} ${item.articlePrice} = ${item.totalPrice}');
     }
     if (ticketType == TicketType.sell) {
       final sb = StringBuffer()

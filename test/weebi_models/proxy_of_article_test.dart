@@ -3,8 +3,8 @@ import 'package:test/test.dart';
 
 void main() {
   test('proxy of article weebi', () {
-    final _json = ProxyArticle.dummy.toJson();
-    final dummy = ProxyArticle.fromJson(_json);
+    final json = ProxyArticle.dummy.toJson();
+    final dummy = ProxyArticle.fromJson(json);
     expect(dummy.lineId == ProxyArticle.dummy.lineId, isTrue);
     expect(dummy.articleId == ProxyArticle.dummy.articleId, isTrue);
     expect(dummy.id == ProxyArticle.dummy.id, isTrue);

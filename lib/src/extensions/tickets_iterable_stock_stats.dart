@@ -19,8 +19,8 @@ extension StockTickets<T extends TicketWeebi> on Iterable<T> {
             //print('type cleared');
             if (ticket.items.isNotEmpty) {
               //print('items cleared');
-              for (final _item in ticket.items) {
-                stockCount += _item.getStockMovementForLine(line);
+              for (final item in ticket.items) {
+                stockCount += item.getStockMovementForLine(line);
               }
             }
           }
@@ -39,8 +39,8 @@ extension StockTickets<T extends TicketWeebi> on Iterable<T> {
                 WeebiDates.defaultFirstDate, WeebiDates.defaultLastDate))) {
           if (ticket.ticketType.isShopOutput) {
             if (ticket.items.isNotEmpty) {
-              for (final _item in ticket.items) {
-                stockCount += _item.getStockMovementForLine(line);
+              for (final item in ticket.items) {
+                stockCount += item.getStockMovementForLine(line);
               }
             }
           }

@@ -4,8 +4,8 @@ import 'package:test/test.dart';
 
 void main() {
   test('article Weebi', () {
-    final _json = Article.dummy.toJson();
-    final dummy = Article.fromJson(_json);
+    final json = Article.dummy.toJson();
+    final dummy = Article.fromJson(json);
     // expect(dummy == ArticleWeebi.dummy, isTrue);
     expect(dummy.id == Article.dummy.id, isTrue);
     expect(dummy.lineId == Article.dummy.lineId, isTrue);

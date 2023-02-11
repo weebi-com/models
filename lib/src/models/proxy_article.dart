@@ -30,13 +30,13 @@ extension ProxiesCompute on Iterable<ProxyArticle> {
   int computeProxiesCost(Iterable<LineOfArticles> lines) {
     final costs = <int>[];
     if (isNotEmpty && lines.isNotEmpty) {
-      for (final _line in lines) {
-        for (final _proxy in this) {
-          if (_line.id == _proxy.proxyLineId && _line.isBasket == false) {
-            for (final _article in _line.articles) {
-              if (_article.lineId == _proxy.proxyLineId &&
-                  _article.id == _proxy.proxyArticleId) {
-                costs.add((_article as Article).cost);
+      for (final line in lines) {
+        for (final proxy in this) {
+          if (line.id == proxy.proxyLineId && line.isBasket == false) {
+            for (final article in line.articles) {
+              if (article.lineId == proxy.proxyLineId &&
+                  article.id == proxy.proxyArticleId) {
+                costs.add((article as Article).cost);
               }
             }
           }
@@ -49,9 +49,9 @@ extension ProxiesCompute on Iterable<ProxyArticle> {
 
 mixin GimmeTheLoot on ProxyArticleAbstract {
   ProxyArticleWorth getProxyArticleWorth(
-      Iterable<LineOfArticles> _linesInStore) {
+      Iterable<LineOfArticles> linesInStore) {
     return ProxyArticleWorth.getPriceAndCost(
-        _linesInStore, this as ProxyArticle);
+        linesInStore, this as ProxyArticle);
   }
 }
 
@@ -174,9 +174,9 @@ class ProxyArticle extends ProxyArticleAbstract with GimmeTheLoot {
       articleWeight.hashCode ^
       proxyArticleId.hashCode;
 
-  int getPrice(Iterable<LineOfArticles> _linesInStore) {
-    if (_linesInStore.isNotEmpty) {
-      for (final line in _linesInStore) {
+  int getPrice(Iterable<LineOfArticles> linesInStore) {
+    if (linesInStore.isNotEmpty) {
+      for (final line in linesInStore) {
         if (line.isBasket == false && line.id == proxyLineId) {
           for (final article in line.articles) {
             if (article.lineId == proxyLineId && article.id == proxyArticleId) {
@@ -189,9 +189,9 @@ class ProxyArticle extends ProxyArticleAbstract with GimmeTheLoot {
     return 0;
   }
 
-  int getCost(Iterable<LineOfArticles> _linesInStore) {
-    if (_linesInStore.isNotEmpty) {
-      for (final line in _linesInStore) {
+  int getCost(Iterable<LineOfArticles> linesInStore) {
+    if (linesInStore.isNotEmpty) {
+      for (final line in linesInStore) {
         if (line.isBasket == false && line.id == proxyLineId) {
           for (final article in line.articles) {
             if (article.lineId == proxyLineId && article.id == proxyArticleId) {
