@@ -12,3 +12,4 @@ export 'src/closings/closing_stock_herder.dart';
 export 'src/closings/closing_stock_shop/closing_stock_shop.dart';
 export 'src/closings/closing_stock_shop/closing_stock_shop_product.dart';
 export 'src/closings/closing_stock_shop/closing_stock_shop_article.dart';
+export 'src/closings/db_store_refs.dart';
