@@ -104,7 +104,6 @@ extension ImportData on List<List<dynamic>> {
         statusUpdateDate: DateTime.now(),
         stockUnit: StockUnit.unit,
         categories: [''],
-        photo: '',
         articles: [newArticle],
       );
       linesList.add(newLine);
@@ -153,7 +152,6 @@ extension ImportData on List<List<dynamic>> {
         statusUpdateDate: DateTime.now(),
         stockUnit: StockUnit.unit,
         categories: [''],
-        photo: '',
         articles: [newArticle],
       );
       linesList.add(newLine);

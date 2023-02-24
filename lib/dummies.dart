@@ -1,3 +1,4 @@
 library dummies;
 
-export 'src/dummies/cola.dart';
+export 'src/dummies/articles.dart';
+export 'src/dummies/base64_product.dart';

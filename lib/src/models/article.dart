@@ -5,12 +5,46 @@ import 'package:models_base/base.dart' show ArticleAbstract;
 import 'package:models_base/utils.dart';
 import 'package:models_weebi/src/models/price_and_cost.dart';
 
+// ** this should be in models_base
+// once and only once i deploy the latest build in iOS
+class PhotoSource {
+  final String _imageSource;
+  const PhotoSource._(this._imageSource);
+
+  @override
+  String toString() => _imageSource;
+
+  static const PhotoSource asset = PhotoSource._('asset');
+  static const PhotoSource file = PhotoSource._('file');
+  static const PhotoSource memory = PhotoSource._('memory');
+  static const PhotoSource network = PhotoSource._('network');
+  static const PhotoSource unknown = PhotoSource._('unknown');
+
+  static PhotoSource tryParse(String val) {
+    switch (val) {
+      case 'asset':
+        return PhotoSource.asset;
+      case 'file':
+        return PhotoSource.file;
+      case 'memory':
+        return PhotoSource.memory;
+      case 'network':
+        return PhotoSource.network;
+      case '':
+        return PhotoSource.unknown;
+      default:
+        print('$val is not a valid ImageSource');
+        return PhotoSource.unknown;
+    }
+  }
+}
+
 class Article extends ArticleAbstract implements PriceAndCostAbstract {
   @override
   final int price;
   @override
   final int cost;
-  // final String? shopUuid;
+  final PhotoSource photoSource;
   // String? get shopId => shopUuid;
   DateTime? statusUpdateDate;
   Article(
@@ -23,6 +57,7 @@ class Article extends ArticleAbstract implements PriceAndCostAbstract {
       double weight = 1.0,
       int? articleCode,
       String? photo = '',
+      this.photoSource = PhotoSource.unknown,
       required DateTime? creationDate,
       required DateTime? updateDate,
       this.statusUpdateDate,

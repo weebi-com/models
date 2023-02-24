@@ -15,6 +15,8 @@ class LineOfArticles<A extends ArticleAbstract> extends LineArticleAbstract<A> {
   final bool? isPalpable;
   final bool? isBasket;
   bool get isSingleArticle => articles.length <= 1;
+  @override
+  String get photo => articles.isEmpty ? '' : articles.first.photo ?? '';
   LineOfArticles({
     required int id,
     // required this.shopUuid,
@@ -24,7 +26,6 @@ class LineOfArticles<A extends ArticleAbstract> extends LineArticleAbstract<A> {
     List<String>? categories,
     required String title,
     StockUnit stockUnit = StockUnit.unit,
-    String? photo,
     @observable required bool status,
     DateTime? statusUpdateDate,
     required DateTime? creationDate,
@@ -34,7 +35,6 @@ class LineOfArticles<A extends ArticleAbstract> extends LineArticleAbstract<A> {
           categories: categories,
           title: title,
           stockUnit: stockUnit,
-          photo: photo,
           status: status,
           statusUpdateDate: statusUpdateDate,
           articles: articles,
@@ -72,7 +72,6 @@ class LineOfArticles<A extends ArticleAbstract> extends LineArticleAbstract<A> {
       creationDate: WeebiDates.defaultDate,
       updateDate: WeebiDates.defaultDate,
       stockUnit: StockUnit.unit,
-      photo: "photo",
       status: true,
       statusUpdateDate: DateTime.now(),
       articles: [ArticleBasket.dummy],
@@ -126,7 +125,6 @@ class LineOfArticles<A extends ArticleAbstract> extends LineArticleAbstract<A> {
       isPalpable: map['isPalpable'] ?? true,
       isBasket: map['isBasket'] ?? false,
       stockUnit: StockUnit.tryParse(map['stockUnit'] ?? ''),
-      photo: map['photo'] ?? '',
       creationDate: map['creationDate'] == null
           ? WeebiDates.defaultDate
           : DateTime.parse(map['creationDate']),
@@ -181,7 +179,6 @@ class LineOfArticles<A extends ArticleAbstract> extends LineArticleAbstract<A> {
       isPalpable: isPalpable ?? this.isPalpable,
       title: title ?? this.title,
       stockUnit: stockUnit ?? this.stockUnit,
-      photo: photo ?? this.photo,
       status: status ?? this.status,
       statusUpdateDate: statusUpdateDate ?? this.statusUpdateDate,
       articles: articles ??
