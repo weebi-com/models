@@ -47,6 +47,7 @@ class Article extends ArticleAbstract implements PriceAndCostAbstract {
   final PhotoSource photoSource;
   // String? get shopId => shopUuid;
   DateTime? statusUpdateDate;
+  String? codeEAN;
   Article(
       { //this.shopUuid,
       required this.price,
@@ -61,6 +62,7 @@ class Article extends ArticleAbstract implements PriceAndCostAbstract {
       required DateTime? creationDate,
       required DateTime? updateDate,
       this.statusUpdateDate,
+      this.codeEAN = '',
       @observable bool status = true})
       : super(
           lineId: lineId,
@@ -84,6 +86,7 @@ class Article extends ArticleAbstract implements PriceAndCostAbstract {
     weight: 1,
     articleCode: 1,
     photo: 'photo',
+    codeEAN: 'photo',
     creationDate: WeebiDates.defaultDate,
     updateDate: WeebiDates.defaultDate,
     statusUpdateDate: WeebiDates.defaultDate,
@@ -106,6 +109,7 @@ ArticleWeebi(
   updateDate: $updateDate,
   statusUpdateDate: $statusUpdateDate,
   status: $status,
+  codeEAN: $codeEAN,
 )
 """;
   }
@@ -116,6 +120,7 @@ ArticleWeebi(
       // 'shopUuid': shopUuid,
       'lineId': lineId,
       'id': id,
+      'codeEAN': codeEAN,
       'fullName': fullName,
       'price': price,
       'cost': cost,
@@ -143,6 +148,7 @@ ArticleWeebi(
       cost: map['cost'] as int,
       weight: map['weight'] == null ? 1.0 : (map['weight'] as num).toDouble(),
       articleCode: map['articleCode'] ?? 0,
+      codeEAN: map['codeEAN'] as String,
       photo: map['photo'] ?? '',
       creationDate: map['creationDate'] == null
           ? WeebiDates.defaultDate
@@ -174,6 +180,7 @@ ArticleWeebi(
     double? weight,
     int? articleCode,
     String? photo,
+    String? codeEAN,
     DateTime? creationDate,
     DateTime? updateDate,
     DateTime? statusUpdateDate,
@@ -188,6 +195,7 @@ ArticleWeebi(
       cost: cost ?? this.cost,
       weight: weight ?? this.weight,
       articleCode: articleCode ?? this.articleCode,
+      codeEAN: codeEAN ?? this.codeEAN,
       photo: photo ?? this.photo,
       creationDate: creationDate ?? this.creationDate,
       updateDate: updateDate ?? this.updateDate,
@@ -207,11 +215,12 @@ ArticleWeebi(
         other.fullName == fullName &&
         other.id == id &&
         other.lineId == lineId &&
+        other.codeEAN == codeEAN &&
         other.photo == photo &&
         other.creationDate == creationDate &&
         other.updateDate == updateDate;
   }
 
   @override
-  int get hashCode => id.hashCode ^ lineId.hashCode;
+  int get hashCode => id.hashCode ^ lineId.hashCode ^ id.hashCode;
 }
