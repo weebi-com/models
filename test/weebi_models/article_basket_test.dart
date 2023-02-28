@@ -5,53 +5,24 @@ import 'package:collection/collection.dart';
 
 void main() {
   test('article basket with price and cost', () {
-    final dummy = ArticleBasketWithPriceAndCost.dummyWithPriceAndCost;
+    // TODO rework this test which is useless as it is
+    final dummy = ArticleBasket.dummy;
 
     //expect(dummy.price, 100);
     //expect(dummy.cost, 80);
     // ArticleBasket.dummy == x2 LineArticleWeebi.dummy with price: 100, cost: 80,
 
-    expect(dummy.id == ArticleBasketWithPriceAndCost.dummyWithPriceAndCost.id,
-        isTrue);
-    expect(
-        dummy.lineId ==
-            ArticleBasketWithPriceAndCost.dummyWithPriceAndCost.lineId,
-        isTrue);
-    expect(
-        dummy.fullName ==
-            ArticleBasketWithPriceAndCost.dummyWithPriceAndCost.fullName,
-        isTrue);
-    expect(
-        dummy.price ==
-            ArticleBasketWithPriceAndCost.dummyWithPriceAndCost.price,
-        isTrue);
-    expect(
-        dummy.cost == ArticleBasketWithPriceAndCost.dummyWithPriceAndCost.cost,
-        isTrue);
-    expect(
-        dummy.weight ==
-            ArticleBasketWithPriceAndCost.dummyWithPriceAndCost.weight,
-        isTrue);
-    expect(
-        dummy.articleCode ==
-            ArticleBasketWithPriceAndCost.dummyWithPriceAndCost.articleCode,
-        isTrue);
-    expect(
-        dummy.photo ==
-            ArticleBasketWithPriceAndCost.dummyWithPriceAndCost.photo,
-        isTrue);
-    expect(
-        dummy.creationDate ==
-            ArticleBasketWithPriceAndCost.dummyWithPriceAndCost.creationDate,
-        isTrue);
-    expect(
-        dummy.status ==
-            ArticleBasketWithPriceAndCost.dummyWithPriceAndCost.status,
-        isTrue);
+    expect(dummy.id == ArticleBasket.dummy.id, isTrue);
+    expect(dummy.lineId == ArticleBasket.dummy.lineId, isTrue);
+    expect(dummy.fullName == ArticleBasket.dummy.fullName, isTrue);
+    expect(dummy.price == ArticleBasket.dummy.price, isTrue);
+    expect(dummy.cost == ArticleBasket.dummy.cost, isTrue);
+    expect(dummy.weight == ArticleBasket.dummy.weight, isTrue);
+    expect(dummy.articleCode == ArticleBasket.dummy.articleCode, isTrue);
+    expect(dummy.photo == ArticleBasket.dummy.photo, isTrue);
+    expect(dummy.creationDate == ArticleBasket.dummy.creationDate, isTrue);
+    expect(dummy.status == ArticleBasket.dummy.status, isTrue);
     final listEquals = const DeepCollectionEquality().equals;
-    expect(
-        listEquals(dummy.proxies,
-            ArticleBasketWithPriceAndCost.dummyWithPriceAndCost.proxies),
-        isTrue);
+    expect(listEquals(dummy.proxies, ArticleBasket.dummy.proxies), isTrue);
   });
 }

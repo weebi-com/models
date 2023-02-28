@@ -45,7 +45,7 @@ class Article extends ArticleAbstract implements PriceAndCostAbstract {
   @override
   final int cost;
   final PhotoSource photoSource;
-  // String? get shopId => shopUuid;
+  int get codeShortcut => articleCode ?? id;
   DateTime? statusUpdateDate;
   String? codeEAN;
   Article(

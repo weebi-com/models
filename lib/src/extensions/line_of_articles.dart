@@ -78,12 +78,14 @@ extension LineOfArticlesToRows on List<LineOfArticles> {
       cells.add(line.stockUnit);
       for (int ii = 0; ii < line.articles.length; ii++) {
         if (line.isBasket != null && line.isBasket!) {
-          final articleBasket =
-              (this[i].articles[ii] as ArticleBasket).getPriceAndCost(this);
+          final articleBasket = (this[i].articles[ii] as ArticleBasket);
+
           cells.add(articleBasket.fullName);
           cells.add(articleBasket.weight);
-          cells.add(articleBasket.price);
-          cells.add(articleBasket.cost);
+          cells.add(articleBasket.getProxiesListWithPriceAndCost(this)
+            ..totalPrice); // price
+          cells.add(
+              articleBasket.getProxiesListWithPriceAndCost(this)..totalCost);
           cells.add(articleBasket.articleCode);
           cells.add(articleBasket.creationDate);
         } else {

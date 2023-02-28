@@ -2,62 +2,13 @@ import 'dart:convert';
 
 import 'package:mobx/mobx.dart';
 import 'package:models_weebi/base.dart';
-import 'package:models_weebi/src/models/price_and_cost.dart';
-import 'package:models_weebi/src/models/proxy_article.dart';
 import 'package:models_weebi/src/models/proxy_article_worth.dart';
 import 'package:models_weebi/utils.dart';
 import 'package:models_weebi/weebi_models.dart'
     show ProxyArticle, LineOfArticles;
 import 'package:collection/collection.dart';
 
-class ArticleBasketWithPriceAndCost extends ArticleBasket
-    implements PriceAndCostAbstract {
-  @override
-  final int price;
-  @override
-  final int cost;
-
-  ArticleBasketWithPriceAndCost._({
-    required this.price,
-    required this.cost,
-    required ArticleBasket aBasket,
-  }) : super(
-            lineId: aBasket.lineId,
-            id: aBasket.id,
-            fullName: aBasket.fullName,
-            weight: aBasket.weight,
-            articleCode: aBasket.articleCode,
-            photo: aBasket.photo,
-            creationDate: aBasket.creationDate,
-            updateDate: aBasket.updateDate,
-            status: aBasket.status,
-            proxies: aBasket.proxies);
-
-  factory ArticleBasketWithPriceAndCost.getPriceAndCost(
-      Iterable<LineOfArticles> linesInStore,
-      ArticleBasket aBasketNoPriceNoCost) {
-    final int price =
-        aBasketNoPriceNoCost.proxies.computeProxiesPrice(linesInStore);
-    final int cost =
-        aBasketNoPriceNoCost.proxies.computeProxiesCost(linesInStore);
-    return ArticleBasketWithPriceAndCost._(
-        price: price, cost: cost, aBasket: aBasketNoPriceNoCost);
-  }
-
-  static final dummyWithPriceAndCost =
-      ArticleBasketWithPriceAndCost.getPriceAndCost(
-          [LineOfArticles.dummy, LineOfArticles.dummy], ArticleBasket.dummy);
-}
-
-mixin GetPriceAndCostMixin on ArticleAbstract {
-  ArticleBasketWithPriceAndCost getPriceAndCost(
-      Iterable<LineOfArticles> linesInStore) {
-    return ArticleBasketWithPriceAndCost.getPriceAndCost(
-        linesInStore, this as ArticleBasket);
-  }
-}
-
-class ArticleBasket extends ArticleAbstract with GetPriceAndCostMixin {
+class ArticleBasket extends ArticleAbstract {
   final List<ProxyArticle> proxies;
   DateTime? statusUpdateDate;
   // article price and cost can change
@@ -86,7 +37,7 @@ class ArticleBasket extends ArticleAbstract with GetPriceAndCostMixin {
           status: status,
         );
 
-  Iterable<ProxyArticleWorth> getProxiesWithPriceAndCost(
+  Iterable<ProxyArticleWorth> getProxiesListWithPriceAndCost(
       Iterable<LineOfArticles> lines) {
     final proxiesWorth = <ProxyArticleWorth>[];
     for (final p in proxies) {

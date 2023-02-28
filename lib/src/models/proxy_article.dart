@@ -8,27 +8,7 @@ import 'package:models_weebi/src/models/proxy_article_worth.dart';
 extension ProxiesCompute on Iterable<ProxyArticle> {
   // articleBasket price must be computed
   int computeProxiesPrice(Iterable<LineOfArticles> lines) {
-    final prices = <int>[];
-    if (isNotEmpty && lines.isNotEmpty) {
-      for (final line in lines.where((l) => l.isBasket == false)) {
-        for (final proxy in this) {
-          if (line.id == proxy.proxyLineId) {
-            for (final article in line.articles) {
-              if (article.lineId == proxy.proxyLineId &&
-                  article.id == proxy.proxyArticleId) {
-                prices.add((article as Article).price);
-              }
-            }
-          }
-        }
-      }
-    }
-    return prices.fold(0, (prev, e) => prev + e);
-  }
-
-  // articleBasket price must be computed
-  int computeProxiesCost(Iterable<LineOfArticles> lines) {
-    final costs = <int>[];
+    var price = 0;
     if (isNotEmpty && lines.isNotEmpty) {
       for (final line in lines) {
         for (final proxy in this) {
@@ -36,14 +16,34 @@ extension ProxiesCompute on Iterable<ProxyArticle> {
             for (final article in line.articles) {
               if (article.lineId == proxy.proxyLineId &&
                   article.id == proxy.proxyArticleId) {
-                costs.add((article as Article).cost);
+                price += (article as Article).price;
               }
             }
           }
         }
       }
     }
-    return costs.fold(0, (prev, e) => prev + e);
+    return price;
+  }
+
+  // articleBasket price must be computed
+  int computeProxiesCost(Iterable<LineOfArticles> lines) {
+    var cost = 0;
+    if (isNotEmpty && lines.isNotEmpty) {
+      for (final line in lines) {
+        for (final proxy in this) {
+          if (line.id == proxy.proxyLineId && line.isBasket == false) {
+            for (final article in line.articles) {
+              if (article.lineId == proxy.proxyLineId &&
+                  article.id == proxy.proxyArticleId) {
+                cost += (article as Article).cost;
+              }
+            }
+          }
+        }
+      }
+    }
+    return cost;
   }
 }
 
