@@ -172,7 +172,7 @@ class LineOfArticles<A extends ArticleAbstract> extends LineArticleAbstract<A> {
     DateTime? updateDate,
     List<String>? categories,
   }) {
-    return LineOfArticles(
+    return LineOfArticles<A>(
       // shopUuid: shopUuid ?? this.shopUuid,
       id: id ?? this.id,
       isBasket: isBasket ?? this.isBasket,
