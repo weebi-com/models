@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:mobx/mobx.dart';
 import 'package:models_weebi/base.dart';
-
 import 'package:models_weebi/src/models/proxy_article_worth.dart';
 import 'package:models_weebi/utils.dart';
 import 'package:models_weebi/weebi_models.dart'
@@ -157,7 +156,7 @@ ArticleBasket(
     String? fullName,
     double? weight,
     int? articleCode,
-    int? discountAmount,
+    int? discountAmountSalesOnly,
     String? photo,
     DateTime? creationDate,
     DateTime? updateDate,
@@ -171,7 +170,8 @@ ArticleBasket(
       fullName: fullName ?? this.fullName,
       weight: weight ?? this.weight,
       articleCode: articleCode ?? this.articleCode,
-      discountAmountSalesOnly: discountAmount ?? this.discountAmountSalesOnly,
+      discountAmountSalesOnly:
+          discountAmountSalesOnly ?? this.discountAmountSalesOnly,
       photo: photo ?? this.photo,
       creationDate: creationDate ?? this.creationDate,
       updateDate: updateDate ?? this.updateDate,
