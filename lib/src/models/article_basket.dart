@@ -2,66 +2,19 @@ import 'dart:convert';
 
 import 'package:mobx/mobx.dart';
 import 'package:models_weebi/base.dart';
-import 'package:models_weebi/src/models/price_and_cost.dart';
-import 'package:models_weebi/src/models/proxy_article.dart';
+
 import 'package:models_weebi/src/models/proxy_article_worth.dart';
 import 'package:models_weebi/utils.dart';
 import 'package:models_weebi/weebi_models.dart'
     show ProxyArticle, LineOfArticles;
 import 'package:collection/collection.dart';
 
-class ArticleBasketWithPriceAndCost extends ArticleBasket
-    implements PriceAndCostAbstract {
-  @override
-  final int price;
-  @override
-  final int cost;
-
-  ArticleBasketWithPriceAndCost._({
-    required this.price,
-    required this.cost,
-    required ArticleBasket aBasket,
-  }) : super(
-            lineId: aBasket.lineId,
-            id: aBasket.id,
-            fullName: aBasket.fullName,
-            weight: aBasket.weight,
-            articleCode: aBasket.articleCode,
-            photo: aBasket.photo,
-            creationDate: aBasket.creationDate,
-            updateDate: aBasket.updateDate,
-            status: aBasket.status,
-            proxies: aBasket.proxies);
-
-  factory ArticleBasketWithPriceAndCost.getPriceAndCost(
-      Iterable<LineOfArticles> linesInStore,
-      ArticleBasket aBasketNoPriceNoCost) {
-    final int price =
-        aBasketNoPriceNoCost.proxies.computeProxiesPrice(linesInStore);
-    final int cost =
-        aBasketNoPriceNoCost.proxies.computeProxiesCost(linesInStore);
-    return ArticleBasketWithPriceAndCost._(
-        price: price, cost: cost, aBasket: aBasketNoPriceNoCost);
-  }
-
-  static final dummyWithPriceAndCost =
-      ArticleBasketWithPriceAndCost.getPriceAndCost(
-          [LineOfArticles.dummy, LineOfArticles.dummy], ArticleBasket.dummy);
-}
-
-mixin GetPriceAndCostMixin on ArticleAbstract {
-  ArticleBasketWithPriceAndCost getPriceAndCost(
-      Iterable<LineOfArticles> linesInStore) {
-    return ArticleBasketWithPriceAndCost.getPriceAndCost(
-        linesInStore, this as ArticleBasket);
-  }
-}
-
-class ArticleBasket extends ArticleAbstract with GetPriceAndCostMixin {
+class ArticleBasket extends ArticleAbstract {
   final List<ProxyArticle> proxies;
   DateTime? statusUpdateDate;
   // article price and cost can change
-  // so proxes only save ref not price / nor cost which are fetched when invoked
+  // so proxies only save ref not price / nor cost which are fetched when invoked
+  final int discountAmountSalesOnly;
   ArticleBasket({
     required int lineId,
     required int id,
@@ -71,9 +24,10 @@ class ArticleBasket extends ArticleAbstract with GetPriceAndCostMixin {
     String? photo = '',
     required DateTime? creationDate,
     required DateTime? updateDate,
+    required this.proxies,
     @observable bool status = true,
     this.statusUpdateDate,
-    required this.proxies,
+    this.discountAmountSalesOnly = 0,
   }) : super(
           lineId: lineId,
           id: id,
@@ -86,10 +40,21 @@ class ArticleBasket extends ArticleAbstract with GetPriceAndCostMixin {
           status: status,
         );
 
-  Iterable<ProxyArticleWorth> getProxiesWithPriceAndCost(
+  Iterable<ProxyArticleWorth> getProxiesListWithPriceAndCost(
       Iterable<LineOfArticles> lines) {
     final proxiesWorth = <ProxyArticleWorth>[];
     for (final p in proxies) {
+      final temp = p.getProxyArticleWorth(lines);
+      proxiesWorth.add(temp);
+    }
+    return proxiesWorth;
+  }
+
+  static Iterable<ProxyArticleWorth>
+      getProxiesListWithPriceAndCostArticleNotCreatedYetOnly(
+          Iterable<LineOfArticles> lines, Iterable<ProxyArticle> proxiesRaw) {
+    final proxiesWorth = <ProxyArticleWorth>[];
+    for (final p in proxiesRaw) {
       final temp = p.getProxyArticleWorth(lines);
       proxiesWorth.add(temp);
     }
@@ -108,6 +73,7 @@ class ArticleBasket extends ArticleAbstract with GetPriceAndCostMixin {
         status: true,
         proxies: [ProxyArticle.dummy],
         statusUpdateDate: WeebiDates.defaultDate,
+        discountAmountSalesOnly: 0,
       );
 
   factory ArticleBasket.fromMap(Map<String, dynamic> map) {
@@ -120,6 +86,7 @@ class ArticleBasket extends ArticleAbstract with GetPriceAndCostMixin {
         weight: map['weight'] == null ? 0.0 : (map['weight'] as num).toDouble(),
         articleCode: map['articleCode'] ?? 0,
         photo: map['photo'] ?? '',
+        discountAmountSalesOnly: map['discountAmount'] ?? 0,
         creationDate: map['creationDate'] == null
             ? WeebiDates.defaultDate
             : DateTime.parse(map['creationDate']),
@@ -145,6 +112,7 @@ class ArticleBasket extends ArticleAbstract with GetPriceAndCostMixin {
       'proxies': proxies.map((x) => x.toMap()).toList(),
       'lineId': lineId,
       'id': id,
+      'discountAmount': discountAmountSalesOnly,
       'fullName': fullName,
       'weight': weight,
       'articleCode': articleCode ?? 0,
@@ -168,12 +136,14 @@ ArticleBasket(
   fullName: '$fullName',
   weight: $weight,
   articleCode: $articleCode,
+  discountAmount: $discountAmountSalesOnly,
   photo: $photo,
   creationDate: $creationDate,
   updateDate: $updateDate,
   statusUpdateDate: $statusUpdateDate,
   status: $status,
-  proxies: $proxies,)""";
+  proxies: $proxies,
+  )""";
   }
 
   factory ArticleBasket.fromJson(String source) =>
@@ -187,6 +157,7 @@ ArticleBasket(
     String? fullName,
     double? weight,
     int? articleCode,
+    int? discountAmount,
     String? photo,
     DateTime? creationDate,
     DateTime? updateDate,
@@ -200,6 +171,7 @@ ArticleBasket(
       fullName: fullName ?? this.fullName,
       weight: weight ?? this.weight,
       articleCode: articleCode ?? this.articleCode,
+      discountAmountSalesOnly: discountAmount ?? this.discountAmountSalesOnly,
       photo: photo ?? this.photo,
       creationDate: creationDate ?? this.creationDate,
       updateDate: updateDate ?? this.updateDate,

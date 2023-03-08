@@ -13,11 +13,14 @@ import 'package:models_weebi/weebi_models.dart';
 extension AggregateItems on Iterable<ItemCartWeebi> {
   int get itemsTotalPrice => fold(0, (value, item) {
         if (item.isBasket) {
-          return ((value +
+          final totalRaw = ((value +
                       (item.proxiesWorth as Iterable<ProxyArticleWorth>)
                           .totalPrice) *
                   item.quantity)
               .round();
+          final totalFull = totalRaw -
+              (item.article as ArticleBasket).discountAmountSalesOnly;
+          return totalFull;
         } else {
           return (value + ((item.article as Article).price * item.quantity))
               .round();
@@ -33,6 +36,8 @@ extension AggregateItems on Iterable<ItemCartWeebi> {
                   (item.proxiesWorth as Iterable<ProxyArticleWorth>).totalCost *
                       item.quantity)
               .round();
+          // here I do not apply discount since this is a purchase
+          // if needed consider creating an additional field discountAmountPurchaseOnly
         } else {
           return value +
               ((item.article as Article).cost * item.quantity).round();
