@@ -5,7 +5,6 @@ import 'package:collection/collection.dart';
 
 void main() {
   test('article basket with price and cost', () {
-    // TODO rework this test which is useless as it is
     final dummy = ArticleBasket.dummy;
 
     //expect(dummy.price, 100);

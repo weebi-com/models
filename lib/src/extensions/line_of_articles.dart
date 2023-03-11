@@ -82,8 +82,9 @@ extension LineOfArticlesToRows on List<LineOfArticles> {
 
           cells.add(articleBasket.fullName);
           cells.add(articleBasket.weight);
-          cells.add(articleBasket.getProxiesListWithPriceAndCost(this)
-            ..totalPrice); // price
+          cells.add(articleBasket
+              .getProxiesListWithPriceAndCost(this)
+              .totalPrice); // price
           cells.add(
               articleBasket.getProxiesListWithPriceAndCost(this)..totalCost);
           cells.add(articleBasket.articleCode);
