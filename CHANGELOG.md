@@ -1,3 +1,10 @@
+## 1.0.6
+lowering meta: ^1.7.0
+
+## 1.0.5
+
+- plenty of cool stuff
+
 ## 1.0.4
 
 - article basket
