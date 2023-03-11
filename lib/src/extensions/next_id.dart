@@ -9,7 +9,11 @@ extension NextLineArticleId<L extends LineArticleAbstract> on Iterable<L> {
       return 1;
     } else {
       toList().sort((a, b) => a.id.compareTo(b.id));
-      return last.id + 1;
+      if (last.id < 0) {
+        return 1;
+      } else {
+        return last.id + 1;
+      }
     }
   }
 }

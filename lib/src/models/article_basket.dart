@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:mobx/mobx.dart';
 import 'package:models_weebi/base.dart';
+
 import 'package:models_weebi/src/models/proxy_article_worth.dart';
 import 'package:models_weebi/utils.dart';
 import 'package:models_weebi/weebi_models.dart'
@@ -12,7 +13,8 @@ class ArticleBasket extends ArticleAbstract {
   final List<ProxyArticle> proxies;
   DateTime? statusUpdateDate;
   // article price and cost can change
-  // so proxes only save ref not price / nor cost which are fetched when invoked
+  // so proxies only save ref not price / nor cost which are fetched when invoked
+  final int discountAmountSalesOnly;
   ArticleBasket({
     required int lineId,
     required int id,
@@ -22,9 +24,10 @@ class ArticleBasket extends ArticleAbstract {
     String? photo = '',
     required DateTime? creationDate,
     required DateTime? updateDate,
+    required this.proxies,
     @observable bool status = true,
     this.statusUpdateDate,
-    required this.proxies,
+    this.discountAmountSalesOnly = 0,
   }) : super(
           lineId: lineId,
           id: id,
@@ -47,6 +50,17 @@ class ArticleBasket extends ArticleAbstract {
     return proxiesWorth;
   }
 
+  static Iterable<ProxyArticleWorth>
+      getProxiesListWithPriceAndCostArticleNotCreatedYetOnly(
+          Iterable<LineOfArticles> lines, Iterable<ProxyArticle> proxiesRaw) {
+    final proxiesWorth = <ProxyArticleWorth>[];
+    for (final p in proxiesRaw) {
+      final temp = p.getProxyArticleWorth(lines);
+      proxiesWorth.add(temp);
+    }
+    return proxiesWorth;
+  }
+
   static get dummy => ArticleBasket(
         lineId: 2,
         id: 1,
@@ -59,6 +73,7 @@ class ArticleBasket extends ArticleAbstract {
         status: true,
         proxies: [ProxyArticle.dummy],
         statusUpdateDate: WeebiDates.defaultDate,
+        discountAmountSalesOnly: 0,
       );
 
   factory ArticleBasket.fromMap(Map<String, dynamic> map) {
@@ -71,6 +86,7 @@ class ArticleBasket extends ArticleAbstract {
         weight: map['weight'] == null ? 0.0 : (map['weight'] as num).toDouble(),
         articleCode: map['articleCode'] ?? 0,
         photo: map['photo'] ?? '',
+        discountAmountSalesOnly: map['discountAmount'] ?? 0,
         creationDate: map['creationDate'] == null
             ? WeebiDates.defaultDate
             : DateTime.parse(map['creationDate']),
@@ -96,6 +112,7 @@ class ArticleBasket extends ArticleAbstract {
       'proxies': proxies.map((x) => x.toMap()).toList(),
       'lineId': lineId,
       'id': id,
+      'discountAmount': discountAmountSalesOnly,
       'fullName': fullName,
       'weight': weight,
       'articleCode': articleCode ?? 0,
@@ -119,12 +136,14 @@ ArticleBasket(
   fullName: '$fullName',
   weight: $weight,
   articleCode: $articleCode,
+  discountAmount: $discountAmountSalesOnly,
   photo: $photo,
   creationDate: $creationDate,
   updateDate: $updateDate,
   statusUpdateDate: $statusUpdateDate,
   status: $status,
-  proxies: $proxies,)""";
+  proxies: $proxies,
+  )""";
   }
 
   factory ArticleBasket.fromJson(String source) =>
@@ -138,6 +157,7 @@ ArticleBasket(
     String? fullName,
     double? weight,
     int? articleCode,
+    int? discountAmount,
     String? photo,
     DateTime? creationDate,
     DateTime? updateDate,
@@ -151,6 +171,7 @@ ArticleBasket(
       fullName: fullName ?? this.fullName,
       weight: weight ?? this.weight,
       articleCode: articleCode ?? this.articleCode,
+      discountAmountSalesOnly: discountAmount ?? this.discountAmountSalesOnly,
       photo: photo ?? this.photo,
       creationDate: creationDate ?? this.creationDate,
       updateDate: updateDate ?? this.updateDate,
