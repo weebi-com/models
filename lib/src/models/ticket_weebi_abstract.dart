@@ -105,9 +105,7 @@ abstract class TicketWeebiAbstract
   });
 
   // sell and sellDeferred
-  int get totalPriceItemsOnly => ticketType.isPrice
-      ? items.itemsTotalPrice
-      : 0;
+  int get totalPriceItemsOnly => ticketType.isPrice ? items.itemsTotalPrice : 0;
 
   int get totalPricePromoVal => promoVal(totalPriceItemsOnly, promo);
 
@@ -124,9 +122,7 @@ abstract class TicketWeebiAbstract
         taxe.percentage,
       );
 // spend and spendDeferred below
-  int get totalCostItemsOnly => ticketType.isCost
-      ? items.itemsTotalCost
-      : 0;
+  int get totalCostItemsOnly => ticketType.isCost ? items.itemsTotalCost : 0;
 
   int get totalCostPromoVal => promoVal(totalCostItemsOnly, promo);
 
@@ -168,8 +164,8 @@ abstract class TicketWeebiAbstract
   String get paiement {
     if (paiementType == PaiementType.nope) {
       return 'a credit';
-    } else if (paiementType == PaiementType.yup) {
-      return 'yup';
+    } else if (paiementType == PaiementType.mobileMoney) {
+      return 'm.money';
     } else if (paiementType == PaiementType.goods) {
       return 'autres';
     } else if (paiementType == PaiementType.cheque) {

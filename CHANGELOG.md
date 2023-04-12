@@ -1,3 +1,6 @@
+## 1.0.8
+models_base 1.3.7
+
 ## 1.0.7
 lowering collection
 
