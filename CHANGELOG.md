@@ -1,3 +1,6 @@
+## 1.0.7
+lowering collection
+
 ## 1.0.6
 lowering meta: ^1.7.0
 
