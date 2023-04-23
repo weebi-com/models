@@ -1,11 +1,11 @@
 library report_stock_product;
 
-import 'package:models_base/base.dart' show LineArticleAbstract;
+import 'package:models_base/base.dart' show ArticleLineAbstract;
 import 'package:models_base/utils.dart' show DateRange;
 import 'package:models_weebi/src/closings/abstract/stock_quantity.dart';
 import 'package:models_weebi/src/closings/report_stock_article.dart';
 
-class ReportStockProduct extends LineArticleAbstract<ReportStockArticle>
+class ReportStockProduct extends ArticleLineAbstract<ReportStockArticle>
     implements DateRange, StockQuantityAbstract {
   @override
   double initialQtCl = 0.0; // closing initial qt
@@ -50,9 +50,9 @@ class ReportStockProduct extends LineArticleAbstract<ReportStockArticle>
       'title': title,
       'startDate': startDate.toIso8601String(),
       'endDate': endDate.toIso8601String(),
-      'initialQtCl': initialQtCl ?? 0,
-      'finalQtCl': finalQtCl ?? 0,
-      'finalQtTickets': varQtTickets ?? 0,
+      'initialQtCl': initialQtCl,
+      'finalQtCl': finalQtCl,
+      'finalQtTickets': varQtTickets,
       // articles to be added
     };
   }

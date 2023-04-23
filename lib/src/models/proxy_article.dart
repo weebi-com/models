@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:models_base/base.dart' show ProxyArticleAbstract;
+import 'package:models_base/base.dart' show ArticleProxyAbstract;
 import 'package:models_weebi/src/models/article.dart';
 import 'package:models_weebi/src/models/articles_line.dart';
 import 'package:models_weebi/src/models/proxy_article_worth.dart';
@@ -48,15 +48,14 @@ import 'package:models_weebi/src/models/proxy_article_worth.dart';
 //   }
 // }
 
-mixin GimmeTheLoot on ProxyArticleAbstract {
-  ProxyArticleWorth getProxyArticleWorth(
-      Iterable<LineOfArticles> linesInStore) {
+mixin GimmeTheLoot on ArticleProxyAbstract {
+  ProxyArticleWorth getProxyArticleWorth(Iterable<ArticleLines> linesInStore) {
     return ProxyArticleWorth.getPriceAndCost(
         linesInStore, this as ProxyArticle);
   }
 }
 
-class ProxyArticle extends ProxyArticleAbstract with GimmeTheLoot {
+class ProxyArticle extends ArticleProxyAbstract with GimmeTheLoot {
   final double
       minimumUnitPerBasket; // putting it here before inserting it into base
   final double articleWeight; // putting it here before inserting it into base
@@ -175,7 +174,7 @@ class ProxyArticle extends ProxyArticleAbstract with GimmeTheLoot {
       articleWeight.hashCode ^
       proxyArticleId.hashCode;
 
-  int getPrice(Iterable<LineOfArticles> linesInStore) {
+  int getPrice(Iterable<ArticleLines> linesInStore) {
     if (linesInStore.isNotEmpty) {
       for (final line in linesInStore) {
         if (line.isBasket == false && line.id == proxyLineId) {
@@ -190,7 +189,7 @@ class ProxyArticle extends ProxyArticleAbstract with GimmeTheLoot {
     return 0;
   }
 
-  int getCost(Iterable<LineOfArticles> linesInStore) {
+  int getCost(Iterable<ArticleLines> linesInStore) {
     if (linesInStore.isNotEmpty) {
       for (final line in linesInStore) {
         if (line.isBasket == false && line.id == proxyLineId) {

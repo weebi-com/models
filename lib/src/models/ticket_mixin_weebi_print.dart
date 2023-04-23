@@ -31,7 +31,7 @@ mixin TicketPrinter on TicketWeebiAbstract {
     return sb.toString();
   }
 
-  String getSharableTextLight(Iterable<LineOfArticles> lines) {
+  String getSharableTextLight(Iterable<ArticleLines> lines) {
     final products = StringBuffer();
     for (var item in items) {
       products.write(
@@ -52,7 +52,7 @@ mixin TicketPrinter on TicketWeebiAbstract {
   }
 
   // ToRuminate - consider splitting this to avoid passing lines if no basket
-  String getSharableText(Iterable<LineOfArticles> lines) {
+  String getSharableText(Iterable<ArticleLines> lines) {
     final products = StringBuffer();
     for (final item in items) {
       products.write(

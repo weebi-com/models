@@ -4,7 +4,7 @@ import 'package:models_weebi/src/closings/closing_range.dart';
 import 'package:models_weebi/src/closings/closing_stock.dart';
 import 'package:models_weebi/src/closings/closing_stock_product.dart';
 import 'package:models_weebi/src/closings/closing_stock_article.dart';
-import 'package:models_base/base.dart' show LineArticleAbstract;
+import 'package:models_base/base.dart' show ArticleLineAbstract;
 
 import 'package:models_base/utils.dart' show DateRange;
 import 'package:models_weebi/src/closings/report_stock_product.dart';
@@ -12,7 +12,7 @@ import 'package:models_weebi/src/closings/report_stock_product.dart';
 extension FinFlowClosingHerderStock on List<ClosingStockHerder> {
   List<ReportStockProduct> herderReportStockProduct(
     String herderId,
-    List<LineArticleAbstract> products,
+    List<ArticleLineAbstract> products,
     DateRange dateRange,
     List<ReportStockProduct> emptyReportStockProducts,
   ) {
@@ -22,7 +22,7 @@ extension FinFlowClosingHerderStock on List<ClosingStockHerder> {
               c.closingRange.startDate.isAtSameMomentAs(dateRange.startDate)) &&
           (c.closingRange.endDate.isBefore(dateRange.endDate) ||
               c.closingRange.endDate.isAtSameMomentAs(dateRange.endDate))) {
-        products.forEach((p) {
+        for (var p in products) {
           if (c.products.any((i) => i.id == p.id)) {
             // NOT any products can be both bought & sold
             // so we SUM ALL movements
@@ -35,7 +35,7 @@ extension FinFlowClosingHerderStock on List<ClosingStockHerder> {
           } else {
             print('closings do not fit requirements');
           }
-        });
+        }
       }
     });
     return emptyReportStockProducts;

@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:models_base/common.dart' show FinancialSums;
-import 'package:meta/meta.dart';
 import 'package:models_weebi/src/closings/abstract/closing_range.dart';
 import 'package:models_weebi/src/closings/closing_range.dart';
 

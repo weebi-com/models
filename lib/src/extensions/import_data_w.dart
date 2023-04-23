@@ -1,6 +1,6 @@
 import 'package:models_base/common.dart' show Address, StockUnit;
 import 'package:models_weebi/weebi_models.dart'
-    show Herder, Tristate, ContactWeebi, LineOfArticles, Article;
+    show Herder, Tristate, ContactWeebi, ArticleLines, Article;
 
 extension ImportData on List<List<dynamic>> {
   List<Herder> extractHerdersFromParsedExcel(int nextId, String shopUuid) {
@@ -64,9 +64,9 @@ extension ImportData on List<List<dynamic>> {
     return contactsList;
   }
 
-  List<LineOfArticles<Article>> extractArticlesLinesFromParsedExcel(
+  List<ArticleLines<Article>> extractArticlesLinesFromParsedExcel(
       int nextLineId, String shopUuid) {
-    final linesList = <LineOfArticles<Article>>[];
+    final linesList = <ArticleLines<Article>>[];
     var nextId = nextLineId; // just in case..
     for (var i = 0; i < length; i++) {
       final now = DateTime.now();
@@ -95,7 +95,7 @@ extension ImportData on List<List<dynamic>> {
             : 0,
         photo: '',
       );
-      final newLine = LineOfArticles<Article>(
+      final newLine = ArticleLines<Article>(
         creationDate: now,
         updateDate: now,
         id: nextId,
@@ -112,9 +112,9 @@ extension ImportData on List<List<dynamic>> {
     return linesList;
   }
 
-  List<LineOfArticles<Article>> extractLinesOfArticlesForUpdateFromParsedExcel(
+  List<ArticleLines<Article>> extractLinesOfArticlesForUpdateFromParsedExcel(
       String shopUuid) {
-    final linesList = <LineOfArticles<Article>>[];
+    final linesList = <ArticleLines<Article>>[];
     for (var i = 1; i < length; i++) // avoid header
     {
       final now = DateTime.now();
@@ -143,7 +143,7 @@ extension ImportData on List<List<dynamic>> {
             : 0,
         photo: '',
       );
-      final newLine = LineOfArticles<Article>(
+      final newLine = ArticleLines<Article>(
         creationDate: now,
         updateDate: now,
         id: 0,

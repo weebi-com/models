@@ -52,10 +52,10 @@ class ClosingStockShopProduct extends ClosingStockProduct
       'closingDate': closingDate.toIso8601String(),
       'shopUuid': shopUuid,
       'id': id,
-      'title': title ?? '',
+      'title': title,
       'initialQtCl': initialQtCl,
       'finalQtCl': finalQtCl,
-      'articles': articles?.map((x) => x.toMap())?.toList(),
+      'articles': articles.map((x) => x.toMap()).toList(),
     };
   }
 

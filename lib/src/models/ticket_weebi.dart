@@ -17,7 +17,7 @@ class TicketWeebi extends TicketWeebiAbstract
     required final int id,
     required final String shopId, // shopUuid
     required final List<ItemCartWeebi> items,
-    required final TaxeWeebi taxe,
+    required final TaxWeebi taxe,
     required final double promo,
     required final String comment,
     required final int received,
@@ -120,7 +120,7 @@ TicketWeebi{
     id: 1,
     shopId: 'shopIdDummy',
     items: [ItemCartWeebi.dummy],
-    taxe: TaxeWeebi.noTax,
+    taxe: TaxWeebi.noTax,
     promo: 0.0,
     comment: 'comment',
     received: 0,
@@ -152,7 +152,7 @@ TicketWeebi{
           ? List<ItemCartWeebi>.from(
               map['items'].map((x) => ItemCartWeebi.fromMap(x)))
           : <ItemCartWeebi>[],
-      taxe: TaxeWeebi.fromMap(map['taxe']),
+      taxe: TaxWeebi.fromMap(map['taxe']),
       promo: map['promo'] == null ? 0.0 : (map['promo'] as num).toDouble(),
       discountAmount: map['discountAmount'] as int,
       comment: map['comment'],
@@ -207,7 +207,7 @@ TicketWeebi{
     int? id,
     String? shopId,
     List<ItemCartWeebi>? items,
-    TaxeWeebi? taxe,
+    TaxWeebi? taxe,
     double? promo,
     int? discountAmount,
     String? comment,

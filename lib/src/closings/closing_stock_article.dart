@@ -51,7 +51,7 @@ class ClosingStockArticle extends ArticleAbstract
       'quantityIn': quantityIn,
       'quantityOut': quantityOut,
       'fullName': fullName,
-      'weight': weight ?? 1.0,
+      'weight': weight,
       // 'price': price,
       // 'cost': cost,
     };

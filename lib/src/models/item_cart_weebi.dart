@@ -109,7 +109,7 @@ class ItemCartWeebi<A extends ArticleAbstract> extends ItemInCartAbstract<A> {
     return stockMovement;
   }
 
-  double getStockMovementForLine(LineOfArticles line) {
+  double getStockMovementForLine(ArticleLines line) {
     double stockMovement = 0.0;
     A aInItem = articleCreator();
     if (line.id == aInItem.lineId) {

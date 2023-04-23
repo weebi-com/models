@@ -2,10 +2,19 @@ import 'dart:convert';
 // import 'package:http/http.dart' as http;
 import 'package:models_base/base.dart' show HerderAbstract;
 import 'package:models_base/utils.dart';
+import 'package:models_weebi/src/extensions/string_no_accents.dart';
 
 class Herder extends HerderAbstract {
   // final String shopId;
   // String get shopUuid => shopId;
+
+  String get fullName => firstName + ' ' + lastName;
+  int get fullNameHash => (firstName.withoutAccents.toLowerCase().trim() +
+          lastName.withoutAccents.toLowerCase().trim())
+      .hashCode;
+  int get mailHash => mail.withoutAccents.toLowerCase().trim().hashCode;
+  int get telHash => tel.toLowerCase().trim().hashCode;
+
   Herder({
     required final int id,
     required int bidon,
@@ -71,6 +80,8 @@ class Herder extends HerderAbstract {
     bidon: 0,
     firstName: 'inconnu',
     lastName: 'John Doe',
+    tel: '',
+    mail: 'john@doe.com',
     updateDate: WeebiDates.defaultDate,
     statusUpdateDate: WeebiDates.defaultDate,
     status: true,

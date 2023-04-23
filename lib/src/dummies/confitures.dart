@@ -5,7 +5,7 @@ import 'package:models_weebi/utils.dart';
 
 class JamfBM {
   static final jams = [
-    LineOfArticles(
+    ArticleLines(
       id: 1,
       title: 'Confiture BM Peches',
       stockUnit: StockUnit.unit,
@@ -31,7 +31,7 @@ class JamfBM {
         ),
       ],
     ),
-    LineOfArticles(
+    ArticleLines(
       id: 2,
       title: 'Confiture BM Compotee Abricot',
       stockUnit: StockUnit.unit,
@@ -57,7 +57,7 @@ class JamfBM {
         ),
       ],
     ),
-    LineOfArticles(
+    ArticleLines(
       id: 3,
       title: 'Confiture BM Figues violettes',
       stockUnit: StockUnit.unit,
@@ -83,7 +83,7 @@ class JamfBM {
         ),
       ],
     ),
-    LineOfArticles(
+    ArticleLines(
       id: 4,
       title: 'Confiture BM Oranges ameres',
       stockUnit: StockUnit.unit,
@@ -108,7 +108,7 @@ class JamfBM {
         ),
       ],
     ),
-    LineOfArticles(
+    ArticleLines(
       id: 5,
       title: 'Confiture BM Abricots',
       stockUnit: StockUnit.unit,
@@ -134,7 +134,7 @@ class JamfBM {
         ),
       ],
     ),
-    LineOfArticles(
+    ArticleLines(
       id: 6,
       title: 'Confiture BM Fraises',
       stockUnit: StockUnit.unit,
@@ -160,7 +160,7 @@ class JamfBM {
         ),
       ],
     ),
-    LineOfArticles(
+    ArticleLines(
       id: 7,
       title: 'Confiture BM Framboises',
       stockUnit: StockUnit.unit,
@@ -186,7 +186,7 @@ class JamfBM {
         ),
       ],
     ),
-    LineOfArticles(
+    ArticleLines(
       id: 8,
       title: 'Confiture BM Cerises noires',
       stockUnit: StockUnit.unit,
@@ -212,7 +212,7 @@ class JamfBM {
         ),
       ],
     ),
-    LineOfArticles(
+    ArticleLines(
       id: 9,
       title: 'Confiture BM Gelee de mures',
       stockUnit: StockUnit.unit,
@@ -237,7 +237,7 @@ class JamfBM {
         ),
       ],
     ),
-    LineOfArticles(
+    ArticleLines(
       id: 10,
       title: 'Confiture BM Fruits des Bois',
       stockUnit: StockUnit.unit,
@@ -263,7 +263,7 @@ class JamfBM {
         ),
       ],
     ),
-    LineOfArticles(
+    ArticleLines(
       id: 11,
       title: 'Confiture BM Cerises griottes',
       stockUnit: StockUnit.unit,
@@ -289,7 +289,7 @@ class JamfBM {
         ),
       ],
     ),
-    LineOfArticles(
+    ArticleLines(
       id: 12,
       title: 'Confiture BM Compotee Peches',
       stockUnit: StockUnit.unit,
@@ -315,7 +315,7 @@ class JamfBM {
         ),
       ],
     ),
-    LineOfArticles(
+    ArticleLines(
       id: 13,
       title: 'Confiture BM Quetsches',
       stockUnit: StockUnit.unit,
@@ -341,7 +341,7 @@ class JamfBM {
         ),
       ],
     ),
-    LineOfArticles(
+    ArticleLines(
       id: 14,
       title: 'Confiture BM 4 Fruits',
       stockUnit: StockUnit.unit,

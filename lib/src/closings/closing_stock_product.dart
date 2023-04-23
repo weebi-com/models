@@ -3,11 +3,10 @@ import 'package:models_weebi/src/closings/abstract/stock_quantity.dart';
 import 'package:models_weebi/src/closings/closing_range.dart';
 import 'package:models_weebi/src/closings/closing_stock_article.dart';
 
-import 'package:meta/meta.dart';
 import 'package:models_base/base.dart';
 import 'package:models_base/utils.dart';
 
-class ClosingStockProduct extends LineArticleAbstract<ClosingStockArticle>
+class ClosingStockProduct extends ArticleLineAbstract<ClosingStockArticle>
     implements ClosingDateAbstract, StockQuantityAbstract {
   @override
   DateTime closingDate;

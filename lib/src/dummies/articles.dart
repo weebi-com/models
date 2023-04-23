@@ -5,7 +5,7 @@ import 'package:models_weebi/weebi_models.dart';
 
 class DummyArticleData {
   static final babibel = [
-    LineOfArticles(
+    ArticleLines(
       id: 2,
       title: 'Babibel',
       stockUnit: StockUnit.unit,
@@ -61,7 +61,7 @@ class DummyArticleData {
   ];
 
   static final cola = [
-    LineOfArticles(
+    ArticleLines(
       id: 1,
       title: 'Noix de cola',
       categories: [''],

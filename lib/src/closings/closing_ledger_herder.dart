@@ -116,9 +116,9 @@ class ClosingLedgerHerder extends ClosingLedger
   Map<String, dynamic> toMap() {
     return {
       'closingRange': closingRange.toMap(),
-      'herderId': herderId ?? '0',
+      'herderId': herderId,
       'sell': sell,
-      'balance': balance ?? 0,
+      'balance': balance,
       'sellCovered': sellCovered,
       'sellDeferred': sellDeferred,
       'spend': spend,

@@ -3,7 +3,7 @@ import 'package:models_base/base.dart';
 
 //TODO this is a bit silly to implement this for each model
 // instead consider having a folding function for each object and apply nextId to that one only
-extension NextLineArticleId<L extends LineArticleAbstract> on Iterable<L> {
+extension NextLineArticleId<L extends ArticleLineAbstract> on Iterable<L> {
   int get nextId {
     if (isEmpty) {
       return 1;

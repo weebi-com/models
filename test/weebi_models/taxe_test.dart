@@ -3,11 +3,11 @@ import 'package:test/test.dart';
 
 void main() {
   test('taxe weebi', () {
-    final json = TaxeWeebi.noTax.toJson();
-    final dummy = TaxeWeebi.fromJson(json);
+    final json = TaxWeebi.noTax.toJson();
+    final dummy = TaxWeebi.fromJson(json);
 
-    expect(dummy.id == TaxeWeebi.noTax.id, isTrue);
-    expect(dummy.name == TaxeWeebi.noTax.name, isTrue);
-    expect(dummy.percentage == TaxeWeebi.noTax.percentage, isTrue);
+    expect(dummy.id == TaxWeebi.noTax.id, isTrue);
+    expect(dummy.name == TaxWeebi.noTax.name, isTrue);
+    expect(dummy.percentage == TaxWeebi.noTax.percentage, isTrue);
   });
 }

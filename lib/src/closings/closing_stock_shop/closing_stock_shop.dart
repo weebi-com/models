@@ -1,6 +1,5 @@
 import 'package:models_weebi/src/closings/abstract/closing_shop.dart';
 import 'package:models_weebi/src/closings/closing_stock.dart';
-import 'package:meta/meta.dart';
 
 import 'package:models_weebi/src/closings/closing_range.dart';
 import 'package:models_weebi/src/closings/closing_stock_shop/closing_stock_shop_article.dart';
@@ -26,7 +25,7 @@ class ClosingStockShop<P extends ClosingStockShopProduct>
     return {
       'shopUuid': shopUuid,
       'closingRange': closingRange.toMap(),
-      'products': products?.map((x) => x.toMap())?.toList(),
+      'products': products.map((x) => x.toMap()).toList(),
     };
   }
 
@@ -37,7 +36,7 @@ class ClosingStockShop<P extends ClosingStockShopProduct>
       products: map['products'] == null
           ? []
           : List<P>.from(
-              map['products']?.map((x) => ClosingStockShopProduct.fromMap(x))),
+              map['products'].map((x) => ClosingStockShopProduct.fromMap(x))),
     );
   }
   static final dummyFeb = [

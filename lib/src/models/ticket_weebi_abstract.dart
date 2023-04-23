@@ -45,7 +45,7 @@ mixin TotalComputer {
 
 abstract class TicketWeebiAbstract
     with TotalComputer
-    implements TicketAbstract<ItemCartWeebi, TaxeWeebi> {
+    implements TicketAbstract<ItemCartWeebi, TaxWeebi> {
   final String oid; // mongo _id
   final String shopId; // shopUuid
   final String contactInfo; // herderId
@@ -57,7 +57,7 @@ abstract class TicketWeebiAbstract
   @override
   final List<ItemCartWeebi> items;
   @override
-  final TaxeWeebi taxe;
+  final TaxWeebi taxe;
   @override
   final double promo;
   @override

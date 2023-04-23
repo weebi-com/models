@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:models_base/base.dart';
 import 'package:models_base/common.dart';
 import 'package:models_base/utils.dart' show DateRange, WeebiDates;
 import 'package:models_weebi/src/closings/closing_ledger.dart';
@@ -62,7 +61,7 @@ class ClosingLedgerShop extends ClosingLedger {
       startDate: WeebiDates.marStart,
       endDate: WeebiDates.marEnd,
     ),
-    ShopDummy().uuid,
+    'pierre_entrepot',
     sell: 0,
     sellCovered: 0,
     sellDeferred: 200,
@@ -98,7 +97,7 @@ class ClosingLedgerShop extends ClosingLedger {
   Map<String, dynamic> toMap() {
     return {
       'closingRange': closingRange.toMap(),
-      'shopUuid': shopUuid ?? '0',
+      'shopUuid': shopUuid,
       'sell': sell,
       'sellCovered': sellCovered,
       'sellDeferred': sellDeferred,

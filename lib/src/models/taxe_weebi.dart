@@ -1,15 +1,15 @@
 import 'dart:convert';
 
-import 'package:models_base/base.dart' show TaxeAbstract;
+import 'package:models_base/base.dart' show TaxAbstract;
 
-class TaxeWeebi extends TaxeAbstract {
-  const TaxeWeebi(
+class TaxWeebi extends TaxAbstract {
+  const TaxWeebi(
     final String id,
     final String name,
     final double percentage,
   ) : super(id: id, name: name, percentage: percentage);
 
-  static const noTax = TaxeWeebi('1', 'HT 0%', 0.0);
+  static const noTax = TaxWeebi('1', 'HT 0%', 0.0);
 
   @override
   Map<String, dynamic> toMap() {
@@ -20,8 +20,8 @@ class TaxeWeebi extends TaxeAbstract {
     };
   }
 
-  factory TaxeWeebi.fromMap(Map<String, dynamic> map) {
-    return TaxeWeebi(
+  factory TaxWeebi.fromMap(Map<String, dynamic> map) {
+    return TaxWeebi(
       map['id'],
       map['name'],
       map['percentage'] == null ? 0.0 : (map['percentage'] as num).toDouble(),
@@ -30,12 +30,12 @@ class TaxeWeebi extends TaxeAbstract {
   @override
   String toJson() => json.encode(toMap());
 
-  factory TaxeWeebi.fromJson(String source) =>
-      TaxeWeebi.fromMap(json.decode(source));
+  factory TaxWeebi.fromJson(String source) =>
+      TaxWeebi.fromMap(json.decode(source));
 
   @override
   bool operator ==(Object other) {
-    return other is TaxeWeebi &&
+    return other is TaxWeebi &&
         other.name == name &&
         other.id == id &&
         other.percentage == percentage;

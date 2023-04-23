@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'package:meta/meta.dart';
 import 'package:models_base/utils.dart';
 
 class ClosingRange implements DateRange {
@@ -53,29 +52,19 @@ class ClosingRange implements DateRange {
   );
 
   Map<String, dynamic> toMap() {
-    if (date == null || startDate == null || endDate == null) {
-      print('toMap no date can be null in a closingRange');
-      return {};
-    } else {
-      return {
-        'date': date.toIso8601String(),
-        'startDate': startDate.toIso8601String(),
-        'endDate': endDate.toIso8601String(),
-      };
-    }
+    return {
+      'date': date.toIso8601String(),
+      'startDate': startDate.toIso8601String(),
+      'endDate': endDate.toIso8601String(),
+    };
   }
 
   factory ClosingRange.fromMap(Map<String, dynamic> map) {
-    if (map == null) {
-      print('fromMap no date can be null in a closingRange');
-      return ClosingRange.dummyFeb;
-    } else {
-      return ClosingRange(
-        date: DateTime.parse(map['date']),
-        startDate: DateTime.parse(map['startDate']),
-        endDate: DateTime.parse(map['endDate']),
-      );
-    }
+    return ClosingRange(
+      date: DateTime.parse(map['date']),
+      startDate: DateTime.parse(map['startDate']),
+      endDate: DateTime.parse(map['endDate']),
+    );
   }
 
   String toJson() => json.encode(toMap());

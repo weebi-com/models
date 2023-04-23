@@ -33,12 +33,12 @@ class ClosingStockShopArticle extends ClosingStockArticle
   @override
   Map<String, dynamic> toMap() {
     return {
-      'closingDate': closingDate?.toIso8601String(),
+      'closingDate': closingDate.toIso8601String(),
       'shopUuid': shopUuid,
       'productId': productId,
       'id': id,
       'fullName': fullName,
-      'weight': weight ?? 1.0,
+      'weight': weight,
       'quantityIn': quantityIn,
       'quantityOut': quantityOut,
       'initialQtCl': initialQtCl,

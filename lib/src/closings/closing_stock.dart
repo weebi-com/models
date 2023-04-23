@@ -44,7 +44,7 @@ class ClosingStock<C extends ClosingStockProduct>
   Map<String, dynamic> toMap() {
     return {
       'closingRange': closingRange.toMap(),
-      'products': products?.map((x) => x.toMap())?.toList(),
+      'products': products.map((x) => x.toMap()).toList(),
     };
   }
 
@@ -54,7 +54,7 @@ class ClosingStock<C extends ClosingStockProduct>
       products: map['products'] == null
           ? []
           : List<C>.from(
-              map['products']?.map((x) => ClosingStockProduct.fromMap(x))),
+              map['products'].map((x) => ClosingStockProduct.fromMap(x))),
     );
   }
 

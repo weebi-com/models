@@ -5,8 +5,7 @@ import 'package:models_weebi/base.dart';
 
 import 'package:models_weebi/src/models/proxy_article_worth.dart';
 import 'package:models_weebi/utils.dart';
-import 'package:models_weebi/weebi_models.dart'
-    show ProxyArticle, LineOfArticles;
+import 'package:models_weebi/weebi_models.dart' show ProxyArticle, ArticleLines;
 import 'package:collection/collection.dart';
 
 class ArticleBasket extends ArticleAbstract {
@@ -41,7 +40,7 @@ class ArticleBasket extends ArticleAbstract {
         );
 
   Iterable<ProxyArticleWorth> getProxiesListWithPriceAndCost(
-      Iterable<LineOfArticles> lines) {
+      Iterable<ArticleLines> lines) {
     final proxiesWorth = <ProxyArticleWorth>[];
     for (final p in proxies) {
       final temp = p.getProxyArticleWorth(lines);
@@ -52,7 +51,7 @@ class ArticleBasket extends ArticleAbstract {
 
   static Iterable<ProxyArticleWorth>
       getProxiesListWithPriceAndCostArticleNotCreatedYetOnly(
-          Iterable<LineOfArticles> lines, Iterable<ProxyArticle> proxiesRaw) {
+          Iterable<ArticleLines> lines, Iterable<ProxyArticle> proxiesRaw) {
     final proxiesWorth = <ProxyArticleWorth>[];
     for (final p in proxiesRaw) {
       final temp = p.getProxyArticleWorth(lines);
