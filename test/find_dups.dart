@@ -37,7 +37,7 @@ void main() {
         newDummyMailDup,
         newDummyTelDiff,
       ];
-      final twoLists = newList.findDupsInNewList(oldList: oldList);
+      final twoLists = newList.findDups(oldList: oldList);
       expect(twoLists.dups.length, 3);
       expect(twoLists.noDups.length, 1);
       expect(twoLists.noDups.first.tel, '06');

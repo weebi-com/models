@@ -2,7 +2,7 @@ import 'package:models_weebi/src/models/utils/two_lists.dart';
 import 'package:models_weebi/weebi_models.dart';
 
 extension HerderFindDups on List<Herder> {
-  TwoLists<Herder> findDupsInNewList({required List<Herder> oldList}) {
+  TwoLists<Herder> findDups({required List<Herder> oldList}) {
     final listNoDups = <Herder>[];
     final listDups = <Herder>[];
     if (oldList.length < length) {
