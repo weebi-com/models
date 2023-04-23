@@ -1,5 +1,6 @@
 ## 1.0.10
 find dups for herders and articleLines
+
 ## 1.0.9
 PhotoSource
 

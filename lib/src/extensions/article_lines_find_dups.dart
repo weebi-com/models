@@ -2,8 +2,7 @@ import 'package:models_weebi/utils.dart';
 import 'package:models_weebi/weebi_models.dart';
 
 extension FindDups on List<ArticleLines> {
-  TwoLists<ArticleLines> findDupsInNewList(
-      {required List<ArticleLines> oldList}) {
+  TwoLists<ArticleLines> findDups({required List<ArticleLines> oldList}) {
     final noDups = <ArticleLines>[];
     final dups = <ArticleLines>[];
     if (oldList.length < length) {
@@ -18,7 +17,7 @@ extension FindDups on List<ArticleLines> {
           noDups.add(a);
         }
       }
-      return TwoLists<ArticleLines>(listDups: dups, listNoDups: noDups);
+      return TwoLists<ArticleLines>(dups: dups, noDups: noDups);
     } else {
       // if oldList is longer, iterate over it brings better performance if
       Map<int, ArticleLines> mapNewTitles = {};
@@ -32,7 +31,7 @@ extension FindDups on List<ArticleLines> {
           noDups.add(a);
         }
       }
-      return TwoLists<ArticleLines>(listDups: dups, listNoDups: noDups);
+      return TwoLists<ArticleLines>(dups: dups, noDups: noDups);
     }
   }
 }

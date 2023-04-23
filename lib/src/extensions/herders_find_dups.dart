@@ -32,7 +32,7 @@ extension HerderFindDups on List<Herder> {
           }
         }
       }
-      return TwoLists<Herder>(listDups: listDups, listNoDups: listNoDups);
+      return TwoLists<Herder>(dups: listDups, noDups: listNoDups);
     } else {
       // if oldList is longer, iterate over it brings better performance if
       Map<int, Herder> mapNewFullName = {};
@@ -61,7 +61,7 @@ extension HerderFindDups on List<Herder> {
           }
         }
       }
-      return TwoLists<Herder>(listDups: listDups, listNoDups: listNoDups);
+      return TwoLists<Herder>(dups: listDups, noDups: listNoDups);
     }
   }
 }

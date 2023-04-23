@@ -13,10 +13,10 @@ void main() {
       final newDummyDiff = ArticleLines.dummy.copyWith(title: 'ptit avocat');
       final newList = [newDummyPureDup, newDummyDiff];
 
-      final twoLists = newList.findDupsInNewList(oldList: oldList);
-      expect(twoLists.listDups.length, 1);
-      expect(twoLists.listNoDups.length, 1);
-      expect(twoLists.listNoDups.first.title, 'ptit avocat');
+      final twoLists = newList.findDups(oldList: oldList);
+      expect(twoLists.dups.length, 1);
+      expect(twoLists.noDups.length, 1);
+      expect(twoLists.noDups.first.title, 'ptit avocat');
     });
     test('in herder', () {
       final dummy = Herder.dummy;
@@ -38,9 +38,9 @@ void main() {
         newDummyTelDiff,
       ];
       final twoLists = newList.findDupsInNewList(oldList: oldList);
-      expect(twoLists.listDups.length, 3);
-      expect(twoLists.listNoDups.length, 1);
-      expect(twoLists.listNoDups.first.tel, '06');
+      expect(twoLists.dups.length, 3);
+      expect(twoLists.noDups.length, 1);
+      expect(twoLists.noDups.first.tel, '06');
     });
   });
 }
