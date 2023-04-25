@@ -1,4 +1,4 @@
-import 'package:models_weebi/src/models/articles_line.dart';
+import 'package:models_weebi/src/models/articles_lines.dart';
 import 'package:models_weebi/src/models/herder.dart';
 import 'package:models_weebi/utils.dart';
 import 'package:test/test.dart';

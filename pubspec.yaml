@@ -1,5 +1,5 @@
 name: models_weebi
-version: 1.0.11
+version: 1.0.12
 publish_to: https://onepub.dev/api/xnxpsdavuh/
 homepage: http://weebi.com
 description: A starting point for Dart libraries or applications.

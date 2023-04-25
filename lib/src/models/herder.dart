@@ -4,6 +4,51 @@ import 'package:models_base/base.dart' show HerderAbstract;
 import 'package:models_base/utils.dart';
 import 'package:models_weebi/src/extensions/string_no_accents.dart';
 
+//TODO  faire évoluer isWoman en sex ou gender, avec man/woman/other/unknown
+
+class Gender {
+  final String _gender;
+  const Gender._(this._gender);
+
+  @override
+  String toString() => _gender;
+
+  static const Gender woman = Gender._('woman');
+  static const Gender man = Gender._('man');
+  static const Gender other = Gender._('other');
+  static const Gender unknown = Gender._('unknown');
+
+  static Gender tryParse(String val) {
+    switch (val) {
+      case 'woman':
+        return Gender.woman;
+      case 'man':
+        return Gender.man;
+      case 'other':
+        return Gender.other;
+      case 'unknown':
+        return Gender.unknown;
+      default:
+        print('$val is not a valid gender');
+        return Gender.unknown;
+    }
+  }
+
+  static String paiementString(Gender gender) {
+    if (gender == Gender.woman) {
+      return 'Femme';
+    } else if (gender == Gender.man) {
+      return 'Homme';
+    } else if (gender == Gender.other) {
+      return 'Autre';
+    } else if (gender == Gender.unknown) {
+      return 'Inconnu';
+    } else {
+      return 'Inconnu';
+    }
+  }
+}
+
 class Herder extends HerderAbstract {
   // final String shopId;
   // String get shopUuid => shopId;
@@ -15,6 +60,8 @@ class Herder extends HerderAbstract {
   int get mailHash => mail.withoutAccents.toLowerCase().trim().hashCode;
   int get telHash => tel.toLowerCase().trim().hashCode;
 
+  // TODO move away from Herder to Contact
+  Gender gender;
   Herder({
     required final int id,
     required int bidon,
@@ -25,6 +72,7 @@ class Herder extends HerderAbstract {
     required DateTime? statusUpdateDate,
     required bool status,
     required bool isWoman,
+    this.gender = Gender.unknown,
     String area = '',
     String bank = '',
     String identity = '',
@@ -110,6 +158,7 @@ class Herder extends HerderAbstract {
           : DateTime.parse(map['statusUpdateDate']),
       status: map['status'],
       overdraft: map['overdraft'],
+      gender: Gender.tryParse(map['gender'] as String),
       area: map['area'],
       bank: map['bank'],
       identity: map['identity'],
@@ -133,6 +182,7 @@ class Herder extends HerderAbstract {
     DateTime? statusUpdateDate,
     bool? status,
     bool? isWoman,
+    Gender? gender,
     String? area,
     String? bank,
     String? identity,
@@ -168,6 +218,7 @@ class Herder extends HerderAbstract {
       category: category ?? this.category,
       qrcode: qrcode ?? this.qrcode,
       isWoman: isWoman ?? this.isWoman,
+      gender: gender ?? this.gender,
       carteNFC: carteNFC ?? this.carteNFC,
       pointCollecte: pointCollecte ?? this.pointCollecte,
     );
@@ -192,6 +243,7 @@ class Herder extends HerderAbstract {
         qrcode.hashCode ^
         milkMonthQuota.hashCode ^
         isWoman.hashCode ^
+        gender.hashCode ^
         carteNFC.hashCode ^
         pointCollecte.hashCode;
   }

@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:models_base/base.dart' show ArticleProxyAbstract;
 import 'package:models_weebi/src/models/article.dart';
-import 'package:models_weebi/src/models/articles_line.dart';
+import 'package:models_weebi/src/models/articles_lines.dart';
 import 'package:models_weebi/src/models/proxy_article_worth.dart';
 
 //  *not used anywhere creating complexity + not working, stick to one extension only to get worth
