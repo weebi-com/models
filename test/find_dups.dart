@@ -1,6 +1,5 @@
 import 'package:models_weebi/src/models/articles_lines.dart';
 import 'package:models_weebi/src/models/herder.dart';
-import 'package:models_weebi/utils.dart';
 import 'package:test/test.dart';
 import 'package:models_weebi/extensions.dart';
 
@@ -17,6 +16,14 @@ void main() {
       expect(twoLists.dups.length, 1);
       expect(twoLists.noDups.length, 1);
       expect(twoLists.noDups.first.title, 'ptit avocat');
+    });
+    test('single herder', () {
+      final oldList = [Herder.defaultHerder];
+      final newList = [Herder.dummy];
+      final twoLists = newList.findDups(oldList: oldList);
+      expect(twoLists.dups.length, 0);
+      expect(twoLists.noDups.length, 1);
+      expect(twoLists.noDups.first.firstName, 'John');
     });
     test('in herder', () {
       final dummy = Herder.dummy;

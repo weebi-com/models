@@ -1,5 +1,10 @@
+## 1.0.12
+
+- gender instead of isWoman
+
 ## 1.0.11
-lighter semantic
+
+- lighter semantic
 
 ## 1.0.10
 

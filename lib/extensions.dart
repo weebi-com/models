@@ -15,7 +15,6 @@ export 'src/extensions/herders_to_rows.dart';
 export 'src/extensions/herders_find_dups.dart';
 
 export 'src/extensions/import_data_w.dart';
-export 'src/extensions/import_checker.dart';
 export 'src/extensions/date_time.dart';
 export 'src/extensions/double.dart';
 export 'src/extensions/string_no_accents.dart';

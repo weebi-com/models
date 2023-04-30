@@ -1,67 +1,35 @@
-import 'package:models_base/common.dart' show Address, StockUnit;
+import 'package:models_base/common.dart' show StockUnit;
 import 'package:models_weebi/weebi_models.dart'
-    show Herder, Tristate, ContactWeebi, ArticleLines, Article;
+    show Herder, ArticleLines, Article;
 
 extension ImportData on List<List<dynamic>> {
-  List<Herder> extractHerdersFromParsedExcel(int nextId, String shopUuid) {
+  List<Herder> extractHerdersFromParsedExcel(
+      int nextHerderId, String shopUuid) {
     final herdersList = <Herder>[];
+    var nextId = nextHerderId; // just in case..
+    print('extractHerdersFromParsedExcel.length $length');
 
-    for (var i = 1; i < length; i++) {
+    for (final row in this) {
       final now = DateTime.now();
-      final table = this[i];
       final herder = Herder(
         updateDate: now,
         status: true,
         statusUpdateDate: now,
         id: nextId,
         bidon: nextId,
-        firstName: table[0] != null ? table[0].toString().trim() : '',
-        lastName: table[1] != null ? table[1].toString().trim() : '',
-        tel: table[2] != null ? table[2].toString().trim() : '',
-        mail: table[3] != null ? table[3].toString().trim() : '',
-        address: table[4] != null ? table[4].toString().trim() : '',
-        isWoman: table[5] == null
-            ? false
-            : table[5] == 'true'
-                ? true
-                : false,
-        category: table[6] != null ? table[6].toString().trim() : '',
+        firstName: row[0] != null ? row[0].toString().trim() : '',
+        lastName: row[1] != null ? row[1].toString().trim() : '',
+        tel: row[2] != null ? row[2].toString().trim() : '',
+        mail: row[3] != null ? row[3].toString().trim() : '',
+        address: row[4] != null ? row[4].toString().trim() : '',
+        isWoman: true, // the woman in me cannot be bothered really
+        category: row[5] != null ? row[5].toString().trim() : '',
       );
       herdersList.add(herder);
       nextId++;
     }
+    // print('herdersList.length ${herdersList.length}');
     return herdersList;
-  }
-
-  List<ContactWeebi> extractContactsFromParsedExcel(
-      List<List<dynamic>> data, int nextLineId, String shopUuid) {
-    final contactsList = <ContactWeebi>[];
-    var nextId = nextLineId; // just in case..
-    for (var i = 1; i < data.length; i++) {
-      final now = DateTime.now();
-      final table = data[i];
-      final address = Address.addressEmpty;
-      final newContact = ContactWeebi(
-        updateDate: now,
-        creationDate: now,
-        status: true,
-        statusUpdateDate: DateTime.now(),
-        id: nextId,
-        shopId: shopUuid,
-        tel: '',
-        mail: '',
-        category: '',
-        firstName: table[0] != null ? table[0].toString().trim() : '',
-        lastName: table[1] != null ? table[1].toString().trim() : '',
-        isWoman: table[5] != null && table[5] is String
-            ? Tristate.tryParse(table[5])
-            : Tristate.unknown,
-        address: address, // make this a list
-      );
-      contactsList.add(newContact);
-      nextId++;
-    }
-    return contactsList;
   }
 
   List<ArticleLines<Article>> extractArticlesLinesFromParsedExcel(
@@ -112,10 +80,11 @@ extension ImportData on List<List<dynamic>> {
     return linesList;
   }
 
+  //TODO factorize in one function with a boolean isUpdate
   List<ArticleLines<Article>> extractLinesOfArticlesForUpdateFromParsedExcel(
       String shopUuid) {
     final linesList = <ArticleLines<Article>>[];
-    for (var i = 1; i < length; i++) // avoid header
+    for (var i = 0; i < length; i++) // avoid header
     {
       final now = DateTime.now();
       final table = this[i];
@@ -161,7 +130,7 @@ extension ImportData on List<List<dynamic>> {
 
   List<Herder> extractHerdersForUpdateFromParsedExcel(String shopUuid) {
     final herdersList = <Herder>[];
-    for (var i = 1; i < length; i++) {
+    for (var i = 0; i < length; i++) {
       final now = DateTime.now();
       final table = this[i];
       final herder = Herder(
@@ -176,12 +145,8 @@ extension ImportData on List<List<dynamic>> {
         tel: table[2] != null ? table[2].toString().trim() : '',
         mail: table[3] != null ? table[3].toString().trim() : '',
         address: table[4] != null ? table[4].toString().trim() : '',
-        isWoman: table[5] == null
-            ? false
-            : table[5] == 'true'
-                ? true
-                : false,
-        category: table[6] != null ? table[6].toString().trim() : '',
+        isWoman: true,
+        category: table[5] != null ? table[5].toString().trim() : '',
       );
       herdersList.add(herder);
     }
