@@ -128,7 +128,7 @@ extension ImportData on List<List<dynamic>> {
     return linesList;
   }
 
-  List<Herder> extractHerdersForUpdateFromParsedExcel(String shopUuid) {
+  List<Herder> extractHerdersForUpdateFromDecodedRows(String shopUuid) {
     final herdersList = <Herder>[];
     for (var i = 0; i < length; i++) {
       final now = DateTime.now();

@@ -15,7 +15,11 @@ import 'package:collection/collection.dart';
 class ArticleLines<A extends ArticleAbstract> extends ArticleLineAbstract<A> {
   // final String? shopUuid;
   // String? get shopId => shopUuid;
-  final bool? isPalpable;
+
+  final bool? isPalpable; // impalpable are only used for quickSpend,
+  // usually quickSpends are for electricity/transport/credit stuff one cannot touch
+  // it is also a pun since these articles yields no gain / no money perceived through them
+  // finally easier to add this boolean rather than handle another set of Article class and to cast everywhere
   final bool? isBasket;
   bool get isSingleArticle => articles.length <= 1;
   int get titleHash => title.withoutAccents.toLowerCase().trim().hashCode;

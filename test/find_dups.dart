@@ -12,7 +12,7 @@ void main() {
       final newDummyDiff = ArticleLines.dummy.copyWith(title: 'ptit avocat');
       final newList = [newDummyPureDup, newDummyDiff];
 
-      final twoLists = newList.findDups(oldList: oldList);
+      final twoLists = newList.findDupsByTitle(oldList: oldList);
       expect(twoLists.dups.length, 1);
       expect(twoLists.noDups.length, 1);
       expect(twoLists.noDups.first.title, 'ptit avocat');
@@ -20,7 +20,7 @@ void main() {
     test('single herder', () {
       final oldList = [Herder.defaultHerder];
       final newList = [Herder.dummy];
-      final twoLists = newList.findDups(oldList: oldList);
+      final twoLists = newList.findDupsByFields(oldList: oldList);
       expect(twoLists.dups.length, 0);
       expect(twoLists.noDups.length, 1);
       expect(twoLists.noDups.first.firstName, 'John');
@@ -44,7 +44,7 @@ void main() {
         newDummyMailDup,
         newDummyTelDiff,
       ];
-      final twoLists = newList.findDups(oldList: oldList);
+      final twoLists = newList.findDupsByFields(oldList: oldList);
       expect(twoLists.dups.length, 3);
       expect(twoLists.noDups.length, 1);
       expect(twoLists.noDups.first.tel, '06');
