@@ -2,12 +2,12 @@ import 'package:models_weebi/base.dart';
 import 'package:models_weebi/weebi_models.dart';
 
 extension LineOfArticlesToRows<A extends ArticleAbstract>
-    on List<ArticleLines<A>> {
+    on List<ArticleLine<A>> {
   List<List<dynamic>> formatToRows() {
     List<List<dynamic>> rows = List<List<dynamic>>.empty(growable: true);
     List<String> lineHeader = List.empty(growable: true);
     lineHeader.add('id');
-    lineHeader.add('titre');
+    lineHeader.add('nom');
     lineHeader.add('unit');
     lineHeader.add('nom');
     lineHeader.add('qt/unité');
@@ -39,7 +39,7 @@ extension LineOfArticlesToRows<A extends ArticleAbstract>
           cells.add(articleBasket.articleCode);
           cells.add(articleBasket.creationDate);
         } else {
-          final article = this[i].articles[ii] as Article;
+          final article = this[i].articles[ii] as ArticleRetail;
           cells.add(article.fullName);
           cells.add(article.weight);
           cells.add(article.price);

@@ -1,7 +1,7 @@
-import 'package:models_base/common.dart';
-import 'package:models_base/utils.dart';
-import 'package:models_weebi/src/models/articles_lines.dart';
+import 'package:models_weebi/common.dart';
+import 'package:models_weebi/src/models/article_line.dart';
 import 'package:models_weebi/src/models/ticket_weebi_abstract.dart';
+import 'package:models_weebi/utils.dart';
 
 mixin TicketPrinter on TicketWeebiAbstract {
   // -----STRINGS-----
@@ -31,7 +31,7 @@ mixin TicketPrinter on TicketWeebiAbstract {
     return sb.toString();
   }
 
-  String getSharableTextLight(Iterable<ArticleLines> lines) {
+  String getSharableTextLight(Iterable<ArticleLine> lines) {
     final products = StringBuffer();
     for (var item in items) {
       products.write(
@@ -41,7 +41,7 @@ mixin TicketPrinter on TicketWeebiAbstract {
       ..writeln('#$id')
       ..writeln('#$shopUuid')
       ..writeln(date)
-      ..writeln('type: ${TicketType.typeString(ticketType)}')
+      ..writeln('type: ${ticketType.typeString}')
       ..writeln(products.toString())
       ..writeln('paiement: ${PaiementType.paiementString(paiementType)}')
       ..writeln('taxes: $totalPriceTaxesVal')
@@ -52,7 +52,7 @@ mixin TicketPrinter on TicketWeebiAbstract {
   }
 
   // ToRuminate - consider splitting this to avoid passing lines if no basket
-  String getSharableText(Iterable<ArticleLines> lines) {
+  String getSharableText(Iterable<ArticleLine> lines) {
     final products = StringBuffer();
     for (final item in items) {
       products.write(
@@ -64,7 +64,7 @@ mixin TicketPrinter on TicketWeebiAbstract {
         ..writeln('ticket # $id')
         ..writeln(
             'date : ${date.year}_${date.month}_${date.day} ${date.hour}:${date.minute}:${date.second}')
-        ..writeln('type: ${TicketType.typeString(ticketType)}')
+        ..writeln('type: ${ticketType.typeString}')
         ..writeln('paiement : $paiement')
         ..writeln(products.toString())
         ..writeln('')

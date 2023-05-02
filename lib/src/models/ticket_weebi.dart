@@ -241,30 +241,6 @@ TicketWeebi{
     );
   }
 
-// this redudant with model/ticket get type, but used for typeList
-  String get getTicketType {
-    if (ticketType == TicketType.stockIn) {
-      return 'Entree de stock';
-    } else if (ticketType == TicketType.stockOut) {
-      return 'Sortie de stock';
-    } else if (ticketType == TicketType.sell) {
-      return 'Vente';
-    } else if (ticketType == TicketType.sellCovered) {
-      return 'Versement sur compte c';
-    } else if (ticketType == TicketType.sellDeferred) {
-      return 'Vente via compte c';
-    } else if (ticketType == TicketType.spend) {
-      return 'Achat';
-    } else if (ticketType == TicketType.spendCovered) {
-      return 'Versement sur compte f';
-    } else if (ticketType == TicketType.spendDeferred) {
-      return 'Achat via compte f';
-    } else if (ticketType == TicketType.wage) {
-      return 'Salaire';
-    }
-    return 'Type de ticket inconnu';
-  }
-
   String get getTicketTypeContactText {
     if (ticketType == TicketType.sell && contactInfo == '0') {
       return 'Client : Visiteur';

@@ -1,7 +1,7 @@
 library models;
 
-export 'src/models/articles_lines.dart';
-export 'src/models/article.dart';
+export 'src/models/article_line.dart';
+export 'src/models/article_retail.dart';
 export 'src/models/article_min_qt.dart';
 export 'src/models/article_basket.dart';
 export 'src/models/basket_wrapper.dart';

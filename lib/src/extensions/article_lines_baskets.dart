@@ -2,7 +2,7 @@ import 'package:mobx/mobx.dart';
 import 'package:models_weebi/base.dart';
 import 'package:models_weebi/weebi_models.dart';
 
-extension RealizableBaskets on Iterable<ArticleLines> {
+extension RealizableBaskets on Iterable<ArticleLine> {
   Iterable<BasketWrapper> articleBasketWrapThemExt(
       ArticleBasket aBasket, DateTime start, DateTime end) {
     final articleWrappers = <BasketWrapper>[];
@@ -17,7 +17,7 @@ extension RealizableBaskets on Iterable<ArticleLines> {
             final article = line.articles.firstWhere((a) =>
                 a.lineId == lot.proxyLineId && a.id == lot.proxyArticleId);
             final wrapper = BasketWrapper(
-                article as Article, lot.minimumUnitPerBasket, 0.0);
+                article as ArticleRetail, lot.minimumUnitPerBasket, 0.0);
             articleWrappers.add(wrapper);
           }
         }

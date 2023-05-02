@@ -7,12 +7,12 @@ import 'package:models_base/common.dart';
 import 'package:models_base/utils.dart';
 import 'package:models_weebi/src/extensions/string_no_accents.dart';
 import 'package:models_weebi/src/models/article_basket.dart';
-import 'package:models_weebi/src/models/article.dart';
+import 'package:models_weebi/src/models/article_retail.dart';
 import 'package:collection/collection.dart';
 
 // if (isBasket){ articles.length ==1 } !
 
-class ArticleLines<A extends ArticleAbstract> extends ArticleLineAbstract<A> {
+class ArticleLine<A extends ArticleAbstract> extends ArticleLineAbstract<A> {
   // final String? shopUuid;
   // String? get shopId => shopUuid;
 
@@ -20,12 +20,14 @@ class ArticleLines<A extends ArticleAbstract> extends ArticleLineAbstract<A> {
   // usually quickSpends are for electricity/transport/credit stuff one cannot touch
   // it is also a pun since these articles yields no gain / no money perceived through them
   // finally easier to add this boolean rather than handle another set of Article class and to cast everywhere
+  // * will create another class ArticleRaw or NoTag or NoPriceNoCost
+  // to remove this field and deduce base on type
   final bool? isBasket;
   bool get isSingleArticle => articles.length <= 1;
   int get titleHash => title.withoutAccents.toLowerCase().trim().hashCode;
   @override
   String get photo => articles.isEmpty ? '' : articles.first.photo ?? '';
-  ArticleLines({
+  ArticleLine({
     required int id,
     // required this.shopUuid,
     this.isPalpable =
@@ -62,10 +64,10 @@ class ArticleLines<A extends ArticleAbstract> extends ArticleLineAbstract<A> {
     return sb.toString();
   }
 
-  static final dummy = ArticleLines<Article>(
+  static final dummy = ArticleLine<ArticleRetail>(
       // shopUuid: 'shopUuid',
       id: 1,
-      articles: [Article.dummy],
+      articles: [ArticleRetail.dummy],
       title: 'dummy',
       status: true,
       creationDate: WeebiDates.defaultDate,
@@ -73,7 +75,7 @@ class ArticleLines<A extends ArticleAbstract> extends ArticleLineAbstract<A> {
       isPalpable: true,
       isBasket: false);
 
-  static final dummyBasket = ArticleLines<ArticleBasket>(
+  static final dummyBasket = ArticleLine<ArticleBasket>(
       id: 2,
       categories: null,
       title: 'truc bis',
@@ -110,24 +112,24 @@ class ArticleLines<A extends ArticleAbstract> extends ArticleLineAbstract<A> {
     };
   }
 
-  ArticleLines<Article> fromMapArticleWeebi(Map<String, dynamic> map) {
+  ArticleLine<ArticleRetail> fromMapArticleWeebi(Map<String, dynamic> map) {
     if ((map['isBasket'] ?? false) == false) {
-      return ArticleLines.fromMap(map);
+      return ArticleLine.fromMap(map);
     } else {
       throw 'this is a basket';
     }
   }
 
-  ArticleLines<ArticleBasket> fromMapArticleBasket(Map<String, dynamic> map) {
+  ArticleLine<ArticleBasket> fromMapArticleBasket(Map<String, dynamic> map) {
     if ((map['isBasket'] ?? false) == false) {
       throw 'this is not a basket';
     } else {
-      return ArticleLines.fromMap(map);
+      return ArticleLine.fromMap(map);
     }
   }
 
-  factory ArticleLines.fromMap(Map<String, dynamic> map) {
-    return ArticleLines<A>(
+  factory ArticleLine.fromMap(Map<String, dynamic> map) {
+    return ArticleLine<A>(
       // shopUuid: map['shopUuid'] ?? '',
       id: map['id'],
       title: map['title'],
@@ -149,7 +151,7 @@ class ArticleLines<A extends ArticleAbstract> extends ArticleLineAbstract<A> {
           ? []
           : List<A>.from(map['articles'].map((x) {
               if (x['proxies'] == null) {
-                return Article.fromMap(x);
+                return ArticleRetail.fromMap(x);
               } else {
                 return ArticleBasket.fromMap(x);
               }
@@ -163,10 +165,10 @@ class ArticleLines<A extends ArticleAbstract> extends ArticleLineAbstract<A> {
   @override
   String toJson() => json.encode(toMap());
 
-  factory ArticleLines.fromJson(String source) =>
-      ArticleLines.fromMap(json.decode(source));
+  factory ArticleLine.fromJson(String source) =>
+      ArticleLine.fromMap(json.decode(source));
 
-  ArticleLines<A> copyWith({
+  ArticleLine<A> copyWith({
     String? shopUuid,
     int? id,
     String? title,
@@ -181,7 +183,7 @@ class ArticleLines<A extends ArticleAbstract> extends ArticleLineAbstract<A> {
     DateTime? updateDate,
     List<String>? categories,
   }) {
-    return ArticleLines<A>(
+    return ArticleLine<A>(
       // shopUuid: shopUuid ?? this.shopUuid,
       id: id ?? this.id,
       isBasket: isBasket ?? this.isBasket,
@@ -205,7 +207,7 @@ class ArticleLines<A extends ArticleAbstract> extends ArticleLineAbstract<A> {
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
     final listEquals = const DeepCollectionEquality().equals;
-    return other is ArticleLines &&
+    return other is ArticleLine &&
         // other.shopUuid == shopUuid &&
         other.id == id &&
         other.isPalpable == isPalpable &&

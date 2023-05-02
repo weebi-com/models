@@ -1,12 +1,12 @@
 import 'package:models_weebi/utils.dart';
 import 'package:models_weebi/weebi_models.dart';
 
-extension FindDups on List<ArticleLines> {
-  TwoLists<ArticleLines> findDupsById({required List<ArticleLines> newList}) {
+extension FindDups on List<ArticleLine> {
+  TwoLists<ArticleLine> findDupsById({required List<ArticleLine> newList}) {
     final oldListIds = map((e) => e.id);
     final newListIds = map((e) => e.id);
-    final noDups = <ArticleLines>[];
-    final dups = <ArticleLines>[];
+    final noDups = <ArticleLine>[];
+    final dups = <ArticleLine>[];
     for (final newId in newListIds) {
       if (oldListIds.contains(newId) == false) {
         noDups.add(firstWhere((e) => e.id == newId));
@@ -17,12 +17,11 @@ extension FindDups on List<ArticleLines> {
     return TwoLists(noDups: noDups, dups: dups);
   }
 
-  TwoLists<ArticleLines> findDupsByTitle(
-      {required List<ArticleLines> oldList}) {
-    final noDups = <ArticleLines>[];
-    final dups = <ArticleLines>[];
+  TwoLists<ArticleLine> findDupsByTitle({required List<ArticleLine> oldList}) {
+    final noDups = <ArticleLine>[];
+    final dups = <ArticleLine>[];
 
-    Map<int, ArticleLines> mapOldTitles = {};
+    Map<int, ArticleLine> mapOldTitles = {};
     for (var p in oldList) {
       mapOldTitles[p.titleHash] = p;
     }
@@ -35,6 +34,6 @@ extension FindDups on List<ArticleLines> {
         noDups.add(a);
       }
     }
-    return TwoLists<ArticleLines>(dups: dups, noDups: noDups);
+    return TwoLists<ArticleLine>(dups: dups, noDups: noDups);
   }
 }

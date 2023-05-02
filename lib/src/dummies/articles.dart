@@ -5,7 +5,7 @@ import 'package:models_weebi/weebi_models.dart';
 
 class DummyArticleData {
   static final babibel = [
-    ArticleLines(
+    ArticleLine(
       id: 2,
       title: 'Babibel',
       stockUnit: StockUnit.unit,
@@ -14,7 +14,7 @@ class DummyArticleData {
       creationDate: WeebiDates.defaultDate,
       updateDate: WeebiDates.defaultDate,
       articles: [
-        Article(
+        ArticleRetail(
           lineId: 2,
           id: 1,
           fullName: 'Babibel x1',
@@ -28,7 +28,7 @@ class DummyArticleData {
           creationDate: WeebiDates.defaultDate,
           updateDate: WeebiDates.defaultDate,
         ),
-        Article(
+        ArticleRetail(
           lineId: 2,
           id: 2,
           fullName: 'Babibel x12',
@@ -42,7 +42,7 @@ class DummyArticleData {
           creationDate: WeebiDates.defaultDate,
           updateDate: WeebiDates.defaultDate,
         ),
-        Article(
+        ArticleRetail(
           lineId: 2,
           id: 3,
           fullName: 'Babibel sac x28',
@@ -61,7 +61,7 @@ class DummyArticleData {
   ];
 
   static final cola = [
-    ArticleLines(
+    ArticleLine(
       id: 1,
       title: 'Noix de cola',
       categories: [''],
@@ -71,7 +71,7 @@ class DummyArticleData {
       creationDate: WeebiDates.defaultDate,
       updateDate: WeebiDates.defaultDate,
       articles: [
-        Article(
+        ArticleRetail(
           lineId: 1,
           id: 1,
           fullName: 'Noix de cola x1',
@@ -84,7 +84,7 @@ class DummyArticleData {
           creationDate: WeebiDates.defaultDate,
           updateDate: WeebiDates.defaultDate,
         ),
-        Article(
+        ArticleRetail(
           lineId: 1,
           id: 2,
           fullName: 'Noix de cola x6',
@@ -97,7 +97,7 @@ class DummyArticleData {
           creationDate: WeebiDates.defaultDate,
           updateDate: WeebiDates.defaultDate,
         ),
-        Article(
+        ArticleRetail(
           lineId: 1,
           id: 3,
           fullName: 'Noix de cola sac x100',

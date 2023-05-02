@@ -188,7 +188,7 @@ abstract class TicketWeebiAbstract
     } else if (ticketType == TicketType.sellDeferred) {
       return 'Vente a credit';
     } else if (ticketType == TicketType.spend) {
-      return 'Achat';
+      return 'Achat/Dépense';
     } else if (ticketType == TicketType.spendCovered) {
       return 'Versement fournisseur';
     } else if (ticketType == TicketType.spendDeferred) {

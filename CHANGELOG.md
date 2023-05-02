@@ -8,7 +8,7 @@
 
 ## 1.0.10
 
-- find dups for herders and articleLines
+- find dups for herders and ArticleLine
 
 ## 1.0.9
 

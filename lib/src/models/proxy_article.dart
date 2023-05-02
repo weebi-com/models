@@ -1,8 +1,8 @@
 import 'dart:convert';
 
 import 'package:models_base/base.dart' show ArticleProxyAbstract;
-import 'package:models_weebi/src/models/article.dart';
-import 'package:models_weebi/src/models/articles_lines.dart';
+import 'package:models_weebi/src/models/article_retail.dart';
+import 'package:models_weebi/src/models/article_line.dart';
 import 'package:models_weebi/src/models/proxy_article_worth.dart';
 
 //  *not used anywhere creating complexity + not working, stick to one extension only to get worth
@@ -49,7 +49,7 @@ import 'package:models_weebi/src/models/proxy_article_worth.dart';
 // }
 
 mixin GimmeTheLoot on ArticleProxyAbstract {
-  ProxyArticleWorth getProxyArticleWorth(Iterable<ArticleLines> linesInStore) {
+  ProxyArticleWorth getProxyArticleWorth(Iterable<ArticleLine> linesInStore) {
     return ProxyArticleWorth.getPriceAndCost(
         linesInStore, this as ProxyArticle);
   }
@@ -174,13 +174,13 @@ class ProxyArticle extends ArticleProxyAbstract with GimmeTheLoot {
       articleWeight.hashCode ^
       proxyArticleId.hashCode;
 
-  int getPrice(Iterable<ArticleLines> linesInStore) {
+  int getPrice(Iterable<ArticleLine> linesInStore) {
     if (linesInStore.isNotEmpty) {
       for (final line in linesInStore) {
         if (line.isBasket == false && line.id == proxyLineId) {
           for (final article in line.articles) {
             if (article.lineId == proxyLineId && article.id == proxyArticleId) {
-              return (article as Article).price;
+              return (article as ArticleRetail).price;
             }
           }
         }
@@ -189,13 +189,13 @@ class ProxyArticle extends ArticleProxyAbstract with GimmeTheLoot {
     return 0;
   }
 
-  int getCost(Iterable<ArticleLines> linesInStore) {
+  int getCost(Iterable<ArticleLine> linesInStore) {
     if (linesInStore.isNotEmpty) {
       for (final line in linesInStore) {
         if (line.isBasket == false && line.id == proxyLineId) {
           for (final article in line.articles) {
             if (article.lineId == proxyLineId && article.id == proxyArticleId) {
-              return (article as Article).cost;
+              return (article as ArticleRetail).cost;
             }
           }
         }

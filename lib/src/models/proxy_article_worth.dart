@@ -49,7 +49,7 @@ class ProxyArticleWorth extends ProxyArticle implements PriceAndCostAbstract {
         );
 
   factory ProxyArticleWorth.getPriceAndCost(
-      Iterable<ArticleLines> linesInStore, ProxyArticle pNoPriceNoCost) {
+      Iterable<ArticleLine> linesInStore, ProxyArticle pNoPriceNoCost) {
     final int price = pNoPriceNoCost.getPrice(linesInStore);
     final int cost = pNoPriceNoCost.getCost(linesInStore);
     return ProxyArticleWorth(

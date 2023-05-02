@@ -1,15 +1,15 @@
-import 'package:models_weebi/src/models/articles_lines.dart';
+import 'package:models_weebi/src/models/article_line.dart';
 import 'package:models_weebi/src/models/herder.dart';
 import 'package:test/test.dart';
 import 'package:models_weebi/extensions.dart';
 
 void main() {
   group('find dups', () {
-    test('in articleLines', () {
-      final dummy = ArticleLines.dummy;
+    test('in ArticleLine', () {
+      final dummy = ArticleLine.dummy;
       final oldList = [dummy];
-      final newDummyPureDup = ArticleLines.dummy;
-      final newDummyDiff = ArticleLines.dummy.copyWith(title: 'ptit avocat');
+      final newDummyPureDup = ArticleLine.dummy;
+      final newDummyDiff = ArticleLine.dummy.copyWith(title: 'ptit avocat');
       final newList = [newDummyPureDup, newDummyDiff];
 
       final twoLists = newList.findDupsByTitle(oldList: oldList);

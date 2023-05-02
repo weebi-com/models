@@ -22,7 +22,8 @@ extension AggregateItems on Iterable<ItemCartWeebi> {
               (item.article as ArticleBasket).discountAmountSalesOnly;
           return totalFull;
         } else {
-          return (value + ((item.article as Article).price * item.quantity))
+          return (value +
+                  ((item.article as ArticleRetail).price * item.quantity))
               .round();
         }
       });
@@ -40,7 +41,7 @@ extension AggregateItems on Iterable<ItemCartWeebi> {
           // if needed consider creating an additional field discountAmountPurchaseOnly
         } else {
           return value +
-              ((item.article as Article).cost * item.quantity).round();
+              ((item.article as ArticleRetail).cost * item.quantity).round();
         }
       });
 }
@@ -58,9 +59,9 @@ class ItemCartWeebi<A extends ArticleAbstract> extends ItemInCartAbstract<A> {
 
   bool get isBasket => toMap()['article']['proxies'] != null;
 
-  static final dummy = ItemCartWeebi(() => Article.dummy, 1.0);
+  static final dummy = ItemCartWeebi(() => ArticleRetail.dummy, 1.0);
 
-  static final dummyBasket = ItemCartWeebi(() => Article.dummy, 1.0,
+  static final dummyBasket = ItemCartWeebi(() => ArticleRetail.dummy, 1.0,
       proxiesWorth: <ProxyArticleWorth>[ProxyArticleWorth.dummy]);
 
   // I can play around with Article while ignoring its exact type :)
@@ -73,7 +74,7 @@ class ItemCartWeebi<A extends ArticleAbstract> extends ItemInCartAbstract<A> {
     if (article.toMap()['proxies'] != null) {
       return proxiesWorth?.totalPrice ?? 0;
     } else {
-      return (article as Article).price;
+      return (article as ArticleRetail).price;
     }
   }
 
@@ -82,7 +83,7 @@ class ItemCartWeebi<A extends ArticleAbstract> extends ItemInCartAbstract<A> {
     if (article.toMap()['proxies'] != null) {
       return proxiesWorth?.totalCost ?? 0;
     } else {
-      return (article as Article).cost;
+      return (article as ArticleRetail).cost;
     }
   }
 
@@ -109,7 +110,7 @@ class ItemCartWeebi<A extends ArticleAbstract> extends ItemInCartAbstract<A> {
     return stockMovement;
   }
 
-  double getStockMovementForLine(ArticleLines line) {
+  double getStockMovementForLine(ArticleLine line) {
     double stockMovement = 0.0;
     A aInItem = articleCreator();
     if (line.id == aInItem.lineId) {
@@ -153,9 +154,9 @@ class ItemCartWeebi<A extends ArticleAbstract> extends ItemInCartAbstract<A> {
     );
   }
 
-  static ItemCartWeebi<Article> fromMapWeebi(Map<String, dynamic> map) {
-    return ItemCartWeebi<Article>(
-      () => Article.fromMap(map['article']),
+  static ItemCartWeebi<ArticleRetail> fromMapWeebi(Map<String, dynamic> map) {
+    return ItemCartWeebi<ArticleRetail>(
+      () => ArticleRetail.fromMap(map['article']),
       map['quantity'] == null ? 0.0 : (map['quantity'] as num).toDouble(),
       proxiesWorth: [],
     );

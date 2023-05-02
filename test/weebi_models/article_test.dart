@@ -4,18 +4,18 @@ import 'package:test/test.dart';
 
 void main() {
   test('article Weebi', () {
-    final json = Article.dummy.toJson();
-    final dummy = Article.fromJson(json);
+    final json = ArticleRetail.dummy.toJson();
+    final dummy = ArticleRetail.fromJson(json);
     // expect(dummy == ArticleWeebi.dummy, isTrue);
-    expect(dummy.id == Article.dummy.id, isTrue);
-    expect(dummy.lineId == Article.dummy.lineId, isTrue);
-    expect(dummy.fullName == Article.dummy.fullName, isTrue);
-    expect(dummy.price == Article.dummy.price, isTrue);
-    expect(dummy.cost == Article.dummy.cost, isTrue);
-    expect(dummy.weight == Article.dummy.weight, isTrue);
-    expect(dummy.articleCode == Article.dummy.articleCode, isTrue);
-    expect(dummy.photo == Article.dummy.photo, isTrue);
-    expect(dummy.creationDate == Article.dummy.creationDate, isTrue);
-    expect(dummy.status == Article.dummy.status, isTrue);
+    expect(dummy.id == ArticleRetail.dummy.id, isTrue);
+    expect(dummy.lineId == ArticleRetail.dummy.lineId, isTrue);
+    expect(dummy.fullName == ArticleRetail.dummy.fullName, isTrue);
+    expect(dummy.price == ArticleRetail.dummy.price, isTrue);
+    expect(dummy.cost == ArticleRetail.dummy.cost, isTrue);
+    expect(dummy.weight == ArticleRetail.dummy.weight, isTrue);
+    expect(dummy.articleCode == ArticleRetail.dummy.articleCode, isTrue);
+    expect(dummy.photo == ArticleRetail.dummy.photo, isTrue);
+    expect(dummy.creationDate == ArticleRetail.dummy.creationDate, isTrue);
+    expect(dummy.status == ArticleRetail.dummy.status, isTrue);
   });
 }

@@ -1,6 +1,6 @@
 import 'package:models_base/common.dart' show StockUnit;
 import 'package:models_weebi/weebi_models.dart'
-    show Herder, ArticleLines, Article;
+    show Herder, ArticleLine, ArticleRetail;
 
 extension ImportData on List<List<dynamic>> {
   List<Herder> extractHerdersFromParsedExcel(
@@ -32,14 +32,14 @@ extension ImportData on List<List<dynamic>> {
     return herdersList;
   }
 
-  List<ArticleLines<Article>> extractArticlesLinesFromParsedExcel(
+  List<ArticleLine<ArticleRetail>> extractArticlesLinesFromParsedExcel(
       int nextLineId, String shopUuid) {
-    final linesList = <ArticleLines<Article>>[];
+    final linesList = <ArticleLine<ArticleRetail>>[];
     var nextId = nextLineId; // just in case..
     for (var i = 0; i < length; i++) {
       final now = DateTime.now();
       final table = this[i];
-      final newArticle = Article(
+      final newArticle = ArticleRetail(
         creationDate: now,
         updateDate: now,
         lineId: nextId,
@@ -63,7 +63,7 @@ extension ImportData on List<List<dynamic>> {
             : 0,
         photo: '',
       );
-      final newLine = ArticleLines<Article>(
+      final newLine = ArticleLine<ArticleRetail>(
         creationDate: now,
         updateDate: now,
         id: nextId,
@@ -81,14 +81,14 @@ extension ImportData on List<List<dynamic>> {
   }
 
   //TODO factorize in one function with a boolean isUpdate
-  List<ArticleLines<Article>> extractLinesOfArticlesForUpdateFromParsedExcel(
-      String shopUuid) {
-    final linesList = <ArticleLines<Article>>[];
+  List<ArticleLine<ArticleRetail>>
+      extractLinesOfArticlesForUpdateFromParsedExcel(String shopUuid) {
+    final linesList = <ArticleLine<ArticleRetail>>[];
     for (var i = 0; i < length; i++) // avoid header
     {
       final now = DateTime.now();
       final table = this[i];
-      final newArticle = Article(
+      final newArticle = ArticleRetail(
         creationDate: now, // will be updated after if match
         updateDate: now,
         lineId: 0, // will be updated after if match
@@ -112,7 +112,7 @@ extension ImportData on List<List<dynamic>> {
             : 0,
         photo: '',
       );
-      final newLine = ArticleLines<Article>(
+      final newLine = ArticleLine<ArticleRetail>(
         creationDate: now,
         updateDate: now,
         id: 0,

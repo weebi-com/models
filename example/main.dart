@@ -3,9 +3,9 @@ import 'package:models_base/utils.dart';
 import 'package:models_weebi/weebi_models.dart';
 
 void main() {
-  final awesomeArticleLine = ArticleLines(
+  final awesomeArticleLine = ArticleLine(
     articles: [
-      Article(
+      ArticleRetail(
         lineId: 1,
         id: 1,
         fullName: 'frometon',

@@ -1,11 +1,11 @@
 import 'package:models_weebi/common.dart';
-import 'package:models_weebi/src/models/article.dart';
-import 'package:models_weebi/src/models/articles_lines.dart';
+import 'package:models_weebi/src/models/article_retail.dart';
+import 'package:models_weebi/src/models/article_line.dart';
 import 'package:models_weebi/utils.dart';
 
 class JamfBM {
   static final jams = [
-    ArticleLines(
+    ArticleLine(
       id: 1,
       title: 'Confiture BM Peches',
       stockUnit: StockUnit.unit,
@@ -14,7 +14,7 @@ class JamfBM {
       creationDate: WeebiDates.defaultDate,
       updateDate: WeebiDates.defaultDate,
       articles: [
-        Article(
+        ArticleRetail(
           lineId: 1,
           id: 1,
           fullName: 'Confiture BM Peches 370g',
@@ -31,7 +31,7 @@ class JamfBM {
         ),
       ],
     ),
-    ArticleLines(
+    ArticleLine(
       id: 2,
       title: 'Confiture BM Compotee Abricot',
       stockUnit: StockUnit.unit,
@@ -40,7 +40,7 @@ class JamfBM {
       creationDate: WeebiDates.defaultDate,
       updateDate: WeebiDates.defaultDate,
       articles: [
-        Article(
+        ArticleRetail(
           lineId: 2,
           id: 1,
           fullName: 'Confiture BM Compotee Abricot 600g',
@@ -57,7 +57,7 @@ class JamfBM {
         ),
       ],
     ),
-    ArticleLines(
+    ArticleLine(
       id: 3,
       title: 'Confiture BM Figues violettes',
       stockUnit: StockUnit.unit,
@@ -66,7 +66,7 @@ class JamfBM {
       creationDate: WeebiDates.defaultDate,
       updateDate: WeebiDates.defaultDate,
       articles: [
-        Article(
+        ArticleRetail(
           lineId: 3,
           id: 1,
           fullName: 'Confiture BM Figues violettes 370g',
@@ -83,7 +83,7 @@ class JamfBM {
         ),
       ],
     ),
-    ArticleLines(
+    ArticleLine(
       id: 4,
       title: 'Confiture BM Oranges ameres',
       stockUnit: StockUnit.unit,
@@ -92,7 +92,7 @@ class JamfBM {
       creationDate: WeebiDates.defaultDate,
       updateDate: WeebiDates.defaultDate,
       articles: [
-        Article(
+        ArticleRetail(
           lineId: 4,
           id: 1,
           fullName: 'Confiture BM Oranges ameres 370g',
@@ -108,7 +108,7 @@ class JamfBM {
         ),
       ],
     ),
-    ArticleLines(
+    ArticleLine(
       id: 5,
       title: 'Confiture BM Abricots',
       stockUnit: StockUnit.unit,
@@ -117,7 +117,7 @@ class JamfBM {
       creationDate: WeebiDates.defaultDate,
       updateDate: WeebiDates.defaultDate,
       articles: [
-        Article(
+        ArticleRetail(
           lineId: 5,
           id: 1,
           fullName: 'Confiture BM Abricots 370g',
@@ -134,7 +134,7 @@ class JamfBM {
         ),
       ],
     ),
-    ArticleLines(
+    ArticleLine(
       id: 6,
       title: 'Confiture BM Fraises',
       stockUnit: StockUnit.unit,
@@ -143,7 +143,7 @@ class JamfBM {
       creationDate: WeebiDates.defaultDate,
       updateDate: WeebiDates.defaultDate,
       articles: [
-        Article(
+        ArticleRetail(
           lineId: 6,
           id: 1,
           fullName: 'Confiture BM Fraises 370g',
@@ -160,7 +160,7 @@ class JamfBM {
         ),
       ],
     ),
-    ArticleLines(
+    ArticleLine(
       id: 7,
       title: 'Confiture BM Framboises',
       stockUnit: StockUnit.unit,
@@ -169,7 +169,7 @@ class JamfBM {
       creationDate: WeebiDates.defaultDate,
       updateDate: WeebiDates.defaultDate,
       articles: [
-        Article(
+        ArticleRetail(
           lineId: 7,
           id: 1,
           fullName: 'Confiture BM Framboises 370g',
@@ -186,7 +186,7 @@ class JamfBM {
         ),
       ],
     ),
-    ArticleLines(
+    ArticleLine(
       id: 8,
       title: 'Confiture BM Cerises noires',
       stockUnit: StockUnit.unit,
@@ -195,7 +195,7 @@ class JamfBM {
       creationDate: WeebiDates.defaultDate,
       updateDate: WeebiDates.defaultDate,
       articles: [
-        Article(
+        ArticleRetail(
           lineId: 8,
           id: 1,
           fullName: 'Confiture BM Cerises noires 370g',
@@ -212,7 +212,7 @@ class JamfBM {
         ),
       ],
     ),
-    ArticleLines(
+    ArticleLine(
       id: 9,
       title: 'Confiture BM Gelee de mures',
       stockUnit: StockUnit.unit,
@@ -221,7 +221,7 @@ class JamfBM {
       creationDate: WeebiDates.defaultDate,
       updateDate: WeebiDates.defaultDate,
       articles: [
-        Article(
+        ArticleRetail(
           lineId: 9,
           id: 1,
           fullName: 'Confiture BM Gelee de mures 370g',
@@ -237,7 +237,7 @@ class JamfBM {
         ),
       ],
     ),
-    ArticleLines(
+    ArticleLine(
       id: 10,
       title: 'Confiture BM Fruits des Bois',
       stockUnit: StockUnit.unit,
@@ -246,7 +246,7 @@ class JamfBM {
       creationDate: WeebiDates.defaultDate,
       updateDate: WeebiDates.defaultDate,
       articles: [
-        Article(
+        ArticleRetail(
           lineId: 10,
           id: 1,
           fullName: 'Confiture BM Fruits des Bois 370g',
@@ -263,7 +263,7 @@ class JamfBM {
         ),
       ],
     ),
-    ArticleLines(
+    ArticleLine(
       id: 11,
       title: 'Confiture BM Cerises griottes',
       stockUnit: StockUnit.unit,
@@ -272,7 +272,7 @@ class JamfBM {
       creationDate: WeebiDates.defaultDate,
       updateDate: WeebiDates.defaultDate,
       articles: [
-        Article(
+        ArticleRetail(
           lineId: 11,
           codeEAN: '3 04532000151 8',
           id: 1,
@@ -289,7 +289,7 @@ class JamfBM {
         ),
       ],
     ),
-    ArticleLines(
+    ArticleLine(
       id: 12,
       title: 'Confiture BM Compotee Peches',
       stockUnit: StockUnit.unit,
@@ -298,7 +298,7 @@ class JamfBM {
       creationDate: WeebiDates.defaultDate,
       updateDate: WeebiDates.defaultDate,
       articles: [
-        Article(
+        ArticleRetail(
           lineId: 12,
           id: 1,
           fullName: 'Confiture BM Compotee Peches 600g',
@@ -315,7 +315,7 @@ class JamfBM {
         ),
       ],
     ),
-    ArticleLines(
+    ArticleLine(
       id: 13,
       title: 'Confiture BM Quetsches',
       stockUnit: StockUnit.unit,
@@ -324,7 +324,7 @@ class JamfBM {
       creationDate: WeebiDates.defaultDate,
       updateDate: WeebiDates.defaultDate,
       articles: [
-        Article(
+        ArticleRetail(
           lineId: 13,
           id: 1,
           fullName: 'Confiture BM Quetsches 370g',
@@ -341,7 +341,7 @@ class JamfBM {
         ),
       ],
     ),
-    ArticleLines(
+    ArticleLine(
       id: 14,
       title: 'Confiture BM 4 Fruits',
       stockUnit: StockUnit.unit,
@@ -350,7 +350,7 @@ class JamfBM {
       creationDate: WeebiDates.defaultDate,
       updateDate: WeebiDates.defaultDate,
       articles: [
-        Article(
+        ArticleRetail(
           lineId: 14,
           id: 1,
           fullName: 'Confiture BM 4 Fruits 370g',
