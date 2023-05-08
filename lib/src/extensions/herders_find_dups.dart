@@ -3,22 +3,28 @@ import 'package:models_weebi/weebi_models.dart';
 
 extension HerderFindDups on List<Herder> {
   TwoLists<Herder> findDupsById({required List<Herder> newList}) {
+    if (isEmpty) {
+      return TwoLists(noDups: newList, dups: <Herder>[]);
+    }
     final oldListIds = map((e) => e.id);
     final newListIds = map((e) => e.id);
     final noDups = <Herder>[];
     final dups = <Herder>[];
     for (final newId in newListIds) {
       if (oldListIds.contains(newId) == false) {
-        noDups.add(firstWhere((e) => e.id == newId));
+        noDups.add(newList.firstWhere((e) => e.id == newId));
       } else {
-        dups.add(firstWhere((e) => e.id == newId));
+        dups.add(newList.firstWhere((e) => e.id == newId));
       }
     }
 
     return TwoLists(noDups: noDups, dups: dups);
   }
 
-  TwoLists<Herder> findDupsByFields({required List<Herder> oldList}) {
+  TwoLists<Herder> findDupsByFields({required List<Herder> newList}) {
+    if (isEmpty) {
+      return TwoLists(noDups: newList, dups: <Herder>[]);
+    }
     final listNoDups = <Herder>[];
     final listDups = <Herder>[];
 
@@ -27,12 +33,12 @@ extension HerderFindDups on List<Herder> {
     Map<int, Herder> mapOldMail = {};
     // print('oldList.length ${oldList.length}');
     // print('this.length $length');
-    for (var oldH in oldList) {
+    for (var oldH in this) {
       mapOldFullName[oldH.fullNameHash] = oldH;
       mapOldTel[oldH.telHash] = oldH;
       mapOldMail[oldH.mailHash] = oldH;
     }
-    for (var newH in this) {
+    for (var newH in newList) {
       if ((newH.tel.isNotEmpty && mapOldTel.keys.contains(newH.telHash))) {
         // on trie sur le tel ou sur le mail et ajoute ceux qui correspondent
         newH = newH.copyWith(id: mapOldTel[newH.telHash]!.id);

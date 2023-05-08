@@ -13,7 +13,10 @@ class ArticleRetail extends ArticleAbstract implements PriceAndCostAbstract {
   final int cost;
   int get codeShortcut => articleCode ?? id;
   DateTime? statusUpdateDate;
-  String? codeEAN;
+  String? barcodeEAN;
+
+  // ? update in models_base ?
+  double get unitsPerPiece => weight;
   ArticleRetail(
       { //this.shopUuid,
       required this.price,
@@ -28,7 +31,7 @@ class ArticleRetail extends ArticleAbstract implements PriceAndCostAbstract {
       required DateTime? creationDate,
       required DateTime? updateDate,
       this.statusUpdateDate,
-      this.codeEAN = '',
+      this.barcodeEAN = '',
       @observable bool status = true})
       : super(
           lineId: lineId,
@@ -53,7 +56,7 @@ class ArticleRetail extends ArticleAbstract implements PriceAndCostAbstract {
     weight: 1,
     articleCode: 1,
     photo: 'photo',
-    codeEAN: 'photo',
+    barcodeEAN: 'barcodeEAN',
     creationDate: WeebiDates.defaultDate,
     updateDate: WeebiDates.defaultDate,
     statusUpdateDate: WeebiDates.defaultDate,
@@ -76,7 +79,7 @@ ArticleWeebi(
   updateDate: $updateDate,
   statusUpdateDate: $statusUpdateDate,
   status: $status,
-  codeEAN: $codeEAN,
+  barcodeEAN: $barcodeEAN,
 )
 """;
   }
@@ -87,7 +90,7 @@ ArticleWeebi(
       // 'shopUuid': shopUuid,
       'lineId': lineId,
       'id': id,
-      'codeEAN': codeEAN,
+      'barcodeEAN': barcodeEAN,
       'fullName': fullName,
       'price': price,
       'cost': cost,
@@ -115,7 +118,7 @@ ArticleWeebi(
       cost: map['cost'] as int,
       weight: map['weight'] == null ? 1.0 : (map['weight'] as num).toDouble(),
       articleCode: map['articleCode'] ?? 0,
-      codeEAN: map['codeEAN'] as String,
+      barcodeEAN: map['barcodeEAN'] as String,
       photo: map['photo'] ?? '',
       creationDate: map['creationDate'] == null
           ? WeebiDates.defaultDate
@@ -147,7 +150,7 @@ ArticleWeebi(
     double? weight,
     int? articleCode,
     String? photo,
-    String? codeEAN,
+    String? barcodeEAN,
     DateTime? creationDate,
     DateTime? updateDate,
     DateTime? statusUpdateDate,
@@ -162,7 +165,7 @@ ArticleWeebi(
       cost: cost ?? this.cost,
       weight: weight ?? this.weight,
       articleCode: articleCode ?? this.articleCode,
-      codeEAN: codeEAN ?? this.codeEAN,
+      barcodeEAN: barcodeEAN ?? this.barcodeEAN,
       photo: photo ?? this.photo,
       creationDate: creationDate ?? this.creationDate,
       updateDate: updateDate ?? this.updateDate,
@@ -182,7 +185,7 @@ ArticleWeebi(
         other.fullName == fullName &&
         other.id == id &&
         other.lineId == lineId &&
-        other.codeEAN == codeEAN &&
+        other.barcodeEAN == barcodeEAN &&
         other.photo == photo &&
         other.creationDate == creationDate &&
         other.updateDate == updateDate;

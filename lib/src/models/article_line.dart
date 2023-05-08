@@ -22,8 +22,9 @@ class ArticleLine<A extends ArticleAbstract> extends ArticleLineAbstract<A> {
   // finally easier to add this boolean rather than handle another set of Article class and to cast everywhere
   // * will create another class ArticleRaw or NoTag or NoPriceNoCost
   // to remove this field and deduce base on type
-  final bool? isBasket;
+  bool? isBasket;
   bool get isSingleArticle => articles.length <= 1;
+  String get nameLine => title;
   int get titleHash => title.withoutAccents.toLowerCase().trim().hashCode;
   @override
   String get photo => articles.isEmpty ? '' : articles.first.photo ?? '';
@@ -32,7 +33,7 @@ class ArticleLine<A extends ArticleAbstract> extends ArticleLineAbstract<A> {
     // required this.shopUuid,
     this.isPalpable =
         true, // ? doesn't this only mean quickspending ? with negative ids
-    this.isBasket = false,
+
     required List<A> articles,
     List<String>? categories,
     required String title,
@@ -41,7 +42,8 @@ class ArticleLine<A extends ArticleAbstract> extends ArticleLineAbstract<A> {
     DateTime? statusUpdateDate,
     required DateTime? creationDate,
     required DateTime? updateDate,
-  }) : super(
+  })  : isBasket = articles.first is ArticleBasket,
+        super(
           id: id,
           categories: categories,
           title: title,
@@ -65,15 +67,15 @@ class ArticleLine<A extends ArticleAbstract> extends ArticleLineAbstract<A> {
   }
 
   static final dummy = ArticleLine<ArticleRetail>(
-      // shopUuid: 'shopUuid',
-      id: 1,
-      articles: [ArticleRetail.dummy],
-      title: 'dummy',
-      status: true,
-      creationDate: WeebiDates.defaultDate,
-      updateDate: WeebiDates.defaultDate,
-      isPalpable: true,
-      isBasket: false);
+    // shopUuid: 'shopUuid',
+    id: 1,
+    articles: [ArticleRetail.dummy],
+    title: 'dummy',
+    status: true,
+    creationDate: WeebiDates.defaultDate,
+    updateDate: WeebiDates.defaultDate,
+    isPalpable: true,
+  );
 
   static final dummyBasket = ArticleLine<ArticleBasket>(
       id: 2,
@@ -112,29 +114,73 @@ class ArticleLine<A extends ArticleAbstract> extends ArticleLineAbstract<A> {
     };
   }
 
-  ArticleLine<ArticleRetail> fromMapArticleWeebi(Map<String, dynamic> map) {
-    if ((map['isBasket'] ?? false) == false) {
-      return ArticleLine.fromMap(map);
-    } else {
+  static ArticleLine<ArticleRetail> fromMapArticleRetail(
+      Map<String, dynamic> map) {
+    if ((map['isBasket'] ?? false).toString() == "true") {
       throw 'this is a basket';
+    } else {
+      return ArticleLine<ArticleRetail>(
+        id: map['id'],
+        title: map['title'],
+        isPalpable: map['isPalpable'] ?? true,
+        stockUnit: StockUnit.tryParse(map['stockUnit'] ?? ''),
+        creationDate: map['creationDate'] == null
+            ? WeebiDates.defaultDate
+            : DateTime.parse(map['creationDate']),
+        updateDate: map['updateDate'] == null
+            ? WeebiDates.defaultDate
+            : DateTime.parse(map['updateDate']),
+        status: map['status'],
+        statusUpdateDate: map['statusUpdateDate'] == null
+            ? WeebiDates.defaultDate
+            : DateTime.parse(map['statusUpdateDate']),
+        articles: map['articles'] == null || map['articles'] == []
+            ? <ArticleRetail>[]
+            : List<ArticleRetail>.from(
+                map['articles'].map((x) => ArticleRetail.fromMap(x))),
+        categories: map["categories"] == null
+            ? []
+            : List<String>.from(map["categories"].map((x) => x)),
+      );
     }
   }
 
-  ArticleLine<ArticleBasket> fromMapArticleBasket(Map<String, dynamic> map) {
-    if ((map['isBasket'] ?? false) == false) {
+  static ArticleLine<ArticleBasket> fromMapArticleBasket(
+      Map<String, dynamic> map) {
+    if ((map['isBasket'] ?? false).toString() == 'false') {
       throw 'this is not a basket';
     } else {
-      return ArticleLine.fromMap(map);
+      return ArticleLine<ArticleBasket>(
+        id: map['id'],
+        title: map['title'],
+        isPalpable: map['isPalpable'] ?? true,
+        stockUnit: StockUnit.tryParse(map['stockUnit'] ?? ''),
+        creationDate: map['creationDate'] == null
+            ? WeebiDates.defaultDate
+            : DateTime.parse(map['creationDate']),
+        updateDate: map['updateDate'] == null
+            ? WeebiDates.defaultDate
+            : DateTime.parse(map['updateDate']),
+        status: map['status'],
+        statusUpdateDate: map['statusUpdateDate'] == null
+            ? WeebiDates.defaultDate
+            : DateTime.parse(map['statusUpdateDate']),
+        articles: map['articles'] == null || map['articles'] == []
+            ? <ArticleBasket>[]
+            : List<ArticleBasket>.from(
+                map['articles'].map((x) => ArticleBasket.fromMap(x))),
+        categories: map["categories"] == null
+            ? []
+            : List<String>.from(map["categories"].map((x) => x)),
+      );
     }
   }
 
   factory ArticleLine.fromMap(Map<String, dynamic> map) {
     return ArticleLine<A>(
-      // shopUuid: map['shopUuid'] ?? '',
       id: map['id'],
       title: map['title'],
       isPalpable: map['isPalpable'] ?? true,
-      isBasket: map['isBasket'] ?? false,
       stockUnit: StockUnit.tryParse(map['stockUnit'] ?? ''),
       creationDate: map['creationDate'] == null
           ? WeebiDates.defaultDate
@@ -142,8 +188,7 @@ class ArticleLine<A extends ArticleAbstract> extends ArticleLineAbstract<A> {
       updateDate: map['updateDate'] == null
           ? WeebiDates.defaultDate
           : DateTime.parse(map['updateDate']),
-      status: map[
-          'status'], // TODO consider removing since article has its own status
+      status: map['status'],
       statusUpdateDate: map['statusUpdateDate'] == null
           ? WeebiDates.defaultDate
           : DateTime.parse(map['statusUpdateDate']),
@@ -186,7 +231,6 @@ class ArticleLine<A extends ArticleAbstract> extends ArticleLineAbstract<A> {
     return ArticleLine<A>(
       // shopUuid: shopUuid ?? this.shopUuid,
       id: id ?? this.id,
-      isBasket: isBasket ?? this.isBasket,
       isPalpable: isPalpable ?? this.isPalpable,
       title: title ?? this.title,
       stockUnit: stockUnit ?? this.stockUnit,
@@ -206,11 +250,17 @@ class ArticleLine<A extends ArticleAbstract> extends ArticleLineAbstract<A> {
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
-    final listEquals = const DeepCollectionEquality().equals;
-    return other is ArticleLine &&
-        // other.shopUuid == shopUuid &&
-        other.id == id &&
-        other.isPalpable == isPalpable &&
-        listEquals(other.articles, articles);
+    if (isBasket ?? false) {
+      final listEquals = const DeepCollectionEquality().equals;
+      return other is ArticleLine &&
+          other.id == id &&
+          other.isPalpable == isPalpable &&
+          listEquals(other.articles as List<ArticleRetail>, articles);
+    } else {
+      return other is ArticleLine &&
+          other.id == id &&
+          other.isPalpable == isPalpable &&
+          articles.first == articles.first;
+    }
   }
 }

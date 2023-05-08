@@ -60,7 +60,7 @@ class ArticleBasket extends ArticleAbstract {
     return proxiesWorth;
   }
 
-  static get dummy => ArticleBasket(
+  static ArticleBasket get dummy => ArticleBasket(
         lineId: 2,
         id: 1,
         fullName: 'dummy',

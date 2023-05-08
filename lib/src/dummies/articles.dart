@@ -18,8 +18,7 @@ class DummyArticleData {
           lineId: 2,
           id: 1,
           fullName: 'Babibel x1',
-          photo:
-              'https://drive.google.com/uc?export=view&id=1OidtnGPK9iA7cZXX-yDX9YmUyrpb63GK',
+          // photo:'https://drive.google.com/uc?export=view&id=1OidtnGPK9iA7cZXX-yDX9YmUyrpb63GK',
           photoSource: PhotoSource.network,
           weight: 1.0,
           price: 100,
@@ -36,8 +35,7 @@ class DummyArticleData {
           price: 1000,
           cost: 500,
           articleCode: 12,
-          photo:
-              'https://drive.google.com/uc?export=view&id=146yEFbnwNDDyoVCHyOx-_oxxmCsrd8Rv',
+          // photo:'https://drive.google.com/uc?export=view&id=146yEFbnwNDDyoVCHyOx-_oxxmCsrd8Rv',
           photoSource: PhotoSource.network,
           creationDate: WeebiDates.defaultDate,
           updateDate: WeebiDates.defaultDate,
@@ -50,8 +48,7 @@ class DummyArticleData {
           price: 9000,
           cost: 4500,
           articleCode: 13,
-          photo:
-              'https://drive.google.com/uc?export=view&id=1gZH76loV7uc7J_3hNUkudETuyyBQGBXI',
+          // photo:'https://drive.google.com/uc?export=view&id=1gZH76loV7uc7J_3hNUkudETuyyBQGBXI',
           photoSource: PhotoSource.network,
           creationDate: WeebiDates.defaultDate,
           updateDate: WeebiDates.defaultDate,

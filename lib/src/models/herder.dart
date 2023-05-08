@@ -255,7 +255,8 @@ class Herder extends HerderAbstract {
 
   @override
   int get hashCode {
-    return area.hashCode ^
+    return id.hashCode ^
+        area.hashCode ^
         bank.hashCode ^
         identity.hashCode ^
         category.hashCode ^
