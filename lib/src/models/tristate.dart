@@ -1,34 +1,34 @@
-class Tristate {
+class TriState {
   final String _state;
-  const Tristate._(this._state);
+  const TriState._(this._state);
 
   @override
   String toString() => _state;
 
-  static const Tristate unknown = Tristate._('unknown');
-  static const Tristate yes = Tristate._('yes');
-  static const Tristate no = Tristate._('no');
+  static const TriState unknown = TriState._('unknown');
+  static const TriState yes = TriState._('yes');
+  static const TriState no = TriState._('no');
 
-  static Tristate tryParse(String val) {
+  static TriState tryParse(String val) {
     switch (val) {
       case 'unknown':
-        return Tristate.unknown;
+        return TriState.unknown;
       case 'yes':
-        return Tristate.yes;
+        return TriState.yes;
       case 'no':
-        return Tristate.no;
+        return TriState.no;
       default:
         print('$val is not a valid Tristate');
-        return Tristate.unknown;
+        return TriState.unknown;
     }
   }
 
-  static String string(Tristate val) {
-    if (val == Tristate.unknown) {
+  static String string(TriState val) {
+    if (val == TriState.unknown) {
       return 'unknown';
-    } else if (val == Tristate.yes) {
+    } else if (val == TriState.yes) {
       return 'yes';
-    } else if (val == Tristate.no) {
+    } else if (val == TriState.no) {
       return 'no';
     } else {
       return 'unknown';
