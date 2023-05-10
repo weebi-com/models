@@ -6,7 +6,7 @@ extension RealizableBaskets on Iterable<ArticleLine> {
     final articleWrappers = <BasketWrapper>[];
     if (isNotEmpty) {
       for (final lot in aBasket.proxies) {
-        // a lot is a reference to an ArticleWeebi with a minimum qt needed to complete a basket
+        // a lot is a reference to an ArticleRetail with a minimum qt needed to complete a basket
         // below matches lot refence to the ArticleW accordingly and add info
         if (any((line) => line.id == lot.proxyLineId)) {
           final line = firstWhere((line) => line.id == lot.proxyLineId);

@@ -7,7 +7,7 @@ void main() {
   test('article basket with price and cost', () {
     final json = ArticleBasket.dummy.toJson();
     final dummy = ArticleBasket.fromJson(json);
-    // ArticleBasket.dummy == x2 LineArticleWeebi.dummy with price: 100, cost: 80,
+    // ArticleBasket.dummy == x2 LineArticleRetail.dummy with price: 100, cost: 80,
     //ArticleLine.dummyBast has a price of 100);
     //ArticleLine.dummyBast has a cost of 80);
     final proxiesWorth = dummy.getProxiesListWithPriceAndCost(
