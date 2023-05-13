@@ -43,7 +43,7 @@ class ArticleLine<A extends ArticleAbstract> extends ArticleLineAbstract<A> {
     DateTime? statusUpdateDate,
     required DateTime? creationDate,
     required DateTime? updateDate,
-  })  : isBasket = articles.first is ArticleBasket,
+  })  : isBasket = articles.isNotEmpty && articles.first is ArticleBasket,
         super(
           id: id,
           categories: categories,
