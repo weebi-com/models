@@ -5,6 +5,7 @@ import 'package:models_base/base.dart'
     show ArticleAbstract, ArticleLineAbstract;
 import 'package:models_base/common.dart';
 import 'package:models_base/utils.dart';
+import 'package:models_weebi/src/dummies/confitures.dart';
 import 'package:models_weebi/src/extensions/string_no_accents.dart';
 import 'package:models_weebi/src/models/article_basket.dart';
 import 'package:models_weebi/src/models/article_retail.dart';
@@ -245,7 +246,7 @@ class ArticleLine<A extends ArticleAbstract> extends ArticleLineAbstract<A> {
   }
 
   @override
-  int get hashCode => id.hashCode ^ isPalpable.hashCode;
+  int get hashCode => id.hashCode ^ isPalpable.hashCode ^ creationDate.hashCode;
 
   @override
   bool operator ==(Object other) {
@@ -263,4 +264,6 @@ class ArticleLine<A extends ArticleAbstract> extends ArticleLineAbstract<A> {
           articles.first == articles.first;
     }
   }
+
+  static final jams = ArticleLinesDummyJamsBM.jams;
 }

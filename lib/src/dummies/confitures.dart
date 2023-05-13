@@ -3,7 +3,7 @@ import 'package:models_weebi/src/models/article_retail.dart';
 import 'package:models_weebi/src/models/article_line.dart';
 import 'package:models_weebi/utils.dart';
 
-class JamfBM {
+abstract class ArticleLinesDummyJamsBM {
   static final jams = [
     ArticleLine(
       id: 1,

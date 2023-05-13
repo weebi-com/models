@@ -97,6 +97,7 @@ ArticleWeebi(
       'weight': weight,
       'articleCode': articleCode ?? 0,
       'photo': photo ?? '',
+      'photoSource': photoSource.toString(),
       'creationDate': creationDate?.toIso8601String() ??
           WeebiDates.defaultDate.toIso8601String(),
       'updateDate': updateDate?.toIso8601String() ??
@@ -120,6 +121,7 @@ ArticleWeebi(
       articleCode: map['articleCode'] ?? 0,
       barcodeEAN: map['barcodeEAN'] as String,
       photo: map['photo'] ?? '',
+      photoSource: PhotoSource.tryParse(map['photoSource'] as String),
       creationDate: map['creationDate'] == null
           ? WeebiDates.defaultDate
           : DateTime.parse(map['creationDate']),
@@ -150,6 +152,7 @@ ArticleWeebi(
     double? weight,
     int? articleCode,
     String? photo,
+    PhotoSource? photoSource,
     String? barcodeEAN,
     DateTime? creationDate,
     DateTime? updateDate,
@@ -167,6 +170,7 @@ ArticleWeebi(
       articleCode: articleCode ?? this.articleCode,
       barcodeEAN: barcodeEAN ?? this.barcodeEAN,
       photo: photo ?? this.photo,
+      photoSource: photoSource ?? this.photoSource,
       creationDate: creationDate ?? this.creationDate,
       updateDate: updateDate ?? this.updateDate,
       statusUpdateDate: statusUpdateDate ?? this.statusUpdateDate,
@@ -192,5 +196,5 @@ ArticleWeebi(
   }
 
   @override
-  int get hashCode => id.hashCode ^ lineId.hashCode ^ id.hashCode;
+  int get hashCode => id.hashCode ^ lineId.hashCode ^ creationDate.hashCode;
 }

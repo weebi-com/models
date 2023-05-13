@@ -3,7 +3,7 @@ library extensions;
 export 'src/extensions/map.dart';
 export 'src/extensions/next_id.dart';
 export 'src/extensions/sembast_store_extension.dart';
-export 'src/extensions/tickets.dart';
+export 'src/extensions/tickets_timeframe.dart';
 
 export 'src/extensions/article_lines_baskets.dart';
 export 'src/extensions/article_lines_find_dups.dart';
@@ -22,3 +22,4 @@ export 'src/extensions/timeframe.dart';
 export 'src/extensions/tickets_iterable_fin_stats.dart';
 export 'src/extensions/tickets_iterable_fin_stats_list.dart';
 export 'src/extensions/tickets_iterable_stock_stats.dart';
+export 'src/extensions/tickets.dart';
