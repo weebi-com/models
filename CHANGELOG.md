@@ -1,3 +1,7 @@
+## 1.0.13
+
+- cleaner articles
+
 ## 1.0.12
 
 - gender instead of isWoman
