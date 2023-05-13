@@ -64,7 +64,7 @@ class ClosingStockProduct extends ArticleLineAbstract<ClosingStockArticle>
 
   factory ClosingStockProduct.fromMap(Map<String, dynamic> map) =>
       ClosingStockProduct(
-        DateTime?.tryParse(map['closingDate']) ?? WeebiDates.defaultDate,
+        DateTime.tryParse(map['closingDate']) ?? WeebiDates.defaultDate,
         id: map['id'] as int,
         title: map['title'] as String,
         articles: map['articles'] == null

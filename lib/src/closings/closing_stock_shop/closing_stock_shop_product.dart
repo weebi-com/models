@@ -29,7 +29,7 @@ class ClosingStockShopProduct extends ClosingStockProduct
 
   factory ClosingStockShopProduct.fromMap(Map<String, dynamic> map) {
     return ClosingStockShopProduct(
-      DateTime?.tryParse(map['closingDate']) ?? WeebiDates.defaultDate,
+      DateTime.tryParse(map['closingDate']) ?? WeebiDates.defaultDate,
       shopUuid: map['shopUuid'],
       id: map['id'],
       title: map['title'],
