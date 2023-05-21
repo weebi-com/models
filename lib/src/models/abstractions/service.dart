@@ -20,32 +20,32 @@ abstract class ServiceAbstract {
 }
 
 abstract class ServiceArticleAbstract extends ServiceAbstract {
-  final Object getLinesRpc;
-  final Object addAllLinesRpc;
+  final Object getCalibresRpc;
+  final Object addAllCalibresRpc;
   final Object updateLineRpc;
   final Object deleteForeverLineRpc;
   final Object updateArticleRpc;
   final Object createLineArticleRpc;
   final Object createArticleRpc;
   final Object deleteForeverArticleRpc;
-  final Object deleteAllLinesRpc;
+  final Object deleteAllCalibresRpc;
 
   ServiceArticleAbstract({
-    required this.getLinesRpc,
-    required this.addAllLinesRpc,
+    required this.getCalibresRpc,
+    required this.addAllCalibresRpc,
     required this.updateLineRpc,
     required this.deleteForeverLineRpc,
     required this.updateArticleRpc,
     required this.createLineArticleRpc,
     required this.createArticleRpc,
     required this.deleteForeverArticleRpc,
-    required this.deleteAllLinesRpc,
+    required this.deleteAllCalibresRpc,
   }) : super(
             addRpc: createLineArticleRpc,
-            addAllRpc: addAllLinesRpc,
-            getAllRpc: getLinesRpc,
+            addAllRpc: addAllCalibresRpc,
+            getAllRpc: getCalibresRpc,
             deleteRpc: deleteForeverLineRpc,
-            deleteAllRpc: deleteAllLinesRpc);
+            deleteAllRpc: deleteAllCalibresRpc);
 }
 
 abstract class ServiceTicketAbstract {

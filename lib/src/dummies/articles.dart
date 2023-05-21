@@ -5,7 +5,7 @@ import 'package:models_weebi/weebi_models.dart';
 
 class DummyArticleData {
   static final babibel = [
-    ArticleLine(
+    ArticleCalibre(
       id: 2,
       title: 'Babibel',
       stockUnit: StockUnit.unit,
@@ -15,7 +15,7 @@ class DummyArticleData {
       updateDate: WeebiDates.defaultDate,
       articles: [
         ArticleRetail(
-          lineId: 2,
+          calibreId: 2,
           id: 1,
           fullName: 'Babibel x1',
           // photo:'https://drive.google.com/uc?export=view&id=1OidtnGPK9iA7cZXX-yDX9YmUyrpb63GK',
@@ -28,7 +28,7 @@ class DummyArticleData {
           updateDate: WeebiDates.defaultDate,
         ),
         ArticleRetail(
-          lineId: 2,
+          calibreId: 2,
           id: 2,
           fullName: 'Babibel x12',
           weight: 12.0,
@@ -41,7 +41,7 @@ class DummyArticleData {
           updateDate: WeebiDates.defaultDate,
         ),
         ArticleRetail(
-          lineId: 2,
+          calibreId: 2,
           id: 3,
           fullName: 'Babibel sac x28',
           weight: 28.0,
@@ -58,7 +58,7 @@ class DummyArticleData {
   ];
 
   static final cola = [
-    ArticleLine(
+    ArticleCalibre(
       id: 1,
       title: 'Noix de cola',
       categories: [''],
@@ -69,7 +69,7 @@ class DummyArticleData {
       updateDate: WeebiDates.defaultDate,
       articles: [
         ArticleRetail(
-          lineId: 1,
+          calibreId: 1,
           id: 1,
           fullName: 'Noix de cola x1',
           weight: 1.0,
@@ -82,7 +82,7 @@ class DummyArticleData {
           updateDate: WeebiDates.defaultDate,
         ),
         ArticleRetail(
-          lineId: 1,
+          calibreId: 1,
           id: 2,
           fullName: 'Noix de cola x6',
           weight: 6.0,
@@ -95,7 +95,7 @@ class DummyArticleData {
           updateDate: WeebiDates.defaultDate,
         ),
         ArticleRetail(
-          lineId: 1,
+          calibreId: 1,
           id: 3,
           fullName: 'Noix de cola sac x100',
           weight: 100.0,

@@ -1,6 +1,6 @@
 import 'package:models_base/common.dart' show StockUnit;
 import 'package:models_weebi/weebi_models.dart'
-    show Herder, ArticleLine, ArticleRetail;
+    show Herder, ArticleCalibre, ArticleRetail;
 
 extension ImportData on List<List<dynamic>> {
   List<Herder> extractHerdersFromParsedExcel(
@@ -32,9 +32,9 @@ extension ImportData on List<List<dynamic>> {
     return herdersList;
   }
 
-  List<ArticleLine<ArticleRetail>> extractArticlesLinesFromParsedExcel(
+  List<ArticleCalibre<ArticleRetail>> extractArticlesCalibresFromParsedExcel(
       int nextLineId, String shopUuid) {
-    final linesList = <ArticleLine<ArticleRetail>>[];
+    final linesList = <ArticleCalibre<ArticleRetail>>[];
     var nextId = nextLineId; // just in case..
     for (var i = 0; i < length; i++) {
       final now = DateTime.now();
@@ -42,7 +42,7 @@ extension ImportData on List<List<dynamic>> {
       final newArticle = ArticleRetail(
         creationDate: now,
         updateDate: now,
-        lineId: nextId,
+        calibreId: nextId,
         id: 1,
         fullName: table[0] != null ? table[0].toString().trim() : '',
         price: table[1] != null
@@ -63,7 +63,7 @@ extension ImportData on List<List<dynamic>> {
             : 0,
         photo: '',
       );
-      final newLine = ArticleLine<ArticleRetail>(
+      final newLine = ArticleCalibre<ArticleRetail>(
         creationDate: now,
         updateDate: now,
         id: nextId,
@@ -81,9 +81,9 @@ extension ImportData on List<List<dynamic>> {
   }
 
   //TODO factorize in one function with a boolean isUpdate
-  List<ArticleLine<ArticleRetail>>
-      extractLinesOfArticlesForUpdateFromParsedExcel(String shopUuid) {
-    final linesList = <ArticleLine<ArticleRetail>>[];
+  List<ArticleCalibre<ArticleRetail>>
+      extractCalibresOfArticlesForUpdateFromParsedExcel(String shopUuid) {
+    final linesList = <ArticleCalibre<ArticleRetail>>[];
     for (var i = 0; i < length; i++) // avoid header
     {
       final now = DateTime.now();
@@ -91,7 +91,7 @@ extension ImportData on List<List<dynamic>> {
       final newArticle = ArticleRetail(
         creationDate: now, // will be updated after if match
         updateDate: now,
-        lineId: 0, // will be updated after if match
+        calibreId: 0, // will be updated after if match
         id: 1,
         fullName: table[0] != null ? '${table[0]}' : '',
         price: table[1] != null
@@ -112,7 +112,7 @@ extension ImportData on List<List<dynamic>> {
             : 0,
         photo: '',
       );
-      final newLine = ArticleLine<ArticleRetail>(
+      final newLine = ArticleCalibre<ArticleRetail>(
         creationDate: now,
         updateDate: now,
         id: 0,

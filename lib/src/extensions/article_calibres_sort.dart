@@ -1,7 +1,8 @@
 import 'package:mobx/mobx.dart';
 import 'package:models_weebi/base.dart';
 
-extension LinesSorted<P extends ArticleLineAbstract> on ObservableList<P> {
+extension CalibresSorted<P extends ArticleCalibreAbstract>
+    on ObservableList<P> {
   ObservableList<P> sortedByTitle() {
     return ObservableList.of(
       this..sort((a, b) => a.title.compareTo(b.title)),

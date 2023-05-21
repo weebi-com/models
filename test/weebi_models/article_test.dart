@@ -8,7 +8,7 @@ void main() {
     final dummy = ArticleRetail.fromJson(json);
 
     expect(dummy.id == ArticleRetail.dummy.id, isTrue);
-    expect(dummy.lineId == ArticleRetail.dummy.lineId, isTrue);
+    expect(dummy.calibreId == ArticleRetail.dummy.calibreId, isTrue);
     expect(dummy.fullName == ArticleRetail.dummy.fullName, isTrue);
     expect(dummy.price == ArticleRetail.dummy.price, isTrue);
     expect(dummy.cost == ArticleRetail.dummy.cost, isTrue);

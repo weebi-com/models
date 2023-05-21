@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:models_base/base.dart' show ArticleProxyAbstract;
 import 'package:models_weebi/src/models/article_retail.dart';
-import 'package:models_weebi/src/models/article_line.dart';
+import 'package:models_weebi/src/models/article_calibre.dart';
 import 'package:models_weebi/src/models/proxy_article_worth.dart';
 
 //  *not used anywhere creating complexity + not working, stick to one extension only to get worth
@@ -49,7 +49,8 @@ import 'package:models_weebi/src/models/proxy_article_worth.dart';
 // }
 
 mixin GimmeTheLoot on ArticleProxyAbstract {
-  ProxyArticleWorth getProxyArticleWorth(Iterable<ArticleLine> linesInStore) {
+  ProxyArticleWorth getProxyArticleWorth(
+      Iterable<ArticleCalibre> linesInStore) {
     return ProxyArticleWorth.getPriceAndCost(
         linesInStore, this as ProxyArticle);
   }
@@ -61,49 +62,49 @@ class ProxyArticle extends ArticleProxyAbstract with GimmeTheLoot {
   final double articleWeight; // putting it here before inserting it into base
 
   ProxyArticle({
-    required int lineId,
+    required int calibreId,
     required int articleId,
     required int id,
-    required int proxyLineId,
+    required int proxyCalibreId,
     required int proxyArticleId,
     required this.minimumUnitPerBasket,
     required this.articleWeight,
     bool status = true,
   }) : super(
-          lineId: lineId,
+          calibreId: calibreId,
           articleId: articleId,
           id: id,
-          proxyLineId: proxyLineId,
+          proxyCalibreId: proxyCalibreId,
           proxyArticleId: proxyArticleId,
           status: status,
         );
 
   static final dummy = ProxyArticle(
-    lineId: 2,
+    calibreId: 2,
     articleId: 1,
     id: 1,
-    proxyLineId: 1,
+    proxyCalibreId: 1,
     proxyArticleId: 1,
     articleWeight: 1.0,
     minimumUnitPerBasket: 1.0,
   );
 
   ProxyArticle copyWith({
-    int? lineId,
+    int? calibreId,
     int? articleId,
     int? id,
-    int? proxyLineId,
+    int? proxyCalibreId,
     int? proxyArticleId,
     bool? status,
     double? minimumUnitPerBasket,
     double? articleWeight,
   }) {
     return ProxyArticle(
-      lineId: lineId ?? this.lineId,
+      calibreId: calibreId ?? this.calibreId,
       articleId: articleId ?? this.articleId,
       id: id ?? this.id,
       proxyArticleId: proxyArticleId ?? this.proxyArticleId,
-      proxyLineId: proxyLineId ?? this.proxyLineId,
+      proxyCalibreId: proxyCalibreId ?? this.proxyCalibreId,
       status: status ?? this.status,
       minimumUnitPerBasket: minimumUnitPerBasket ?? this.minimumUnitPerBasket,
       articleWeight: articleWeight ?? this.articleWeight,
@@ -113,10 +114,10 @@ class ProxyArticle extends ArticleProxyAbstract with GimmeTheLoot {
   @override
   Map<String, dynamic> toMap() {
     return {
-      'lineId': lineId,
+      'calibreId': calibreId,
       'articleId': articleId,
       'id': id,
-      'proxyLineId': proxyLineId,
+      'proxyCalibreId': proxyCalibreId,
       'proxyArticleId': proxyArticleId,
       'status': status,
       'minimumUnitPerBasket': minimumUnitPerBasket,
@@ -126,12 +127,18 @@ class ProxyArticle extends ArticleProxyAbstract with GimmeTheLoot {
 
   factory ProxyArticle.fromMap(Map<String, dynamic> map) {
     return ProxyArticle(
-      lineId: map['lineId'] == null
-          ? map['productId'] as int
-          : map['lineId'] as int,
+      calibreId: map['calibreId'] != null
+          ? map['calibreId'] as int
+          : map['lineId'] != null
+              ? map['lineId'] as int
+              : map['productId'] as int,
       articleId: map['articleId'] as int,
       id: map['id'],
-      proxyLineId: map['proxyLineId'],
+      proxyCalibreId: map['proxyCalibreId'] != null
+          ? map['proxyCalibreId'] as int
+          : map['proxyLineId'] != null
+              ? map['proxyLineId'] as int
+              : 0,
       proxyArticleId: map['proxyArticleId'],
       status: map['status'] ?? true,
       minimumUnitPerBasket: map['minimumUnitPerBasket'] == null
@@ -154,10 +161,10 @@ class ProxyArticle extends ArticleProxyAbstract with GimmeTheLoot {
     if (identical(this, other)) return true;
 
     return other is ProxyArticle &&
-        other.lineId == lineId &&
+        other.calibreId == calibreId &&
         other.articleId == articleId &&
         other.id == id &&
-        other.proxyLineId == proxyLineId &&
+        other.proxyCalibreId == proxyCalibreId &&
         other.proxyArticleId == proxyArticleId &&
         other.articleWeight == articleWeight &&
         minimumUnitPerBasket == minimumUnitPerBasket;
@@ -166,20 +173,21 @@ class ProxyArticle extends ArticleProxyAbstract with GimmeTheLoot {
   @override
   @override
   int get hashCode =>
-      lineId.hashCode ^
+      calibreId.hashCode ^
       articleId.hashCode ^
       id.hashCode ^
       minimumUnitPerBasket.hashCode ^
-      proxyLineId.hashCode ^
+      proxyCalibreId.hashCode ^
       articleWeight.hashCode ^
       proxyArticleId.hashCode;
 
-  int getPrice(Iterable<ArticleLine> linesInStore) {
+  int getPrice(Iterable<ArticleCalibre> linesInStore) {
     if (linesInStore.isNotEmpty) {
       for (final line in linesInStore) {
-        if (line.isBasket == false && line.id == proxyLineId) {
+        if (line.isBasket == false && line.id == proxyCalibreId) {
           for (final article in line.articles) {
-            if (article.lineId == proxyLineId && article.id == proxyArticleId) {
+            if (article.calibreId == proxyCalibreId &&
+                article.id == proxyArticleId) {
               return (article as ArticleRetail).price;
             }
           }
@@ -189,12 +197,13 @@ class ProxyArticle extends ArticleProxyAbstract with GimmeTheLoot {
     return 0;
   }
 
-  int getCost(Iterable<ArticleLine> linesInStore) {
+  int getCost(Iterable<ArticleCalibre> linesInStore) {
     if (linesInStore.isNotEmpty) {
       for (final line in linesInStore) {
-        if (line.isBasket == false && line.id == proxyLineId) {
+        if (line.isBasket == false && line.id == proxyCalibreId) {
           for (final article in line.articles) {
-            if (article.lineId == proxyLineId && article.id == proxyArticleId) {
+            if (article.calibreId == proxyCalibreId &&
+                article.id == proxyArticleId) {
               return (article as ArticleRetail).cost;
             }
           }

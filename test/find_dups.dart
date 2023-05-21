@@ -1,15 +1,16 @@
-import 'package:models_weebi/src/models/article_line.dart';
+import 'package:models_weebi/src/models/article_calibre.dart';
 import 'package:models_weebi/src/models/herder.dart';
 import 'package:test/test.dart';
 import 'package:models_weebi/extensions.dart';
 
 void main() {
   group('find dups', () {
-    test('in ArticleLine', () {
-      final dummy = ArticleLine.dummy;
+    test('in ArticleCalibre', () {
+      final dummy = ArticleCalibre.dummyRetail;
       final oldList = [dummy];
-      final newDummyPureDup = ArticleLine.dummy;
-      final newDummyDiff = ArticleLine.dummy.copyWith(title: 'ptit avocat');
+      final newDummyPureDup = ArticleCalibre.dummyRetail;
+      final newDummyDiff =
+          ArticleCalibre.dummyRetail.copyWith(title: 'ptit avocat');
       final newList = [newDummyPureDup, newDummyDiff];
 
       final twoLists = oldList.findDupsByTitle(newList: newList);

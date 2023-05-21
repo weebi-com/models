@@ -1,5 +1,5 @@
 import 'package:models_weebi/common.dart';
-import 'package:models_weebi/src/models/article_line.dart';
+import 'package:models_weebi/src/models/article_calibre.dart';
 import 'package:models_weebi/src/models/ticket_weebi_abstract.dart';
 import 'package:models_weebi/utils.dart';
 
@@ -31,7 +31,7 @@ mixin TicketPrinter on TicketWeebiAbstract {
     return sb.toString();
   }
 
-  String getSharableTextLight(Iterable<ArticleLine> lines) {
+  String getSharableTextLight(Iterable<ArticleCalibre> lines) {
     final products = StringBuffer();
     for (var item in items) {
       products.write(
@@ -51,8 +51,8 @@ mixin TicketPrinter on TicketWeebiAbstract {
     return sb.toString();
   }
 
-  // ToRuminate - consider splitting this to avoid passing lines if no basket
-  String getSharableText(Iterable<ArticleLine> lines) {
+  // ToRuminate - consider splitting this to avoid passing calibres if no basket
+  String getSharableText(Iterable<ArticleCalibre> lines) {
     final products = StringBuffer();
     for (final item in items) {
       products.write(

@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:mobx/mobx.dart';
 import 'package:models_base/base.dart'
-    show ArticleAbstract, ArticleLineAbstract;
+    show ArticleAbstract, ArticleCalibreAbstract;
 import 'package:models_base/common.dart';
 import 'package:models_base/utils.dart';
 import 'package:models_weebi/src/dummies/confitures.dart';
@@ -13,7 +13,8 @@ import 'package:collection/collection.dart';
 
 // if (isBasket){ articles.length ==1 } !
 
-class ArticleLine<A extends ArticleAbstract> extends ArticleLineAbstract<A> {
+class ArticleCalibre<A extends ArticleAbstract>
+    extends ArticleCalibreAbstract<A> {
   // final String? shopUuid;
   // String? get shopId => shopUuid;
 
@@ -23,18 +24,18 @@ class ArticleLine<A extends ArticleAbstract> extends ArticleLineAbstract<A> {
   // finally easier to add this boolean rather than handle another set of Article class and to cast everywhere
   // * will create another class ArticleRaw or NoTag or NoPriceNoCost
   // to remove this field and deduce base on type
-  bool? isBasket;
+  bool isBasket;
   bool get isSingleArticle => articles.length <= 1;
+  bool get isNotQuickSpend => (isPalpable ?? true);
   String get nameLine => title;
   int get titleHash => title.withoutAccents.toLowerCase().trim().hashCode;
   @override
-  String get photo => articles.isEmpty ? '' : articles.first.photo ?? '';
-  ArticleLine({
+  String get photo => articles.isEmpty ? '' : articles.first.photo;
+  ArticleCalibre({
     required int id,
     // required this.shopUuid,
     this.isPalpable =
-        true, // ? doesn't this only mean quickspending ? with negative ids
-
+        true, // ? today this only mean quickspending i.e. with negative ids
     required List<A> articles,
     List<String>? categories,
     required String title,
@@ -67,7 +68,7 @@ class ArticleLine<A extends ArticleAbstract> extends ArticleLineAbstract<A> {
     return sb.toString();
   }
 
-  static final dummy = ArticleLine<ArticleRetail>(
+  static final dummyRetail = ArticleCalibre<ArticleRetail>(
     // shopUuid: 'shopUuid',
     id: 1,
     articles: [ArticleRetail.dummy],
@@ -78,7 +79,7 @@ class ArticleLine<A extends ArticleAbstract> extends ArticleLineAbstract<A> {
     isPalpable: true,
   );
 
-  static final dummyBasket = ArticleLine<ArticleBasket>(
+  static final dummyBasket = ArticleCalibre<ArticleBasket>(
       id: 2,
       categories: null,
       title: 'truc bis',
@@ -97,7 +98,7 @@ class ArticleLine<A extends ArticleAbstract> extends ArticleLineAbstract<A> {
       // 'shopUuid': shopUuid,
       'id': id,
       'isPalpable': isPalpable ?? true,
-      'isBasket': isBasket ?? false,
+      'isBasket': isBasket,
       'title': title,
       'stockUnit': stockUnit.toString(),
       'photo': photo,
@@ -115,12 +116,12 @@ class ArticleLine<A extends ArticleAbstract> extends ArticleLineAbstract<A> {
     };
   }
 
-  static ArticleLine<ArticleRetail> fromMapArticleRetail(
+  static ArticleCalibre<ArticleRetail> fromMapArticleRetail(
       Map<String, dynamic> map) {
     if ((map['isBasket'] ?? false).toString() == "true") {
       throw 'this is a basket';
     } else {
-      return ArticleLine<ArticleRetail>(
+      return ArticleCalibre<ArticleRetail>(
         id: map['id'],
         title: map['title'],
         isPalpable: map['isPalpable'] ?? true,
@@ -146,12 +147,12 @@ class ArticleLine<A extends ArticleAbstract> extends ArticleLineAbstract<A> {
     }
   }
 
-  static ArticleLine<ArticleBasket> fromMapArticleBasket(
+  static ArticleCalibre<ArticleBasket> fromMapArticleBasket(
       Map<String, dynamic> map) {
     if ((map['isBasket'] ?? false).toString() == 'false') {
       throw 'this is not a basket';
     } else {
-      return ArticleLine<ArticleBasket>(
+      return ArticleCalibre<ArticleBasket>(
         id: map['id'],
         title: map['title'],
         isPalpable: map['isPalpable'] ?? true,
@@ -177,8 +178,11 @@ class ArticleLine<A extends ArticleAbstract> extends ArticleLineAbstract<A> {
     }
   }
 
-  factory ArticleLine.fromMap(Map<String, dynamic> map) {
-    return ArticleLine<A>(
+  factory ArticleCalibre.fromJson(String source) =>
+      ArticleCalibre.fromMap(json.decode(source));
+
+  factory ArticleCalibre.fromMap(Map<String, dynamic> map) {
+    return ArticleCalibre<A>(
       id: map['id'],
       title: map['title'],
       isPalpable: map['isPalpable'] ?? true,
@@ -196,7 +200,8 @@ class ArticleLine<A extends ArticleAbstract> extends ArticleLineAbstract<A> {
       articles: map['articles'] == null || map['articles'] == []
           ? []
           : List<A>.from(map['articles'].map((x) {
-              if (x['proxies'] == null) {
+              if (x['discountAmountSalesOnly'] == null ||
+                  x['proxies'] == null) {
                 return ArticleRetail.fromMap(x);
               } else {
                 return ArticleBasket.fromMap(x);
@@ -211,10 +216,7 @@ class ArticleLine<A extends ArticleAbstract> extends ArticleLineAbstract<A> {
   @override
   String toJson() => json.encode(toMap());
 
-  factory ArticleLine.fromJson(String source) =>
-      ArticleLine.fromMap(json.decode(source));
-
-  ArticleLine<A> copyWith({
+  ArticleCalibre<A> copyWith({
     String? shopUuid,
     int? id,
     String? title,
@@ -229,7 +231,7 @@ class ArticleLine<A extends ArticleAbstract> extends ArticleLineAbstract<A> {
     DateTime? updateDate,
     List<String>? categories,
   }) {
-    return ArticleLine<A>(
+    return ArticleCalibre<A>(
       // shopUuid: shopUuid ?? this.shopUuid,
       id: id ?? this.id,
       isPalpable: isPalpable ?? this.isPalpable,
@@ -251,19 +253,19 @@ class ArticleLine<A extends ArticleAbstract> extends ArticleLineAbstract<A> {
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
-    if (isBasket ?? false) {
+    if (isBasket) {
       final listEquals = const DeepCollectionEquality().equals;
-      return other is ArticleLine &&
+      return other is ArticleCalibre &&
           other.id == id &&
           other.isPalpable == isPalpable &&
           listEquals(other.articles as List<ArticleRetail>, articles);
     } else {
-      return other is ArticleLine &&
+      return other is ArticleCalibre &&
           other.id == id &&
           other.isPalpable == isPalpable &&
           articles.first == articles.first;
     }
   }
 
-  static final jams = ArticleLinesDummyJamsBM.jams;
+  static final jams = ArticleCalibresDummyJamsBM.jams;
 }

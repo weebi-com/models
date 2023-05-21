@@ -2,13 +2,12 @@ library extensions;
 
 export 'src/extensions/map.dart';
 export 'src/extensions/next_id.dart';
-export 'src/extensions/sembast_store_extension.dart';
 export 'src/extensions/tickets_timeframe.dart';
 
-export 'src/extensions/article_lines_baskets.dart';
-export 'src/extensions/article_lines_find_dups.dart';
-export 'src/extensions/article_lines_sort.dart';
-export 'src/extensions/article_lines_to_rows.dart';
+export 'src/extensions/article_calibres_baskets.dart';
+export 'src/extensions/article_calibres_find_dups.dart';
+export 'src/extensions/article_calibres_sort.dart';
+export 'src/extensions/article_calibres_to_rows.dart';
 
 export 'src/extensions/closing_ticket_ext.dart';
 export 'src/extensions/closing_ledger_herders.dart';

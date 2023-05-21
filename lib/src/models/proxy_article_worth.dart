@@ -30,18 +30,18 @@ class ProxyArticleWorth extends ProxyArticle implements PriceAndCostAbstract {
     required this.price,
     required this.cost,
     required double minimumUnitPerBasket,
-    required int lineId,
+    required int calibreId,
     required int articleId,
     required int id,
-    required int proxyLineId,
+    required int proxyCalibreId,
     required int proxyArticleId,
     required double articleWeight,
     bool status = true,
   }) : super(
-          lineId: lineId,
+          calibreId: calibreId,
           articleId: articleId,
           id: id,
-          proxyLineId: proxyLineId,
+          proxyCalibreId: proxyCalibreId,
           proxyArticleId: proxyArticleId,
           status: status,
           minimumUnitPerBasket: minimumUnitPerBasket,
@@ -49,17 +49,17 @@ class ProxyArticleWorth extends ProxyArticle implements PriceAndCostAbstract {
         );
 
   factory ProxyArticleWorth.getPriceAndCost(
-      Iterable<ArticleLine> linesInStore, ProxyArticle pNoPriceNoCost) {
-    final int price = pNoPriceNoCost.getPrice(linesInStore);
-    final int cost = pNoPriceNoCost.getCost(linesInStore);
+      Iterable<ArticleCalibre> calibresInStore, ProxyArticle pNoPriceNoCost) {
+    final int price = pNoPriceNoCost.getPrice(calibresInStore);
+    final int cost = pNoPriceNoCost.getCost(calibresInStore);
     return ProxyArticleWorth(
         price: price,
         cost: cost,
         minimumUnitPerBasket: pNoPriceNoCost.minimumUnitPerBasket,
-        lineId: pNoPriceNoCost.lineId,
+        calibreId: pNoPriceNoCost.calibreId,
         articleId: pNoPriceNoCost.articleId,
         id: pNoPriceNoCost.id,
-        proxyLineId: pNoPriceNoCost.proxyLineId,
+        proxyCalibreId: pNoPriceNoCost.proxyCalibreId,
         articleWeight: pNoPriceNoCost.articleWeight,
         proxyArticleId: pNoPriceNoCost.proxyArticleId);
   }
@@ -67,10 +67,10 @@ class ProxyArticleWorth extends ProxyArticle implements PriceAndCostAbstract {
   static get dummy => ProxyArticleWorth(
         price: 100,
         cost: 80,
-        lineId: 1,
+        calibreId: 1,
         articleId: 1,
         id: 1,
-        proxyLineId: 1,
+        proxyCalibreId: 1,
         proxyArticleId: 1,
         minimumUnitPerBasket: 1.0,
         articleWeight: 1.0,
@@ -80,10 +80,10 @@ class ProxyArticleWorth extends ProxyArticle implements PriceAndCostAbstract {
   ProxyArticleWorth copyWith({
     int? price,
     int? cost,
-    int? lineId,
+    int? calibreId,
     int? articleId,
     int? id,
-    int? proxyLineId,
+    int? proxyCalibreId,
     int? proxyArticleId,
     bool? status,
     double? minimumUnitPerBasket,
@@ -92,11 +92,11 @@ class ProxyArticleWorth extends ProxyArticle implements PriceAndCostAbstract {
     return ProxyArticleWorth(
       price: price ?? this.price,
       cost: cost ?? this.cost,
-      lineId: lineId ?? this.lineId,
+      calibreId: calibreId ?? this.calibreId,
       articleId: articleId ?? this.articleId,
       id: id ?? this.id,
       proxyArticleId: proxyArticleId ?? this.proxyArticleId,
-      proxyLineId: proxyLineId ?? this.proxyLineId,
+      proxyCalibreId: proxyCalibreId ?? this.proxyCalibreId,
       status: status ?? this.status,
       minimumUnitPerBasket: minimumUnitPerBasket ?? this.minimumUnitPerBasket,
       articleWeight: articleWeight ?? this.articleWeight,
@@ -106,10 +106,10 @@ class ProxyArticleWorth extends ProxyArticle implements PriceAndCostAbstract {
   @override
   Map<String, dynamic> toMap() {
     return {
-      'lineId': lineId,
+      'calibreId': calibreId,
       'articleId': articleId,
       'id': id,
-      'proxyLineId': proxyLineId,
+      'proxyCalibreId': proxyCalibreId,
       'proxyArticleId': proxyArticleId,
       'status': status,
       'price': price,
@@ -123,10 +123,18 @@ class ProxyArticleWorth extends ProxyArticle implements PriceAndCostAbstract {
     return ProxyArticleWorth(
       price: map['price']?.toInt() ?? 0,
       cost: map['cost']?.toInt() ?? 0,
-      lineId: map['lineId']?.toInt() ?? 0,
+      calibreId: map['calibreId'] != null
+          ? map['calibreId'] as int
+          : map['lineId'] != null
+              ? map['lineId'] as int
+              : 0,
       articleId: map['articleId']?.toInt() ?? 0,
       id: map['id']?.toInt() ?? 0,
-      proxyLineId: map['proxyLineId']?.toInt() ?? 0,
+      proxyCalibreId: map['proxyCalibreId'] != null
+          ? map['proxyCalibreId'] as int
+          : map['proxyLineId'] != null
+              ? map['proxyLineId'] as int
+              : 0,
       proxyArticleId: map['proxyArticleId']?.toInt() ?? 0,
       minimumUnitPerBasket: map['minimumUnitPerBasket'] == null
           ? 1.0
@@ -144,7 +152,7 @@ class ProxyArticleWorth extends ProxyArticle implements PriceAndCostAbstract {
 
   @override
   String toString() {
-    return 'ArticleProxyWorth(lineId: $lineId, articleId: $articleId, price: $price, cost: $cost, minimumUnitPerBasket: $minimumUnitPerBasket)';
+    return 'ArticleProxyWorth(calibreId: $calibreId, articleId: $articleId, price: $price, cost: $cost, minimumUnitPerBasket: $minimumUnitPerBasket)';
   }
 
   @override
@@ -152,7 +160,7 @@ class ProxyArticleWorth extends ProxyArticle implements PriceAndCostAbstract {
     if (identical(this, other)) return true;
 
     return other is ProxyArticleWorth &&
-        other.lineId == lineId &&
+        other.calibreId == calibreId &&
         other.articleId == articleId &&
         other.id == id &&
         other.price == price &&
@@ -163,7 +171,7 @@ class ProxyArticleWorth extends ProxyArticle implements PriceAndCostAbstract {
 
   @override
   int get hashCode {
-    return lineId.hashCode ^
+    return calibreId.hashCode ^
         articleId.hashCode ^
         id.hashCode ^
         price.hashCode ^

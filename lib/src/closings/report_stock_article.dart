@@ -25,7 +25,7 @@ class ReportStockArticle extends ArticleAbstract
     required this.qtOut,
     required String fullName,
   }) : super(
-          lineId: productId,
+          calibreId: productId,
           id: id,
           fullName: fullName,
           creationDate: DateTime.now(),

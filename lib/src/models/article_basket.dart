@@ -2,10 +2,12 @@ import 'dart:convert';
 
 import 'package:mobx/mobx.dart';
 import 'package:models_weebi/base.dart';
+import 'package:models_weebi/common.dart';
 
 import 'package:models_weebi/src/models/proxy_article_worth.dart';
 import 'package:models_weebi/utils.dart';
-import 'package:models_weebi/weebi_models.dart' show ProxyArticle, ArticleLine;
+import 'package:models_weebi/weebi_models.dart'
+    show ProxyArticle, ArticleCalibre;
 import 'package:collection/collection.dart';
 
 class ArticleBasket extends ArticleAbstract {
@@ -15,35 +17,37 @@ class ArticleBasket extends ArticleAbstract {
   // so proxies only save ref not price / nor cost which are fetched when invoked
   final int discountAmountSalesOnly;
   ArticleBasket({
-    required int lineId,
+    required int calibreId,
     required int id,
     required String fullName,
     double weight = 1.0,
     int? articleCode,
     String? photo = '',
-    required DateTime? creationDate,
-    required DateTime? updateDate,
+    PhotoSource photoSource = PhotoSource.unknown,
+    required DateTime creationDate,
+    required DateTime updateDate,
     required this.proxies,
     @observable bool status = true,
     this.statusUpdateDate,
     this.discountAmountSalesOnly = 0,
   }) : super(
-          lineId: lineId,
+          calibreId: calibreId,
           id: id,
           fullName: fullName,
           weight: weight,
           articleCode: articleCode,
-          photo: photo,
+          photo: photo ?? '',
+          photoSource: photoSource,
           creationDate: creationDate,
           updateDate: updateDate,
           status: status,
         );
 
   Iterable<ProxyArticleWorth> getProxiesListWithPriceAndCost(
-      Iterable<ArticleLine> lines) {
+      Iterable<ArticleCalibre> calibres) {
     final proxiesWorth = <ProxyArticleWorth>[];
     for (final p in proxies) {
-      final temp = p.getProxyArticleWorth(lines);
+      final temp = p.getProxyArticleWorth(calibres);
       proxiesWorth.add(temp);
     }
     return proxiesWorth;
@@ -51,17 +55,18 @@ class ArticleBasket extends ArticleAbstract {
 
   static Iterable<ProxyArticleWorth>
       getProxiesListWithPriceAndCostArticleNotCreatedYetOnly(
-          Iterable<ArticleLine> lines, Iterable<ProxyArticle> proxiesRaw) {
+          Iterable<ArticleCalibre> calibres,
+          Iterable<ProxyArticle> proxiesRaw) {
     final proxiesWorth = <ProxyArticleWorth>[];
     for (final p in proxiesRaw) {
-      final temp = p.getProxyArticleWorth(lines);
+      final temp = p.getProxyArticleWorth(calibres);
       proxiesWorth.add(temp);
     }
     return proxiesWorth;
   }
 
   static ArticleBasket get dummy => ArticleBasket(
-        lineId: 2,
+        calibreId: 2,
         id: 1,
         fullName: 'dummy',
         weight: 1,
@@ -77,9 +82,11 @@ class ArticleBasket extends ArticleAbstract {
 
   factory ArticleBasket.fromMap(Map<String, dynamic> map) {
     return ArticleBasket(
-        lineId: map['lineId'] == null
-            ? map['productId'] as int
-            : map['lineId'] as int,
+        calibreId: map['calibreId'] != null
+            ? map['calibreId'] as int
+            : map['lineId'] != null
+                ? map['lineId'] as int
+                : map['productId'] as int,
         id: map['id'] as int,
         fullName: map['fullName'] as String,
         weight: map['weight'] == null ? 0.0 : (map['weight'] as num).toDouble(),
@@ -109,17 +116,15 @@ class ArticleBasket extends ArticleAbstract {
   Map<String, dynamic> toMap() {
     return {
       'proxies': proxies.map((x) => x.toMap()).toList(),
-      'lineId': lineId,
+      'calibreId': calibreId,
       'id': id,
       'discountAmount': discountAmountSalesOnly,
       'fullName': fullName,
       'weight': weight,
       'articleCode': articleCode ?? 0,
-      'photo': photo ?? '',
-      'creationDate': creationDate?.toIso8601String() ??
-          WeebiDates.defaultDate.toIso8601String(),
-      'updateDate': updateDate?.toIso8601String() ??
-          WeebiDates.defaultDate.toIso8601String(),
+      'photo': photo,
+      'creationDate': creationDate.toIso8601String(),
+      'updateDate': updateDate.toIso8601String(),
       'statusUpdateDate': statusUpdateDate?.toIso8601String() ??
           WeebiDates.defaultDate.toIso8601String(),
       'status': status,
@@ -130,7 +135,7 @@ class ArticleBasket extends ArticleAbstract {
   String toString() {
     return """
 ArticleBasket(
-  lineId: $lineId,
+  calibreId: $calibreId,
   id: $id,
   fullName: '$fullName',
   weight: $weight,
@@ -147,11 +152,9 @@ ArticleBasket(
 
   factory ArticleBasket.fromJson(String source) =>
       ArticleBasket.fromMap(json.decode(source));
-  // factory ArticleBasket.fromJson(String source, List<LineOfArticles> lines) =>
-  //     ArticleBasket.fromMap(json.decode(source), lines);
 
   ArticleBasket copyWith({
-    int? lineId,
+    int? calibreId,
     int? id,
     String? fullName,
     double? weight,
@@ -165,7 +168,7 @@ ArticleBasket(
     DateTime? statusUpdateDate,
   }) {
     return ArticleBasket(
-      lineId: lineId ?? this.lineId,
+      calibreId: calibreId ?? this.calibreId,
       id: id ?? this.id,
       fullName: fullName ?? this.fullName,
       weight: weight ?? this.weight,
@@ -186,7 +189,7 @@ ArticleBasket(
     if (identical(this, other)) return true;
     final listEquals = const DeepCollectionEquality().equals;
     return other is ArticleBasket &&
-        other.fullName == fullName &&
+        other.calibreId == calibreId &&
         other.id == id &&
         other.photo == photo &&
         other.creationDate == creationDate &&
@@ -195,5 +198,5 @@ ArticleBasket(
   }
 
   @override
-  int get hashCode => id.hashCode;
+  int get hashCode => id.hashCode ^ calibreId.hashCode;
 }

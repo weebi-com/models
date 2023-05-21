@@ -8,13 +8,14 @@ void main() {
     final json = ArticleBasket.dummy.toJson();
     final dummy = ArticleBasket.fromJson(json);
     // ArticleBasket.dummy == x2 LineArticleRetail.dummy with price: 100, cost: 80,
-    //ArticleLine.dummyBast has a price of 100);
-    //ArticleLine.dummyBast has a cost of 80);
-    final proxiesWorth = dummy.getProxiesListWithPriceAndCost(
-        [ArticleLine.dummy]); // mocking a list of articles in the store
+    //ArticleCalibre.dummyBast has a price of 100);
+    //ArticleCalibre.dummyBast has a cost of 80);
+    final proxiesWorth = dummy.getProxiesListWithPriceAndCost([
+      ArticleCalibre.dummyRetail
+    ]); // mocking a list of articles in the store
 
     expect(dummy.id == ArticleBasket.dummy.id, isTrue);
-    expect(dummy.lineId == ArticleBasket.dummy.lineId, isTrue);
+    expect(dummy.calibreId == ArticleBasket.dummy.calibreId, isTrue);
     expect(dummy.fullName == ArticleBasket.dummy.fullName, isTrue);
 
     expect(proxiesWorth.totalPrice == 100, isTrue);

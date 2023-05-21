@@ -31,7 +31,7 @@ class ClosingStockArticle extends ArticleAbstract
     required this.quantityOut,
   })  : articleId = id,
         super(
-          lineId: productId,
+          calibreId: productId,
           id: id,
           weight: weight,
           fullName: fullName,

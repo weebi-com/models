@@ -12,7 +12,7 @@
 
 ## 1.0.10
 
-- find dups for herders and ArticleLine
+- find dups for herders and ArticleCalibre
 
 ## 1.0.9
 

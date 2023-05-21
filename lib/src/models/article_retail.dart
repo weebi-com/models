@@ -13,7 +13,7 @@ class ArticleRetail extends ArticleAbstract implements PriceAndCostAbstract {
   final int cost;
   int get codeShortcut => articleCode ?? id;
   DateTime? statusUpdateDate;
-  String? barcodeEAN;
+  String barcodeEAN;
 
   // ? update in models_base ?
   double get unitsPerPiece => weight;
@@ -21,34 +21,34 @@ class ArticleRetail extends ArticleAbstract implements PriceAndCostAbstract {
       { //this.shopUuid,
       required this.price,
       this.cost = 0,
-      required int lineId,
+      required int calibreId, // calibreId
       required int id,
       required String fullName,
       double weight = 1.0,
       int? articleCode,
-      String? photo = '',
+      String photo = '',
       PhotoSource photoSource = PhotoSource.unknown,
-      required DateTime? creationDate,
-      required DateTime? updateDate,
+      required DateTime creationDate,
+      required DateTime updateDate,
       this.statusUpdateDate,
       this.barcodeEAN = '',
       @observable bool status = true})
       : super(
-          lineId: lineId,
+          calibreId: calibreId,
           id: id,
           fullName: fullName,
           weight: weight,
           articleCode: articleCode,
           photo: photo,
+          photoSource: photoSource,
           creationDate: creationDate,
           updateDate: updateDate,
           status: status,
-          photoSource: photoSource,
         );
 
   static final dummy = ArticleRetail(
     // shopUuid: 'shopUuid',
-    lineId: 1,
+    calibreId: 1,
     id: 1,
     fullName: 'dummy',
     price: 100,
@@ -68,7 +68,7 @@ class ArticleRetail extends ArticleAbstract implements PriceAndCostAbstract {
   String toString() {
     return """
 ArticleWeebi(
-  lineId: $lineId,
+  calibreId: $calibreId,
   id: $id,
   fullName: '$fullName',
   price: $price,
@@ -89,8 +89,7 @@ ArticleWeebi(
   @override
   Map<String, dynamic> toMap() {
     return {
-      // 'shopUuid': shopUuid,
-      'lineId': lineId,
+      'calibreId': calibreId,
       'id': id,
       'barcodeEAN': barcodeEAN,
       'fullName': fullName,
@@ -98,12 +97,10 @@ ArticleWeebi(
       'cost': cost,
       'weight': weight,
       'articleCode': articleCode ?? 0,
-      'photo': photo ?? '',
+      'photo': photo,
       'photoSource': photoSource.toString(),
-      'creationDate': creationDate?.toIso8601String() ??
-          WeebiDates.defaultDate.toIso8601String(),
-      'updateDate': updateDate?.toIso8601String() ??
-          WeebiDates.defaultDate.toIso8601String(),
+      'creationDate': creationDate.toIso8601String(),
+      'updateDate': updateDate.toIso8601String(),
       'statusUpdateDate': statusUpdateDate?.toIso8601String() ??
           WeebiDates.defaultDate.toIso8601String(),
       'status': status,
@@ -112,17 +109,19 @@ ArticleWeebi(
 
   factory ArticleRetail.fromMap(Map<String, dynamic> map) {
     return ArticleRetail(
-      lineId: map['lineId'] == null
-          ? map['productId'] as int
-          : map['lineId'] as int,
+      calibreId: map['calibreId'] != null
+          ? map['calibreId'] as int
+          : map['lineId'] != null
+              ? map['lineId'] as int
+              : map['productId'] as int,
       id: map['id'] as int,
       fullName: map['fullName'] as String,
       price: map['price'] as int,
       cost: map['cost'] as int,
       weight: map['weight'] == null ? 1.0 : (map['weight'] as num).toDouble(),
       articleCode: map['articleCode'] ?? 0,
-      barcodeEAN: map['barcodeEAN'] as String,
-      photo: map['photo'] ?? '',
+      barcodeEAN: (map['barcodeEAN'] ?? '') as String,
+      photo: (map['photo'] ?? '') as String,
       photoSource: PhotoSource.tryParse(map['photoSource'] as String),
       creationDate: map['creationDate'] == null
           ? WeebiDates.defaultDate
@@ -145,8 +144,7 @@ ArticleWeebi(
       ArticleRetail.fromMap(json.decode(source));
 
   ArticleRetail copyWith({
-    // String? shopUuid,
-    int? lineId,
+    int? calibreId,
     int? id,
     String? fullName,
     int? price,
@@ -162,8 +160,7 @@ ArticleWeebi(
     bool? status,
   }) {
     return ArticleRetail(
-      // shopUuid: shopUuid ?? this.shopUuid,
-      lineId: lineId ?? this.lineId,
+      calibreId: calibreId ?? this.calibreId,
       id: id ?? this.id,
       fullName: fullName ?? this.fullName,
       price: price ?? this.price,
@@ -185,12 +182,11 @@ ArticleWeebi(
     if (identical(this, other)) return true;
 
     return other is ArticleRetail &&
-        // other.shopUuid == shopUuid &&
         other.cost == cost &&
         other.price == price &&
         other.fullName == fullName &&
         other.id == id &&
-        other.lineId == lineId &&
+        other.calibreId == calibreId &&
         other.barcodeEAN == barcodeEAN &&
         other.photo == photo &&
         other.creationDate == creationDate &&
@@ -198,5 +194,5 @@ ArticleWeebi(
   }
 
   @override
-  int get hashCode => id.hashCode ^ lineId.hashCode ^ creationDate.hashCode;
+  int get hashCode => id.hashCode ^ calibreId.hashCode ^ creationDate.hashCode;
 }

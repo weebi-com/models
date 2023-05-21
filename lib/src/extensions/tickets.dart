@@ -1,9 +1,8 @@
-import 'package:meta/meta.dart';
 import 'package:models_weebi/utils.dart';
 import 'package:models_weebi/weebi_models.dart';
 
 extension TicketsFilters on Iterable<TicketWeebi> {
-  TwoLists<TicketWeebi> filterById({@required List<TicketWeebi>? newList}) {
+  TwoLists<TicketWeebi> filterById({required List<TicketWeebi>? newList}) {
     final noDups = <TicketWeebi>[];
     final dups = <TicketWeebi>[];
     newList ??= <TicketWeebi>[];

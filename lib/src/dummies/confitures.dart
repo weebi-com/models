@@ -1,11 +1,11 @@
 import 'package:models_weebi/common.dart';
 import 'package:models_weebi/src/models/article_retail.dart';
-import 'package:models_weebi/src/models/article_line.dart';
+import 'package:models_weebi/src/models/article_calibre.dart';
 import 'package:models_weebi/utils.dart';
 
-abstract class ArticleLinesDummyJamsBM {
+abstract class ArticleCalibresDummyJamsBM {
   static final jams = [
-    ArticleLine(
+    ArticleCalibre(
       id: 1,
       title: 'Confiture BM Peches',
       stockUnit: StockUnit.unit,
@@ -15,7 +15,7 @@ abstract class ArticleLinesDummyJamsBM {
       updateDate: WeebiDates.defaultDate,
       articles: [
         ArticleRetail(
-          lineId: 1,
+          calibreId: 1,
           id: 1,
           fullName: 'Confiture BM Peches 370g',
           photo:
@@ -31,7 +31,7 @@ abstract class ArticleLinesDummyJamsBM {
         ),
       ],
     ),
-    ArticleLine(
+    ArticleCalibre(
       id: 2,
       title: 'Confiture BM Compotee Abricot',
       stockUnit: StockUnit.unit,
@@ -41,7 +41,7 @@ abstract class ArticleLinesDummyJamsBM {
       updateDate: WeebiDates.defaultDate,
       articles: [
         ArticleRetail(
-          lineId: 2,
+          calibreId: 2,
           id: 1,
           fullName: 'Confiture BM Compotee Abricot 600g',
           photo:
@@ -57,7 +57,7 @@ abstract class ArticleLinesDummyJamsBM {
         ),
       ],
     ),
-    ArticleLine(
+    ArticleCalibre(
       id: 3,
       title: 'Confiture BM Figues violettes',
       stockUnit: StockUnit.unit,
@@ -67,7 +67,7 @@ abstract class ArticleLinesDummyJamsBM {
       updateDate: WeebiDates.defaultDate,
       articles: [
         ArticleRetail(
-          lineId: 3,
+          calibreId: 3,
           id: 1,
           fullName: 'Confiture BM Figues violettes 370g',
           photo:
@@ -83,7 +83,7 @@ abstract class ArticleLinesDummyJamsBM {
         ),
       ],
     ),
-    ArticleLine(
+    ArticleCalibre(
       id: 4,
       title: 'Confiture BM Oranges ameres',
       stockUnit: StockUnit.unit,
@@ -93,7 +93,7 @@ abstract class ArticleLinesDummyJamsBM {
       updateDate: WeebiDates.defaultDate,
       articles: [
         ArticleRetail(
-          lineId: 4,
+          calibreId: 4,
           id: 1,
           fullName: 'Confiture BM Oranges ameres 370g',
           photo:
@@ -108,7 +108,7 @@ abstract class ArticleLinesDummyJamsBM {
         ),
       ],
     ),
-    ArticleLine(
+    ArticleCalibre(
       id: 5,
       title: 'Confiture BM Abricots',
       stockUnit: StockUnit.unit,
@@ -118,7 +118,7 @@ abstract class ArticleLinesDummyJamsBM {
       updateDate: WeebiDates.defaultDate,
       articles: [
         ArticleRetail(
-          lineId: 5,
+          calibreId: 5,
           id: 1,
           fullName: 'Confiture BM Abricots 370g',
           photo:
@@ -134,7 +134,7 @@ abstract class ArticleLinesDummyJamsBM {
         ),
       ],
     ),
-    ArticleLine(
+    ArticleCalibre(
       id: 6,
       title: 'Confiture BM Fraises',
       stockUnit: StockUnit.unit,
@@ -144,7 +144,7 @@ abstract class ArticleLinesDummyJamsBM {
       updateDate: WeebiDates.defaultDate,
       articles: [
         ArticleRetail(
-          lineId: 6,
+          calibreId: 6,
           id: 1,
           fullName: 'Confiture BM Fraises 370g',
           photo:
@@ -160,7 +160,7 @@ abstract class ArticleLinesDummyJamsBM {
         ),
       ],
     ),
-    ArticleLine(
+    ArticleCalibre(
       id: 7,
       title: 'Confiture BM Framboises',
       stockUnit: StockUnit.unit,
@@ -170,7 +170,7 @@ abstract class ArticleLinesDummyJamsBM {
       updateDate: WeebiDates.defaultDate,
       articles: [
         ArticleRetail(
-          lineId: 7,
+          calibreId: 7,
           id: 1,
           fullName: 'Confiture BM Framboises 370g',
           photo:
@@ -186,7 +186,7 @@ abstract class ArticleLinesDummyJamsBM {
         ),
       ],
     ),
-    ArticleLine(
+    ArticleCalibre(
       id: 8,
       title: 'Confiture BM Cerises noires',
       stockUnit: StockUnit.unit,
@@ -196,7 +196,7 @@ abstract class ArticleLinesDummyJamsBM {
       updateDate: WeebiDates.defaultDate,
       articles: [
         ArticleRetail(
-          lineId: 8,
+          calibreId: 8,
           id: 1,
           fullName: 'Confiture BM Cerises noires 370g',
           photo:
@@ -212,7 +212,7 @@ abstract class ArticleLinesDummyJamsBM {
         ),
       ],
     ),
-    ArticleLine(
+    ArticleCalibre(
       id: 9,
       title: 'Confiture BM Gelee de mures',
       stockUnit: StockUnit.unit,
@@ -222,7 +222,7 @@ abstract class ArticleLinesDummyJamsBM {
       updateDate: WeebiDates.defaultDate,
       articles: [
         ArticleRetail(
-          lineId: 9,
+          calibreId: 9,
           id: 1,
           fullName: 'Confiture BM Gelee de mures 370g',
           photo:
@@ -237,7 +237,7 @@ abstract class ArticleLinesDummyJamsBM {
         ),
       ],
     ),
-    ArticleLine(
+    ArticleCalibre(
       id: 10,
       title: 'Confiture BM Fruits des Bois',
       stockUnit: StockUnit.unit,
@@ -247,7 +247,7 @@ abstract class ArticleLinesDummyJamsBM {
       updateDate: WeebiDates.defaultDate,
       articles: [
         ArticleRetail(
-          lineId: 10,
+          calibreId: 10,
           id: 1,
           fullName: 'Confiture BM Fruits des Bois 370g',
           photo:
@@ -263,7 +263,7 @@ abstract class ArticleLinesDummyJamsBM {
         ),
       ],
     ),
-    ArticleLine(
+    ArticleCalibre(
       id: 11,
       title: 'Confiture BM Cerises griottes',
       stockUnit: StockUnit.unit,
@@ -273,7 +273,7 @@ abstract class ArticleLinesDummyJamsBM {
       updateDate: WeebiDates.defaultDate,
       articles: [
         ArticleRetail(
-          lineId: 11,
+          calibreId: 11,
           barcodeEAN: '3 04532000151 8',
           id: 1,
           fullName: 'Confiture BM Cerises griottes 370g',
@@ -289,7 +289,7 @@ abstract class ArticleLinesDummyJamsBM {
         ),
       ],
     ),
-    ArticleLine(
+    ArticleCalibre(
       id: 12,
       title: 'Confiture BM Compotee Peches',
       stockUnit: StockUnit.unit,
@@ -299,7 +299,7 @@ abstract class ArticleLinesDummyJamsBM {
       updateDate: WeebiDates.defaultDate,
       articles: [
         ArticleRetail(
-          lineId: 12,
+          calibreId: 12,
           id: 1,
           fullName: 'Confiture BM Compotee Peches 600g',
           photo:
@@ -315,7 +315,7 @@ abstract class ArticleLinesDummyJamsBM {
         ),
       ],
     ),
-    ArticleLine(
+    ArticleCalibre(
       id: 13,
       title: 'Confiture BM Quetsches',
       stockUnit: StockUnit.unit,
@@ -325,7 +325,7 @@ abstract class ArticleLinesDummyJamsBM {
       updateDate: WeebiDates.defaultDate,
       articles: [
         ArticleRetail(
-          lineId: 13,
+          calibreId: 13,
           id: 1,
           fullName: 'Confiture BM Quetsches 370g',
           photo:
@@ -341,7 +341,7 @@ abstract class ArticleLinesDummyJamsBM {
         ),
       ],
     ),
-    ArticleLine(
+    ArticleCalibre(
       id: 14,
       title: 'Confiture BM 4 Fruits',
       stockUnit: StockUnit.unit,
@@ -351,7 +351,7 @@ abstract class ArticleLinesDummyJamsBM {
       updateDate: WeebiDates.defaultDate,
       articles: [
         ArticleRetail(
-          lineId: 14,
+          calibreId: 14,
           id: 1,
           fullName: 'Confiture BM 4 Fruits 370g',
           photo:

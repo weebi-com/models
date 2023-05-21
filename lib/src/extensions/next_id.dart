@@ -1,8 +1,8 @@
 import 'package:mobx/mobx.dart';
 import 'package:models_base/base.dart';
-import 'package:models_weebi/src/models/article_line.dart';
+import 'package:models_weebi/src/models/article_calibre.dart';
 
-extension NextLineArticleId on ObservableList<ArticleLine> {
+extension NextLineArticleId on ObservableList<ArticleCalibre> {
   int get nextId {
     if (isEmpty) {
       return 1;

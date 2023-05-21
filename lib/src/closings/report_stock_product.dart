@@ -1,11 +1,11 @@
 library report_stock_product;
 
-import 'package:models_base/base.dart' show ArticleLineAbstract;
+import 'package:models_base/base.dart' show ArticleCalibreAbstract;
 import 'package:models_base/utils.dart' show DateRange;
 import 'package:models_weebi/src/closings/abstract/stock_quantity.dart';
 import 'package:models_weebi/src/closings/report_stock_article.dart';
 
-class ReportStockProduct extends ArticleLineAbstract<ReportStockArticle>
+class ReportStockProduct extends ArticleCalibreAbstract<ReportStockArticle>
     implements DateRange, StockQuantityAbstract {
   @override
   double initialQtCl = 0.0; // closing initial qt

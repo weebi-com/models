@@ -3,10 +3,10 @@ import 'package:models_base/utils.dart';
 import 'package:models_weebi/weebi_models.dart';
 
 void main() {
-  final awesomeArticleLine = ArticleLine(
+  final awesomeArticleCalibre = ArticleCalibre(
     articles: [
       ArticleRetail(
-        lineId: 1,
+        calibreId: 1,
         id: 1,
         fullName: 'frometon',
         price: 100,
@@ -40,5 +40,5 @@ void main() {
       statusUpdateDate: WeebiDates.defaultDate,
       creationDate: WeebiDates.defaultDate,
       discountAmount: 0);
-  print(awesomeArticleLine);
+  print(awesomeArticleCalibre);
 }

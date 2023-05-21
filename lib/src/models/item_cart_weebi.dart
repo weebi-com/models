@@ -90,15 +90,16 @@ class ItemCartWeebi<A extends ArticleAbstract> extends ItemInCartAbstract<A> {
   double getStockMovementForArticle<AA extends ArticleAbstract>(AA aSelected) {
     double stockMovement = 0.0;
     A aInItem = articleCreator();
-    if (aSelected.lineId == aInItem.lineId && aSelected.id == aInItem.id) {
+    if (aSelected.calibreId == aInItem.calibreId &&
+        aSelected.id == aInItem.id) {
       stockMovement += quantity; // weight should not be included in article
     } else {
       if (isBasket == true) {
         if ((aInItem as ArticleBasket).proxies.any((proxy) =>
-            proxy.proxyLineId == aSelected.lineId &&
+            proxy.proxyCalibreId == aSelected.calibreId &&
             proxy.proxyArticleId == aSelected.id)) {
           for (final proxyOfArticleInItem in aInItem.proxies.where((proxy) =>
-              proxy.proxyLineId == aSelected.lineId &&
+              proxy.proxyCalibreId == aSelected.calibreId &&
               proxy.proxyArticleId == aSelected.id)) {
             stockMovement += quantity *
                 proxyOfArticleInItem
@@ -110,19 +111,19 @@ class ItemCartWeebi<A extends ArticleAbstract> extends ItemInCartAbstract<A> {
     return stockMovement;
   }
 
-  double getStockMovementForLine(ArticleLine line) {
+  double getStockMovementForLine(ArticleCalibre line) {
     double stockMovement = 0.0;
     A aInItem = articleCreator();
-    if (line.id == aInItem.lineId) {
+    if (line.id == aInItem.calibreId) {
       stockMovement +=
           quantity * aInItem.weight; // weight needed for line full stock
     } else {
       if (isBasket == true) {
         if ((aInItem as ArticleBasket)
             .proxies
-            .any((p) => p.proxyLineId == line.id)) {
+            .any((p) => p.proxyCalibreId == line.id)) {
           for (final proxyOfArticleInItem
-              in aInItem.proxies.where((p) => p.proxyLineId == line.id)) {
+              in aInItem.proxies.where((p) => p.proxyCalibreId == line.id)) {
             stockMovement += quantity *
                 proxyOfArticleInItem.minimumUnitPerBasket *
                 proxyOfArticleInItem

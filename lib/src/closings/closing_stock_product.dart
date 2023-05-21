@@ -6,7 +6,7 @@ import 'package:models_weebi/src/closings/closing_stock_article.dart';
 import 'package:models_base/base.dart';
 import 'package:models_base/utils.dart';
 
-class ClosingStockProduct extends ArticleLineAbstract<ClosingStockArticle>
+class ClosingStockProduct extends ArticleCalibreAbstract<ClosingStockArticle>
     implements ClosingDateAbstract, StockQuantityAbstract {
   @override
   DateTime closingDate;

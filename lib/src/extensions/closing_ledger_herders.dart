@@ -2,7 +2,7 @@ import 'package:models_weebi/closings.dart';
 
 extension ClosingHerderLastBalance on Iterable<ClosingLedgerHerder> {
   int closingHerderLastBalance(int herderId) {
-    if (this == null || isEmpty) {
+    if (isEmpty) {
       return 0;
     } else {
       final filtered = where((element) => element.herderId == '$herderId')
