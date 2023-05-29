@@ -57,7 +57,7 @@ void main() {
   });
 }
 
-// below contains ArticleRetail.dummy with lineId: 1, id: 1, price: 100, cost: 80,
+// below contains ArticleRetail.dummy with calibreId: 1, id: 1, price: 100, cost: 80,
 // we will reference this article eventually
 final _dummyLineRId1 = ArticleCalibre.dummyRetail;
 

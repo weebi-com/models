@@ -33,7 +33,6 @@ class ArticleCalibre<A extends ArticleAbstract>
   String get photo => articles.isEmpty ? '' : articles.first.photo;
   ArticleCalibre({
     required int id,
-    // required this.shopUuid,
     this.isPalpable =
         true, // ? today this only mean quickspending i.e. with negative ids
     required List<A> articles,
@@ -83,7 +82,6 @@ class ArticleCalibre<A extends ArticleAbstract>
       id: 2,
       categories: null,
       title: 'truc bis',
-      // shopUuid: '',
       creationDate: WeebiDates.defaultDate,
       updateDate: WeebiDates.defaultDate,
       stockUnit: StockUnit.unit,
@@ -95,10 +93,8 @@ class ArticleCalibre<A extends ArticleAbstract>
   @override
   Map<String, dynamic> toMap() {
     return {
-      // 'shopUuid': shopUuid,
       'id': id,
       'isPalpable': isPalpable ?? true,
-      'isBasket': isBasket,
       'title': title,
       'stockUnit': stockUnit.toString(),
       'photo': photo,
@@ -118,64 +114,56 @@ class ArticleCalibre<A extends ArticleAbstract>
 
   static ArticleCalibre<ArticleRetail> fromMapArticleRetail(
       Map<String, dynamic> map) {
-    if ((map['isBasket'] ?? false).toString() == "true") {
-      throw 'this is a basket';
-    } else {
-      return ArticleCalibre<ArticleRetail>(
-        id: map['id'],
-        title: map['title'],
-        isPalpable: map['isPalpable'] ?? true,
-        stockUnit: StockUnit.tryParse(map['stockUnit'] ?? ''),
-        creationDate: map['creationDate'] == null
-            ? WeebiDates.defaultDate
-            : DateTime.parse(map['creationDate']),
-        updateDate: map['updateDate'] == null
-            ? WeebiDates.defaultDate
-            : DateTime.parse(map['updateDate']),
-        status: map['status'],
-        statusUpdateDate: map['statusUpdateDate'] == null
-            ? WeebiDates.defaultDate
-            : DateTime.parse(map['statusUpdateDate']),
-        articles: map['articles'] == null || map['articles'] == []
-            ? <ArticleRetail>[]
-            : List<ArticleRetail>.from(
-                map['articles'].map((x) => ArticleRetail.fromMap(x))),
-        categories: map["categories"] == null
-            ? []
-            : List<String>.from(map["categories"].map((x) => x)),
-      );
-    }
+    return ArticleCalibre<ArticleRetail>(
+      id: map['id'],
+      title: map['title'],
+      isPalpable: map['isPalpable'] ?? true,
+      stockUnit: StockUnit.tryParse(map['stockUnit'] ?? ''),
+      creationDate: map['creationDate'] == null
+          ? WeebiDates.defaultDate
+          : DateTime.parse(map['creationDate']),
+      updateDate: map['updateDate'] == null
+          ? WeebiDates.defaultDate
+          : DateTime.parse(map['updateDate']),
+      status: map['status'],
+      statusUpdateDate: map['statusUpdateDate'] == null
+          ? WeebiDates.defaultDate
+          : DateTime.parse(map['statusUpdateDate']),
+      articles: map['articles'] == null || map['articles'] == []
+          ? <ArticleRetail>[]
+          : List<ArticleRetail>.from(
+              map['articles'].map((x) => ArticleRetail.fromMap(x))),
+      categories: map["categories"] == null
+          ? []
+          : List<String>.from(map["categories"].map((x) => x)),
+    );
   }
 
   static ArticleCalibre<ArticleBasket> fromMapArticleBasket(
       Map<String, dynamic> map) {
-    if ((map['isBasket'] ?? false).toString() == 'false') {
-      throw 'this is not a basket';
-    } else {
-      return ArticleCalibre<ArticleBasket>(
-        id: map['id'],
-        title: map['title'],
-        isPalpable: map['isPalpable'] ?? true,
-        stockUnit: StockUnit.tryParse(map['stockUnit'] ?? ''),
-        creationDate: map['creationDate'] == null
-            ? WeebiDates.defaultDate
-            : DateTime.parse(map['creationDate']),
-        updateDate: map['updateDate'] == null
-            ? WeebiDates.defaultDate
-            : DateTime.parse(map['updateDate']),
-        status: map['status'],
-        statusUpdateDate: map['statusUpdateDate'] == null
-            ? WeebiDates.defaultDate
-            : DateTime.parse(map['statusUpdateDate']),
-        articles: map['articles'] == null || map['articles'] == []
-            ? <ArticleBasket>[]
-            : List<ArticleBasket>.from(
-                map['articles'].map((x) => ArticleBasket.fromMap(x))),
-        categories: map["categories"] == null
-            ? []
-            : List<String>.from(map["categories"].map((x) => x)),
-      );
-    }
+    return ArticleCalibre<ArticleBasket>(
+      id: map['id'],
+      title: map['title'],
+      isPalpable: map['isPalpable'] ?? true,
+      stockUnit: StockUnit.tryParse(map['stockUnit'] ?? ''),
+      creationDate: map['creationDate'] == null
+          ? WeebiDates.defaultDate
+          : DateTime.parse(map['creationDate']),
+      updateDate: map['updateDate'] == null
+          ? WeebiDates.defaultDate
+          : DateTime.parse(map['updateDate']),
+      status: map['status'],
+      statusUpdateDate: map['statusUpdateDate'] == null
+          ? WeebiDates.defaultDate
+          : DateTime.parse(map['statusUpdateDate']),
+      articles: map['articles'] == null || map['articles'] == []
+          ? <ArticleBasket>[]
+          : List<ArticleBasket>.from(
+              map['articles'].map((x) => ArticleBasket.fromMap(x))),
+      categories: map["categories"] == null
+          ? []
+          : List<String>.from(map["categories"].map((x) => x)),
+    );
   }
 
   factory ArticleCalibre.fromJson(String source) =>
@@ -199,14 +187,15 @@ class ArticleCalibre<A extends ArticleAbstract>
           : DateTime.parse(map['statusUpdateDate']),
       articles: map['articles'] == null || map['articles'] == []
           ? []
-          : List<A>.from(map['articles'].map((x) {
-              if (x['discountAmountSalesOnly'] == null ||
-                  x['proxies'] == null) {
-                return ArticleRetail.fromMap(x);
-              } else {
-                return ArticleBasket.fromMap(x);
-              }
-            })),
+          : List<A>.from(
+              map['articles'].map((x) {
+                if (x['discountAmount'] != null || x['proxies'] != null) {
+                  return ArticleBasket.fromMap(x);
+                } else {
+                  return ArticleRetail.fromMap(x);
+                }
+              }),
+            ),
       categories: map["categories"] == null
           ? []
           : List<String>.from(map["categories"].map((x) => x)),
@@ -221,7 +210,6 @@ class ArticleCalibre<A extends ArticleAbstract>
     int? id,
     String? title,
     bool? isPalpable,
-    bool? isBasket,
     StockUnit? stockUnit,
     String? photo,
     bool? status,
