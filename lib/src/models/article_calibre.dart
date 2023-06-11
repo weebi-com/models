@@ -29,8 +29,7 @@ class ArticleCalibre<A extends ArticleAbstract>
   bool get isNotQuickSpend => (isPalpable ?? true);
   String get nameLine => title;
   int get titleHash => title.withoutAccents.toLowerCase().trim().hashCode;
-  @override
-  String get photo => articles.isEmpty ? '' : articles.first.photo;
+
   ArticleCalibre({
     required int id,
     this.isPalpable =
@@ -96,7 +95,6 @@ class ArticleCalibre<A extends ArticleAbstract>
       'isPalpable': isPalpable ?? true,
       'title': title,
       'stockUnit': stockUnit.toString(),
-      'photo': photo,
       'barcode': barcode ?? 0,
       'status': status,
       'statusUpdateDate': statusUpdateDate?.toIso8601String() ??

@@ -35,8 +35,6 @@ class ArticleBasket extends ArticleAbstract {
           fullName: fullName,
           weight: weight,
           articleCode: articleCode,
-          photo: photo ?? '',
-          photoSource: photoSource,
           creationDate: creationDate,
           status: status,
         );
@@ -120,7 +118,6 @@ class ArticleBasket extends ArticleAbstract {
       'fullName': fullName,
       'weight': weight,
       'articleCode': articleCode ?? 0,
-      'photo': photo,
       'creationDate': creationDate.toIso8601String(),
       'updateDate': updateDate.toIso8601String(),
       'statusUpdateDate': statusUpdateDate.toIso8601String(),
@@ -138,7 +135,6 @@ ArticleBasket(
   weight: $weight,
   articleCode: $articleCode,
   discountAmount: $discountAmountSalesOnly,
-  photo: $photo,
   creationDate: $creationDate,
   updateDate: $updateDate,
   statusUpdateDate: $statusUpdateDate,
@@ -172,7 +168,6 @@ ArticleBasket(
       articleCode: articleCode ?? this.articleCode,
       discountAmountSalesOnly:
           discountAmountSalesOnly ?? this.discountAmountSalesOnly,
-      photo: photo ?? this.photo,
       creationDate: creationDate ?? this.creationDate,
       updateDate: updateDate ?? this.updateDate,
       statusUpdateDate: statusUpdateDate ?? this.statusUpdateDate,
@@ -188,7 +183,6 @@ ArticleBasket(
     return other is ArticleBasket &&
         other.calibreId == calibreId &&
         other.id == id &&
-        other.photo == photo &&
         other.creationDate == creationDate &&
         other.updateDate == updateDate &&
         listEquals(other.proxies, proxies);

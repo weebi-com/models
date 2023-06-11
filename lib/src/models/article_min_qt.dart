@@ -22,7 +22,6 @@ class ArticleWMinQt extends ArticleAbstract {
           fullName: fullName,
           weight: weight,
           articleCode: articleCode,
-          photo: photo ?? '',
           creationDate: creationDate,
           status: status,
         );
@@ -34,7 +33,6 @@ class ArticleWMinQt extends ArticleAbstract {
         other.fullName == fullName &&
         other.id == id &&
         other.calibreId == calibreId &&
-        other.photo == photo &&
         other.creationDate == creationDate &&
         other.updateDate == updateDate;
   }
