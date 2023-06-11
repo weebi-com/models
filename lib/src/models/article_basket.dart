@@ -12,7 +12,6 @@ import 'package:collection/collection.dart';
 
 class ArticleBasket extends ArticleAbstract {
   final List<ProxyArticle> proxies;
-  DateTime? statusUpdateDate;
   // article price and cost can change
   // so proxies only save ref not price / nor cost which are fetched when invoked
   final int discountAmountSalesOnly;
@@ -25,10 +24,10 @@ class ArticleBasket extends ArticleAbstract {
     String? photo = '',
     PhotoSource photoSource = PhotoSource.unknown,
     required DateTime creationDate,
-    required DateTime updateDate,
+    DateTime? updateDate,
+    DateTime? statusUpdateDate,
     required this.proxies,
     @observable bool status = true,
-    this.statusUpdateDate,
     this.discountAmountSalesOnly = 0,
   }) : super(
           calibreId: calibreId,
@@ -39,7 +38,6 @@ class ArticleBasket extends ArticleAbstract {
           photo: photo ?? '',
           photoSource: photoSource,
           creationDate: creationDate,
-          updateDate: updateDate,
           status: status,
         );
 
@@ -125,8 +123,7 @@ class ArticleBasket extends ArticleAbstract {
       'photo': photo,
       'creationDate': creationDate.toIso8601String(),
       'updateDate': updateDate.toIso8601String(),
-      'statusUpdateDate': statusUpdateDate?.toIso8601String() ??
-          WeebiDates.defaultDate.toIso8601String(),
+      'statusUpdateDate': statusUpdateDate.toIso8601String(),
       'status': status,
     };
   }

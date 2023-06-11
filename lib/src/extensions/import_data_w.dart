@@ -41,7 +41,6 @@ extension ImportData on List<List<dynamic>> {
       final table = this[i];
       final newArticle = ArticleRetail(
         creationDate: now,
-        updateDate: now,
         calibreId: nextId,
         id: 1,
         fullName: table[0] != null ? table[0].toString().trim() : '',
@@ -90,7 +89,6 @@ extension ImportData on List<List<dynamic>> {
       final table = this[i];
       final newArticle = ArticleRetail(
         creationDate: now, // will be updated after if match
-        updateDate: now,
         calibreId: 0, // will be updated after if match
         id: 1,
         fullName: table[0] != null ? '${table[0]}' : '',

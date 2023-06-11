@@ -10,9 +10,7 @@ class DummyArticleData {
       title: 'Babibel',
       stockUnit: StockUnit.unit,
       status: true,
-      statusUpdateDate: WeebiDates.defaultDate,
       creationDate: WeebiDates.defaultDate,
-      updateDate: WeebiDates.defaultDate,
       articles: [
         ArticleRetail(
           calibreId: 2,
@@ -25,7 +23,6 @@ class DummyArticleData {
           cost: 50,
           articleCode: 11,
           creationDate: WeebiDates.defaultDate,
-          updateDate: WeebiDates.defaultDate,
         ),
         ArticleRetail(
           calibreId: 2,
@@ -38,7 +35,6 @@ class DummyArticleData {
           // photo:'https://drive.google.com/uc?export=view&id=146yEFbnwNDDyoVCHyOx-_oxxmCsrd8Rv',
           photoSource: PhotoSource.network,
           creationDate: WeebiDates.defaultDate,
-          updateDate: WeebiDates.defaultDate,
         ),
         ArticleRetail(
           calibreId: 2,
@@ -51,7 +47,6 @@ class DummyArticleData {
           // photo:'https://drive.google.com/uc?export=view&id=1gZH76loV7uc7J_3hNUkudETuyyBQGBXI',
           photoSource: PhotoSource.network,
           creationDate: WeebiDates.defaultDate,
-          updateDate: WeebiDates.defaultDate,
         ),
       ],
     ),
@@ -64,9 +59,7 @@ class DummyArticleData {
       categories: [''],
       stockUnit: StockUnit.unit,
       status: true,
-      statusUpdateDate: WeebiDates.defaultDate,
       creationDate: WeebiDates.defaultDate,
-      updateDate: WeebiDates.defaultDate,
       articles: [
         ArticleRetail(
           calibreId: 1,
@@ -79,20 +72,18 @@ class DummyArticleData {
           photo: Base64Cola.colaBase64,
           photoSource: PhotoSource.file,
           creationDate: WeebiDates.defaultDate,
-          updateDate: WeebiDates.defaultDate,
         ),
         ArticleRetail(
           calibreId: 1,
           id: 2,
-          fullName: 'Noix de cola x12',
-          weight: 12.0,
-          price: 1000,
-          cost: 500,
+          fullName: 'Noix de cola x6',
+          weight: 6.0,
+          price: 500,
+          cost: 250,
           articleCode: 12,
           photo: Base64Cola.cola6Base64,
           photoSource: PhotoSource.file,
           creationDate: WeebiDates.defaultDate,
-          updateDate: WeebiDates.defaultDate,
         ),
         ArticleRetail(
           calibreId: 1,
@@ -105,7 +96,6 @@ class DummyArticleData {
           photo: cola100Base64,
           photoSource: PhotoSource.memory,
           creationDate: WeebiDates.defaultDate,
-          updateDate: WeebiDates.defaultDate,
         ),
       ],
     ),

@@ -27,7 +27,6 @@ class ClosingStockProduct extends ArticleCalibreAbstract<ClosingStockArticle>
           title: title,
           articles: articles,
           status: true,
-          updateDate: DateTime.now(),
           creationDate: DateTime.now(),
         );
 

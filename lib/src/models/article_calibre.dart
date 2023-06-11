@@ -42,7 +42,7 @@ class ArticleCalibre<A extends ArticleAbstract>
     @observable required bool status,
     DateTime? statusUpdateDate,
     required DateTime? creationDate,
-    required DateTime? updateDate,
+    DateTime? updateDate,
   })  : isBasket = articles.isNotEmpty && articles.first is ArticleBasket,
         super(
           id: id,
@@ -53,7 +53,6 @@ class ArticleCalibre<A extends ArticleAbstract>
           statusUpdateDate: statusUpdateDate,
           articles: articles,
           creationDate: creationDate,
-          updateDate: updateDate,
         );
 
 // use a mixin ?

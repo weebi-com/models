@@ -14,6 +14,7 @@ class ArticleWMinQt extends ArticleAbstract {
     String? photo = '',
     required DateTime creationDate,
     required DateTime updateDate,
+    required DateTime statusUpdateDate,
     @observable bool status = false,
   }) : super(
           calibreId: calibreId,
@@ -23,7 +24,6 @@ class ArticleWMinQt extends ArticleAbstract {
           articleCode: articleCode,
           photo: photo ?? '',
           creationDate: creationDate,
-          updateDate: updateDate,
           status: status,
         );
 
@@ -39,13 +39,16 @@ class ArticleWMinQt extends ArticleAbstract {
         other.updateDate == updateDate;
   }
 
-  static get dummy => ArticleWMinQt(1,
-      calibreId: 1,
-      id: 1,
-      weight: 1,
-      fullName: 'dummy',
-      creationDate: WeebiDates.defaultDate,
-      updateDate: WeebiDates.defaultDate);
+  static get dummy => ArticleWMinQt(
+        1,
+        calibreId: 1,
+        id: 1,
+        weight: 1,
+        fullName: 'dummy',
+        creationDate: WeebiDates.defaultDate,
+        updateDate: WeebiDates.defaultDate,
+        statusUpdateDate: WeebiDates.defaultDate,
+      );
 
   @override
   int get hashCode => id.hashCode ^ fullName.hashCode;

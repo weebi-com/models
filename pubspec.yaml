@@ -9,8 +9,8 @@ dependencies:
   http: ^0.13.4
   mobx: ^2.0.3
   intl: ^0.17.0
-  models_base: ^1.4.3 # ^1.4.2 with intl 18.1
-    #path: ../models_base
+  models_base: #^1.4.3 # ^1.4.2 with intl 18.1
+    path: ../models_base
     
     #hosted:
     #  url: https://onepub.dev/api/xnxpsdavuh/

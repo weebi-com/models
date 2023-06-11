@@ -12,7 +12,6 @@ class ArticleRetail extends ArticleAbstract implements PriceAndCostAbstract {
   @override
   final int cost;
   int get codeShortcut => articleCode ?? id;
-  DateTime? statusUpdateDate;
   String barcodeEAN;
 
   // ? update in models_base ?
@@ -29,8 +28,8 @@ class ArticleRetail extends ArticleAbstract implements PriceAndCostAbstract {
       String photo = '',
       PhotoSource photoSource = PhotoSource.unknown,
       required DateTime creationDate,
-      required DateTime updateDate,
-      this.statusUpdateDate,
+      DateTime? updateDate,
+      DateTime? statusUpdateDate,
       this.barcodeEAN = '',
       @observable bool status = true})
       : super(
@@ -42,7 +41,6 @@ class ArticleRetail extends ArticleAbstract implements PriceAndCostAbstract {
           photo: photo,
           photoSource: photoSource,
           creationDate: creationDate,
-          updateDate: updateDate,
           status: status,
         );
 
@@ -101,8 +99,7 @@ ArticleWeebi(
       'photoSource': photoSource.toString(),
       'creationDate': creationDate.toIso8601String(),
       'updateDate': updateDate.toIso8601String(),
-      'statusUpdateDate': statusUpdateDate?.toIso8601String() ??
-          WeebiDates.defaultDate.toIso8601String(),
+      'statusUpdateDate': statusUpdateDate.toIso8601String(),
       'status': status,
     };
   }
