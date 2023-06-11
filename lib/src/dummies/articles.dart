@@ -84,8 +84,8 @@ class DummyArticleData {
         ArticleRetail(
           calibreId: 1,
           id: 2,
-          fullName: 'Noix de cola x6',
-          weight: 6.0,
+          fullName: 'Noix de cola x12',
+          weight: 12.0,
           price: 1000,
           cost: 500,
           articleCode: 12,

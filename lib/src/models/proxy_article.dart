@@ -5,49 +5,6 @@ import 'package:models_weebi/src/models/article_retail.dart';
 import 'package:models_weebi/src/models/article_calibre.dart';
 import 'package:models_weebi/src/models/proxy_article_worth.dart';
 
-//  *not used anywhere creating complexity + not working, stick to one extension only to get worth
-// extension ProxiesCompute on Iterable<ProxyArticle> {
-//   // articleBasket price must be computed
-//   int computeProxiesPrice(Iterable<LineOfArticles> lines) {
-//     var price = 0;
-//     if (isNotEmpty && lines.isNotEmpty) {
-//       for (final line in lines) {
-//         for (final proxy in this) {
-//           if (line.id == proxy.proxyLineId && line.isBasket == false) {
-//             for (final article in line.articles) {
-//               if (article.lineId == proxy.proxyLineId &&
-//                   article.id == proxy.proxyArticleId) {
-//                 price += (article as Article).price;
-//               }
-//             }
-//           }
-//         }
-//       }
-//     }
-//     return price;
-//   }
-
-//   // articleBasket price must be computed
-//   int computeProxiesCost(Iterable<LineOfArticles> lines) {
-//     var cost = 0;
-//     if (isNotEmpty && lines.isNotEmpty) {
-//       for (final line in lines) {
-//         for (final proxy in this) {
-//           if (line.id == proxy.proxyLineId && line.isBasket == false) {
-//             for (final article in line.articles) {
-//               if (article.lineId == proxy.proxyLineId &&
-//                   article.id == proxy.proxyArticleId) {
-//                 cost += (article as Article).cost;
-//               }
-//             }
-//           }
-//         }
-//       }
-//     }
-//     return cost;
-//   }
-// }
-
 mixin GimmeTheLoot on ArticleProxyAbstract {
   ProxyArticleWorth getProxyArticleWorth(
       Iterable<ArticleCalibre> linesInStore) {
