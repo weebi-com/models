@@ -1,6 +1,13 @@
+## 1.0.15
+
+- photos make an astonishing rework
+- fix find dups by id issue
+- enrich dummies
+- non required updated dates
+
 ## 1.0.14
 
-- photos make an astonoshing entrance
+- super clean articles
 
 ## 1.0.13
 
