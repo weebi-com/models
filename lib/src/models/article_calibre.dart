@@ -29,8 +29,7 @@ class ArticleCalibre<A extends ArticleAbstract>
   bool get isNotQuickSpend => (isPalpable ?? true);
   String get nameLine => title;
   int get titleHash => title.withoutAccents.toLowerCase().trim().hashCode;
-  @override
-  String get photo => articles.isEmpty ? '' : articles.first.photo;
+
   ArticleCalibre({
     required int id,
     this.isPalpable =
@@ -42,7 +41,7 @@ class ArticleCalibre<A extends ArticleAbstract>
     @observable required bool status,
     DateTime? statusUpdateDate,
     required DateTime? creationDate,
-    required DateTime? updateDate,
+    DateTime? updateDate,
   })  : isBasket = articles.isNotEmpty && articles.first is ArticleBasket,
         super(
           id: id,
@@ -53,7 +52,6 @@ class ArticleCalibre<A extends ArticleAbstract>
           statusUpdateDate: statusUpdateDate,
           articles: articles,
           creationDate: creationDate,
-          updateDate: updateDate,
         );
 
 // use a mixin ?
@@ -68,7 +66,6 @@ class ArticleCalibre<A extends ArticleAbstract>
   }
 
   static final dummyRetail = ArticleCalibre<ArticleRetail>(
-    // shopUuid: 'shopUuid',
     id: 1,
     articles: [ArticleRetail.dummy],
     title: 'dummy',
@@ -97,7 +94,6 @@ class ArticleCalibre<A extends ArticleAbstract>
       'isPalpable': isPalpable ?? true,
       'title': title,
       'stockUnit': stockUnit.toString(),
-      'photo': photo,
       'barcode': barcode ?? 0,
       'status': status,
       'statusUpdateDate': statusUpdateDate?.toIso8601String() ??
@@ -255,5 +251,6 @@ class ArticleCalibre<A extends ArticleAbstract>
     }
   }
 
-  static final jams = ArticleCalibresDummyJamsBM.jams;
+  static final jams = ArticleCalibresDummyJamsBM.jamsData;
+  static final jamsPhoto = ArticleCalibresDummyJamsBM.jamsPhotos;
 }

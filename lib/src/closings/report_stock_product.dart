@@ -40,7 +40,6 @@ class ReportStockProduct extends ArticleCalibreAbstract<ReportStockArticle>
           articles: articles ?? [],
           status: true,
           creationDate: DateTime.now(),
-          updateDate: DateTime.now(),
         );
 
   @override

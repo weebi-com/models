@@ -21,7 +21,6 @@ void main() {
     expect(proxiesWorth.totalPrice == 100, isTrue);
     expect(proxiesWorth.totalCost == 80, isTrue);
     expect(dummy.articleCode == ArticleBasket.dummy.articleCode, isTrue);
-    expect(dummy.photo == ArticleBasket.dummy.photo, isTrue);
     expect(dummy.creationDate == ArticleBasket.dummy.creationDate, isTrue);
     expect(dummy.status == ArticleBasket.dummy.status, isTrue);
     final listEquals = const DeepCollectionEquality().equals;

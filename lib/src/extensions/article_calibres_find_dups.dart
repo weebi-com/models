@@ -1,7 +1,7 @@
 import 'package:models_weebi/utils.dart';
 import 'package:models_weebi/weebi_models.dart';
 
-extension FindDups on List<ArticleCalibre> {
+extension FindDupsArticleCalibre on List<ArticleCalibre> {
   TwoLists<ArticleCalibre> findDupsById(
       {required List<ArticleCalibre> newList}) {
     final noDups = <ArticleCalibre>[];
@@ -11,7 +11,7 @@ extension FindDups on List<ArticleCalibre> {
       return TwoLists<ArticleCalibre>(dups: dups, noDups: noDups);
     }
     final oldListIds = map((e) => e.id);
-    final newListIds = map((e) => e.id);
+    final newListIds = newList.map((e) => e.id);
     for (final newId in newListIds) {
       if (oldListIds.contains(newId)) {
         dups.add(newList.firstWhere((e) => e.id == newId));

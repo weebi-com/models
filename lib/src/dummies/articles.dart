@@ -1,31 +1,53 @@
 import 'package:models_weebi/common.dart';
-import 'package:models_weebi/src/dummies/base64_cola.dart';
 import 'package:models_weebi/utils.dart';
 import 'package:models_weebi/weebi_models.dart';
 
 class DummyArticleData {
+  static final articleCalibresDummies = [
+    ...cola,
+    ...babibel,
+    articleCalibreDummySugar
+  ];
+  static final articleCalibreDummySugar = ArticleCalibre(
+    id: 3,
+    title: 'Sucre',
+    stockUnit: StockUnit.gram,
+    status: true,
+    statusUpdateDate: WeebiDates.defaultDate,
+    creationDate: WeebiDates.defaultDate,
+    updateDate: WeebiDates.defaultDate,
+    articles: [
+      ArticleRetail(
+        calibreId: 3,
+        id: 1,
+        fullName: 'Sucre g',
+        weight: 1.0,
+        price: 10,
+        cost: 5,
+        articleCode: 31,
+        creationDate: WeebiDates.defaultDate,
+        updateDate: WeebiDates.defaultDate,
+      )
+    ],
+  );
+
   static final babibel = [
     ArticleCalibre(
       id: 2,
       title: 'Babibel',
       stockUnit: StockUnit.unit,
       status: true,
-      statusUpdateDate: WeebiDates.defaultDate,
       creationDate: WeebiDates.defaultDate,
-      updateDate: WeebiDates.defaultDate,
       articles: [
         ArticleRetail(
           calibreId: 2,
           id: 1,
           fullName: 'Babibel x1',
-          // photo:'https://drive.google.com/uc?export=view&id=1OidtnGPK9iA7cZXX-yDX9YmUyrpb63GK',
-          photoSource: PhotoSource.network,
           weight: 1.0,
           price: 100,
           cost: 50,
           articleCode: 11,
           creationDate: WeebiDates.defaultDate,
-          updateDate: WeebiDates.defaultDate,
         ),
         ArticleRetail(
           calibreId: 2,
@@ -35,10 +57,7 @@ class DummyArticleData {
           price: 1000,
           cost: 500,
           articleCode: 12,
-          // photo:'https://drive.google.com/uc?export=view&id=146yEFbnwNDDyoVCHyOx-_oxxmCsrd8Rv',
-          photoSource: PhotoSource.network,
           creationDate: WeebiDates.defaultDate,
-          updateDate: WeebiDates.defaultDate,
         ),
         ArticleRetail(
           calibreId: 2,
@@ -48,10 +67,7 @@ class DummyArticleData {
           price: 9000,
           cost: 4500,
           articleCode: 13,
-          // photo:'https://drive.google.com/uc?export=view&id=1gZH76loV7uc7J_3hNUkudETuyyBQGBXI',
-          photoSource: PhotoSource.network,
           creationDate: WeebiDates.defaultDate,
-          updateDate: WeebiDates.defaultDate,
         ),
       ],
     ),
@@ -64,9 +80,7 @@ class DummyArticleData {
       categories: [''],
       stockUnit: StockUnit.unit,
       status: true,
-      statusUpdateDate: WeebiDates.defaultDate,
       creationDate: WeebiDates.defaultDate,
-      updateDate: WeebiDates.defaultDate,
       articles: [
         ArticleRetail(
           calibreId: 1,
@@ -76,23 +90,17 @@ class DummyArticleData {
           price: 100,
           cost: 50,
           articleCode: 11,
-          photo: Base64Cola.colaBase64,
-          photoSource: PhotoSource.file,
           creationDate: WeebiDates.defaultDate,
-          updateDate: WeebiDates.defaultDate,
         ),
         ArticleRetail(
           calibreId: 1,
           id: 2,
           fullName: 'Noix de cola x6',
           weight: 6.0,
-          price: 1000,
-          cost: 500,
+          price: 500,
+          cost: 250,
           articleCode: 12,
-          photo: Base64Cola.cola6Base64,
-          photoSource: PhotoSource.file,
           creationDate: WeebiDates.defaultDate,
-          updateDate: WeebiDates.defaultDate,
         ),
         ArticleRetail(
           calibreId: 1,
@@ -102,10 +110,9 @@ class DummyArticleData {
           price: 9000,
           cost: 4500,
           articleCode: 13,
-          photo: cola100Base64,
-          photoSource: PhotoSource.memory,
+          // photo: cola100Base64,
+          // photoSource: PhotoSource.memory,
           creationDate: WeebiDates.defaultDate,
-          updateDate: WeebiDates.defaultDate,
         ),
       ],
     ),

@@ -29,7 +29,6 @@ class ReportStockArticle extends ArticleAbstract
           id: id,
           fullName: fullName,
           creationDate: DateTime.now(),
-          updateDate: DateTime.now(),
           status: true,
         );
 }

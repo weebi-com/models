@@ -4,9 +4,11 @@ export 'src/models/article_calibre.dart';
 export 'src/models/article_retail.dart';
 export 'src/models/article_min_qt.dart';
 export 'src/models/article_basket.dart';
+export 'src/models/article_photo.dart';
 export 'src/models/basket_wrapper.dart';
 export 'src/models/proxy_article.dart';
 export 'src/models/proxy_article_worth.dart';
+
 export 'src/models/item_cart_weebi.dart';
 export 'src/models/shop_weebi.dart';
 export 'src/models/taxe_weebi.dart';

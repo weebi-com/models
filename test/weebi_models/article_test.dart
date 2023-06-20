@@ -14,7 +14,6 @@ void main() {
     expect(dummy.cost == ArticleRetail.dummy.cost, isTrue);
     expect(dummy.weight == ArticleRetail.dummy.weight, isTrue);
     expect(dummy.articleCode == ArticleRetail.dummy.articleCode, isTrue);
-    expect(dummy.photo == ArticleRetail.dummy.photo, isTrue);
     expect(dummy.creationDate == ArticleRetail.dummy.creationDate, isTrue);
     expect(dummy.status == ArticleRetail.dummy.status, isTrue);
   });

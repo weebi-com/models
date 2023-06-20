@@ -12,7 +12,6 @@ class ArticleRetail extends ArticleAbstract implements PriceAndCostAbstract {
   @override
   final int cost;
   int get codeShortcut => articleCode ?? id;
-  DateTime? statusUpdateDate;
   String barcodeEAN;
 
   // ? update in models_base ?
@@ -26,11 +25,9 @@ class ArticleRetail extends ArticleAbstract implements PriceAndCostAbstract {
       required String fullName,
       double weight = 1.0,
       int? articleCode,
-      String photo = '',
-      PhotoSource photoSource = PhotoSource.unknown,
       required DateTime creationDate,
-      required DateTime updateDate,
-      this.statusUpdateDate,
+      DateTime? updateDate,
+      DateTime? statusUpdateDate,
       this.barcodeEAN = '',
       @observable bool status = true})
       : super(
@@ -39,10 +36,9 @@ class ArticleRetail extends ArticleAbstract implements PriceAndCostAbstract {
           fullName: fullName,
           weight: weight,
           articleCode: articleCode,
-          photo: photo,
-          photoSource: photoSource,
           creationDate: creationDate,
           updateDate: updateDate,
+          statusUpdateDate: statusUpdateDate,
           status: status,
         );
 
@@ -55,8 +51,6 @@ class ArticleRetail extends ArticleAbstract implements PriceAndCostAbstract {
     cost: 80,
     weight: 1,
     articleCode: 1,
-    photo: 'photo',
-    photoSource: PhotoSource.unknown,
     barcodeEAN: 'barcodeEAN',
     creationDate: WeebiDates.defaultDate,
     updateDate: WeebiDates.defaultDate,
@@ -75,8 +69,6 @@ ArticleWeebi(
   cost: $cost,
   weight: $weight,
   articleCode: $articleCode,
-  photo: $photo,
-  photoSource: ${photoSource.toString()},
   creationDate: $creationDate,
   updateDate: $updateDate,
   statusUpdateDate: $statusUpdateDate,
@@ -97,12 +89,9 @@ ArticleWeebi(
       'cost': cost,
       'weight': weight,
       'articleCode': articleCode ?? 0,
-      'photo': photo,
-      'photoSource': photoSource.toString(),
       'creationDate': creationDate.toIso8601String(),
-      'updateDate': updateDate.toIso8601String(),
-      'statusUpdateDate': statusUpdateDate?.toIso8601String() ??
-          WeebiDates.defaultDate.toIso8601String(),
+      'updateDate': updateDate?.toIso8601String(),
+      'statusUpdateDate': statusUpdateDate?.toIso8601String(),
       'status': status,
     };
   }
@@ -121,8 +110,6 @@ ArticleWeebi(
       weight: map['weight'] == null ? 1.0 : (map['weight'] as num).toDouble(),
       articleCode: map['articleCode'] ?? 0,
       barcodeEAN: (map['barcodeEAN'] ?? '') as String,
-      photo: (map['photo'] ?? '') as String,
-      photoSource: PhotoSource.tryParse(map['photoSource'] as String),
       creationDate: map['creationDate'] == null
           ? WeebiDates.defaultDate
           : DateTime.parse(map['creationDate']),
@@ -168,8 +155,6 @@ ArticleWeebi(
       weight: weight ?? this.weight,
       articleCode: articleCode ?? this.articleCode,
       barcodeEAN: barcodeEAN ?? this.barcodeEAN,
-      photo: photo ?? this.photo,
-      photoSource: photoSource ?? this.photoSource,
       creationDate: creationDate ?? this.creationDate,
       updateDate: updateDate ?? this.updateDate,
       statusUpdateDate: statusUpdateDate ?? this.statusUpdateDate,
@@ -188,7 +173,6 @@ ArticleWeebi(
         other.id == id &&
         other.calibreId == calibreId &&
         other.barcodeEAN == barcodeEAN &&
-        other.photo == photo &&
         other.creationDate == creationDate &&
         other.updateDate == updateDate;
   }

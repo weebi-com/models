@@ -37,7 +37,6 @@ class ClosingStockArticle extends ArticleAbstract
           fullName: fullName,
           status: true,
           creationDate: DateTime.now(),
-          updateDate: DateTime.now(),
         );
 
   @override
