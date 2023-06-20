@@ -66,7 +66,6 @@ class ArticleCalibre<A extends ArticleAbstract>
   }
 
   static final dummyRetail = ArticleCalibre<ArticleRetail>(
-    // shopUuid: 'shopUuid',
     id: 1,
     articles: [ArticleRetail.dummy],
     title: 'dummy',
@@ -252,5 +251,6 @@ class ArticleCalibre<A extends ArticleAbstract>
     }
   }
 
-  static final jams = ArticleCalibresDummyJamsBM.jams;
+  static final jams = ArticleCalibresDummyJamsBM.jamsData;
+  static final jamsPhoto = ArticleCalibresDummyJamsBM.jamsPhotos;
 }

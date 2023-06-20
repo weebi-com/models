@@ -20,7 +20,7 @@ class ArticlePhoto extends ArticlePhotoAbstract {
   @override
   String toJson() => json.encode(toMap());
 
-  static final dummy = ArticlePhoto(
+  static const dummy = ArticlePhoto(
     calibreId: 1,
     id: 1,
     path: 'path',
@@ -43,4 +43,19 @@ class ArticlePhoto extends ArticlePhotoAbstract {
       source: source ?? this.source,
     );
   }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+
+    return other is ArticlePhoto &&
+        other.id == id &&
+        other.calibreId == calibreId &&
+        other.path == path &&
+        other.source == source;
+  }
+
+  @override
+  int get hashCode =>
+      id.hashCode ^ calibreId.hashCode ^ path.hashCode ^ source.hashCode;
 }

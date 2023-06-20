@@ -25,8 +25,6 @@ class ArticleRetail extends ArticleAbstract implements PriceAndCostAbstract {
       required String fullName,
       double weight = 1.0,
       int? articleCode,
-      String photo = '',
-      PhotoSource photoSource = PhotoSource.unknown,
       required DateTime creationDate,
       DateTime? updateDate,
       DateTime? statusUpdateDate,
@@ -39,6 +37,8 @@ class ArticleRetail extends ArticleAbstract implements PriceAndCostAbstract {
           weight: weight,
           articleCode: articleCode,
           creationDate: creationDate,
+          updateDate: updateDate,
+          statusUpdateDate: statusUpdateDate,
           status: status,
         );
 
@@ -51,8 +51,6 @@ class ArticleRetail extends ArticleAbstract implements PriceAndCostAbstract {
     cost: 80,
     weight: 1,
     articleCode: 1,
-    photo: 'photo',
-    photoSource: PhotoSource.unknown,
     barcodeEAN: 'barcodeEAN',
     creationDate: WeebiDates.defaultDate,
     updateDate: WeebiDates.defaultDate,
@@ -92,8 +90,8 @@ ArticleWeebi(
       'weight': weight,
       'articleCode': articleCode ?? 0,
       'creationDate': creationDate.toIso8601String(),
-      'updateDate': updateDate.toIso8601String(),
-      'statusUpdateDate': statusUpdateDate.toIso8601String(),
+      'updateDate': updateDate?.toIso8601String(),
+      'statusUpdateDate': statusUpdateDate?.toIso8601String(),
       'status': status,
     };
   }
@@ -112,8 +110,6 @@ ArticleWeebi(
       weight: map['weight'] == null ? 1.0 : (map['weight'] as num).toDouble(),
       articleCode: map['articleCode'] ?? 0,
       barcodeEAN: (map['barcodeEAN'] ?? '') as String,
-      photo: (map['photo'] ?? '') as String,
-      photoSource: PhotoSource.tryParse(map['photoSource'] as String),
       creationDate: map['creationDate'] == null
           ? WeebiDates.defaultDate
           : DateTime.parse(map['creationDate']),

@@ -36,6 +36,8 @@ class ArticleBasket extends ArticleAbstract {
           weight: weight,
           articleCode: articleCode,
           creationDate: creationDate,
+          updateDate: updateDate,
+          statusUpdateDate: statusUpdateDate,
           status: status,
         );
 
@@ -119,8 +121,8 @@ class ArticleBasket extends ArticleAbstract {
       'weight': weight,
       'articleCode': articleCode ?? 0,
       'creationDate': creationDate.toIso8601String(),
-      'updateDate': updateDate.toIso8601String(),
-      'statusUpdateDate': statusUpdateDate.toIso8601String(),
+      'updateDate': updateDate?.toIso8601String(),
+      'statusUpdateDate': statusUpdateDate?.toIso8601String(),
       'status': status,
     };
   }

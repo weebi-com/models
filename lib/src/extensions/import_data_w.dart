@@ -1,6 +1,6 @@
-import 'package:models_base/common.dart' show StockUnit;
+import 'package:models_base/common.dart' show PhotoSource, StockUnit;
 import 'package:models_weebi/weebi_models.dart'
-    show Herder, ArticleCalibre, ArticleRetail;
+    show ArticleCalibre, ArticlePhoto, ArticleRetail, Herder;
 
 extension ImportData on List<List<dynamic>> {
   List<Herder> extractHerdersFromParsedExcel(
@@ -32,6 +32,29 @@ extension ImportData on List<List<dynamic>> {
     return herdersList;
   }
 
+  List<ArticlePhoto> get extractArticlesPhotosFromParsedExcel {
+    final photosList = <ArticlePhoto>[];
+    for (var i = 0; i < length; i++) {
+      final table = this[i];
+      final newPhoto = ArticlePhoto(
+        calibreId: table[0] != null
+            ? table[0].runtimeType == int
+                ? table[0]
+                : int.tryParse(table[1])
+            : 0,
+        id: table[1] != null
+            ? table[1].runtimeType == int
+                ? table[1]
+                : int.tryParse(table[1])
+            : 0,
+        path: table[3] != null ? table[3].toString().trim() : '',
+        source: PhotoSource.file,
+      );
+      photosList.add(newPhoto);
+    }
+    return photosList;
+  }
+
   List<ArticleCalibre<ArticleRetail>> extractArticlesCalibresFromParsedExcel(
       int nextLineId, String shopUuid) {
     final linesList = <ArticleCalibre<ArticleRetail>>[];
@@ -60,7 +83,6 @@ extension ImportData on List<List<dynamic>> {
                 ? table[3]
                 : int.tryParse(table[3])
             : 0,
-        photo: '',
       );
       final newLine = ArticleCalibre<ArticleRetail>(
         creationDate: now,
@@ -79,7 +101,7 @@ extension ImportData on List<List<dynamic>> {
     return linesList;
   }
 
-  //TODO factorize in one function with a boolean isUpdate
+  // * TOconsider factorize in one function with a boolean isUpdate
   List<ArticleCalibre<ArticleRetail>>
       extractCalibresOfArticlesForUpdateFromParsedExcel(String shopUuid) {
     final linesList = <ArticleCalibre<ArticleRetail>>[];
@@ -108,7 +130,6 @@ extension ImportData on List<List<dynamic>> {
                 ? table[3]
                 : int.tryParse(table[3])
             : 0,
-        photo: '',
       );
       final newLine = ArticleCalibre<ArticleRetail>(
         creationDate: now,

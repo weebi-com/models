@@ -25,11 +25,11 @@ class TicketWeebi extends TicketWeebiAbstract
     required final PaiementType paiementType,
     required final TicketType ticketType,
     required final String contactInfo, // herderId
-    required final String contactPastPurchasingPower,
+    final String contactPastPurchasingPower = '',
     required final bool status,
     required DateTime? statusUpdateDate,
     required final DateTime creationDate,
-    required final int? discountAmount,
+    final int? discountAmount = 0,
   }) : super(
           id: id,
           oid: oid,

@@ -7,7 +7,7 @@ extension HerderFindDups on List<Herder> {
       return TwoLists(noDups: newList, dups: <Herder>[]);
     }
     final oldListIds = map((e) => e.id);
-    final newListIds = map((e) => e.id);
+    final newListIds = newList.map((e) => e.id);
     final noDups = <Herder>[];
     final dups = <Herder>[];
     for (final newId in newListIds) {

@@ -13,8 +13,8 @@ class ArticleWMinQt extends ArticleAbstract {
     int? articleCode,
     String? photo = '',
     required DateTime creationDate,
-    required DateTime updateDate,
-    required DateTime statusUpdateDate,
+    DateTime? updateDate,
+    DateTime? statusUpdateDate,
     @observable bool status = false,
   }) : super(
           calibreId: calibreId,
