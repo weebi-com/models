@@ -1,6 +1,6 @@
 import 'package:models_weebi/src/closings/abstract/closing_shop.dart';
 import 'package:models_weebi/src/closings/closing_stock_article.dart';
-import 'package:models_base/utils.dart';
+import 'package:models_weebi/utils.dart';
 
 class ClosingStockShopArticle extends ClosingStockArticle
     implements ClosingShopAbstract {

@@ -1,5 +1,5 @@
 name: models_weebi
-version: 1.0.15
+version: 1.0.16
 #publish_to: #https://onepub.dev/api/xnxpsdavuh/
 homepage: http://weebi.com
 description: models
@@ -8,7 +8,6 @@ environment:
 dependencies: 
   collection: ^1.14.12
   http: ^0.13.4
-  intl: ^0.17.0
   meta: ^1.3.0 # ^1.7.0
   mobx: ^2.0.3
   ### weebi's own kitchen

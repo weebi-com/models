@@ -1,7 +1,7 @@
 // ignore_for_file: unnecessary_null_comparison
 
 import 'dart:convert';
-import 'package:models_base/utils.dart';
+import 'package:models_weebi/utils.dart';
 import 'package:models_weebi/src/models/ticket_mixin_weebi_base.dart';
 import 'package:models_weebi/src/models/ticket_mixin_weebi_print.dart';
 import 'package:models_base/common.dart';

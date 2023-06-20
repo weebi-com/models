@@ -1,6 +1,5 @@
 import 'package:models_weebi/weebi_models.dart' show ContactWeebi;
 
-// TODO finish this export of contact
 extension ContactsToRows on List<ContactWeebi> {
   List<List<dynamic>> formatToRows() {
     List<List<dynamic>> rows = List<List<dynamic>>.empty(growable: true);

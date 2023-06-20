@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'package:models_base/utils.dart';
+import 'package:models_weebi/utils.dart';
 import 'package:models_base/common.dart' show Address, ContactAbstract;
 import 'package:models_weebi/src/models/tristate.dart';
 
@@ -10,7 +10,7 @@ class ContactWeebi extends ContactAbstract {
   final String category;
   final DateTime? creationDate;
   final Address address; // ? make this a list
-  // TODO
+
   // several tel number, consider also making a list of them
   // would be nice to differentiate the ones to use for whatsapp
   // -> make a dedicated class

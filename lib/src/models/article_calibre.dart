@@ -4,7 +4,7 @@ import 'package:mobx/mobx.dart';
 import 'package:models_base/base.dart'
     show ArticleAbstract, ArticleCalibreAbstract;
 import 'package:models_base/common.dart';
-import 'package:models_base/utils.dart';
+import 'package:models_weebi/utils.dart';
 import 'package:models_weebi/src/dummies/confitures.dart';
 import 'package:models_weebi/src/extensions/string_no_accents.dart';
 import 'package:models_weebi/src/models/article_basket.dart';

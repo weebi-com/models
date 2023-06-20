@@ -1,5 +1,6 @@
 import 'dart:convert';
-import 'package:models_base/utils.dart';
+import 'package:models_weebi/extensions.dart';
+import 'package:models_weebi/utils.dart';
 
 class ClosingRange implements DateRange {
   final DateTime date;
@@ -25,7 +26,7 @@ class ClosingRange implements DateRange {
       DateTime.now().month - 1,
       1,
     ),
-    endDate: DateTime(0).previousMonthLastDay(),
+    endDate: DateTime(0).nowPreviousMonthLastDay(),
   );
   static final dummyFeb = ClosingRange(
     date: WeebiDates.febEnd,

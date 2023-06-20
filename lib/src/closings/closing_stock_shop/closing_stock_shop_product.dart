@@ -2,7 +2,7 @@ import 'package:models_weebi/src/closings/abstract/closing_shop.dart';
 import 'package:models_weebi/src/closings/closing_stock_product.dart';
 import 'package:models_weebi/src/closings/closing_range.dart';
 import 'package:models_weebi/src/closings/closing_stock_shop/closing_stock_shop_article.dart';
-import 'package:models_base/utils.dart';
+import 'package:models_weebi/utils.dart';
 
 class ClosingStockShopProduct extends ClosingStockProduct
     implements ClosingShopAbstract {

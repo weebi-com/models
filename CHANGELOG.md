@@ -1,3 +1,7 @@
+## 1.0.16
+
+no need for intl
+
 ## 1.0.15
 
 - photos make an astonishing rework

@@ -1,7 +1,7 @@
 // import 'package:models_weebi/closing.dart';
 // import 'package:models_weebi/reports.dart';
 import 'package:models_base/common.dart' show FinFlow;
-import 'package:models_base/utils.dart';
+import 'package:models_weebi/utils.dart';
 import 'package:models_weebi/weebi_models.dart';
 
 extension FinFlowsTickets<T extends TicketWeebiAbstract> on List<T> {

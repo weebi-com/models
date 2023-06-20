@@ -4,7 +4,7 @@ import 'package:models_weebi/src/closings/closing_range.dart';
 import 'package:models_weebi/src/closings/closing_stock_article.dart';
 
 import 'package:models_base/base.dart';
-import 'package:models_base/utils.dart';
+import 'package:models_weebi/utils.dart';
 
 class ClosingStockProduct extends ArticleCalibreAbstract<ClosingStockArticle>
     implements ClosingDateAbstract, StockQuantityAbstract {

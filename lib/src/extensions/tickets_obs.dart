@@ -8,7 +8,7 @@
 // import 'package:models_base/src/base/product_base.dart';
 // import 'package:models_base/src/common/paiement_type.dart';
 // import 'package:models_base/src/common/ticket_type.dart';
-// import 'package:models_base/utils.dart';
+// import 'package:models_weebi/utils.dart';
 
 // lunch() {
 //   final ObservableList<Ticket> tt = ObservableList.of([]);
