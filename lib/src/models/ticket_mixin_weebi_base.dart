@@ -5,7 +5,7 @@ import 'package:models_weebi/weebi_models.dart';
 // import 'package:models_weebi/src/models/taxe_weebi.dart';
 
 mixin TicketMixinWeebiBase on TicketWeebiAbstract {
-  int calculateSumsOfTicket(
+  num calculateSumsOfTicket(
       TicketType ticketType, DateTime startOfMonth, DateTime endOfMonth) {
     if (ticketType == ticketType &&
         date.isAfter(startOfMonth) &&
@@ -192,7 +192,7 @@ mixin TicketMixinWeebiBase on TicketWeebiAbstract {
     }
   }
 
-  int get sellFull {
+  num get sellFull {
     switch (ticketType) {
       case TicketType.sell:
         return totalPriceTaxAndPromoIncluded;
@@ -205,7 +205,7 @@ mixin TicketMixinWeebiBase on TicketWeebiAbstract {
     }
   }
 
-  int get spendFull {
+  num get spendFull {
     switch (ticketType) {
       case TicketType.spend:
         return totalCostTaxAndPromoIncluded;

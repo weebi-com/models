@@ -3,7 +3,7 @@ import 'package:models_weebi/weebi_models.dart';
 import 'package:test/test.dart';
 
 void main() {
-  test('article Weebi', () {
+  test('article retail', () {
     final json = ArticleRetail.dummy.toJson();
     final dummy = ArticleRetail.fromJson(json);
 

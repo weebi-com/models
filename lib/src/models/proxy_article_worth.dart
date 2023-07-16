@@ -21,11 +21,14 @@ extension AggregateProxies on Iterable<ProxyArticleWorth> {
   }
 }
 
-class ProxyArticleWorth extends ProxyArticle implements PriceAndCostAbstract {
+class ProxyArticleWorth extends ProxyArticle implements Price, Cost {
   @override
-  final int price;
+  final num price;
+  num get priceClean => num.parse(Price(price).toString());
   @override
-  final int cost;
+  final num cost;
+  num get costClean => num.parse(Cost(cost).toString());
+
   ProxyArticleWorth({
     required this.price,
     required this.cost,
@@ -50,8 +53,8 @@ class ProxyArticleWorth extends ProxyArticle implements PriceAndCostAbstract {
 
   factory ProxyArticleWorth.getPriceAndCost(
       Iterable<ArticleCalibre> calibresInStore, ProxyArticle pNoPriceNoCost) {
-    final int price = pNoPriceNoCost.getPrice(calibresInStore);
-    final int cost = pNoPriceNoCost.getCost(calibresInStore);
+    final price = pNoPriceNoCost.getPrice(calibresInStore);
+    final cost = pNoPriceNoCost.getCost(calibresInStore);
     return ProxyArticleWorth(
         price: price,
         cost: cost,

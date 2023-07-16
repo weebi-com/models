@@ -138,7 +138,7 @@ class ProxyArticle extends ArticleProxyAbstract with GimmeTheLoot {
       articleWeight.hashCode ^
       proxyArticleId.hashCode;
 
-  int getPrice(Iterable<ArticleCalibre> linesInStore) {
+  num getPrice(Iterable<ArticleCalibre> linesInStore) {
     if (linesInStore.isNotEmpty) {
       for (final line in linesInStore) {
         if (line.isBasket == false && line.id == proxyCalibreId) {
@@ -154,7 +154,7 @@ class ProxyArticle extends ArticleProxyAbstract with GimmeTheLoot {
     return 0;
   }
 
-  int getCost(Iterable<ArticleCalibre> linesInStore) {
+  num getCost(Iterable<ArticleCalibre> linesInStore) {
     if (linesInStore.isNotEmpty) {
       for (final line in linesInStore) {
         if (line.isBasket == false && line.id == proxyCalibreId) {

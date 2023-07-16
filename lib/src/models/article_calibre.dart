@@ -75,6 +75,15 @@ class ArticleCalibre<A extends ArticleAbstract>
     isPalpable: true,
   );
 
+  static final dummyRetailDecimal = ArticleCalibre<ArticleRetail>(
+    id: 3,
+    articles: [ArticleRetail.dummyDecimal],
+    title: 'dummyDecimal',
+    status: true,
+    creationDate: WeebiDates.defaultDate,
+    isPalpable: true,
+  );
+
   static final dummyBasket = ArticleCalibre<ArticleBasket>(
       id: 2,
       categories: null,

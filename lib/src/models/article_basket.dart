@@ -14,7 +14,7 @@ class ArticleBasket extends ArticleAbstract {
   final List<ProxyArticle> proxies;
   // article price and cost can change
   // so proxies only save ref not price / nor cost which are fetched when invoked
-  final int discountAmountSalesOnly;
+  final num discountAmountSalesOnly;
   ArticleBasket({
     required int calibreId,
     required int id,
@@ -90,7 +90,7 @@ class ArticleBasket extends ArticleAbstract {
         weight: map['weight'] == null ? 0.0 : (map['weight'] as num).toDouble(),
         articleCode: map['articleCode'] ?? 0,
         photo: map['photo'] ?? '',
-        discountAmountSalesOnly: map['discountAmount'] ?? 0,
+        discountAmountSalesOnly: (map['discountAmount'] as num),
         creationDate: map['creationDate'] == null
             ? WeebiDates.defaultDate
             : DateTime.parse(map['creationDate']),

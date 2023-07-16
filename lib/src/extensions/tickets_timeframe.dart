@@ -3,26 +3,26 @@ import 'package:models_weebi/weebi_models.dart';
 // package won't come down from github, shortcuting here
 
 extension MaxCG on List<TicketsGroupedByTimeFrame> {
-  int maxTotal() {
+  num maxTotal() {
     sort((a, b) => (a.total).compareTo((b.total)));
     return last.total;
   }
 }
 
 class TicketsGroupedByTimeFrame {
-  int get total => tickets.fold(0, (pv, e) => pv + e.total);
+  num get total => tickets.fold(0, (pv, e) => pv + e.total);
 
   final dynamic timeFrame;
   final Set<TicketWeebi> tickets;
   TicketsGroupedByTimeFrame(this.timeFrame, this.tickets);
 
-  int get totalSellTaxAndPromoExcluded =>
+  num get totalSellTaxAndPromoExcluded =>
       tickets.fold(0, (pv, e) => pv + e.totalPriceItemsOnly);
-  int get totalSellDeferredTaxAndPromoExcluded =>
+  num get totalSellDeferredTaxAndPromoExcluded =>
       tickets.fold(0, (pv, e) => pv + e.totalPriceItemsOnly);
-  int get totalSpendTaxAndPromoExcluded =>
+  num get totalSpendTaxAndPromoExcluded =>
       tickets.fold(0, (pv, e) => pv + e.totalCostItemsOnly);
-  int get totalSpendDeferredTaxAndPromoExcluded =>
+  num get totalSpendDeferredTaxAndPromoExcluded =>
       tickets.fold(0, (pv, e) => pv + e.totalCostItemsOnly);
 }
 

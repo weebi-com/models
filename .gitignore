@@ -10,3 +10,4 @@ build/
 pubspec.lock
 models_base
 models_base
+.DS_Store

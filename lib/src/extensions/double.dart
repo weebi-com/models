@@ -7,3 +7,10 @@ extension RoundDecimals on double {
     return d;
   }
 }
+
+extension RoundNumDecimals on num {
+  double get roundFourDecimals {
+    num fac = pow(10, 4);
+    return (this * fac).round() / fac;
+  }
+}

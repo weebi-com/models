@@ -11,37 +11,33 @@ import 'package:models_weebi/weebi_models.dart';
 // we keep a single class itemWeebi to handle it
 
 extension AggregateItems on Iterable<ItemCartWeebi> {
-  int get itemsTotalPrice => fold(0, (value, item) {
+  num get itemsTotalPrice => fold(0, (value, item) {
         if (item.isBasket) {
           final totalRaw = ((value +
-                      (item.proxiesWorth as Iterable<ProxyArticleWorth>)
-                          .totalPrice) *
-                  item.quantity)
-              .round();
+                  (item.proxiesWorth as Iterable<ProxyArticleWorth>)
+                      .totalPrice) *
+              item.quantity);
           final totalFull = totalRaw -
               (item.article as ArticleBasket).discountAmountSalesOnly;
           return totalFull;
         } else {
           return (value +
-                  ((item.article as ArticleRetail).price * item.quantity))
-              .round();
+              ((item.article as ArticleRetail).price * item.quantity));
         }
       });
 
   // -----
   // below spend and spendDeferred
   // -----
-  int get itemsTotalCost => fold(0, (value, item) {
+  num get itemsTotalCost => fold(0, (value, item) {
         if (item.isBasket) {
           return (value +
-                  (item.proxiesWorth as Iterable<ProxyArticleWorth>).totalCost *
-                      item.quantity)
-              .round();
+              (item.proxiesWorth as Iterable<ProxyArticleWorth>).totalCost *
+                  item.quantity);
           // here I do not apply discount since this is a purchase
           // if needed consider creating an additional field discountAmountPurchaseOnly
         } else {
-          return value +
-              ((item.article as ArticleRetail).cost * item.quantity).round();
+          return value + ((item.article as ArticleRetail).cost * item.quantity);
         }
       });
 }
@@ -65,11 +61,11 @@ class ItemCartWeebi<A extends ArticleAbstract> extends ItemInCartAbstract<A> {
       proxiesWorth: <ProxyArticleWorth>[ProxyArticleWorth.dummy]);
 
   // I can play around with Article while ignoring its exact type :)
-  int get totalPrice => (articlePrice * quantity).round();
+  num get totalPrice => (articlePrice * quantity);
 
-  int get totalCost => (articleCost * quantity).round();
+  num get totalCost => (articleCost * quantity);
 
-  int get articlePrice {
+  num get articlePrice {
     A article = articleCreator();
     if (article.toMap()['proxies'] != null) {
       return proxiesWorth?.totalPrice ?? 0;
@@ -78,7 +74,7 @@ class ItemCartWeebi<A extends ArticleAbstract> extends ItemInCartAbstract<A> {
     }
   }
 
-  int get articleCost {
+  num get articleCost {
     A article = articleCreator();
     if (article.toMap()['proxies'] != null) {
       return proxiesWorth?.totalCost ?? 0;

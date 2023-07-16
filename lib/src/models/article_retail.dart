@@ -6,11 +6,15 @@ import 'package:models_base/common.dart';
 import 'package:models_weebi/utils.dart';
 import 'package:models_weebi/src/models/price_and_cost.dart';
 
-class ArticleRetail extends ArticleAbstract implements PriceAndCostAbstract {
+class ArticleRetail extends ArticleAbstract implements Price, Cost {
   @override
-  final int price;
+  final num price;
+  num get priceClean => num.parse(Price(price).toString());
+
   @override
-  final int cost;
+  final num cost;
+  num get costClean => num.parse(Cost(cost).toString());
+
   int get codeShortcut => articleCode ?? id;
   String barcodeEAN;
 
@@ -20,7 +24,7 @@ class ArticleRetail extends ArticleAbstract implements PriceAndCostAbstract {
       { //this.shopUuid,
       required this.price,
       this.cost = 0,
-      required int calibreId, // calibreId
+      required int calibreId,
       required int id,
       required String fullName,
       double weight = 1.0,
@@ -55,6 +59,20 @@ class ArticleRetail extends ArticleAbstract implements PriceAndCostAbstract {
     creationDate: WeebiDates.defaultDate,
     updateDate: WeebiDates.defaultDate,
     statusUpdateDate: WeebiDates.defaultDate,
+    status: true,
+  );
+
+  static final dummyDecimal = ArticleRetail(
+    // shopUuid: 'shopUuid',
+    calibreId: 3,
+    id: 1,
+    fullName: 'dummy',
+    price: 9.99,
+    cost: 7.4,
+    weight: 1,
+    articleCode: 1,
+    barcodeEAN: 'barcodeEAN',
+    creationDate: WeebiDates.defaultDate,
     status: true,
   );
 
@@ -105,8 +123,8 @@ ArticleWeebi(
               : map['productId'] as int,
       id: map['id'] as int,
       fullName: map['fullName'] as String,
-      price: map['price'] as int,
-      cost: map['cost'] as int,
+      price: Price(map['price'] as num).price,
+      cost: Cost(map['cost'] as num).cost,
       weight: map['weight'] == null ? 1.0 : (map['weight'] as num).toDouble(),
       articleCode: map['articleCode'] ?? 0,
       barcodeEAN: (map['barcodeEAN'] ?? '') as String,
@@ -134,8 +152,8 @@ ArticleWeebi(
     int? calibreId,
     int? id,
     String? fullName,
-    int? price,
-    int? cost,
+    num? price,
+    num? cost,
     double? weight,
     int? articleCode,
     String? photo,

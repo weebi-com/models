@@ -13,17 +13,17 @@ extension PriceCostGetter on TicketType {
 }
 
 mixin TotalComputer {
-  int promoVal(int itemsTotal, double promo) =>
+  num promoVal(num itemsTotal, double promo) =>
       (itemsTotal * promo / 100).round();
 
-  int totalTaxExcludedPromoIncluded(
-          int itemsTotal, double promo, int discountAmount) =>
+  num totalTaxExcludedPromoIncluded(
+          num itemsTotal, double promo, num discountAmount) =>
       itemsTotal - promoVal(itemsTotal, promo) - discountAmount;
 
-  int taxesVal(
-    int itemsTotal,
+  num taxesVal(
+    num itemsTotal,
     double promo,
-    int discountAmount,
+    num discountAmount,
     double taxePercentage,
   ) =>
       (taxePercentage > 0.0
@@ -33,10 +33,10 @@ mixin TotalComputer {
               : 0)
           .round();
 
-  int totalTaxAndPromoIncluded(
-    int itemsTotal,
+  num totalTaxAndPromoIncluded(
+    num itemsTotal,
     double promo,
-    int discountAmount,
+    num discountAmount,
     double taxePercentage,
   ) =>
       totalTaxExcludedPromoIncluded(itemsTotal, promo, discountAmount) +
@@ -49,7 +49,7 @@ abstract class TicketWeebiAbstract
   final String oid; // mongo _id
   final String shopId; // shopUuid
   final String contactInfo; // herderId
-  final int discountAmount;
+  final num discountAmount;
   @override
   final int id;
   @override
@@ -63,7 +63,7 @@ abstract class TicketWeebiAbstract
   @override
   final String comment;
   @override
-  final int received;
+  final num received;
   @override
   final DateTime date;
   @override
@@ -105,37 +105,37 @@ abstract class TicketWeebiAbstract
   });
 
   // sell and sellDeferred
-  int get totalPriceItemsOnly => ticketType.isPrice ? items.itemsTotalPrice : 0;
+  num get totalPriceItemsOnly => ticketType.isPrice ? items.itemsTotalPrice : 0;
 
-  int get totalPricePromoVal => promoVal(totalPriceItemsOnly, promo);
+  num get totalPricePromoVal => promoVal(totalPriceItemsOnly, promo);
 
-  int get totalPriceTaxExcludedPromoIncluded =>
+  num get totalPriceTaxExcludedPromoIncluded =>
       totalTaxExcludedPromoIncluded(totalPriceItemsOnly, promo, discountAmount);
 
-  int get totalPriceTaxesVal =>
+  num get totalPriceTaxesVal =>
       taxesVal(totalPriceItemsOnly, promo, discountAmount, taxe.percentage);
 
-  int get totalPriceTaxAndPromoIncluded => totalTaxAndPromoIncluded(
+  num get totalPriceTaxAndPromoIncluded => totalTaxAndPromoIncluded(
         totalPriceItemsOnly,
         promo,
         discountAmount,
         taxe.percentage,
       );
 // spend and spendDeferred below
-  int get totalCostItemsOnly => ticketType.isCost ? items.itemsTotalCost : 0;
+  num get totalCostItemsOnly => ticketType.isCost ? items.itemsTotalCost : 0;
 
-  int get totalCostPromoVal => promoVal(totalCostItemsOnly, promo);
+  num get totalCostPromoVal => promoVal(totalCostItemsOnly, promo);
 
-  int get totalCostTaxExcludedIncludingPromo =>
+  num get totalCostTaxExcludedIncludingPromo =>
       totalTaxExcludedPromoIncluded(totalCostItemsOnly, promo, discountAmount);
 
-  int get totalCostTaxesVal =>
+  num get totalCostTaxesVal =>
       taxesVal(totalCostItemsOnly, promo, discountAmount, taxe.percentage);
 
-  int get totalCostTaxAndPromoIncluded => totalTaxAndPromoIncluded(
+  num get totalCostTaxAndPromoIncluded => totalTaxAndPromoIncluded(
       totalCostItemsOnly, promo, discountAmount, taxe.percentage);
 
-  int get total {
+  num get total {
     switch (ticketType) {
       case TicketType.sell:
         return totalPriceTaxAndPromoIncluded;

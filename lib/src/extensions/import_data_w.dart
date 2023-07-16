@@ -68,14 +68,14 @@ extension ImportData on List<List<dynamic>> {
         id: 1,
         fullName: table[0] != null ? table[0].toString().trim() : '',
         price: table[1] != null
-            ? table[1].runtimeType == int
+            ? table[1].runtimeType == num
                 ? table[1]
-                : int.tryParse(table[1])
+                : num.tryParse(table[1])
             : 0,
         cost: table[2] != null
-            ? table[2].runtimeType == int
+            ? table[2].runtimeType == num
                 ? table[2]
-                : int.tryParse(table[2])
+                : num.tryParse(table[2])
             : 0,
         weight: 1.0,
         articleCode: table[3] != null
@@ -115,14 +115,14 @@ extension ImportData on List<List<dynamic>> {
         id: 1,
         fullName: table[0] != null ? '${table[0]}' : '',
         price: table[1] != null
-            ? table[1].runtimeType == int
+            ? table[1].runtimeType == num
                 ? table[1]
-                : int.tryParse(table[1])
+                : num.tryParse(table[1])
             : 0,
         cost: table[2] != null
-            ? table[2].runtimeType == int
+            ? table[2].runtimeType == num
                 ? table[2]
-                : int.tryParse(table[2])
+                : num.tryParse(table[2])
             : 0,
         weight: 1.0,
         articleCode: table[3] != null
