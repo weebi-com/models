@@ -1,6 +1,10 @@
+## 1.0.17
+
+- money as num
+
 ## 1.0.16
 
-no need for intl
+- no need for intl
 
 ## 1.0.15
 
