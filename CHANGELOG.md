@@ -1,3 +1,7 @@
+## 1.0.18
+
+- hot fix : double -> num
+
 ## 1.0.17
 
 - money as num

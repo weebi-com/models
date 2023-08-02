@@ -1,6 +1,6 @@
 import 'dart:math';
 
-extension RoundDecimals on double {
+extension RoundDecimals on num {
   double get roundTwoDecimals {
     num fac = pow(10, 2);
     final d = (this * fac).round() / fac;

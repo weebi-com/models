@@ -251,7 +251,7 @@ class ArticleCalibre<A extends ArticleAbstract>
       return other is ArticleCalibre &&
           other.id == id &&
           other.isPalpable == isPalpable &&
-          listEquals(other.articles as List<ArticleRetail>, articles);
+          listEquals(other.articles as List<A>, articles);
     } else {
       return other is ArticleCalibre &&
           other.id == id &&
