@@ -11,7 +11,7 @@ dependencies:
   meta: ^1.3.0 # ^1.7.0
   mobx: ^2.0.3
   ### weebi's own kitchen
-  models_base: ^1.4.5
+  models_base: ^1.4.6
   #money2: ^3.4.1
   #Because every version of models_weebi from path depends on money2 ^3.4.1 which depends on meta ^1.9.0, every version of
   #models_weebi from path requires meta ^1.9.0.

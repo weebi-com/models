@@ -35,7 +35,6 @@ void main() {
       paiementType: PaiementType.cash,
       ticketType: TicketType.sell,
       contactInfo: '1',
-      contactPastPurchasingPower: '0',
       status: true,
       statusUpdateDate: WeebiDates.defaultDate,
       creationDate: WeebiDates.defaultDate,

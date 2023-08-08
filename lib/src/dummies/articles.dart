@@ -3,12 +3,8 @@ import 'package:models_weebi/utils.dart';
 import 'package:models_weebi/weebi_models.dart';
 
 class DummyArticleData {
-  static final articleCalibresDummies = [
-    ...cola,
-    ...babibel,
-    articleCalibreDummySugar
-  ];
-  static final articleCalibreDummySugar = ArticleCalibre(
+  static final allDummies = [...cola, ...babibel, sugar];
+  static final sugar = ArticleCalibre(
     id: 3,
     title: 'Sucre',
     stockUnit: StockUnit.gram,

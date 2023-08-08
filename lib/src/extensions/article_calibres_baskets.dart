@@ -5,19 +5,19 @@ extension RealizableBaskets on Iterable<ArticleCalibre> {
       ArticleBasket aBasket, DateTime start, DateTime end) {
     final articleWrappers = <BasketWrapper>[];
     if (isNotEmpty) {
-      for (final lot in aBasket.proxies) {
-        // a lot is a reference to an ArticleRetail with a minimum qt needed to complete a basket
-        // below matches lot refence to the ArticleW accordingly and add info
-        if (any((line) => line.id == lot.proxyCalibreId)) {
-          final line = firstWhere((line) => line.id == lot.proxyCalibreId);
+      for (final proxy in aBasket.proxies) {
+        // a proxy is a reference to an ArticleRetail with a minimum qt needed to complete a basket
+        // below matches proxy refence to the ArticleW accordingly and add info
+        if (any((line) => line.id == proxy.proxyCalibreId)) {
+          final line = firstWhere((line) => line.id == proxy.proxyCalibreId);
           if (line.articles.any((a) =>
-              a.calibreId == lot.proxyCalibreId &&
-              a.id == lot.proxyArticleId)) {
+              a.calibreId == proxy.proxyCalibreId &&
+              a.id == proxy.proxyArticleId)) {
             final article = line.articles.firstWhere((a) =>
-                a.calibreId == lot.proxyCalibreId &&
-                a.id == lot.proxyArticleId);
+                a.calibreId == proxy.proxyCalibreId &&
+                a.id == proxy.proxyArticleId);
             final wrapper = BasketWrapper(
-                article as ArticleRetail, lot.minimumUnitPerBasket, 0.0);
+                article as ArticleRetail, proxy.minimumUnitPerBasket, 0.0);
             articleWrappers.add(wrapper);
           }
         }

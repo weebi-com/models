@@ -120,9 +120,7 @@ mixin TicketPrinter on TicketWeebiAbstract {
         ..writeln('note : $comment')
         ..writeln(deactivatedDate)
         ..writeln('')
-        ..writeln('client : $contactInfo')
-        ..writeln(
-            'solde avant : ${numFormat.format(contactPastPurchasingPower)}');
+        ..writeln('client : $contactInfo');
       return sb.toString();
     } else if (ticketType == TicketType.spendCovered) {
       final sb = StringBuffer()
@@ -136,9 +134,7 @@ mixin TicketPrinter on TicketWeebiAbstract {
         ..writeln('note : $comment')
         ..writeln(deactivatedDate)
         ..writeln('')
-        ..writeln('fournisseur : $contactInfo')
-        ..writeln(
-            'solde avant : ${numFormat.format(contactPastPurchasingPower)}');
+        ..writeln('fournisseur : $contactInfo');
       return sb.toString();
     } else if (ticketType == TicketType.sellDeferred) {
       final sb = StringBuffer()
@@ -161,9 +157,7 @@ mixin TicketPrinter on TicketWeebiAbstract {
         ..writeln('note : $comment')
         ..writeln(deactivatedDate)
         ..writeln('')
-        ..writeln('client : $contactInfo')
-        ..writeln(
-            'solde avant : ${numFormat.format(contactPastPurchasingPower)}');
+        ..writeln('client : $contactInfo');
       return sb.toString();
     } else if (ticketType == TicketType.spendDeferred) {
       final sb = StringBuffer()
@@ -186,9 +180,7 @@ mixin TicketPrinter on TicketWeebiAbstract {
         ..writeln('note : $comment')
         ..writeln(deactivatedDate)
         ..writeln('')
-        ..writeln('fournisseur : $contactInfo')
-        ..writeln(
-            'solde avant : ${numFormat.format(contactPastPurchasingPower)}');
+        ..writeln('fournisseur : $contactInfo');
       return sb.toString();
     } else {
       final sb = StringBuffer()

@@ -72,8 +72,7 @@ abstract class TicketWeebiAbstract
   final TicketType ticketType;
   @override
   String get herderId => contactInfo;
-  @override
-  final String contactPastPurchasingPower;
+  
   @override
   late bool status;
   @override
@@ -96,7 +95,6 @@ abstract class TicketWeebiAbstract
     required this.paiementType,
     required this.ticketType,
     required this.contactInfo,
-    required this.contactPastPurchasingPower,
     required this.status,
     required this.statusUpdateDate,
     required this.creationDate,

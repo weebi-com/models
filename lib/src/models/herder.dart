@@ -121,7 +121,7 @@ class Herder extends HerderAbstract {
   // only override if add specific field
   // @override Map<String, dynamic> toMap()
 
-  static final dummy = Herder(
+  static final dummyJohnDoeId1 = Herder(
     id: 1,
     // shopId: 'dummy',
     bidon: 1,
