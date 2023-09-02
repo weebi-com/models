@@ -19,7 +19,7 @@ class DummyArticleData {
         fullName: 'Sucre g',
         weight: 1.0,
         price: 10,
-        cost: 5,
+        cost: 5.5,
         articleCode: 31,
         creationDate: WeebiDates.defaultDate,
         updateDate: WeebiDates.defaultDate,

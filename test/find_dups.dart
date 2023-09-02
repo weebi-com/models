@@ -20,23 +20,22 @@ void main() {
     });
     test('single herder', () {
       final oldList = [Herder.defaultHerder];
-      final newList = [Herder.dummyJohnDoeId1];
+      final newList = [Herder.dummy];
       final twoLists = newList.findDupsByFields(newList: oldList);
       expect(twoLists.dups.length, 0);
       expect(twoLists.noDups.length, 1);
       expect(twoLists.noDups.first.firstName, 'John');
     });
     test('in herder', () {
-      final dummy = Herder.dummyJohnDoeId1;
+      final dummy = Herder.dummy;
       final oldList = [dummy];
 
-      final newDummyPureDup = Herder.dummyJohnDoeId1;
-      final newDummyNameDup =
-          Herder.dummyJohnDoeId1.copyWith(firstName: 'ptit couillon');
+      final newDummyPureDup = Herder.dummy;
+      final newDummyNameDup = Herder.dummy.copyWith(firstName: 'ptit couillon');
       final newDummyMailDup =
-          Herder.dummyJohnDoeId1.copyWith(mail: 'ptitcouillon@gmail.com');
+          Herder.dummy.copyWith(mail: 'ptitcouillon@gmail.com');
 
-      final newDummyTelDiff = Herder.dummyJohnDoeId1.copyWith(
+      final newDummyTelDiff = Herder.dummy.copyWith(
           firstName: 'ptit couillon bis',
           tel: '06',
           mail: 'ptitcouillon@gmail.com');

@@ -111,7 +111,6 @@ class Herder extends HerderAbstract {
 
   String get sharableText {
     final sb = StringBuffer()
-      ..writeln('bid : $bidon')
       ..writeln('prenom : $firstName')
       ..writeln('nom : $lastName')
       ..writeln('tel : $tel');
@@ -121,13 +120,27 @@ class Herder extends HerderAbstract {
   // only override if add specific field
   // @override Map<String, dynamic> toMap()
 
-  static final dummyJohnDoeId1 = Herder(
+  static final dummy = Herder(
     id: 1,
     // shopId: 'dummy',
     bidon: 1,
     firstName: 'John',
     lastName: 'Doe',
     tel: '',
+    mail: 'john@doe.com',
+    updateDate: WeebiDates.defaultDate,
+    statusUpdateDate: WeebiDates.defaultDate,
+    status: true,
+    isWoman: false,
+  );
+
+  static final dummy2 = Herder(
+    id: 2,
+    // shopId: 'dummy',
+    bidon: 2,
+    firstName: 'Jimmy',
+    lastName: 'Doe',
+    tel: '0780086476',
     mail: 'john@doe.com',
     updateDate: WeebiDates.defaultDate,
     statusUpdateDate: WeebiDates.defaultDate,

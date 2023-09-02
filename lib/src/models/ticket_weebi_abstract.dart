@@ -48,8 +48,9 @@ abstract class TicketWeebiAbstract
     implements TicketAbstract<ItemCartWeebi, TaxWeebi> {
   final String oid; // mongo _id
   final String shopId; // shopUuid
-  final String contactInfo; // herderId
   final num discountAmount;
+  final int contactId;
+
   @override
   final int id;
   @override
@@ -70,9 +71,7 @@ abstract class TicketWeebiAbstract
   final PaiementType paiementType;
   @override
   final TicketType ticketType;
-  @override
-  String get herderId => contactInfo;
-  
+
   @override
   late bool status;
   @override
@@ -94,7 +93,7 @@ abstract class TicketWeebiAbstract
     required this.date,
     required this.paiementType,
     required this.ticketType,
-    required this.contactInfo,
+    required this.contactId,
     required this.status,
     required this.statusUpdateDate,
     required this.creationDate,

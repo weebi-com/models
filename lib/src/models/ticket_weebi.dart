@@ -24,7 +24,7 @@ class TicketWeebi extends TicketWeebiAbstract
     required final DateTime date,
     required final PaiementType paiementType,
     required final TicketType ticketType,
-    required final String contactInfo, // herderId
+    required final int contactId,
     required final bool status,
     required DateTime? statusUpdateDate,
     required final DateTime creationDate,
@@ -41,7 +41,7 @@ class TicketWeebi extends TicketWeebiAbstract
           date: date,
           paiementType: paiementType,
           ticketType: ticketType,
-          contactInfo: contactInfo,
+          contactId: contactId,
           status: status,
           statusUpdateDate: statusUpdateDate ?? WeebiDates.defaultDate,
           creationDate: creationDate,
@@ -64,7 +64,7 @@ class TicketWeebi extends TicketWeebiAbstract
         other.date == date &&
         other.paiementType == paiementType &&
         other.ticketType == ticketType &&
-        other.herderId == herderId &&
+        other.contactId == contactId &&
         other.status == status &&
         other.statusUpdateDate == statusUpdateDate &&
         other.discountAmount == discountAmount &&
@@ -84,7 +84,7 @@ TicketWeebi{
       'date': ${date.toIso8601String()},
       'paiementType': $paiementType,
       'ticketType': $ticketType,
-      'herderId': $herderId,
+      'contactId': $contactId,
       'status': $status,
       'statusUpdateDate': ${statusUpdateDate.toIso8601String()},
       'creationDate': ${creationDate.toIso8601String()},
@@ -106,7 +106,7 @@ TicketWeebi{
         date.hashCode ^
         paiementType.hashCode ^
         ticketType.hashCode ^
-        herderId.hashCode ^
+        contactId.hashCode ^
         statusUpdateDate.hashCode ^
         discountAmount.hashCode ^
         creationDate.hashCode;
@@ -124,17 +124,30 @@ TicketWeebi{
     date: WeebiDates.defaultFirstDate,
     paiementType: PaiementType.cash,
     ticketType: TicketType.sell,
-    contactInfo: 'contactInfo',
+    contactId: 1,
     status: true,
     statusUpdateDate: WeebiDates.defaultFirstDate,
     creationDate: WeebiDates.defaultFirstDate,
     discountAmount: 0,
   );
-
-  //@override
-  //set statusUpdateDate(DateTime? _statusUpdateDate) {
-  //  statusUpdateDate = _statusUpdateDate ?? WeebiDates.defaultDate;
-  //}
+  static final dummySpend = TicketWeebi(
+    oid: 'oid',
+    id: 2,
+    shopId: 'shopIdDummy',
+    items: [ItemCartWeebi.dummy],
+    taxe: TaxWeebi.noTax,
+    promo: 0.0,
+    comment: 'comment',
+    received: 0,
+    date: WeebiDates.defaultFirstDate,
+    paiementType: PaiementType.cash,
+    ticketType: TicketType.spend,
+    contactId: 2,
+    status: true,
+    statusUpdateDate: WeebiDates.defaultFirstDate,
+    creationDate: WeebiDates.defaultFirstDate,
+    discountAmount: 0,
+  );
 
   factory TicketWeebi.fromJson(String source) =>
       TicketWeebi.fromMap(json.decode(source));
@@ -156,7 +169,9 @@ TicketWeebi{
       date: DateTime.tryParse(map['date']) ?? WeebiDates.defaultDate,
       paiementType: PaiementType.tryParse(map['paiementType'] as String),
       ticketType: TicketType.tryParse(map['ticketType'] as String),
-      contactInfo: map['contactInfo'] as String,
+      contactId: (map['contactId'] != null)
+          ? (map['contactId'] as int)
+          : int.parse(map['contactInfo']),
       status: map['status'] as bool,
       statusUpdateDate:
           DateTime.tryParse(map['statusUpdateDate']) ?? WeebiDates.defaultDate,
@@ -184,7 +199,7 @@ TicketWeebi{
       'date': date.toIso8601String(),
       'paiementType': paiementType.toString(),
       'ticketType': ticketType.toString(),
-      'contactInfo': contactInfo,
+      'contactId': contactId,
       'status': status,
       'statusUpdateDate': statusUpdateDate.toIso8601String(),
       'creationDate': creationDate.toIso8601String(),
@@ -206,6 +221,7 @@ TicketWeebi{
     PaiementType? paiementType,
     TicketType? ticketType,
     String? contactInfo,
+    int? contactId,
     bool? status,
     DateTime? statusUpdateDate,
     DateTime? creationDate,
@@ -224,7 +240,7 @@ TicketWeebi{
       date: date ?? this.date,
       paiementType: paiementType ?? this.paiementType,
       ticketType: ticketType ?? this.ticketType,
-      contactInfo: contactInfo ?? this.contactInfo,
+      contactId: contactId ?? this.contactId,
       status: status ?? this.status,
       statusUpdateDate: statusUpdateDate ?? this.statusUpdateDate,
       creationDate: creationDate ?? this.creationDate,
@@ -233,14 +249,14 @@ TicketWeebi{
   }
 
   String get getTicketTypeContactText {
-    if (ticketType == TicketType.sell && contactInfo == '0') {
+    if (ticketType == TicketType.sell && contactId == 0) {
       return 'Client : Visiteur';
-    } else if (ticketType == TicketType.sell && contactInfo != '0') {
-      return 'Client id : $contactInfo';
-    } else if (ticketType == TicketType.spend && contactInfo == '0') {
+    } else if (ticketType == TicketType.sell && contactId != 0) {
+      return 'Client id : $contactId';
+    } else if (ticketType == TicketType.spend && contactId == 0) {
       return 'Fournisseur : Habituel';
     } else {
-      return 'id : $contactInfo';
+      return 'id : $contactId';
     }
   }
 
@@ -379,4 +395,7 @@ TicketWeebi{
       return 'Type de ticket inconnu';
     }
   }
+
+  @override
+  String get herderIdString => '$contactId';
 }

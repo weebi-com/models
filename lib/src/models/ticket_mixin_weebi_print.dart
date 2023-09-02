@@ -2,40 +2,57 @@ import 'package:models_weebi/common.dart';
 import 'package:models_weebi/src/models/article_calibre.dart';
 import 'package:models_weebi/src/models/ticket_weebi_abstract.dart';
 import 'package:models_weebi/utils.dart';
+import 'package:models_weebi/weebi_models.dart';
 
 mixin TicketPrinter on TicketWeebiAbstract {
   // -----STRINGS-----
   String get titleTotalPrice {
     final sb = StringBuffer(numFormat.format(totalPriceTaxAndPromoIncluded))
       ..write(' ');
-    sb.write(PaiementType.paiementString(paiementType));
+    sb.write(paiementType.paiementString);
     return sb.toString();
   }
 
   String get titleSellCovered {
     final sb = StringBuffer(numFormat.format((received)))..write(' ');
-    sb.write(PaiementType.paiementString(paiementType));
+    sb.write(paiementType.paiementString);
     return sb.toString();
   }
 
   String get titleTotalCost {
     final sb = StringBuffer(numFormat.format(totalCostTaxAndPromoIncluded))
       ..write(' ');
-    sb.write(PaiementType.paiementString(paiementType));
+    sb.write(paiementType.paiementString);
     return sb.toString();
   }
 
   String get titleSpendCovered {
     final sb = StringBuffer(numFormat.format((received)))..write(' ');
-    sb.write(PaiementType.paiementString(paiementType));
+    sb.write(paiementType.paiementString);
     return sb.toString();
   }
 
-  String getSharableTextLight(Iterable<ArticleCalibre> lines) {
+  String getSharableTextLight(Iterable<ArticleCalibre> lines, Herder herder) {
     final products = StringBuffer();
     for (var item in items) {
-      products.write(
+      products.writeln(
           '${item.quantity}x ${item.article.fullName} ${item.articlePrice} = ${item.totalPrice}');
+    }
+    final sbHerder = StringBuffer();
+    if (herder.id == 0 || herder == Herder.defaultHerder) {
+      sbHerder.writeln('contact: inconnu');
+    } else {
+      sbHerder.writeln('contact: ${herder.fullName}');
+
+      if (herder.tel.isNotEmpty) {
+        sbHerder.writeln('contact tel: ${herder.tel}');
+      }
+      if (herder.mail.isNotEmpty) {
+        sbHerder.writeln('contact mail: ${herder.mail}');
+      }
+      if (herder.address.isNotEmpty) {
+        sbHerder.writeln('contact address: ${herder.address}');
+      }
     }
     final sb = StringBuffer()
       ..writeln('#$id')
@@ -43,10 +60,10 @@ mixin TicketPrinter on TicketWeebiAbstract {
       ..writeln(date)
       ..writeln('type: ${ticketType.typeString}')
       ..writeln(products.toString())
-      ..writeln('paiement: ${PaiementType.paiementString(paiementType)}')
+      ..writeln('paiement: ${paiementType.paiementString}')
       ..writeln('taxes: $totalPriceTaxesVal')
       ..writeln('total: $totalPriceTaxAndPromoIncluded')
-      ..writeln('contact: $herderId')
+      ..write(sbHerder)
       ..writeln(deactivatedDate);
     return sb.toString();
   }
@@ -81,7 +98,7 @@ mixin TicketPrinter on TicketWeebiAbstract {
         ..writeln('note : $comment')
         ..writeln(deactivatedDate)
         ..writeln('')
-        ..writeln('contact : $contactInfo');
+        ..writeln('contact : $contactId');
       return sb.toString();
     } else if (ticketType == TicketType.spend) {
       final sb = StringBuffer()
@@ -106,7 +123,7 @@ mixin TicketPrinter on TicketWeebiAbstract {
         ..writeln('note : $comment')
         ..writeln(deactivatedDate)
         ..writeln('')
-        ..writeln('contact : $contactInfo');
+        ..writeln('contact : $contactId');
       return sb.toString();
     } else if (ticketType == TicketType.sellCovered) {
       final sb = StringBuffer()
@@ -120,7 +137,7 @@ mixin TicketPrinter on TicketWeebiAbstract {
         ..writeln('note : $comment')
         ..writeln(deactivatedDate)
         ..writeln('')
-        ..writeln('client : $contactInfo');
+        ..writeln('client : $contactId');
       return sb.toString();
     } else if (ticketType == TicketType.spendCovered) {
       final sb = StringBuffer()
@@ -134,7 +151,7 @@ mixin TicketPrinter on TicketWeebiAbstract {
         ..writeln('note : $comment')
         ..writeln(deactivatedDate)
         ..writeln('')
-        ..writeln('fournisseur : $contactInfo');
+        ..writeln('fournisseur : $contactId');
       return sb.toString();
     } else if (ticketType == TicketType.sellDeferred) {
       final sb = StringBuffer()
@@ -157,7 +174,7 @@ mixin TicketPrinter on TicketWeebiAbstract {
         ..writeln('note : $comment')
         ..writeln(deactivatedDate)
         ..writeln('')
-        ..writeln('client : $contactInfo');
+        ..writeln('client : $contactId');
       return sb.toString();
     } else if (ticketType == TicketType.spendDeferred) {
       final sb = StringBuffer()
@@ -180,7 +197,7 @@ mixin TicketPrinter on TicketWeebiAbstract {
         ..writeln('note : $comment')
         ..writeln(deactivatedDate)
         ..writeln('')
-        ..writeln('fournisseur : $contactInfo');
+        ..writeln('fournisseur : $contactId');
       return sb.toString();
     } else {
       final sb = StringBuffer()
@@ -189,9 +206,9 @@ mixin TicketPrinter on TicketWeebiAbstract {
         ..writeln(
             'date : ${date.year}_${date.month}_${date.day} ${date.hour}:${date.minute}:${date.second}')
         ..writeln('type : $type')
-        ..writeln('paiement: ${PaiementType.paiementString(paiementType)}')
+        ..writeln('paiement: ${paiementType.paiementString}')
         ..writeln(products.toString())
-        ..writeln('contact : $contactInfo')
+        ..writeln('contact : $contactId')
         ..writeln(deactivatedDate);
       return sb.toString();
     }

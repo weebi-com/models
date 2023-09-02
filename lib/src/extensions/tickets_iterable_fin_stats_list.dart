@@ -8,7 +8,7 @@ extension FinFlowsTickets<T extends TicketWeebiAbstract> on List<T> {
   List<FinFlow> herderTkFinFlows(
       String herderId, DateRange dateRange, List<FinFlow> flows) {
     for (final ticket in this) {
-      if (ticket.herderId == herderId && ticket.status == true) {
+      if (ticket.herderIdString == herderId && ticket.status == true) {
         if ((ticket.date.isAfter(dateRange.startDate) ||
                 ticket.date.isAtSameMomentAs(dateRange.startDate)) &&
             (ticket.date.isBefore(dateRange.endDate) ||

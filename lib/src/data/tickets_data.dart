@@ -1,0 +1,97 @@
+import 'package:models_weebi/common.dart';
+import 'package:models_weebi/utils.dart';
+import 'package:models_weebi/weebi_models.dart';
+
+class TestTicketsData {
+  static final fakeDate = DateTime(2023, 09, 02, 01, 01, 01);
+  TicketWeebi get ticket1 => TicketWeebi(
+        id: 1,
+        shopId: 'entrepot',
+        items: [],
+        taxe: TaxWeebi.noTax,
+        promo: 0.0,
+        comment: 'no comment',
+        received: 0,
+        date: WeebiDates.febStart,
+        paiementType: PaiementType.cash,
+        ticketType: TicketType.sell,
+        contactId: 0,
+        status: true,
+        statusUpdateDate: fakeDate,
+        creationDate: fakeDate,
+        oid: '',
+        discountAmount: 0,
+      );
+// ignore: missing_required_param
+  TicketWeebi get ticket2 => TicketWeebi(
+        comment: '',
+        oid: '',
+        taxe: TaxWeebi.noTax,
+        id: 2,
+        shopId: 'shopId',
+        creationDate: fakeDate.add(Duration(seconds: 4)),
+        paiementType: PaiementType.cash,
+        ticketType: TicketType.sell,
+        contactId: 0,
+        promo: 0.0,
+        received: 0,
+        items: [ItemCartWeebi(() => ArticleRetail.dummy, 0)],
+        status: true,
+        date: fakeDate.add(Duration(hours: 1)),
+        statusUpdateDate: fakeDate.add(Duration(hours: 1)),
+      );
+
+  Set<TicketWeebi> get ticketsSet => {
+        TicketWeebi(
+          id: 1,
+          shopId: 'entrepot',
+          items: [],
+          taxe: TaxWeebi.noTax,
+          promo: 0.0,
+          comment: 'no comment',
+          received: 0,
+          date: DateTime(2020, 02, 02),
+          paiementType: PaiementType.nope,
+          ticketType: TicketType.spendDeferred,
+          contactId: 0,
+          status: true,
+          statusUpdateDate: DateTime.now(),
+          creationDate: DateTime.now(),
+          oid: '',
+        ),
+        TicketWeebi(
+            oid: "",
+            id: 2,
+            shopId: 'entrepot',
+            items: [],
+            taxe: TaxWeebi.noTax,
+            promo: 0.0,
+            comment: 'no comment',
+            received: 0,
+            date: DateTime.now(),
+            paiementType: PaiementType.nope,
+            ticketType: TicketType.spendDeferred,
+            contactId: 0,
+            status: true,
+            statusUpdateDate: DateTime.now(),
+            creationDate: DateTime.now(),
+            discountAmount: 0),
+        TicketWeebi(
+            oid: '',
+            id: 3,
+            shopId: 'entrepot',
+            items: [],
+            taxe: TaxWeebi.noTax,
+            promo: 0.0,
+            comment: 'no comment',
+            received: 0,
+            date: DateTime.now(),
+            paiementType: PaiementType.nope,
+            ticketType: TicketType.spendDeferred,
+            contactId: 1,
+            status: true,
+            statusUpdateDate: DateTime.now(),
+            creationDate: DateTime.now(),
+            discountAmount: 0),
+      };
+}

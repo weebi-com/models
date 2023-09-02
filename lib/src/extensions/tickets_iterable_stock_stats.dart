@@ -3,8 +3,6 @@ import 'package:models_weebi/extensions.dart';
 import 'package:models_weebi/utils.dart';
 import 'package:models_weebi/weebi_models.dart';
 
-// preparing for null safe yobi
-// also a few ready to use extensions for weebi
 extension StockTickets<T extends TicketWeebi> on Iterable<T> {
   double stockLineInput(ArticleCalibre line, {DateRange? range}) {
     double stockCount = 0.0;
