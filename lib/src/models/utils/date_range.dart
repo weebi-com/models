@@ -12,6 +12,9 @@ class DateRangeW extends DateRange {
 
   Duration get duration => end.difference(start);
 
+  static final defaultDateRange = DateRangeW(
+      start: WeebiDates.defaultFirstDate, end: WeebiDates.defaultLastDate);
+
   @override
   bool operator ==(Object other) {
     if (other.runtimeType != runtimeType) {

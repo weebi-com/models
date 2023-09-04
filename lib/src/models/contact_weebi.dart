@@ -6,7 +6,7 @@ import 'package:models_weebi/src/models/tristate.dart';
 class ContactWeebi extends ContactAbstract {
   final String shopId;
   String get shopUuid => shopId;
-  final TriState isWoman;
+  final Tristate isWoman;
   final String category;
   final DateTime? creationDate;
   final Address address; // ? make this a list
@@ -26,7 +26,7 @@ class ContactWeebi extends ContactAbstract {
     required DateTime? statusUpdateDate,
     required bool status,
     required this.address,
-    this.isWoman = TriState.unknown,
+    this.isWoman = Tristate.unknown,
     this.category = '',
     String tel = '',
     String mail = '',
@@ -63,7 +63,7 @@ class ContactWeebi extends ContactAbstract {
     updateDate: WeebiDates.defaultDate,
     statusUpdateDate: WeebiDates.defaultDate,
     status: true,
-    isWoman: TriState.unknown,
+    isWoman: Tristate.unknown,
   );
 
   @override
@@ -112,7 +112,7 @@ class ContactWeebi extends ContactAbstract {
       status: map['status'],
       overdraft: map['overdraft'],
       category: map['category'],
-      isWoman: TriState.tryParse(map['isWoman'] as String),
+      isWoman: Tristate.tryParse(map['isWoman'] as String),
     );
   }
   factory ContactWeebi.fromJson(String source) =>
@@ -128,7 +128,7 @@ class ContactWeebi extends ContactAbstract {
     DateTime? updateDate,
     DateTime? statusUpdateDate,
     bool? status,
-    TriState? isWoman,
+    Tristate? isWoman,
     String? category,
     String? qrcode,
     String? tel,
