@@ -35,6 +35,40 @@ extension TicketsFinders<T extends TicketWeebi> on Iterable<T> {
     return fullSetOfIds;
   }
 
+  Set<String> get _ticketsItemsArticles {
+    final temp = Set.of(<String>{});
+    for (final ticket in this) {
+      for (final item in ticket.items) {
+        temp.add(item.article.fullName);
+      }
+    }
+    return temp;
+  }
+
+  Map<String, Set<int>> get ticketsItemsArticlesMap {
+    final Map<String, Set<int>> temp = {};
+    for (final articleName in _ticketsItemsArticles) {
+      temp[articleName] = {};
+    }
+    for (final ticket in this) {
+      for (final item in ticket.items) {
+        temp[item.article.fullName]!
+            .add(ticket.id); // same referential => impossible null
+      }
+    }
+    return temp;
+  }
+
+  Set<int> findTicketsWithArticleName(String queryString) {
+    final fullSetOfIds = Set.of(<int>{});
+    for (final ticketItemArticle in ticketsItemsArticlesMap.entries) {
+      if (ticketItemArticle.key.contains(queryString)) {
+        fullSetOfIds.addAll(ticketItemArticle.value);
+      }
+    }
+    return fullSetOfIds;
+  }
+
   Set<T> idsToTickets(Set<int> ids) {
     final _tickets = Set.of(<T>{});
     for (final ticket in this) {

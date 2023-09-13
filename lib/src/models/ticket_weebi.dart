@@ -171,7 +171,7 @@ TicketWeebi{
       ticketType: TicketType.tryParse(map['ticketType'] as String),
       contactId: (map['contactId'] != null)
           ? (map['contactId'] as int)
-          : int.parse(map['contactInfo']),
+          : int.tryParse(map['contactInfo']) ?? 0,
       status: map['status'] as bool,
       statusUpdateDate:
           DateTime.tryParse(map['statusUpdateDate']) ?? WeebiDates.defaultDate,
@@ -220,7 +220,6 @@ TicketWeebi{
     DateTime? date,
     PaiementType? paiementType,
     TicketType? ticketType,
-    String? contactInfo,
     int? contactId,
     bool? status,
     DateTime? statusUpdateDate,

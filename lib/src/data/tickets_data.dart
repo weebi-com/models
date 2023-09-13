@@ -45,7 +45,7 @@ class TestTicketsData {
         TicketWeebi(
           id: 1,
           shopId: 'entrepot',
-          items: [],
+          items: [ItemCartWeebi(() => ArticleRetail.dummy, 0)],
           taxe: TaxWeebi.noTax,
           promo: 0.0,
           comment: 'no comment',
@@ -63,7 +63,7 @@ class TestTicketsData {
             oid: "",
             id: 2,
             shopId: 'entrepot',
-            items: [],
+            items: [ItemCartWeebi(() => ArticleRetail.dummy, 0)],
             taxe: TaxWeebi.noTax,
             promo: 0.0,
             comment: 'no comment',
