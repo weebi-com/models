@@ -1,12 +1,19 @@
+import 'package:models_weebi/extensions.dart';
 import 'package:models_weebi/src/models/herder.dart';
 
 extension HerdersFinder<H extends Herder> on Iterable<H> {
-  Set<int> findHerdersIdsWithFirstNameOrLastNameOrTel(String queryString) {
+  Iterable<H> get all => where((c) => c.id != 0);
+
+  Set<int> findHerdersIdsWithNameOrTel(String queryString) {
+    final idsFullName = findHerdersWithFullName(queryString);
     final idsFirstName = findHerdersWithFirstName(queryString);
     final idsLastName = findHerdersWithLastName(queryString);
     final idsTel = findHerdersWithTel(queryString);
 
     final fullSetOfIds = Set.of(<int>{});
+    for (final id in idsFullName) {
+      fullSetOfIds.add(id);
+    }
     for (final id in idsFirstName) {
       fullSetOfIds.add(id);
     }
@@ -19,12 +26,19 @@ extension HerdersFinder<H extends Herder> on Iterable<H> {
     return fullSetOfIds;
   }
 
+  Set<int> findHerdersWithFullName(String queryString) {
+    final herdersMatchIds = Set.of(<int>{});
+    for (final e in concatFirstLastName.entries) {
+      if (e.value.contains(queryString.clean)) {
+        herdersMatchIds.add(e.key);
+      }
+    }
+    return herdersMatchIds;
+  }
+
   Set<int> findHerdersWithFirstName(String queryString) {
-    final herdersMatch = where((c) => c.id != 0)
-        .where((c) => c.firstName
-            .trim()
-            .toLowerCase()
-            .contains(queryString.toLowerCase().trim()))
+    final herdersMatch = all
+        .where((c) => c.firstName.clean.contains(queryString.clean))
         .toList();
     final herdersMatchIds = Set.of(<int>{});
     for (final herder in herdersMatch) {
@@ -34,12 +48,8 @@ extension HerdersFinder<H extends Herder> on Iterable<H> {
   }
 
   Set<int> findHerdersWithLastName(String queryString) {
-    final herdersMatch = where((c) => c.id != 0)
-        .where((c) => c.lastName
-            .trim()
-            .toLowerCase()
-            .contains(queryString.toLowerCase().trim()))
-        .toList();
+    final herdersMatch =
+        all.where((c) => c.lastName.clean.contains(queryString.clean)).toList();
     final herdersMatchIds = Set.of(<int>{});
     for (final herder in herdersMatch) {
       herdersMatchIds.add(herder.id);
@@ -47,10 +57,19 @@ extension HerdersFinder<H extends Herder> on Iterable<H> {
     return herdersMatchIds;
   }
 
+  Map<int, String> get concatFirstLastName {
+    final herdersNames = <int, String>{};
+    for (final herder in all) {
+      final f = herder.firstName.clean;
+      final l = herder.lastName.clean;
+      herdersNames[herder.id] = f + ' ' + l;
+    }
+    return herdersNames;
+  }
+
   Set<int> findHerdersWithTel(String queryString) {
-    final herdersMatch = where((c) => c.id != 0)
-        .where((c) => c.tel.trim().contains(queryString.trim()))
-        .toList();
+    final herdersMatch =
+        all.where((c) => c.tel.trim().contains(queryString.trim())).toList();
     final herdersMatchIds = Set.of(<int>{});
     for (final herder in herdersMatch) {
       herdersMatchIds.add(herder.id);

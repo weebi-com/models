@@ -1,8 +1,9 @@
 import 'package:models_weebi/common.dart';
 import 'package:models_weebi/src/models/article_calibre.dart';
 import 'package:models_weebi/src/models/ticket_weebi_abstract.dart';
+import 'package:models_weebi/src/models/herder.dart';
+
 import 'package:models_weebi/utils.dart';
-import 'package:models_weebi/weebi_models.dart';
 
 mixin TicketPrinter on TicketWeebiAbstract {
   // -----STRINGS-----

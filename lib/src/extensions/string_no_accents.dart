@@ -9,3 +9,7 @@ extension DiacriticsAwareString on String {
           ? nonDiacritics[diacritics.indexOf(char)]
           : char);
 }
+
+extension CleanString on String {
+  String get clean => withoutAccents.toLowerCase().trim();
+}

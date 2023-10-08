@@ -24,8 +24,7 @@ extension TicketsFinders<T extends TicketWeebi> on Iterable<T> {
 
   Set<int> findTicketsWithHerderNameOrTel<H extends Herder>(
       String queryString, Iterable<H> herders) {
-    final herdersIds =
-        herders.findHerdersIdsWithFirstNameOrLastNameOrTel(queryString);
+    final herdersIds = herders.findHerdersIdsWithNameOrTel(queryString);
     final fullSetOfIds = Set.of(<int>{});
     for (final ticket in this) {
       if (herdersIds.contains(ticket.contactId)) {
