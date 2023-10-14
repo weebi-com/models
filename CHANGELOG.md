@@ -1,3 +1,7 @@
+## 1.0.19
+
+- better search on articles and herders (contacts)
+
 ## 1.0.18
 
 - hot fix : double -> num
