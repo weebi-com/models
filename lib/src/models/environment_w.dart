@@ -1,4 +1,4 @@
-import 'package:models_base/common.dart' show Environment;
+import 'package:models_weebi/common.dart' show Environment;
 
 class EnvironmentWeebi extends Environment {
   @override

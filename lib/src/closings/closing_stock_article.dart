@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'package:models_base/base.dart';
+import 'package:models_weebi/base.dart';
 
 import 'package:models_weebi/utils.dart';
 import 'package:models_weebi/src/closings/abstract/closing_range.dart';

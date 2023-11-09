@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'package:models_weebi/utils.dart';
-import 'package:models_base/common.dart' show Address, ContactAbstract;
+import 'package:models_weebi/common.dart' show Address, ContactAbstract;
 import 'package:models_weebi/src/models/tristate.dart';
 
 class ContactWeebi extends ContactAbstract {

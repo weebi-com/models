@@ -1,6 +1,6 @@
 import 'dart:convert';
-import 'package:models_base/base.dart';
-import 'package:models_base/common.dart';
+import 'package:models_weebi/base.dart';
+import 'package:models_weebi/common.dart';
 
 class ArticlePhoto extends ArticlePhotoAbstract {
   const ArticlePhoto(

@@ -1,5 +1,5 @@
 import 'package:mobx/mobx.dart';
-import 'package:models_base/base.dart' show HerderAbstract;
+import 'package:models_weebi/base.dart' show HerderAbstract;
 
 extension HerdersSorted<H extends HerderAbstract> on ObservableList<H> {
   ObservableList<H> sortedByBidon() {

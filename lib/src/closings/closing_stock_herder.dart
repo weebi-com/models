@@ -4,9 +4,9 @@ import 'package:models_weebi/src/closings/closing_range.dart';
 import 'package:models_weebi/src/closings/closing_stock.dart';
 import 'package:models_weebi/src/closings/closing_stock_product.dart';
 import 'package:models_weebi/src/closings/closing_stock_article.dart';
-import 'package:models_base/base.dart' show ArticleCalibreAbstract;
+import 'package:models_weebi/base.dart' show ArticleCalibreAbstract;
 
-import 'package:models_base/utils.dart' show DateRange;
+import 'package:models_weebi/utils.dart' show DateRange;
 import 'package:models_weebi/src/closings/report_stock_product.dart';
 
 extension FinFlowClosingHerderStock on List<ClosingStockHerder> {

@@ -1,3 +1,11 @@
+## 1.0.21
+
+- null-safety
+
+## 1.0.20
+
+- merge models_base & models
+
 ## 1.0.19
 
 - better search on articles and herders (contacts)

@@ -1,9 +1,9 @@
 import 'dart:convert';
 
 import 'package:mobx/mobx.dart';
-import 'package:models_base/base.dart'
+import 'package:models_weebi/base.dart'
     show ArticleAbstract, ArticleCalibreAbstract;
-import 'package:models_base/common.dart';
+import 'package:models_weebi/common.dart';
 import 'package:models_weebi/utils.dart';
 import 'package:models_weebi/src/dummies/confitures.dart';
 import 'package:models_weebi/src/extensions/string_no_accents.dart';
@@ -97,7 +97,7 @@ class ArticleCalibre<A extends ArticleAbstract>
       isPalpable: true);
 
   @override
-  Map<String, dynamic> toMap() {
+  Map<String, Object> toMap() {
     return {
       'id': id,
       'isPalpable': isPalpable ?? true,

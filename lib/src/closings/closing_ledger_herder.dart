@@ -1,7 +1,7 @@
 import 'dart:convert';
 
-import 'package:models_base/common.dart';
-import 'package:models_base/utils.dart' show DateRange, WeebiDates;
+import 'package:models_weebi/common.dart';
+import 'package:models_weebi/utils.dart' show DateRange, WeebiDates;
 import 'package:models_weebi/src/closings/abstract/closing_herder.dart';
 
 import 'package:models_weebi/src/closings/closing_ledger.dart';

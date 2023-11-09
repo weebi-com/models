@@ -1,7 +1,7 @@
 import 'dart:convert';
 
-import 'package:models_base/base.dart' show ShopAbstract;
-import 'package:models_base/common.dart' show Address;
+import 'package:models_weebi/base.dart' show ShopAbstract;
+import 'package:models_weebi/common.dart' show Address;
 import 'package:models_weebi/utils.dart';
 
 // consider adding
@@ -195,11 +195,13 @@ class ShopWeebi extends ShopAbstract with Promo {
   }
 
   @override
-  Map<String, dynamic> toMap() {
+  Map<String, Object> toMap() {
     return {
       'id': id,
       'uuid': uuid,
-      'addressComplete': addressComplete?.toMap(),
+      'addressComplete': addressComplete == null
+          ? Address.addressEmpty
+          : addressComplete!.toMap(),
       'mailUnique': mailUnique,
       'name': name,
       'tel': tel,
@@ -218,8 +220,8 @@ class ShopWeebi extends ShopAbstract with Promo {
       'isProd': isProd,
       'isLocked': isLocked,
       'promo': promo,
-      'promoStart': promoStart?.toIso8601String(),
-      'promoEnd': promoEnd?.toIso8601String(),
+      'promoStart': promoStart == null ? '' : promoStart!.toIso8601String(),
+      'promoEnd': promoEnd == null ? '' : promoEnd!.toIso8601String(),
     };
   }
 

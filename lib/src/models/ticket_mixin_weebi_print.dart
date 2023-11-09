@@ -1,4 +1,5 @@
 import 'package:models_weebi/common.dart';
+import 'package:models_weebi/src/extensions/string_no_accents.dart';
 import 'package:models_weebi/src/models/article_calibre.dart';
 import 'package:models_weebi/src/models/ticket_weebi_abstract.dart';
 import 'package:models_weebi/src/models/herder.dart';
@@ -59,9 +60,9 @@ mixin TicketPrinter on TicketWeebiAbstract {
       ..writeln('#$id')
       ..writeln('#$shopUuid')
       ..writeln(date)
-      ..writeln('type: ${ticketType.typeString}')
+      ..writeln('type: ${ticketType.typeString.withoutAccents}')
       ..writeln(products.toString())
-      ..writeln('paiement: ${paiementType.paiementString}')
+      ..writeln('paiement: ${paiementType.paiementString.withoutAccents}')
       ..writeln('taxes: $totalPriceTaxesVal')
       ..writeln('total: $totalPriceTaxAndPromoIncluded')
       ..write(sbHerder)
@@ -82,7 +83,7 @@ mixin TicketPrinter on TicketWeebiAbstract {
         ..writeln('ticket # $id')
         ..writeln(
             'date : ${date.year}_${date.month}_${date.day} ${date.hour}:${date.minute}:${date.second}')
-        ..writeln('type: ${ticketType.typeString}')
+        ..writeln('type: $type')
         ..writeln('paiement : $paiement')
         ..writeln(products.toString())
         ..writeln('')

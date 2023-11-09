@@ -1,5 +1,5 @@
 import 'package:models_weebi/base.dart' hide ItemAbstract;
-import 'package:models_base/common.dart';
+import 'package:models_weebi/common.dart';
 import 'package:models_weebi/weebi_models.dart';
 
 // Using WeebiAbstract to rename the attributes shopId && contactInfo,

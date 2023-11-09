@@ -1,5 +1,5 @@
 import 'package:mobx/mobx.dart';
-import 'package:models_base/base.dart';
+import 'package:models_weebi/base.dart';
 import 'package:models_weebi/src/models/article_calibre.dart';
 
 extension NextLineArticleId on ObservableList<ArticleCalibre> {

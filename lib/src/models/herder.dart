@@ -1,6 +1,6 @@
 import 'dart:convert';
 // import 'package:http/http.dart' as http;
-import 'package:models_base/base.dart' show HerderAbstract;
+import 'package:models_weebi/base.dart' show HerderAbstract;
 import 'package:models_weebi/utils.dart';
 import 'package:models_weebi/src/extensions/string_no_accents.dart';
 

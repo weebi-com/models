@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:models_base/base.dart' show ArticleProxyAbstract;
+import 'package:models_weebi/base.dart' show ArticleProxyAbstract;
 import 'package:models_weebi/src/models/article_retail.dart';
 import 'package:models_weebi/src/models/article_calibre.dart';
 import 'package:models_weebi/src/models/proxy_article_worth.dart';

@@ -1,6 +1,6 @@
 // import 'package:models_weebi/closing.dart';
 // import 'package:models_weebi/reports.dart';
-import 'package:models_base/common.dart' show FinFlow;
+import 'package:models_weebi/common.dart' show FinFlow;
 import 'package:models_weebi/utils.dart';
 import 'package:models_weebi/weebi_models.dart';
 

@@ -1,4 +1,4 @@
-import 'package:models_base/base.dart' show HerderAbstract;
+import 'package:models_weebi/base.dart' show HerderAbstract;
 import 'package:models_weebi/utils.dart';
 
 extension PrettyString<H extends HerderAbstract> on Map<String, H> {

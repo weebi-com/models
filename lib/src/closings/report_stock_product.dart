@@ -1,7 +1,7 @@
 library report_stock_product;
 
-import 'package:models_base/base.dart' show ArticleCalibreAbstract;
-import 'package:models_base/utils.dart' show DateRange;
+import 'package:models_weebi/base.dart' show ArticleCalibreAbstract;
+import 'package:models_weebi/utils.dart' show DateRange;
 import 'package:models_weebi/src/closings/abstract/stock_quantity.dart';
 import 'package:models_weebi/src/closings/report_stock_article.dart';
 

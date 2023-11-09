@@ -1,4 +1,4 @@
-import 'package:models_base/common.dart' show PhotoSource, StockUnit;
+import 'package:models_weebi/common.dart' show PhotoSource, StockUnit;
 import 'package:models_weebi/weebi_models.dart'
     show ArticleCalibre, ArticlePhoto, ArticleRetail, Herder;
 

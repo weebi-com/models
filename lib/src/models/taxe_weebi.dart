@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:models_base/base.dart' show TaxAbstract;
+import 'package:models_weebi/base.dart' show TaxAbstract;
 
 class TaxWeebi extends TaxAbstract {
   const TaxWeebi(

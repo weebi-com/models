@@ -4,7 +4,7 @@ import 'dart:convert';
 import 'package:models_weebi/utils.dart';
 import 'package:models_weebi/src/models/ticket_mixin_weebi_base.dart';
 import 'package:models_weebi/src/models/ticket_mixin_weebi_print.dart';
-import 'package:models_base/common.dart';
+import 'package:models_weebi/common.dart';
 import 'package:collection/collection.dart';
 import 'package:models_weebi/weebi_models.dart';
 
@@ -164,7 +164,7 @@ TicketWeebi{
       taxe: TaxWeebi.fromMap(map['taxe']),
       promo: map['promo'] == null ? 0.0 : (map['promo'] as num).toDouble(),
       discountAmount: map['discountAmount'] as int,
-      comment: map['comment'],
+      comment: map['comment'] ?? '',
       received: map['received'] as num,
       date: DateTime.tryParse(map['date']) ?? WeebiDates.defaultDate,
       paiementType: PaiementType.tryParse(map['paiementType'] as String),

@@ -1,5 +1,5 @@
-import 'package:models_base/base.dart' show ArticleAbstract;
-import 'package:models_base/utils.dart' show DateRange;
+import 'package:models_weebi/base.dart' show ArticleAbstract;
+import 'package:models_weebi/utils.dart' show DateRange;
 import 'package:models_weebi/src/closings/abstract/stock_quantity.dart';
 
 class ReportStockArticle extends ArticleAbstract
